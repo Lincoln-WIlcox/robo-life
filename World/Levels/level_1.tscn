@@ -74,3 +74,4 @@ position = Vector2(64, -16)
 item = ExtResource("10_q43bl")
 
 [connection signal="interacted_with" from="Tiles/Shelter" to="DayNightCycle" method="start_new_day"]
+[connection signal="item_spent" from="Tiles/RockBarrier" to="Tiles" method="add_child"]
