@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjca7t0u41kqs"]
+
+[ext_resource type="PackedScene" uid="uid://d3disugmcknvo" path="res://Components/InteractionArea/interaction_area.tscn" id="1_rlf5x"]
+[ext_resource type="Script" path="res://Components/InteractionArea/ItemPickupInteractionArea/item_collect_interaction_area.gd" id="2_sa7vs"]
+
+[node name="ItemCollectInteractionArea" instance=ExtResource("1_rlf5x")]
+script = ExtResource("2_sa7vs")
+item = null
+interaction_priority = 1

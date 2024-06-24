@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://bckiex7mctva7"]
+
+[ext_resource type="Script" path="res://Resources/item.gd" id="1_i2unm"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_drknv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6uqyt"]
+atlas = ExtResource("2_drknv")
+region = Rect2(96, 208, 16, 16)
+
+[resource]
+script = ExtResource("1_i2unm")
+texture = SubResource("AtlasTexture_6uqyt")
+name = "Drill"

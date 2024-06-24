@@ -1,0 +1,490 @@
+[gd_scene load_steps=55 format=3 uid="uid://d1kvhwjb0iy8m"]
+
+[ext_resource type="Script" path="res://Characters/Player/player_character.gd" id="1_ru1lf"]
+[ext_resource type="Script" path="res://Characters/Player/interaction_handler.gd" id="2_7jrx7"]
+[ext_resource type="Script" path="res://Characters/Player/interaction_indicator_handler.gd" id="2_avmiv"]
+[ext_resource type="Script" path="res://Characters/Player/animation_handler.gd" id="2_e0xm8"]
+[ext_resource type="Script" path="res://Resources/inventory.gd" id="2_f2ewa"]
+[ext_resource type="PackedScene" uid="uid://02awkvcr8831" path="res://Components/CharacterGravityComponent/gravity_component.tscn" id="2_lple6"]
+[ext_resource type="Script" path="res://Characters/Player/dust_spawner.gd" id="2_xnvqw"]
+[ext_resource type="Script" path="res://Components/Health/health_component.gd" id="3_0akcv"]
+[ext_resource type="PackedScene" uid="uid://d4lrd136bb1gp" path="res://Objects/Dust/dust.tscn" id="3_nn8c0"]
+[ext_resource type="Script" path="res://Characters/Player/horizontal_movement_component.gd" id="4_17a06"]
+[ext_resource type="PackedScene" uid="uid://c2nwpx3t8tmc0" path="res://Components/StateMachine/state_machine.tscn" id="4_umnbn"]
+[ext_resource type="PackedScene" uid="uid://lxxl844xt4sk" path="res://Components/VelocityComponent/velocity_component.tscn" id="5_44wm1"]
+[ext_resource type="Script" path="res://Characters/Player/jumping_state.gd" id="5_enmba"]
+[ext_resource type="Script" path="res://Characters/Player/falling_state.gd" id="6_ckt02"]
+[ext_resource type="Script" path="res://Characters/Player/standing_state.gd" id="7_6ykwm"]
+[ext_resource type="Script" path="res://Characters/Player/ledge_grab_state.gd" id="9_f70xm"]
+[ext_resource type="Script" path="res://Characters/Player/ledge_grab_handler.gd" id="9_wtkme"]
+[ext_resource type="Script" path="res://Characters/Player/climbing_rope_detector.gd" id="11_0v6cm"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="11_gfyv0"]
+[ext_resource type="Script" path="res://Characters/Player/collectable_collector.gd" id="15_hcdgv"]
+[ext_resource type="Script" path="res://Characters/Player/climbing_state.gd" id="16_vth3n"]
+[ext_resource type="Script" path="res://Components/InteractionAreaInteractionHandler/interaction_area_interaction_handler.gd" id="20_dgdt5"]
+[ext_resource type="Script" path="res://Components/InventoryRequirementInteractionAreaInteractionHandler/inventory_requirement_interaction_area_interaction_handler.gd" id="21_l7rrj"]
+[ext_resource type="Script" path="res://Components/InventoryInteractionHandler/inventory_interaction_handler.gd" id="22_0sfea"]
+[ext_resource type="Script" path="res://Components/DropItemHandler/drop_item_handler.gd" id="23_uqs76"]
+[ext_resource type="PackedScene" uid="uid://cjca7t0u41kqs" path="res://Components/InteractionArea/ItemPickupInteractionArea/item_collect_interaction_area.tscn" id="25_a8wxc"]
+[ext_resource type="PackedScene" uid="uid://dk8ly2h53jrty" path="res://Components/HealthIndicator/health_indicator.tscn" id="26_xva2i"]
+[ext_resource type="PackedScene" uid="uid://dgvaforh1h0ou" path="res://Components/Hurtbox/hurtbox.tscn" id="27_rvuxm"]
+
+[sub_resource type="Resource" id="Resource_i3vek"]
+script = ExtResource("2_f2ewa")
+batteries = 0
+items = Array[Resource("res://Resources/item.gd")]([])
+
+[sub_resource type="GDScript" id="GDScript_h7t3e"]
+script/source = "extends Node
+
+@export var interactor: Node
+@export var inventory_interaction_handler: InventoryInteractionHandler
+
+func _on_interacted_with_area(interaction_area: InteractionArea):
+	if interaction_area is ItemCollectInteractionArea:
+		inventory_interaction_handler.collect_item(interaction_area.collect_item(interactor))
+"
+
+[sub_resource type="Animation" id="Animation_je5ng"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xa8ym"]
+resource_name = "flash"
+length = 0.4
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_keqdj"]
+_data = {
+"RESET": SubResource("Animation_je5ng"),
+"flash": SubResource("Animation_xa8ym")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgav1"]
+atlas = ExtResource("11_gfyv0")
+region = Rect2(304, 48, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ra5k5"]
+atlas = ExtResource("11_gfyv0")
+region = Rect2(400, 48, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjypb"]
+atlas = ExtResource("11_gfyv0")
+region = Rect2(208, 48, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ho5af"]
+atlas = ExtResource("11_gfyv0")
+region = Rect2(224, 48, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lx70s"]
+atlas = ExtResource("11_gfyv0")
+region = Rect2(240, 48, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlw6d"]
+atlas = ExtResource("11_gfyv0")
+region = Rect2(256, 48, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kaxfh"]
+atlas = ExtResource("11_gfyv0")
+region = Rect2(256, 48, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uut1k"]
+atlas = ExtResource("11_gfyv0")
+region = Rect2(288, 48, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qet6y"]
+atlas = ExtResource("11_gfyv0")
+region = Rect2(304, 48, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uq7a5"]
+atlas = ExtResource("11_gfyv0")
+region = Rect2(320, 48, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k68sf"]
+atlas = ExtResource("11_gfyv0")
+region = Rect2(336, 48, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7fgos"]
+atlas = ExtResource("11_gfyv0")
+region = Rect2(352, 48, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_on621"]
+atlas = ExtResource("11_gfyv0")
+region = Rect2(368, 48, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2r7ce"]
+atlas = ExtResource("11_gfyv0")
+region = Rect2(384, 48, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x43hp"]
+atlas = ExtResource("11_gfyv0")
+region = Rect2(400, 48, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tyugs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xgav1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ra5k5")
+}],
+"loop": true,
+"name": &"Falling",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjypb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ho5af")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lx70s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mlw6d")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kaxfh")
+}],
+"loop": true,
+"name": &"Jumping",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uut1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qet6y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uq7a5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k68sf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7fgos")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_on621")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2r7ce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x43hp")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 11.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gpglb"]
+size = Vector2(9, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ufrv"]
+size = Vector2(16, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wpemv"]
+size = Vector2(18, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6jko4"]
+size = Vector2(8, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhn4u"]
+size = Vector2(18, 26)
+
+[node name="PlayerCharacter" type="Node2D"]
+script = ExtResource("1_ru1lf")
+inventory = SubResource("Resource_i3vek")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_0akcv")
+
+[node name="InteractionHandler" type="Node" parent="." node_paths=PackedStringArray("interactor", "detector_area")]
+script = ExtResource("2_7jrx7")
+interactor = NodePath("..")
+detector_area = NodePath("../PlayerCharacterBody/InteractArea")
+
+[node name="BatteryCollector" type="Node" parent="."]
+script = ExtResource("15_hcdgv")
+
+[node name="AnimationHandler" type="Node" parent="." node_paths=PackedStringArray("jumping_state", "falling_state", "animated_sprite")]
+script = ExtResource("2_e0xm8")
+jumping_state = NodePath("../MovementStates/Jumping")
+falling_state = NodePath("../MovementStates/Falling")
+animated_sprite = NodePath("../PlayerCharacterBody/AnimatedSprite2D")
+
+[node name="GravityComponent" parent="." node_paths=PackedStringArray("velocity_component", "character") instance=ExtResource("2_lple6")]
+velocity_component = NodePath("../VelocityComponent")
+character = NodePath("../PlayerCharacterBody")
+terminal_speed = 950
+
+[node name="VelocityComponent" parent="." node_paths=PackedStringArray("affecting_node") instance=ExtResource("5_44wm1")]
+affecting_node = NodePath("../PlayerCharacterBody")
+
+[node name="HorizontalMovementComponent" type="Node" parent="." node_paths=PackedStringArray("velocity_component")]
+script = ExtResource("4_17a06")
+velocity_component = NodePath("../VelocityComponent")
+movement_speed = 260
+default_accel_rate = 21
+
+[node name="MovementStates" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("4_umnbn")]
+initial_state = NodePath("Standing")
+
+[node name="Climbing" type="Node" parent="MovementStates" node_paths=PackedStringArray("jumping_state", "falling_state", "standing_state", "character", "one_way_detector", "climbing_rope_detector", "gravity_component", "horizontal_movement_component", "velocity_component", "bottom_of_player")]
+process_priority = -1
+process_physics_priority = -1
+script = ExtResource("16_vth3n")
+jumping_state = NodePath("../Jumping")
+falling_state = NodePath("../Falling")
+standing_state = NodePath("../Standing")
+character = NodePath("../../PlayerCharacterBody")
+one_way_detector = NodePath("../../PlayerCharacterBody/OneWayDetector")
+climbing_rope_detector = NodePath("../../ClimbingRopeDetector")
+gravity_component = NodePath("../../GravityComponent")
+horizontal_movement_component = NodePath("../../HorizontalMovementComponent")
+velocity_component = NodePath("../../VelocityComponent")
+bottom_of_player = NodePath("../../PlayerCharacterBody/BottomOfPlayer")
+upward_climb_speed = 170
+climb_accel = 25
+
+[node name="Jumping" type="Node" parent="MovementStates" node_paths=PackedStringArray("character", "falling_state", "climbing_state", "velocity_component")]
+script = ExtResource("5_enmba")
+character = NodePath("../../PlayerCharacterBody")
+falling_state = NodePath("../Falling")
+climbing_state = NodePath("../Climbing")
+velocity_component = NodePath("../../VelocityComponent")
+jumping_speed = -300
+
+[node name="JumpingTimer" type="Timer" parent="MovementStates/Jumping"]
+wait_time = 0.21
+one_shot = true
+
+[node name="Falling" type="Node" parent="MovementStates" node_paths=PackedStringArray("standing_state", "ledge_grabbing_state", "climbing_state", "character", "velocity_component", "jump_buffer_timer", "horizontal_movement_component")]
+script = ExtResource("6_ckt02")
+standing_state = NodePath("../Standing")
+ledge_grabbing_state = NodePath("../LedgeGrabbing")
+climbing_state = NodePath("../Climbing")
+character = NodePath("../../PlayerCharacterBody")
+velocity_component = NodePath("../../VelocityComponent")
+jump_buffer_timer = NodePath("../JumpBufferTimer")
+horizontal_movement_component = NodePath("../../HorizontalMovementComponent")
+
+[node name="Standing" type="Node" parent="MovementStates" node_paths=PackedStringArray("velocity_component", "jumping_state", "falling_state", "climbing_state", "character", "horizontal_movement_component", "dust_spawner", "jump_buffer_timer")]
+script = ExtResource("7_6ykwm")
+velocity_component = NodePath("../../VelocityComponent")
+jumping_state = NodePath("../Jumping")
+falling_state = NodePath("../Falling")
+climbing_state = NodePath("../Climbing")
+character = NodePath("../../PlayerCharacterBody")
+horizontal_movement_component = NodePath("../../HorizontalMovementComponent")
+dust_spawner = NodePath("../../DustSpawner")
+jump_buffer_timer = NodePath("../JumpBufferTimer")
+standing_horizontal_accel_rate = 28
+
+[node name="CoyoteTimer" type="Timer" parent="MovementStates/Standing"]
+wait_time = 0.06
+one_shot = true
+
+[node name="LedgeGrabbing" type="Node" parent="MovementStates" node_paths=PackedStringArray("standing_state", "jumping_state", "player_ledge_grab_detector", "velocity_component", "character", "grab_left_marker", "grab_right_marker")]
+script = ExtResource("9_f70xm")
+standing_state = NodePath("../Standing")
+jumping_state = NodePath("../Jumping")
+player_ledge_grab_detector = NodePath("../../PlayerLedgeGrabDetector")
+velocity_component = NodePath("../../VelocityComponent")
+character = NodePath("../../PlayerCharacterBody")
+grab_left_marker = NodePath("../../PlayerCharacterBody/GrabLeftMarker")
+grab_right_marker = NodePath("../../PlayerCharacterBody/GrabRightMarker")
+horizontal_jump_vel_x = 550
+
+[node name="JumpBufferTimer" type="Timer" parent="MovementStates"]
+wait_time = 0.2
+one_shot = true
+
+[node name="PlayerLedgeGrabDetector" type="Node" parent="." node_paths=PackedStringArray("grab_left", "grab_right")]
+script = ExtResource("9_wtkme")
+grab_left = NodePath("../PlayerCharacterBody/GrabLeftMarker/GrabLeftArea")
+grab_right = NodePath("../PlayerCharacterBody/GrabRightMarker/GrabRightArea")
+
+[node name="ClimbingRopeDetector" type="Node" parent="." node_paths=PackedStringArray("interact_area", "character")]
+script = ExtResource("11_0v6cm")
+interact_area = NodePath("../PlayerCharacterBody/InteractArea")
+character = NodePath("../PlayerCharacterBody")
+
+[node name="ClimbBuffer" type="Timer" parent="ClimbingRopeDetector"]
+wait_time = 0.5
+one_shot = true
+
+[node name="DustSpawner" type="Node" parent="." node_paths=PackedStringArray("node_to_put_dust_in")]
+script = ExtResource("2_xnvqw")
+dust_packed_scene = ExtResource("3_nn8c0")
+node_to_put_dust_in = NodePath("..")
+
+[node name="InteractionIndicatorHandler" type="Node" parent="." node_paths=PackedStringArray("interaction_indicator", "interaction_area")]
+script = ExtResource("2_avmiv")
+interaction_indicator = NodePath("../PlayerCharacterBody/InteractionIndicator")
+interaction_area = NodePath("../PlayerCharacterBody/InteractArea")
+
+[node name="InteractionAreaInteractionHandler" type="Node" parent="." node_paths=PackedStringArray("interactor")]
+script = ExtResource("20_dgdt5")
+interactor = NodePath("..")
+
+[node name="ItemPickupInteractionHandler" type="Node" parent="." node_paths=PackedStringArray("interactor", "inventory_interaction_handler")]
+script = SubResource("GDScript_h7t3e")
+interactor = NodePath("..")
+inventory_interaction_handler = NodePath("../InventoryInteractionHandler")
+
+[node name="InventoryRequirementInteractionAreaInteractionHandler" type="Node" parent="." node_paths=PackedStringArray("interactor", "inventory_interaction_handler")]
+script = ExtResource("21_l7rrj")
+interactor = NodePath("..")
+inventory_interaction_handler = NodePath("../InventoryInteractionHandler")
+
+[node name="InventoryInteractionHandler" type="Node" parent="."]
+script = ExtResource("22_0sfea")
+
+[node name="DropItemHandler" type="Node" parent="." node_paths=PackedStringArray("player_character")]
+script = ExtResource("23_uqs76")
+player_character = NodePath("..")
+item_pickup_scene = ExtResource("25_a8wxc")
+
+[node name="PlayerCharacterBody" type="CharacterBody2D" parent="."]
+collision_layer = 4
+slide_on_ceiling = false
+floor_constant_speed = true
+floor_snap_length = 15.0
+
+[node name="HealthIndicator" parent="PlayerCharacterBody" node_paths=PackedStringArray("health_component") instance=ExtResource("26_xva2i")]
+offset_left = -6.0
+offset_top = -23.0
+offset_right = 34.0
+offset_bottom = 0.0
+scale = Vector2(0.3, 0.3)
+text = "10"
+health_component = NodePath("../../HealthComponent")
+
+[node name="InteractionIndicator" type="ColorRect" parent="PlayerCharacterBody"]
+visible = false
+offset_left = -2.0
+offset_top = -18.0
+offset_right = 2.0
+offset_bottom = -14.0
+color = Color(0, 1, 1, 1)
+
+[node name="FlashAnimation" type="AnimationPlayer" parent="PlayerCharacterBody/InteractionIndicator"]
+libraries = {
+"": SubResource("AnimationLibrary_keqdj")
+}
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayerCharacterBody"]
+sprite_frames = SubResource("SpriteFrames_tyugs")
+animation = &"Falling"
+offset = Vector2(0, -5)
+
+[node name="GrabLeftMarker" type="Marker2D" parent="PlayerCharacterBody"]
+position = Vector2(-12, -11)
+
+[node name="GrabLeftArea" type="Area2D" parent="PlayerCharacterBody/GrabLeftMarker"]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/GrabLeftMarker/GrabLeftArea"]
+shape = SubResource("RectangleShape2D_gpglb")
+metadata/_edit_lock_ = true
+
+[node name="GrabRightMarker" type="Marker2D" parent="PlayerCharacterBody"]
+position = Vector2(12, -11)
+
+[node name="GrabRightArea" type="Area2D" parent="PlayerCharacterBody/GrabRightMarker"]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/GrabRightMarker/GrabRightArea"]
+shape = SubResource("RectangleShape2D_gpglb")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody"]
+process_priority = 1
+process_physics_priority = 1
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_6ufrv")
+metadata/_edit_lock_ = true
+
+[node name="InteractArea" type="Area2D" parent="PlayerCharacterBody"]
+collision_mask = 13
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/InteractArea"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_wpemv")
+
+[node name="OneWayDetector" type="Area2D" parent="PlayerCharacterBody"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/OneWayDetector"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_6jko4")
+
+[node name="BottomOfPlayer" type="Marker2D" parent="PlayerCharacterBody"]
+position = Vector2(0, 11)
+
+[node name="DropItemLeft" type="Marker2D" parent="PlayerCharacterBody"]
+position = Vector2(-24, 0)
+
+[node name="DropItemRight" type="Marker2D" parent="PlayerCharacterBody"]
+position = Vector2(23, 0)
+
+[node name="Hurtbox" parent="PlayerCharacterBody" instance=ExtResource("27_rvuxm")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/Hurtbox"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_qhn4u")
+
+[connection signal="just_climbed" from="." to="ClimbingRopeDetector" method="_on_player_character_just_climbed"]
+[connection signal="just_interacted" from="." to="InteractionHandler" method="_on_player_character_just_interacted"]
+[connection signal="interacted_with_area" from="InteractionHandler" to="InteractionAreaInteractionHandler" method="_on_interacted_with_area"]
+[connection signal="interacted_with_area" from="InteractionHandler" to="ItemPickupInteractionHandler" method="_on_interacted_with_area"]
+[connection signal="interacted_with_area" from="InteractionHandler" to="InventoryRequirementInteractionAreaInteractionHandler" method="_on_interacted_with_area"]
+[connection signal="battery_collected" from="BatteryCollector" to="InventoryInteractionHandler" method="collect_battery"]
+[connection signal="timeout" from="MovementStates/Standing/CoyoteTimer" to="MovementStates/Standing" method="_on_coyote_timer_timeout"]
+[connection signal="ledge_grabbed" from="PlayerLedgeGrabDetector" to="MovementStates/Falling" method="_on_player_ledge_grab_detector_ledge_grabbed"]
+[connection signal="climbable_climbed" from="ClimbingRopeDetector" to="MovementStates/Jumping" method="_on_climbing_rope_detector_climbable_climbed"]
+[connection signal="climbable_climbed" from="ClimbingRopeDetector" to="MovementStates/Falling" method="_on_climbing_rope_detector_climbable_climbed"]
+[connection signal="climbable_climbed" from="ClimbingRopeDetector" to="MovementStates/Standing" method="_on_climbing_rope_detector_climbable_climbed"]
+[connection signal="climbable_left" from="ClimbingRopeDetector" to="MovementStates/Climbing" method="_on_climbing_rope_detector_climbable_left"]
+[connection signal="drop_created" from="DropItemHandler" to="." method="_on_drop_item_handler_drop_created"]
+[connection signal="area_entered" from="PlayerCharacterBody/InteractArea" to="BatteryCollector" method="_on_area_entered"]
+[connection signal="area_entered" from="PlayerCharacterBody/InteractArea" to="ClimbingRopeDetector" method="_on_interact_area_area_entered"]
+[connection signal="area_exited" from="PlayerCharacterBody/InteractArea" to="ClimbingRopeDetector" method="_on_interact_area_area_exited"]
+[connection signal="damage_received" from="PlayerCharacterBody/Hurtbox" to="HealthComponent" method="take_damage"]

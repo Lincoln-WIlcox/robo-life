@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://brg4hptmtkbt2"]
+
+[ext_resource type="PackedScene" uid="uid://lxxl844xt4sk" path="res://Components/VelocityComponent/velocity_component.tscn" id="1_8s6hd"]
+[ext_resource type="PackedScene" uid="uid://02awkvcr8831" path="res://Components/CharacterGravityComponent/gravity_component.tscn" id="2_wwpjg"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="3_jpwer"]
+[ext_resource type="PackedScene" uid="uid://b7827uel8tqdj" path="res://Components/PushArea/push_area.tscn" id="4_mt4r7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fscsv"]
+atlas = ExtResource("3_jpwer")
+region = Rect2(96, 80, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c7gts"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_asbqu"]
+size = Vector2(34, 12)
+
+[node name="PushableBlock" type="Node2D"]
+
+[node name="VelocityComponent" parent="." node_paths=PackedStringArray("affecting_node") instance=ExtResource("1_8s6hd")]
+affecting_node = NodePath("../Body")
+
+[node name="GravityComponent" parent="." node_paths=PackedStringArray("velocity_component", "character") instance=ExtResource("2_wwpjg")]
+velocity_component = NodePath("../VelocityComponent")
+character = NodePath("../Body")
+
+[node name="Body" type="CharacterBody2D" parent="."]
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Body"]
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_fscsv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+shape = SubResource("RectangleShape2D_c7gts")
+
+[node name="PushArea" parent="Body" node_paths=PackedStringArray("character", "left_side_of_body", "right_side_of_body") instance=ExtResource("4_mt4r7")]
+character = NodePath("..")
+left_side_of_body = NodePath("../LeftSide")
+right_side_of_body = NodePath("../RightSide")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/PushArea"]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_asbqu")
+
+[node name="LeftSide" type="Marker2D" parent="Body"]
+position = Vector2(-16, 0)
+
+[node name="RightSide" type="Marker2D" parent="Body"]
+position = Vector2(16, 0)

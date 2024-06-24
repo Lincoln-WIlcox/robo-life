@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://cttegcifjq5jb"]
+
+[ext_resource type="Script" path="res://UI/InventoryGUI/inventory_gui.gd" id="1_owjyq"]
+[ext_resource type="PackedScene" uid="uid://cpcks84e6k01r" path="res://UI/InventoryGUI/inventory_gui_item.tscn" id="2_iso4d"]
+
+[node name="InventoryGUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_owjyq")
+inventory_gui_item_packed_scene = ExtResource("2_iso4d")
+
+[node name="PanelMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 90
+theme_override_constants/margin_top = 390
+theme_override_constants/margin_right = 90
+theme_override_constants/margin_bottom = 90
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelMargin"]
+layout_mode = 2
+
+[node name="InventoryItemsMargin" type="MarginContainer" parent="PanelMargin/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="InventoryItemsHbox" type="HBoxContainer" parent="PanelMargin/PanelContainer/InventoryItemsMargin"]
+unique_name_in_owner = true
+layout_mode = 2

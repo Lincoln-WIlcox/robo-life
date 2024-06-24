@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0cycrvwi6wxa"]
+
+[ext_resource type="PackedScene" uid="uid://7a52ck2e1l17" path="res://Objects/TileWithLedge/tile_with_ledge.tscn" id="1_meh1j"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_271h4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gwvv"]
+atlas = ExtResource("2_271h4")
+region = Rect2(144, 48, 16, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pf4j5"]
+size = Vector2(16, 8)
+
+[node name="TileWithLedgeOnewayRight" instance=ExtResource("1_meh1j")]
+sides = 2
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -4)
+texture = SubResource("AtlasTexture_8gwvv")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_pf4j5")

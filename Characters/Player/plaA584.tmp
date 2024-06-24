@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1kvhwjb0iy8m"]
+
+[ext_resource type="Script" path="res://Characters/Player/player_character.gd" id="1_ru1lf"]
+[ext_resource type="Texture2D" uid="uid://cotgg78xkhcfs" path="res://icon.svg" id="2_gbj50"]
+[ext_resource type="PackedScene" uid="uid://02awkvcr8831" path="res://Components/CharacterGravityComponent/gravity_component.tscn" id="2_lple6"]
+[ext_resource type="PackedScene" uid="uid://c2nwpx3t8tmc0" path="res://Components/StateMachine/state_machine.tscn" id="4_umnbn"]
+[ext_resource type="PackedScene" uid="uid://lxxl844xt4sk" path="res://Components/VelocityComponent/velocity_component.tscn" id="5_44wm1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wufdi"]
+size = Vector2(24, 24)
+
+[node name="PlayerCharacter" type="Node2D"]
+script = ExtResource("1_ru1lf")
+
+[node name="GravityComponent" parent="." instance=ExtResource("2_lple6")]
+
+[node name="VelocityComponent" parent="." node_paths=PackedStringArray("affecting_node") instance=ExtResource("5_44wm1")]
+affecting_node = NodePath("../PlayerCharacterBody")
+
+[node name="StateMachine" parent="." instance=ExtResource("4_umnbn")]
+
+[node name="Node" type="Node" parent="StateMachine"]
+
+[node name="PlayerCharacterBody" type="CharacterBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerCharacterBody"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_gbj50")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody"]
+shape = SubResource("RectangleShape2D_wufdi")

@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://bofsie7wntey3"]
+
+[ext_resource type="Script" path="res://Objects/Shelter/shelter.gd" id="1_ono5b"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_2wgjq"]
+[ext_resource type="PackedScene" uid="uid://d3disugmcknvo" path="res://Components/InteractionArea/interaction_area.tscn" id="3_lf5i5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gy5f"]
+atlas = ExtResource("2_2wgjq")
+region = Rect2(112, 120, 48, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rukdd"]
+size = Vector2(46, 27)
+
+[node name="Shelter" type="Node2D"]
+script = ExtResource("1_ono5b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_8gy5f")
+
+[node name="InteractionArea" parent="." instance=ExtResource("3_lf5i5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_rukdd")
+
+[connection signal="interacted_with" from="InteractionArea" to="." method="_on_interaction_area_interacted_with"]

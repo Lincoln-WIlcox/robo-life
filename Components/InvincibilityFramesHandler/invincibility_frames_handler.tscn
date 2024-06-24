@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://62v7whtb3ow4"]
+
+[ext_resource type="Script" path="res://Components/InvincibilityFramesHandler/invincibility_frames_handler.gd" id="1_whf2o"]
+
+[node name="InvincibilityFramesHandler" type="Node"]
+script = ExtResource("1_whf2o")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

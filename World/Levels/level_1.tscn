@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://4hdu5f7ikd0h"]
+
+[ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_s0fbl"]
+[ext_resource type="PackedScene" uid="uid://uusfotp1xgjx" path="res://Objects/Spike/spike.tscn" id="5_a1p1l"]
+[ext_resource type="TileSet" uid="uid://b2ajxli8pwv36" path="res://Resources/TileSets/level_1.tres" id="6_3k4c5"]
+[ext_resource type="PackedScene" uid="uid://bni6clyp4sg3" path="res://Objects/RockBarrier/rock_barrier.tscn" id="9_d0j2f"]
+[ext_resource type="Resource" uid="uid://bckiex7mctva7" path="res://Items/drill.tres" id="10_q43bl"]
+[ext_resource type="PackedScene" uid="uid://bofsie7wntey3" path="res://Objects/Shelter/shelter.tscn" id="11_go86j"]
+[ext_resource type="PackedScene" uid="uid://cmog2buogarup" path="res://Objects/ItemPickup/item_pickup.tscn" id="14_q1p5m"]
+[ext_resource type="PackedScene" uid="uid://wnwdpxb3bxx4" path="res://Objects/Rope/rope.tscn" id="15_1u2go"]
+[ext_resource type="Resource" uid="uid://di5ihtaupovf3" path="res://Items/deployable_ladder.tres" id="15_f5urc"]
+[ext_resource type="PackedScene" uid="uid://brg4hptmtkbt2" path="res://Objects/PushableBlock/pushable_block.tscn" id="18_v7l3w"]
+
+[node name="Level1" instance=ExtResource("1_s0fbl")]
+
+[node name="PlayerCharacterController" parent="." index="1"]
+position = Vector2(0, -16)
+
+[node name="Tiles" parent="." index="2"]
+tile_set = ExtResource("6_3k4c5")
+layer_0/tile_data = PackedInt32Array()
+layer_1/tile_data = PackedInt32Array(65531, 0, 1, 131067, 0, 2, 196603, 0, 2, 262139, 0, 3, 65532, 65536, 1, 131068, 65536, 2, 196604, 65536, 2, 262140, 65536, 3, 65533, 65536, 1, 131069, 65536, 2, 196605, 65536, 2, 262141, 65536, 3, 65534, 65536, 1, 131070, 65536, 2, 196606, 65536, 2, 262142, 65536, 3, 65535, 65536, 1, 131071, 65536, 2, 196607, 65536, 2, 262143, 65536, 3, 0, 65536, 1, 65536, 65536, 2, 131072, 65536, 2, 196608, 65536, 3, 1, 65536, 1, 65537, 65536, 2, 131073, 65536, 2, 196609, 65536, 3, 2, 65536, 1, 65538, 65536, 2, 131074, 65536, 2, 196610, 65536, 3, -458749, 524288, 3, 3, 65536, 1, 65539, 65536, 2, 131075, 65536, 2, 196611, 65536, 3, 4, 131072, 1, 65540, 131072, 2, 131076, 131072, 2, 196612, 131072, 3, -458751, 458752, 3, -458747, 524288, 3, -458748, 524288, 3, -458750, 524288, 3, 458766, 131072, 3, 393230, 131072, 2, 327694, 131072, 2, 262158, 131072, 1, 458765, 65536, 3, 393229, 65536, 2, 327693, 65536, 2, 262157, 65536, 1, 458764, 65536, 3, 393228, 65536, 2, 327692, 65536, 2, 262156, 65536, 1, 458763, 65536, 3, 393227, 65536, 2, 327691, 65536, 2, 262155, 65536, 1, 458762, 65536, 3, 393226, 65536, 2, 327690, 65536, 2, 262154, 65536, 1, 458761, 65536, 3, 393225, 65536, 2, 327689, 65536, 2, 262153, 65536, 1, 458760, 65536, 3, 393224, 65536, 2, 327688, 65536, 2, 262152, 65536, 1, 458759, 65536, 3, 393223, 65536, 2, 327687, 65536, 2, 262151, 65536, 1, 458758, 65536, 3, 393222, 65536, 2, 327686, 65536, 2, 262150, 65536, 1, 458757, 65536, 3, 393221, 65536, 2, 327685, 65536, 2, 262149, 65536, 1, 458756, 65536, 3, 393220, 65536, 2, 327684, 65536, 2, 262148, 65536, 1, 458755, 0, 3, 393219, 0, 2, 327683, 0, 2, 262147, 0, 1, -458746, 524288, 3, -458745, 524288, 3, -458744, 524288, 3, -458743, 524288, 3, -458742, 589824, 3, -1114104, 0, 0, -1376248, 0, 1, -1310712, 0, 2, -1245176, 0, 3, -1179653, 0, 1, -1114117, 0, 2, -1048581, 0, 3, -1179652, 65536, 1, -1114116, 65536, 2, -1048580, 65536, 3, -1179651, 131072, 1, -1114115, 131072, 2, -1048579, 131072, 3, -1441797, 0, 1, -1376261, 0, 2, -1310725, 0, 3, -1441796, 65536, 1, -1376260, 65536, 2, -1310724, 65536, 3, -1441795, 131072, 1, -1376259, 131072, 2, -1310723, 131072, 3, -1376247, 65536, 1, -1310711, 65536, 2, -1245175, 65536, 3, -1376246, 131072, 1, -1310710, 131072, 2, -1245174, 131072, 3)
+
+[node name="Rope" parent="Tiles" index="0" instance=ExtResource("15_1u2go")]
+position = Vector2(32, -112)
+height = 112
+tile_height = 7.0
+
+[node name="PushableBlock" parent="Tiles" index="1" instance=ExtResource("18_v7l3w")]
+position = Vector2(144, -128)
+
+[node name="Spike" parent="Tiles" index="2" instance=ExtResource("5_a1p1l")]
+position = Vector2(80, 48)
+
+[node name="Spike2" parent="Tiles" index="3" instance=ExtResource("5_a1p1l")]
+position = Vector2(96, 48)
+
+[node name="Spike3" parent="Tiles" index="4" instance=ExtResource("5_a1p1l")]
+position = Vector2(112, 48)
+
+[node name="Spike4" parent="Tiles" index="5" instance=ExtResource("5_a1p1l")]
+position = Vector2(128, 48)
+
+[node name="Spike5" parent="Tiles" index="6" instance=ExtResource("5_a1p1l")]
+position = Vector2(144, 48)
+
+[node name="Spike6" parent="Tiles" index="7" instance=ExtResource("5_a1p1l")]
+position = Vector2(160, 48)
+
+[node name="Spike7" parent="Tiles" index="8" instance=ExtResource("5_a1p1l")]
+position = Vector2(176, 48)
+
+[node name="Spike8" parent="Tiles" index="9" instance=ExtResource("5_a1p1l")]
+position = Vector2(192, 48)
+
+[node name="Spike9" parent="Tiles" index="10" instance=ExtResource("5_a1p1l")]
+position = Vector2(208, 48)
+
+[node name="Spike10" parent="Tiles" index="11" instance=ExtResource("5_a1p1l")]
+position = Vector2(224, 48)
+
+[node name="Shelter" parent="Tiles" index="12" instance=ExtResource("11_go86j")]
+position = Vector2(-48, -16)
+
+[node name="ItemPickup" parent="Tiles" index="13" instance=ExtResource("14_q1p5m")]
+position = Vector2(192, 0)
+item = ExtResource("15_f5urc")
+
+[node name="RockBarrier" parent="Tiles" index="14" instance=ExtResource("9_d0j2f")]
+position = Vector2(64, -160)
+
+[node name="ItemPickup2" parent="Tiles" index="15" instance=ExtResource("14_q1p5m")]
+position = Vector2(64, -16)
+item = ExtResource("10_q43bl")
+
+[connection signal="interacted_with" from="Tiles/Shelter" to="DayNightCycle" method="start_new_day"]

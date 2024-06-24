@@ -1,0 +1,2 @@
+class_name DeployableLadder
+extends Node2D

@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://c6rok57fa5wss"]
+
+[ext_resource type="PackedScene" uid="uid://dw2fqgynxjcit" path="res://PlayerCharacterController/player_character_controller.tscn" id="1_yr2t8"]
+[ext_resource type="PackedScene" uid="uid://bm30dkodijde3" path="res://Objects/TestWall/test_wall.tscn" id="2_sg0vw"]
+[ext_resource type="PackedScene" uid="uid://c33tblr4cbh8p" path="res://Objects/Ledge/ledge.tscn" id="3_0vi3b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v0hsv"]
+size = Vector2(800, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pqpjx"]
+size = Vector2(400, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ofm5w"]
+size = Vector2(40, 500)
+
+[node name="World" type="Node2D"]
+
+[node name="PlayerCharacterController" parent="." instance=ExtResource("1_yr2t8")]
+position = Vector2(534, 425)
+
+[node name="TestWall" parent="." instance=ExtResource("2_sg0vw")]
+position = Vector2(551, 512)
+shape = SubResource("RectangleShape2D_v0hsv")
+
+[node name="TestWall4" parent="." instance=ExtResource("2_sg0vw")]
+position = Vector2(788, 361)
+shape = SubResource("RectangleShape2D_pqpjx")
+
+[node name="TestWall5" parent="." instance=ExtResource("2_sg0vw")]
+position = Vector2(681, 245)
+shape = SubResource("RectangleShape2D_pqpjx")
+
+[node name="TestWall6" parent="." instance=ExtResource("2_sg0vw")]
+position = Vector2(783, 146)
+shape = SubResource("RectangleShape2D_pqpjx")
+
+[node name="TestWall2" parent="." instance=ExtResource("2_sg0vw")]
+position = Vector2(968, 282)
+shape = SubResource("RectangleShape2D_ofm5w")
+
+[node name="Ledge" parent="." instance=ExtResource("3_0vi3b")]
+position = Vector2(588, 346)
+
+[node name="TestWall7" parent="." instance=ExtResource("2_sg0vw")]
+position = Vector2(284, 364)
+shape = SubResource("RectangleShape2D_pqpjx")
+
+[node name="Ledge2" parent="." instance=ExtResource("3_0vi3b")]
+position = Vector2(484, 349)
+grab_direction = 1

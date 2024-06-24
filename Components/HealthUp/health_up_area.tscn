@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ck530heq1d0wo"]
+
+[ext_resource type="Script" path="res://Components/HealthUp/health_up_area.gd" id="1_chs4k"]
+
+[node name="GainHealthInteractionArea" type="Area2D"]
+script = ExtResource("1_chs4k")

@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://uusfotp1xgjx"]
+
+[ext_resource type="PackedScene" uid="uid://bp02tptvdjqce" path="res://Components/Hitbox/hitbox.tscn" id="1_2mlho"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_hyy2j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e5x3a"]
+size = Vector2(14, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3vm4"]
+atlas = ExtResource("2_hyy2j")
+region = Rect2(40, 0, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ilid"]
+size = Vector2(16, 10)
+
+[node name="Spike" type="Node2D"]
+
+[node name="Hitbox" parent="." instance=ExtResource("1_2mlho")]
+position = Vector2(8, 9)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_e5x3a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8.00002, 8.00002)
+rotation = 3.14159
+texture = SubResource("AtlasTexture_t3vm4")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(8.00002, 8.00002)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_8ilid")

@@ -1,0 +1,2 @@
+class_name BatteryPickup
+extends Area2D

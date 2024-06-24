@@ -1,0 +1,61 @@
+[gd_scene load_steps=11 format=3 uid="uid://dkqe6b0wvlfl2"]
+
+[ext_resource type="PackedScene" uid="uid://c2nwpx3t8tmc0" path="res://Components/StateMachine/state_machine.tscn" id="1_lmhk6"]
+[ext_resource type="Script" path="res://Objects/DeployableLadder/deployable_ladder.gd" id="1_uq3fh"]
+[ext_resource type="PackedScene" uid="uid://02awkvcr8831" path="res://Components/CharacterGravityComponent/gravity_component.tscn" id="1_ym780"]
+[ext_resource type="Script" path="res://Objects/DeployableLadder/falling_state.gd" id="2_3f32i"]
+[ext_resource type="PackedScene" uid="uid://lxxl844xt4sk" path="res://Components/VelocityComponent/velocity_component.tscn" id="2_qg0hh"]
+[ext_resource type="Script" path="res://Objects/DeployableLadder/deploying_state.gd" id="3_lj3cy"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="3_rablb"]
+[ext_resource type="PackedScene" uid="uid://wnwdpxb3bxx4" path="res://Objects/Rope/rope.tscn" id="8_en3r5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qtf72"]
+atlas = ExtResource("3_rablb")
+region = Rect2(96, 160, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_orqst"]
+size = Vector2(16, 14)
+
+[node name="DeployableLadder" type="Node2D"]
+script = ExtResource("1_uq3fh")
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("1_lmhk6")]
+initial_state = NodePath("FallingState")
+
+[node name="FallingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("character", "deploying_state")]
+script = ExtResource("2_3f32i")
+character = NodePath("../../CharacterBody2D")
+deploying_state = NodePath("../DeployingState")
+
+[node name="DeployingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("rope")]
+script = ExtResource("3_lj3cy")
+rope = NodePath("../../CharacterBody2D/RopePosition/Rope")
+rope_growth_rate = 1
+
+[node name="GravityComponent" parent="." node_paths=PackedStringArray("velocity_component", "character") instance=ExtResource("1_ym780")]
+velocity_component = NodePath("../VelocityComponent")
+character = NodePath("../CharacterBody2D")
+
+[node name="VelocityComponent" parent="." node_paths=PackedStringArray("affecting_node") instance=ExtResource("2_qg0hh")]
+affecting_node = NodePath("../CharacterBody2D")
+terminal_speed = 800
+max_speed = 900
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+collision_layer = 8
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+rotation = 3.14159
+texture = SubResource("AtlasTexture_qtf72")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_orqst")
+
+[node name="RopePosition" type="Marker2D" parent="CharacterBody2D"]
+position = Vector2(-8, -8)
+
+[node name="Rope" parent="CharacterBody2D/RopePosition" instance=ExtResource("8_en3r5")]
+height = 0
+tile_height = 0.0

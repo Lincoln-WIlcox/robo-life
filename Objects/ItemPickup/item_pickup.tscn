@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmog2buogarup"]
+
+[ext_resource type="Script" path="res://Objects/ItemPickup/item_pickup.gd" id="1_eoq0x"]
+[ext_resource type="PackedScene" uid="uid://cjca7t0u41kqs" path="res://Components/InteractionArea/ItemPickupInteractionArea/item_collect_interaction_area.tscn" id="2_mftoj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k3wwr"]
+size = Vector2(16, 16)
+
+[node name="ItemPickup" type="Node2D"]
+script = ExtResource("1_eoq0x")
+
+[node name="ItemCollectInteractionArea" parent="." instance=ExtResource("2_mftoj")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemCollectInteractionArea"]
+shape = SubResource("RectangleShape2D_k3wwr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[connection signal="collected" from="ItemCollectInteractionArea" to="." method="_on_item_collect_interaction_area_collected"]

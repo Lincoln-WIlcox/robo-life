@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dw2fqgynxjcit"]
+
+[ext_resource type="Script" path="res://PlayerCharacterController/player_character_controller.gd" id="1_i40b6"]
+[ext_resource type="PackedScene" uid="uid://d1kvhwjb0iy8m" path="res://Characters/Player/player_character.tscn" id="2_hgc81"]
+
+[node name="PlayerCharacterController" type="Node2D"]
+script = ExtResource("1_i40b6")
+
+[node name="PlayerCharacter" parent="." instance=ExtResource("2_hgc81")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.5, 1.5)
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 20.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_vertical_offset = 0.9
+drag_left_margin = 0.01
+drag_right_margin = 0.01

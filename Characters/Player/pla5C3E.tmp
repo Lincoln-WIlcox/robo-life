@@ -1,0 +1,114 @@
+[gd_scene load_steps=14 format=3 uid="uid://d1kvhwjb0iy8m"]
+
+[ext_resource type="Script" path="res://Characters/Player/player_character.gd" id="1_ru1lf"]
+[ext_resource type="Texture2D" uid="uid://cotgg78xkhcfs" path="res://icon.svg" id="2_gbj50"]
+[ext_resource type="PackedScene" uid="uid://02awkvcr8831" path="res://Components/CharacterGravityComponent/gravity_component.tscn" id="2_lple6"]
+[ext_resource type="Script" path="res://Characters/Player/horizontal_movement_component.gd" id="4_17a06"]
+[ext_resource type="PackedScene" uid="uid://c2nwpx3t8tmc0" path="res://Components/StateMachine/state_machine.tscn" id="4_umnbn"]
+[ext_resource type="PackedScene" uid="uid://lxxl844xt4sk" path="res://Components/VelocityComponent/velocity_component.tscn" id="5_44wm1"]
+[ext_resource type="Script" path="res://Characters/Player/jumping_state.gd" id="5_enmba"]
+[ext_resource type="Script" path="res://Characters/Player/falling_state.gd" id="6_ckt02"]
+[ext_resource type="Script" path="res://Characters/Player/standing_state.gd" id="7_6ykwm"]
+[ext_resource type="Script" path="res://Characters/Player/ledge_grab_state.gd" id="9_f70xm"]
+[ext_resource type="Script" path="res://Characters/Player/ledge_grab_handler.gd" id="9_wtkme"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wufdi"]
+size = Vector2(24, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gpglb"]
+size = Vector2(5, 5)
+
+[node name="PlayerCharacter" type="Node2D"]
+script = ExtResource("1_ru1lf")
+
+[node name="GravityComponent" parent="." instance=ExtResource("2_lple6")]
+affecting_node_path = NodePath("../VelocityComponent")
+
+[node name="VelocityComponent" parent="." node_paths=PackedStringArray("affecting_node") instance=ExtResource("5_44wm1")]
+affecting_node = NodePath("../PlayerCharacterBody")
+
+[node name="HorizontalMovementComponent" type="Node" parent="." node_paths=PackedStringArray("velocity_component")]
+script = ExtResource("4_17a06")
+velocity_component = NodePath("../VelocityComponent")
+movement_speed = 580
+default_accel_rate = 75
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("4_umnbn")]
+initial_state = NodePath("Standing")
+
+[node name="Jumping" type="Node" parent="StateMachine" node_paths=PackedStringArray("falling_state", "velocity_component")]
+script = ExtResource("5_enmba")
+falling_state = NodePath("../Falling")
+velocity_component = NodePath("../../VelocityComponent")
+jumping_speed = -580
+
+[node name="JumpingTimer" type="Timer" parent="StateMachine/Jumping"]
+wait_time = 0.19
+one_shot = true
+
+[node name="Falling" type="Node" parent="StateMachine" node_paths=PackedStringArray("standing_state", "ledge_grabbing_state", "character", "velocity_component")]
+script = ExtResource("6_ckt02")
+standing_state = NodePath("../Standing")
+ledge_grabbing_state = NodePath("../LedgeGrabbing")
+character = NodePath("../../PlayerCharacterBody")
+velocity_component = NodePath("../../VelocityComponent")
+
+[node name="Standing" type="Node" parent="StateMachine" node_paths=PackedStringArray("jumping_state", "falling_state", "character", "horizontal_movement_component")]
+script = ExtResource("7_6ykwm")
+jumping_state = NodePath("../Jumping")
+falling_state = NodePath("../Falling")
+character = NodePath("../../PlayerCharacterBody")
+horizontal_movement_component = NodePath("../../HorizontalMovementComponent")
+standing_horizontal_accel_rate = 145
+
+[node name="CoyoteTimer" type="Timer" parent="StateMachine/Standing"]
+wait_time = 0.06
+one_shot = true
+
+[node name="LedgeGrabbing" type="Node" parent="StateMachine" node_paths=PackedStringArray("falling_state", "jumping_state", "player_ledge_grab_detector", "velocity_component", "character", "grab_left_marker", "grab_right_marker")]
+script = ExtResource("9_f70xm")
+falling_state = NodePath("../Falling")
+jumping_state = NodePath("../Jumping")
+player_ledge_grab_detector = NodePath("../../PlayerLedgeGrabDetector")
+velocity_component = NodePath("../../VelocityComponent")
+character = NodePath("../../PlayerCharacterBody")
+grab_left_marker = NodePath("../../PlayerCharacterBody/GrabLeftMarker")
+grab_right_marker = NodePath("../../PlayerCharacterBody/GrabRightMarker")
+
+[node name="PlayerLedgeGrabDetector" type="Node" parent="." node_paths=PackedStringArray("grab_left", "grab_right")]
+script = ExtResource("9_wtkme")
+grab_left = NodePath("../PlayerCharacterBody/GrabLeftMarker/GrabLeftArea")
+grab_right = NodePath("../PlayerCharacterBody/GrabRightMarker/GrabRightArea")
+
+[node name="PlayerCharacterBody" type="CharacterBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerCharacterBody"]
+scale = Vector2(0.22, 0.32)
+texture = ExtResource("2_gbj50")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody"]
+shape = SubResource("RectangleShape2D_wufdi")
+metadata/_edit_lock_ = true
+
+[node name="GrabLeftMarker" type="Marker2D" parent="PlayerCharacterBody"]
+position = Vector2(-15, -15)
+
+[node name="GrabLeftArea" type="Area2D" parent="PlayerCharacterBody/GrabLeftMarker"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/GrabLeftMarker/GrabLeftArea"]
+shape = SubResource("RectangleShape2D_gpglb")
+metadata/_edit_lock_ = true
+
+[node name="GrabRightMarker" type="Marker2D" parent="PlayerCharacterBody"]
+position = Vector2(15, -15)
+
+[node name="GrabRightArea" type="Area2D" parent="PlayerCharacterBody/GrabRightMarker"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/GrabRightMarker/GrabRightArea"]
+shape = SubResource("RectangleShape2D_gpglb")
+metadata/_edit_lock_ = true
+
+[connection signal="timeout" from="StateMachine/Standing/CoyoteTimer" to="StateMachine/Standing" method="_on_coyote_timer_timeout"]
+[connection signal="ledge_grabbed" from="PlayerLedgeGrabDetector" to="StateMachine/Falling" method="_on_player_ledge_grab_detector_ledge_grabbed"]
+[connection signal="ledge_grabbed" from="PlayerLedgeGrabDetector" to="StateMachine/LedgeGrabbing" method="_on_player_ledge_grab_detector_ledge_grabbed"]

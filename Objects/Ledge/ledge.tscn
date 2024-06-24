@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c33tblr4cbh8p"]
+
+[ext_resource type="Script" path="res://Objects/Ledge/ledge.gd" id="1_wml8j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8iwg0"]
+size = Vector2(6, 6)
+
+[node name="Ledge" type="Area2D"]
+script = ExtResource("1_wml8j")
+grab_direction = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8iwg0")

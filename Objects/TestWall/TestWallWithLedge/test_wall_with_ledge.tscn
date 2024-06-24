@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bopv1d8m6mky1"]
+
+[ext_resource type="PackedScene" uid="uid://bmradwu3qsx6b" path="res://Objects/TestWall/test_wall.tscn" id="1_2o5hh"]
+[ext_resource type="Script" path="res://Objects/TestWall/TestWallWithLedge/test_wall_with_ledge.gd" id="1_5m7xb"]
+[ext_resource type="PackedScene" uid="uid://c33tblr4cbh8p" path="res://Objects/Ledge/ledge.tscn" id="2_s1btd"]
+
+[node name="TestWallWithLedge" instance=ExtResource("1_2o5hh")]
+script = ExtResource("1_5m7xb")
+
+[node name="LeftLedge" parent="." index="2" instance=ExtResource("2_s1btd")]
+position = Vector2(-10, -10)
+
+[node name="RightLedge" parent="." index="3" instance=ExtResource("2_s1btd")]
+position = Vector2(10, -10)
+grab_direction = 1

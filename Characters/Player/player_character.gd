@@ -1,0 +1,117 @@
+class_name PlayerCharacter
+extends Node2D
+
+@onready var movement_states: StateMachine = $MovementStates
+@onready var standing_state: State = $MovementStates/Standing
+@onready var jumping_state: State = $MovementStates/Jumping
+@onready var falling_state: State = $MovementStates/Falling
+@onready var pushing_state: State = $MovementStates/Pushing
+@onready var climbing_state = $MovementStates/Climbing
+@onready var ledge_grabbing_state: State = $MovementStates/LedgeGrabbing
+@onready var velocity_component: VelocityComponent = $VelocityComponent
+@onready var horizontal_movement_component: HorizontalMovementComponent = $HorizontalMovementComponent
+@onready var health_component: HealthComponent = $HealthComponent
+@onready var ledge_grab_detector: PlayerLedgeGrabDetector = $PlayerLedgeGrabDetector
+@onready var animation_handler: Node = $AnimationHandler
+@onready var battery_collector: Node = $BatteryCollector
+@onready var interaction_handler: Node = $InteractionHandler
+@onready var interact_indicator_animation: AnimationPlayer = $PlayerCharacterBody/InteractionIndicator/FlashAnimation
+@onready var character: CharacterBody2D = $PlayerCharacterBody
+@onready var climbing_rope_detector = $ClimbingRopeDetector
+@onready var drop_item_left: Marker2D = $PlayerCharacterBody/DropItemLeft
+@onready var drop_item_right: Marker2D = $PlayerCharacterBody/DropItemRight
+@onready var animated_sprite: AnimatedSprite2D = $PlayerCharacterBody/AnimatedSprite2D
+@onready var inventory_interaction_handler = $InventoryInteractionHandler
+@onready var drop_item_handler = $DropItemHandler
+
+@export var inventory: Inventory:
+	set(new_value):
+		inventory = new_value
+		if is_inside_tree():
+			inventory_interaction_handler.inventory = inventory
+
+var facing_left:
+	get:
+		return animated_sprite.flip_h
+
+signal battery_collected
+signal just_interacted
+signal just_climbed
+signal item_dropped(drop: Object)
+signal died
+
+var is_jumping := func(): return false:
+	set(new_value):
+		is_jumping = new_value
+		_update_children()
+var just_jumped := func(): return false:
+	set(new_value):
+		just_jumped = new_value
+		_update_children()
+var just_climbed_callable := func(): return false:
+	set(new_value):
+		just_climbed_callable = new_value
+		_update_children()
+var is_moving_left := func(): return false:
+	set(new_value):
+		is_moving_left = new_value
+		_update_children()
+var is_moving_right := func(): return false:
+	set(new_value):
+		is_moving_right = new_value
+		_update_children()
+var is_moving_down := func(): return false:
+	set(new_value):
+		is_moving_down = new_value
+		_update_children()
+var is_moving_up := func(): return false:
+	set(new_value):
+		is_moving_up = new_value
+		_update_children()
+var is_climbing := func(): return false:
+	set(new_value):
+		is_climbing = new_value
+		_update_children()
+
+func _ready():
+	_update_children()
+	battery_collector.battery_collected.connect(func(): battery_collected.emit())
+	interact_indicator_animation.play("flash")
+	health_component.health_reached_zero.connect(func(): died.emit())
+	inventory_interaction_handler.inventory = inventory
+
+func _update_children():
+	pushing_state.is_moving_left = is_moving_left
+	pushing_state.is_moving_right = is_moving_right
+	pushing_state.just_jumped = just_jumped
+	climbing_rope_detector.is_climbing = is_climbing
+	climbing_rope_detector.is_moving_down = is_moving_down
+	climbing_state.is_climbing = is_climbing
+	climbing_state.is_moving_up = is_moving_up
+	climbing_state.is_moving_down = is_moving_down
+	climbing_state.just_jumped = just_jumped
+	standing_state.just_jumped = just_jumped
+	standing_state.is_jumping = is_jumping
+	standing_state.is_moving_down = is_moving_down
+	standing_state.is_moving_left = is_moving_left
+	standing_state.is_moving_right = is_moving_right
+	standing_state.just_climbed = just_climbed_callable
+	jumping_state.is_jumping = is_jumping
+	falling_state.is_jumping = is_jumping
+	falling_state.is_moving_down = is_moving_down
+	falling_state.just_jumped = just_jumped
+	ledge_grabbing_state.just_jumped = just_jumped
+	ledge_grabbing_state.is_moving_left = is_moving_left
+	ledge_grabbing_state.is_moving_right = is_moving_right
+	ledge_grabbing_state.is_moving_down = is_moving_down
+	horizontal_movement_component.is_moving_left = is_moving_left
+	horizontal_movement_component.is_moving_right = is_moving_right
+	animation_handler.is_moving_left = is_moving_left
+	animation_handler.is_moving_right = is_moving_right
+
+func drop_item(item: ItemData):
+	inventory.remove_item(item)
+	drop_item_handler.drop_item(item, drop_item_left.global_position if facing_left else drop_item_right.global_position)
+
+func _on_drop_item_handler_drop_created(drop):
+	item_dropped.emit(drop)
