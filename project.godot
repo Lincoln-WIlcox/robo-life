@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Events="*res://Singletons/events.gd"
+PowerConnectionHandler="*res://Singletons/power_connection_handler.gd"
 
 [display]
 

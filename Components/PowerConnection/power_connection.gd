@@ -1,4 +1,4 @@
-class_name PowerConnection
+class_name PowerConnector
 extends Area2D
 
 
