@@ -18,7 +18,7 @@ func add_connection(connector_a: PowerConnector, connector_b: PowerConnector):
 	power_connector_connections.append(power_connector_connection)
 	return true
 
-func _get_power_connectors_in_tree(power_connector: PowerConnector):
+func _get_power_connectors_in_tree(power_connector: PowerConnector) -> Array[PowerConnector]:
 	#this is the full list of power connectors in the tree. the top level function returns this at the end of the recursive functions
 	var connectors: Array[PowerConnector]
 	#this is the power connector connections that include this power connector and aren't in exclude
@@ -26,16 +26,16 @@ func _get_power_connectors_in_tree(power_connector: PowerConnector):
 	
 	connectors.append(power_connector)
 	
-	var exclude = []
+	var exclude = connections
 	
 	for connection: PowerConnectorConnection in connections:
-		var child_connectors = _get_power_connectors_in_tree_with_excludes(connection.power_connector_a if connection.power_connector_a != power_connector else connection.power_connector_b, exclude)
-		exclude.append_array(child_connectors["exclude"])
-		connectors.append_array(child_connectors["connectors"])
+		var child_connectors_with_exclude = _get_power_connectors_in_tree_with_excludes(connection.power_connector_a if connection.power_connector_a != power_connector else connection.power_connector_b, exclude)
+		exclude.append_array(child_connectors_with_exclude["exclude"])
+		connectors.append_array(child_connectors_with_exclude["connectors"])
 	
 	return connectors
 
-func _get_power_connectors_in_tree_with_excludes(power_connector: PowerConnector, exclude: Array[PowerConnectorConnection] = []):
+func _get_power_connectors_in_tree_with_excludes(power_connector: PowerConnector, exclude: Array[PowerConnectorConnection]) -> Dictionary:
 	#this is the full list of power connectors in the tree. the top level function returns this at the end of the recursive functions
 	var connectors: Array[PowerConnector]
 	#this is the power connector connections that include this power connector and aren't in exclude
@@ -50,8 +50,8 @@ func _get_power_connectors_in_tree_with_excludes(power_connector: PowerConnector
 	new_exclude.append_array(connections)
 	
 	for connection: PowerConnectorConnection in connections:
-		var child_connectors = _get_power_connectors_in_tree_with_excludes(connection.power_connector_a if connection.power_connector_a != power_connector else connection.power_connector_b, new_exclude)
-		new_exclude.append_array(child_connectors["exclude"])
-		connectors.append_array(child_connectors["connectors"])
+		var child_connectors_with_exclude = _get_power_connectors_in_tree_with_excludes(connection.power_connector_a if connection.power_connector_a != power_connector else connection.power_connector_b, new_exclude)
+		new_exclude.append_array(child_connectors_with_exclude["exclude"])
+		connectors.append_array(child_connectors_with_exclude["connectors"])
 	
 	return {"connectors": connectors, "exclude": connections}
