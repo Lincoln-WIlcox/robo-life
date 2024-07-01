@@ -1,0 +1,17 @@
+extends Node
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	PowerConnectionHandler.connections_changed.connect(_on_connections_changed)
+
+func _on_connections_changed():
+	for child: Node in get_children():
+		if child is Line2D:
+			child.queue_free()
+	
+	for connection: PowerConnectorConnection in PowerConnectionHandler.power_connector_connections:
+		var line: Line2D = Line2D.new()
+		line.add_point(connection.power_connector_a.global_position)
+		line.add_point(connection.power_connector_b.global_position)
+		add_child(line)
