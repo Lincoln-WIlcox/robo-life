@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://cng4tm54hq536"]
+
+[ext_resource type="Script" path="res://Objects/PowerPole/power_pole.gd" id="1_kt56x"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_gq44m"]
+[ext_resource type="PackedScene" uid="uid://g1sd2n28vfvx" path="res://Components/PowerConnection/power_connection.tscn" id="3_1oihy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g345s"]
+atlas = ExtResource("2_gq44m")
+region = Rect2(112, 96, 16, 16)
+
+[node name="PowerPole" type="Node2D"]
+script = ExtResource("1_kt56x")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_g345s")
+
+[node name="PowerConnector" parent="." instance=ExtResource("3_1oihy")]
