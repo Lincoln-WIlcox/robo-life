@@ -26,7 +26,7 @@ func load_level(level: PackedScene) -> void:
 	world.active_player_changed.connect(_on_active_player_changed)
 	_on_active_player_changed(world.active_player)
 	hud.time_left = func(): return round(world.day_night_cycle.get_time_left())
-	place_object_handler.object_placed.connect(world.add_child)
+	place_object_handler.placing_item.connect(world.add_child)
 
 #func _open_inventory_gui() -> void:
 	#inventory_gui.open_gui()

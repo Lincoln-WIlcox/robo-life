@@ -3,4 +3,5 @@ extends Node2D
 
 var placement_valid := true
 
-signal placed
+func on_placed():
+	pass
