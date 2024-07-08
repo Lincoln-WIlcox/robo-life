@@ -9,6 +9,7 @@ const DEATH_MESSAGE = "You Died.. Bruh.."
 @export var ui_state_machine: StateMachine
 @export var current_level_packed_scene: PackedScene
 @export var inventory_state: State
+@export var place_object_handler: PlaceObjectHandler
 
 var world: World
 
@@ -24,6 +25,7 @@ func load_level(level: PackedScene) -> void:
 	world.active_player_changed.connect(_on_active_player_changed)
 	_on_active_player_changed(world.active_player)
 	hud.time_left = func(): return round(world.day_night_cycle.get_time_left())
+	place_object_handler.object_placed.connect(world.add_child)
 
 #func _open_inventory_gui() -> void:
 	#inventory_gui.open_gui()
