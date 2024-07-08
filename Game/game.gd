@@ -10,6 +10,7 @@ const DEATH_MESSAGE = "You Died.. Bruh.."
 @export var current_level_packed_scene: PackedScene
 @export var inventory_state: State
 @export var place_object_handler: PlaceObjectHandler
+@export var placing_object_state: State
 
 var world: World
 
@@ -52,6 +53,7 @@ func _on_active_player_changed(active_player: PlayerCharacterController):
 				world.call_deferred("set_process_mode", Node.PROCESS_MODE_DISABLED)
 				game_over_menu.show_menu_with_death_message(DEATH_MESSAGE)
 		)
+		placing_object_state.item_placed.connect(active_player.inventory.remove_item)
 
 func _on_active_player_inventory_changed(inventory: Inventory):
 	hud.battery_quantity = inventory.batteries
