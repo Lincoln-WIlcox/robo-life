@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cng4tm54hq536"]
+[gd_scene load_steps=6 format=3 uid="uid://cng4tm54hq536"]
 
 [ext_resource type="Script" path="res://Objects/PowerPole/power_pole.gd" id="1_kt56x"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_gq44m"]
@@ -8,6 +8,9 @@
 atlas = ExtResource("2_gq44m")
 region = Rect2(112, 96, 16, 16)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_agpx2"]
+radius = 256.0
+
 [node name="PowerPole" type="Node2D"]
 script = ExtResource("1_kt56x")
 
@@ -15,3 +18,8 @@ script = ExtResource("1_kt56x")
 texture = SubResource("AtlasTexture_g345s")
 
 [node name="PowerConnector" parent="." instance=ExtResource("3_1oihy")]
+
+[node name="ConnectArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ConnectArea"]
+shape = SubResource("CircleShape2D_agpx2")

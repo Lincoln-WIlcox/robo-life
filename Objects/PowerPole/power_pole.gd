@@ -1,11 +1,13 @@
 extends Placeable
 
+@onready var power_connector: PowerConnector = $PowerConnector
+@onready var connect_area: Area2D = $ConnectArea
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	placed.connect(_on_placed)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _on_placed():
+	var connections_to_connect_to := connect_area.get_overlapping_areas().filter(func(area: Area2D): return area is PowerConnector)
+	
+	for power_connector_to_connect_to: PowerConnector in connections_to_connect_to:
+		power_connector.connect_to(power_connector_to_connect_to)
