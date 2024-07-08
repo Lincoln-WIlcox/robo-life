@@ -1,5 +1,7 @@
 extends State
 
+@export var place_object_handler: PlaceObjectHandler
+
 func enter():
 	print("placing object")
 	pass
