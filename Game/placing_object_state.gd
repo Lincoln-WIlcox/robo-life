@@ -3,11 +3,10 @@ extends State
 @export var place_object_handler: PlaceObjectHandler
 
 func enter():
-	print("placing object")
 	pass
 
 func run():
-	pass
+	place_object_handler.update_placing()
 
 func exit():
-	pass
+	place_object_handler.stop_placing()

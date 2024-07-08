@@ -24,16 +24,18 @@ initial_state = NodePath("None")
 script = ExtResource("4_hsru6")
 inventory_state = NodePath("../Inventory")
 
-[node name="Inventory" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("inventory_gui", "none_state", "placing_state")]
+[node name="Inventory" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("inventory_gui", "none_state", "placing_state", "placing_object_handler")]
 script = ExtResource("8_1v6bn")
 inventory_gui = NodePath("../../UILayer/InventoryGUI")
 none_state = NodePath("../None")
 placing_state = NodePath("../PlacingObject")
+placing_object_handler = NodePath("../../PlaceObjectHandler")
 
-[node name="PlacingObject" type="Node" parent="UIStateMachine"]
+[node name="PlacingObject" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("place_object_handler")]
 script = ExtResource("6_pvlu1")
+place_object_handler = NodePath("../../PlaceObjectHandler")
 
-[node name="PlaceObjectHandler" type="Node" parent="."]
+[node name="PlaceObjectHandler" type="Node2D" parent="."]
 script = ExtResource("7_n4fbt")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
