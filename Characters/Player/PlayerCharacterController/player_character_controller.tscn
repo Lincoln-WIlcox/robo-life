@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://dw2fqgynxjcit"]
 
-[ext_resource type="Script" path="res://Objects/PlayerCharacterController/player_character_controller.gd" id="1_g04f7"]
-[ext_resource type="PackedScene" uid="uid://d1kvhwjb0iy8m" path="res://Characters/Player/player_character.tscn" id="2_pqs7s"]
+[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/player_character_controller.gd" id="1_bw5ol"]
+[ext_resource type="PackedScene" uid="uid://d1kvhwjb0iy8m" path="res://Characters/Player/player_character.tscn" id="2_u8dgg"]
 
 [node name="PlayerCharacterController" type="Node2D"]
-script = ExtResource("1_g04f7")
+script = ExtResource("1_bw5ol")
 
-[node name="PlayerCharacter" parent="." instance=ExtResource("2_pqs7s")]
+[node name="PlayerCharacter" parent="." instance=ExtResource("2_u8dgg")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.4, 1.4)

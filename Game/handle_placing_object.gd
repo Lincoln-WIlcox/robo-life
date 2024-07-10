@@ -23,7 +23,7 @@ func update_placing() -> void:
 
 func attempt_place_object() -> bool:
 	if _placing_placeable.placement_valid and mouse_detect_area.mouse_over:
-		_placing_placeable.on_placed()
+		_placing_placeable.place()
 		stop_placing()
 		return true
 	return false

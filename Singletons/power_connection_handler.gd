@@ -23,8 +23,7 @@ func add_connection(connector_a: PowerConnector, connector_b: PowerConnector) ->
 	connection_added.emit(power_connector_connection)
 	connections_changed.emit()
 	
-	if connector_a is PowerSupplier or connector_a is PowerConsumer or connector_b is PowerSupplier or connector_b is PowerConsumer:
-		_update_power_consumers_in_tree(connector_a)
+	_update_power_consumers_in_tree(connector_a)
 	
 	return true
 
