@@ -7,7 +7,8 @@ extends Placeable
 
 var _drawn_lines = []
 
-func on_placed():
+func _on_placed():
+	super()
 	var connections_to_connect_to := get_connections_to_connect_to()
 	
 	for power_connector_to_connect_to: PowerConnector in connections_to_connect_to:

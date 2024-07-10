@@ -19,7 +19,7 @@ func cancel_placing() -> void:
 
 func update_placing() -> void:
 	_placing_placeable.global_position = get_global_mouse_position()
-	_placing_placeable.modulate = Color(1,1,1, 1 if mouse_detect_area.mouse_over else .5)
+	_placing_placeable.in_range = mouse_detect_area.mouse_over
 
 func attempt_place_object() -> bool:
 	if _placing_placeable.placement_valid and mouse_detect_area.mouse_over:
