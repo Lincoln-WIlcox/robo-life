@@ -92,18 +92,21 @@ position = Vector2(96, 128)
 [node name="PoweredDoor" parent="Tiles" index="19" instance=ExtResource("13_hwury")]
 position = Vector2(-832, -80)
 
-[node name="PowerSupply" parent="Tiles" index="20" instance=ExtResource("12_v1npi")]
+[node name="PoweredDoor2" parent="Tiles" index="20" instance=ExtResource("13_hwury")]
+position = Vector2(-608, -32)
+
+[node name="PowerSupply" parent="Tiles" index="21" instance=ExtResource("12_v1npi")]
 position = Vector2(-400, -32)
 
-[node name="ItemPickup3" parent="Tiles" index="21" instance=ExtResource("14_q1p5m")]
+[node name="ItemPickup3" parent="Tiles" index="22" instance=ExtResource("14_q1p5m")]
 position = Vector2(-176, 16)
 item = ExtResource("11_b2juo")
 
-[node name="ItemPickup4" parent="Tiles" index="22" instance=ExtResource("14_q1p5m")]
+[node name="ItemPickup4" parent="Tiles" index="23" instance=ExtResource("14_q1p5m")]
 position = Vector2(-224, 16)
 item = ExtResource("11_b2juo")
 
-[node name="ItemPickup5" parent="Tiles" index="23" instance=ExtResource("14_q1p5m")]
+[node name="ItemPickup5" parent="Tiles" index="24" instance=ExtResource("14_q1p5m")]
 position = Vector2(-272, 16)
 item = ExtResource("11_b2juo")
 

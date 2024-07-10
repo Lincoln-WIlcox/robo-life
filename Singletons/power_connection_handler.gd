@@ -46,7 +46,7 @@ func get_power_connectors_in_tree(power_connector: PowerConnector) -> Array[Powe
 	
 	connectors.append(power_connector)
 	
-	var exclude = connections
+	var exclude = connections.duplicate()
 	
 	for connection: PowerConnectorConnection in connections:
 		var child_connectors_with_exclude = _get_power_connectors_in_tree_with_excludes(connection.power_connector_a if connection.power_connector_a != power_connector else connection.power_connector_b, exclude)
