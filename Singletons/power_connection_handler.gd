@@ -23,14 +23,14 @@ func add_connection(connector_a: PowerConnector, connector_b: PowerConnector) ->
 	connection_added.emit(power_connector_connection)
 	connections_changed.emit()
 	
-	if not connector_a.tree_exited.is_connected(remove_connections_to_connector):
-		connector_a.tree_exited.connect(remove_connections_to_connector.bind(connector_a))
-	if not connector_b.tree_exited.is_connected(remove_connections_to_connector):
-		connector_b.tree_exited.connect(remove_connections_to_connector.bind(connector_b))
+	if connector_a is PowerSupplier or connector_a is PowerConsumer or connector_b is PowerSupplier or connector_b is PowerConsumer:
+		_update_power_consumers_in_tree(connector_a)
 	
 	return true
 
 func remove_connections_to_connector(connector: PowerConnector) -> void:
+	if connector is PowerSupplier or connector is PowerConsumer:
+		_update_power_consumers_in_tree(connector)
 	for i: int in range(power_connector_connections.size()-1, -1, -1):
 		if power_connector_connections[i].power_connector_a == connector or power_connector_connections[i].power_connector_b == connector:
 			#the only reason i need to store this is to i can emit it with connection removed after its been deleted
@@ -77,16 +77,14 @@ func _get_power_connectors_in_tree_with_excludes(power_connector: PowerConnector
 	
 	return {"connectors": connectors, "exclude": connections}
 
-func _update_power_consumers_in_tree(power_connector: PowerConnector):
-	var power_connectors: Array[PowerConnector] = get_power_connectors_in_tree(power_connector)
+func _update_power_consumers_in_tree(power_connector: PowerConnector) -> void:
+	var connectors: Array[PowerConnector] = get_power_connectors_in_tree(power_connector)
+	var power_suppliers: Array[PowerConnector] = connectors.filter(func(connector: PowerConnector): return connector is PowerSupplier)
+	var power_consumers: Array[PowerConnector] = connectors.filter(func(connector: PowerConnector): return connector is PowerConsumer)
+	var total_power_supplying: int = power_suppliers.reduce(func(total_power: int, power_supplier: PowerSupplier): return total_power + power_supplier.supplies_power, 0)
+	var consuming_power: int = power_consumers.reduce(func(total_power: int, power_consumer: PowerConsumer): return total_power + power_consumer.consumes_power, 0)
 	
-	var total_power: int = 0
-	for connector: PowerConnector in power_connectors:
-		if connector is PowerSupplier:
-			total_power += connector.supplies_power
-		elif connector is PowerConsumer:
-			total_power -= connector.consumes_power
-	
-	for connector: PowerConnector in power_connectors:
-		connector.powered = total_power < 0
-		connector.extra_power = max(float(total_power) / power_connectors.size(), 0)
+	for power_consumer: PowerConsumer in power_consumers:
+		power_consumer.enough_power_supplied = total_power_supplying >= consuming_power
+		power_consumer.extra_power = total_power_supplying - consuming_power / power_consumers.size() if total_power_supplying > consuming_power else 0
+

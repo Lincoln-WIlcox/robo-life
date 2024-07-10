@@ -21,6 +21,8 @@ script = ExtResource("1_yp3no")
 wait_time = 240.0
 one_shot = true
 
+[node name="PowerLineDrawer" parent="." instance=ExtResource("2_gho6m")]
+
 [node name="PlayerCharacterController" parent="." instance=ExtResource("1_yr2t8")]
 
 [node name="Tiles" type="TileMap" parent="."]
@@ -36,8 +38,6 @@ layer_1/tile_data = PackedInt32Array(2293802, 131074, 3, 2228266, 131074, 2, 216
 script = ExtResource("6_7fj4g")
 ledge_packed_scene = ExtResource("7_p745u")
 one_way_platform_packed_scene = ExtResource("8_k3r3x")
-
-[node name="PowerLineDrawer" parent="." instance=ExtResource("2_gho6m")]
 
 [connection signal="timeout" from="DayNightCycle/DayTimer" to="DayNightCycle" method="_on_day_timer_timeout"]
 [connection signal="item_dropped" from="PlayerCharacterController" to="." method="add_child"]

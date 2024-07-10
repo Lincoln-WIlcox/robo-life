@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3ykiak7je8kn"]
+
+[ext_resource type="PackedScene" uid="uid://bf3k02fdggn06" path="res://Objects/Door/door.tscn" id="1_dt1mj"]
+[ext_resource type="Script" path="res://Objects/Door/PoweredDoor/powered_door.gd" id="2_mgmdi"]
+[ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Components/PowerConnection/PowerConsumer/power_consumer.tscn" id="2_ufmqk"]
+
+[node name="PoweredDoor" instance=ExtResource("1_dt1mj")]
+script = ExtResource("2_mgmdi")
+
+[node name="PowerConsumer" parent="." index="2" instance=ExtResource("2_ufmqk")]
+position = Vector2(8, 0)
+consumes_power = 1
+
+[connection signal="power_requirement_met" from="PowerConsumer" to="." method="_on_power_consumer_power_requirement_met"]
