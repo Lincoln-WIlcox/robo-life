@@ -90,7 +90,7 @@ position = Vector2(-16, 160)
 position = Vector2(96, 128)
 
 [node name="PoweredDoor" parent="Tiles" index="19" instance=ExtResource("13_hwury")]
-position = Vector2(-816, -80)
+position = Vector2(-832, -80)
 
 [node name="PowerSupply" parent="Tiles" index="20" instance=ExtResource("12_v1npi")]
 position = Vector2(-400, -32)

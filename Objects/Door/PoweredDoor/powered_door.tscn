@@ -11,4 +11,5 @@ script = ExtResource("2_mgmdi")
 position = Vector2(8, 0)
 consumes_power = 1
 
+[connection signal="power_requirement_lost" from="PowerConsumer" to="." method="_on_power_consumer_power_requirement_lost"]
 [connection signal="power_requirement_met" from="PowerConsumer" to="." method="_on_power_consumer_power_requirement_met"]
