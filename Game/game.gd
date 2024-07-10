@@ -54,6 +54,7 @@ func _on_active_player_changed(active_player: PlayerCharacterController):
 				game_over_menu.show_menu_with_death_message(DEATH_MESSAGE)
 		)
 		placing_object_state.item_placed.connect(active_player.inventory.remove_item)
+		place_object_handler.mouse_detect_area = active_player.mouse_detect_area
 
 func _on_active_player_inventory_changed(inventory: Inventory):
 	hud.battery_quantity = inventory.batteries

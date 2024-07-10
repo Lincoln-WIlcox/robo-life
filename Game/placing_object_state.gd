@@ -16,6 +16,7 @@ func run():
 		item_placed.emit(placeable_item)
 		state_ended.emit(none_state)
 	if Input.is_action_just_pressed("cancel_placing_object"):
+		place_object_handler.cancel_placing()
 		state_ended.emit(none_state)
 
 func exit():

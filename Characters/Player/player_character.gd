@@ -23,6 +23,7 @@ extends Node2D
 @onready var animated_sprite: AnimatedSprite2D = $PlayerCharacterBody/AnimatedSprite2D
 @onready var inventory_interaction_handler = $InventoryInteractionHandler
 @onready var drop_item_handler = $DropItemHandler
+@onready var mouse_detect_area = $PlayerCharacterBody/MouseDetectArea
 
 @export var inventory: Inventory:
 	set(new_value):

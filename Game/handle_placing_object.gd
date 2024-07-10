@@ -1,6 +1,7 @@
 class_name PlaceObjectHandler
 extends Node2D
 
+var mouse_detect_area: MouseDetectArea
 var _placing_placeable: Placeable
 
 signal placing_item(object: Placeable)
@@ -12,11 +13,16 @@ func start_placing_placeable(placeable: Placeable) -> void:
 func stop_placing() -> void:
 	_placing_placeable = null
 
+func cancel_placing() -> void:
+	_placing_placeable.queue_free()
+	_placing_placeable = null
+
 func update_placing() -> void:
 	_placing_placeable.global_position = get_global_mouse_position()
+	_placing_placeable.modulate = Color(1,1,1, 1 if mouse_detect_area.mouse_over else .5)
 
 func attempt_place_object() -> bool:
-	if _placing_placeable.placement_valid:
+	if _placing_placeable.placement_valid and mouse_detect_area.mouse_over:
 		_placing_placeable.on_placed()
 		stop_placing()
 		return true

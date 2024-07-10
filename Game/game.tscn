@@ -43,11 +43,14 @@ script = ExtResource("7_n4fbt")
 [node name="UILayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="UILayer" instance=ExtResource("2_0xbcc")]
+mouse_filter = 2
 
 [node name="GameOverMenu" parent="UILayer" instance=ExtResource("5_8hpvy")]
+mouse_filter = 2
 
 [node name="InventoryGUI" parent="UILayer" instance=ExtResource("5_6ax4x")]
 visible = false
+mouse_filter = 2
 
 [connection signal="play_again_pressed" from="UILayer/GameOverMenu" to="." method="_on_game_over_menu_play_again_pressed"]
 [connection signal="item_dropped" from="UILayer/InventoryGUI" to="UIStateMachine/Inventory" method="_on_inventory_gui_item_dropped"]

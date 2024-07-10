@@ -3,6 +3,7 @@ extends Node2D
 
 @onready var player_character = $PlayerCharacter
 @onready var camera = $Camera2D
+@onready var mouse_detect_area: MouseDetectArea = player_character.mouse_detect_area
 
 @export var movement_disabled := false
 
