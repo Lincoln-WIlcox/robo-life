@@ -1,8 +1,8 @@
 class_name Placeable
 extends Node2D
 
-const IN_RANGE_COLOR = Color(1,1,1,.5)
-const OUT_OF_RANGE_COLOR = Color(1,.2,.2,.5)
+const IN_RANGE_COLOR = Color(.5,1,.5,.5)
+const OUT_OF_RANGE_COLOR = Color(1,.5,.5,.5)
 
 var placement_valid := true
 var _placed := false:
@@ -13,9 +13,9 @@ var _placed := false:
 var in_range := true:
 	set(new_value):
 		if in_range and not new_value:
-			pass
+			_on_out_of_range()
 		elif not in_range and new_value:
-			pass
+			_on_in_range()
 		in_range = new_value
 
 func _on_placed():
