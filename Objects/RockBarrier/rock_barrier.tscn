@@ -20,8 +20,8 @@ region = Rect2(128, 144, 48, 16)
 [sub_resource type="Resource" id="Resource_1ds1y"]
 script = ExtResource("8_2ls0d")
 batteries_cost = 0
-costs_items = Array[Resource("res://Resources/item.gd")]([ExtResource("3_wjd4u")])
-requires_items = Array[Resource("res://Resources/item.gd")]([])
+costs_items = Array[Resource("res://Resources/item_data.gd")]([ExtResource("3_wjd4u")])
+requires_items = Array[Resource("res://Resources/item_data.gd")]([])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_476da"]
 size = Vector2(80, 48)

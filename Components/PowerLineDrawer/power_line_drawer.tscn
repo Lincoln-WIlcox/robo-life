@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxd0kh8rswpem"]
+
+[ext_resource type="Script" path="res://Components/PowerLineDrawer/power_line_drawer.gd" id="1_6dojq"]
+
+[node name="PowerLineDrawer" type="Node"]
+script = ExtResource("1_6dojq")

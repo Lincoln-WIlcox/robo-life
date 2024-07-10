@@ -1,22 +1,56 @@
-[gd_scene load_steps=6 format=3 uid="uid://bvpfxo05k5nyo"]
+[gd_scene load_steps=11 format=3 uid="uid://bvpfxo05k5nyo"]
 
 [ext_resource type="Script" path="res://Game/game.gd" id="1_p5sec"]
 [ext_resource type="PackedScene" uid="uid://4hdu5f7ikd0h" path="res://World/Levels/level_1.tscn" id="1_qsx06"]
 [ext_resource type="PackedScene" uid="uid://cstcp7nfordr7" path="res://UI/HUD/hud.tscn" id="2_0xbcc"]
+[ext_resource type="Script" path="res://Game/none_state.gd" id="4_hsru6"]
 [ext_resource type="PackedScene" uid="uid://cttegcifjq5jb" path="res://UI/InventoryGUI/inventory_gui.tscn" id="5_6ax4x"]
 [ext_resource type="PackedScene" uid="uid://bkc6nabwtybq4" path="res://UI/GameOverMenu/game_over_menu.tscn" id="5_8hpvy"]
+[ext_resource type="Script" path="res://Game/placing_object_state.gd" id="6_pvlu1"]
+[ext_resource type="PackedScene" uid="uid://c2nwpx3t8tmc0" path="res://Components/StateMachine/state_machine.tscn" id="6_py240"]
+[ext_resource type="Script" path="res://Game/handle_placing_object.gd" id="7_n4fbt"]
+[ext_resource type="Script" path="res://Game/inventory_state.gd" id="8_1v6bn"]
 
-[node name="Game" type="Node"]
+[node name="Game" type="Node" node_paths=PackedStringArray("ui_state_machine", "inventory_state", "place_object_handler", "placing_object_state")]
 script = ExtResource("1_p5sec")
+ui_state_machine = NodePath("UIStateMachine")
 current_level_packed_scene = ExtResource("1_qsx06")
+inventory_state = NodePath("UIStateMachine/Inventory")
+place_object_handler = NodePath("PlaceObjectHandler")
+placing_object_state = NodePath("UIStateMachine/PlacingObject")
+
+[node name="UIStateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("6_py240")]
+initial_state = NodePath("None")
+
+[node name="None" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("inventory_state")]
+script = ExtResource("4_hsru6")
+inventory_state = NodePath("../Inventory")
+
+[node name="Inventory" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("inventory_gui", "none_state", "placing_state")]
+script = ExtResource("8_1v6bn")
+inventory_gui = NodePath("../../UILayer/InventoryGUI")
+none_state = NodePath("../None")
+placing_state = NodePath("../PlacingObject")
+
+[node name="PlacingObject" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("place_object_handler", "none_state")]
+script = ExtResource("6_pvlu1")
+place_object_handler = NodePath("../../PlaceObjectHandler")
+none_state = NodePath("../None")
+
+[node name="PlaceObjectHandler" type="Node2D" parent="."]
+script = ExtResource("7_n4fbt")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="UILayer" instance=ExtResource("2_0xbcc")]
+mouse_filter = 2
 
 [node name="GameOverMenu" parent="UILayer" instance=ExtResource("5_8hpvy")]
+mouse_filter = 2
 
 [node name="InventoryGUI" parent="UILayer" instance=ExtResource("5_6ax4x")]
 visible = false
+mouse_filter = 2
 
 [connection signal="play_again_pressed" from="UILayer/GameOverMenu" to="." method="_on_game_over_menu_play_again_pressed"]
+[connection signal="item_dropped" from="UILayer/InventoryGUI" to="UIStateMachine/Inventory" method="_on_inventory_gui_item_dropped"]

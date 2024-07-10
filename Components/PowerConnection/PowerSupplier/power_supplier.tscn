@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cus11t0ei6g1g"]
+
+[ext_resource type="PackedScene" uid="uid://g1sd2n28vfvx" path="res://Components/PowerConnection/power_connection.tscn" id="1_uyvcs"]
+[ext_resource type="Script" path="res://Components/PowerConnection/PowerSupplier/power_supplier.gd" id="2_mq8vt"]
+
+[node name="PowerSupplier" instance=ExtResource("1_uyvcs")]
+script = ExtResource("2_mq8vt")
+supplies_power = 0

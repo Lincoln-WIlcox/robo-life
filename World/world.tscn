@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://wqdgq1a7r2ml"]
+[gd_scene load_steps=8 format=3 uid="uid://wqdgq1a7r2ml"]
 
 [ext_resource type="Script" path="res://World/world.gd" id="1_fuqf5"]
 [ext_resource type="Script" path="res://World/day_night_cycle.gd" id="1_yp3no"]
-[ext_resource type="PackedScene" uid="uid://dw2fqgynxjcit" path="res://PlayerCharacterController/player_character_controller.tscn" id="1_yr2t8"]
+[ext_resource type="PackedScene" uid="uid://dw2fqgynxjcit" path="res://Characters/Player/PlayerCharacterController/player_character_controller.tscn" id="1_yr2t8"]
+[ext_resource type="PackedScene" uid="uid://dxd0kh8rswpem" path="res://Components/PowerLineDrawer/power_line_drawer.tscn" id="2_gho6m"]
 [ext_resource type="Script" path="res://World/tiles.gd" id="6_7fj4g"]
 [ext_resource type="PackedScene" uid="uid://c33tblr4cbh8p" path="res://Objects/Ledge/ledge.tscn" id="7_p745u"]
 [ext_resource type="PackedScene" uid="uid://daw30mg70crel" path="res://Objects/OneWayPlatform/one_way_platform.tscn" id="8_k3r3x"]
@@ -11,12 +12,16 @@
 script = ExtResource("1_fuqf5")
 active_player = NodePath("PlayerCharacterController")
 
+[node name="PowerLineConnector" parent="." instance=ExtResource("2_gho6m")]
+
 [node name="DayNightCycle" type="Node" parent="."]
 script = ExtResource("1_yp3no")
 
 [node name="DayTimer" type="Timer" parent="DayNightCycle"]
 wait_time = 240.0
 one_shot = true
+
+[node name="PowerLineDrawer" parent="." instance=ExtResource("2_gho6m")]
 
 [node name="PlayerCharacterController" parent="." instance=ExtResource("1_yr2t8")]
 

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PlaceableItemData" load_steps=5 format=3 uid="uid://b3au5vg63nxkc"]
+
+[ext_resource type="PackedScene" uid="uid://cng4tm54hq536" path="res://Objects/PowerPole/power_pole.tscn" id="1_hrh33"]
+[ext_resource type="Script" path="res://Resources/placeable_item_data.gd" id="1_q6l43"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_kitb3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_husyg"]
+atlas = ExtResource("2_kitb3")
+region = Rect2(112, 96, 16, 16)
+
+[resource]
+script = ExtResource("1_q6l43")
+texture = SubResource("AtlasTexture_husyg")
+name = "Power Pole"
+drop_scene = ExtResource("1_hrh33")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://d1kvhwjb0iy8m"]
+[gd_scene load_steps=61 format=3 uid="uid://d1kvhwjb0iy8m"]
 
 [ext_resource type="Script" path="res://Characters/Player/player_character.gd" id="1_ru1lf"]
 [ext_resource type="Script" path="res://Characters/Player/interaction_handler.gd" id="2_7jrx7"]
@@ -31,11 +31,12 @@
 [ext_resource type="PackedScene" uid="uid://dk8ly2h53jrty" path="res://Components/HealthIndicator/health_indicator.tscn" id="26_xva2i"]
 [ext_resource type="PackedScene" uid="uid://chb5lnwnnd2fx" path="res://Components/DetectPushingComponent/detect_pushing_component.tscn" id="27_k7fi7"]
 [ext_resource type="PackedScene" uid="uid://dgvaforh1h0ou" path="res://Components/Hurtbox/hurtbox.tscn" id="27_rvuxm"]
+[ext_resource type="PackedScene" uid="uid://dgsqt81g28ys" path="res://Components/MouseDetectArea/mouse_detect_area.tscn" id="32_jrak7"]
 
 [sub_resource type="Resource" id="Resource_i3vek"]
 script = ExtResource("2_f2ewa")
 batteries = 0
-items = Array[Resource("res://Resources/item.gd")]([])
+items = Array[Resource("res://Resources/item_data.gd")]([])
 
 [sub_resource type="GDScript" id="GDScript_h7t3e"]
 script/source = "extends Node
@@ -233,6 +234,9 @@ size = Vector2(8, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qhn4u"]
 size = Vector2(18, 26)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_cuesd"]
+radius = 175.0
+
 [node name="PlayerCharacter" type="Node2D"]
 script = ExtResource("1_ru1lf")
 inventory = SubResource("Resource_i3vek")
@@ -270,8 +274,8 @@ max_speed = 1200
 [node name="HorizontalMovementComponent" type="Node" parent="." node_paths=PackedStringArray("velocity_component")]
 script = ExtResource("4_17a06")
 velocity_component = NodePath("../VelocityComponent")
-movement_speed = 255
-default_accel_rate = 19
+movement_speed = 240
+default_accel_rate = 18
 active = false
 
 [node name="MovementStates" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("4_umnbn")]
@@ -301,11 +305,11 @@ character = NodePath("../../PlayerCharacterBody")
 falling_state = NodePath("../Falling")
 climbing_state = NodePath("../Climbing")
 velocity_component = NodePath("../../VelocityComponent")
-jumping_speed = -300
+jumping_speed = -240
 horizontal_movement_component = NodePath("../../HorizontalMovementComponent")
 
 [node name="JumpingTimer" type="Timer" parent="MovementStates/Jumping"]
-wait_time = 0.18
+wait_time = 0.175
 one_shot = true
 
 [node name="Falling" type="Node" parent="MovementStates" node_paths=PackedStringArray("standing_state", "ledge_grabbing_state", "climbing_state", "character", "velocity_component", "jump_buffer_timer", "horizontal_movement_component")]
@@ -330,7 +334,7 @@ character = NodePath("../../PlayerCharacterBody")
 horizontal_movement_component = NodePath("../../HorizontalMovementComponent")
 dust_spawner = NodePath("../../DustSpawner")
 jump_buffer_timer = NodePath("../JumpBufferTimer")
-standing_horizontal_accel_rate = 24
+standing_horizontal_accel_rate = 20
 
 [node name="CoyoteTimer" type="Timer" parent="MovementStates/Standing"]
 wait_time = 0.06
@@ -511,6 +515,11 @@ position = Vector2(-8, 0)
 
 [node name="PushStickyRightSide" type="Marker2D" parent="PlayerCharacterBody"]
 position = Vector2(8, 0)
+
+[node name="MouseDetectArea" parent="PlayerCharacterBody" instance=ExtResource("32_jrak7")]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerCharacterBody/MouseDetectArea"]
+shape = SubResource("CircleShape2D_cuesd")
 
 [connection signal="just_climbed" from="." to="ClimbingRopeDetector" method="_on_player_character_just_climbed"]
 [connection signal="just_interacted" from="." to="InteractionHandler" method="_on_player_character_just_interacted"]
