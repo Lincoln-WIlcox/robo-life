@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://csa7weg8wqsft" path="res://Objects/Battery/battery.tscn" id="9_r2sbr"]
 [ext_resource type="PackedScene" uid="uid://bofsie7wntey3" path="res://Objects/Shelter/shelter.tscn" id="11_go86j"]
 [ext_resource type="Resource" uid="uid://bckiex7mctva7" path="res://Items/drill.tres" id="13_p20mw"]
-[ext_resource type="PackedScene" uid="uid://bf3k02fdggn06" path="res://Objects/PoweredDoor/powered_door.tscn" id="14_m0f5a"]
+[ext_resource type="PackedScene" uid="uid://bf3k02fdggn06" path="res://Objects/Door/door.tscn" id="14_m0f5a"]
 [ext_resource type="PackedScene" uid="uid://bni6clyp4sg3" path="res://Objects/RockBarrier/rock_barrier.tscn" id="14_ntq8t"]
 [ext_resource type="PackedScene" uid="uid://cmog2buogarup" path="res://Objects/ItemPickup/item_pickup.tscn" id="14_q1p5m"]
 [ext_resource type="PackedScene" uid="uid://wnwdpxb3bxx4" path="res://Objects/Rope/rope.tscn" id="15_1u2go"]

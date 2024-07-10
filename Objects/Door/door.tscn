@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3 uid="uid://bf3k02fdggn06"]
+
+[ext_resource type="Script" path="res://Objects/Door/door.gd" id="1_rqneq"]
+
+[sub_resource type="Animation" id="Animation_q4c1c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StaticBody2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xt0eq"]
+resource_name = "SlideDoorUp"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StaticBody2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -100)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1k4jk"]
+_data = {
+"RESET": SubResource("Animation_q4c1c"),
+"SlideDoorUp": SubResource("Animation_xt0eq")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1nt0i"]
+size = Vector2(16, 64)
+
+[node name="Door" type="Node2D"]
+script = ExtResource("1_rqneq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1k4jk")
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+offset_right = 16.0
+offset_bottom = 64.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(8, 32)
+shape = SubResource("RectangleShape2D_1nt0i")
