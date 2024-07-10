@@ -14,4 +14,4 @@ position = Vector2(0, -4)
 texture = SubResource("AtlasTexture_b71ma")
 
 [node name="PowerSupplier" parent="." instance=ExtResource("2_5prhe")]
-supplies_power = 2
+supplies_power = 1
