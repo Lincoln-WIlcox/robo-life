@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bvpfxo05k5nyo"]
+[gd_scene load_steps=12 format=3 uid="uid://bvpfxo05k5nyo"]
 
 [ext_resource type="Script" path="res://Game/game.gd" id="1_p5sec"]
 [ext_resource type="PackedScene" uid="uid://4hdu5f7ikd0h" path="res://World/Levels/level_1.tscn" id="1_qsx06"]
@@ -10,21 +10,24 @@
 [ext_resource type="PackedScene" uid="uid://c2nwpx3t8tmc0" path="res://Components/StateMachine/state_machine.tscn" id="6_py240"]
 [ext_resource type="Script" path="res://Game/handle_placing_object.gd" id="7_n4fbt"]
 [ext_resource type="Script" path="res://Game/inventory_state.gd" id="8_1v6bn"]
+[ext_resource type="Script" path="res://Game/pickup_stuff_handler.gd" id="8_igpkq"]
 
-[node name="Game" type="Node" node_paths=PackedStringArray("ui_state_machine", "inventory_state", "place_object_handler", "placing_object_state")]
+[node name="Game" type="Node" node_paths=PackedStringArray("ui_state_machine", "inventory_state", "place_object_handler", "placing_object_state", "pickup_stuff_handler")]
 script = ExtResource("1_p5sec")
 ui_state_machine = NodePath("UIStateMachine")
 current_level_packed_scene = ExtResource("1_qsx06")
 inventory_state = NodePath("UIStateMachine/Inventory")
 place_object_handler = NodePath("PlaceObjectHandler")
 placing_object_state = NodePath("UIStateMachine/PlacingObject")
+pickup_stuff_handler = NodePath("PickupStuffHandler")
 
 [node name="UIStateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("6_py240")]
 initial_state = NodePath("None")
 
-[node name="None" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("inventory_state")]
+[node name="None" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("inventory_state", "pickup_stuff_handler")]
 script = ExtResource("4_hsru6")
 inventory_state = NodePath("../Inventory")
+pickup_stuff_handler = NodePath("../../PickupStuffHandler")
 
 [node name="Inventory" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("inventory_gui", "none_state", "placing_state")]
 script = ExtResource("8_1v6bn")
@@ -39,6 +42,9 @@ none_state = NodePath("../None")
 
 [node name="PlaceObjectHandler" type="Node2D" parent="."]
 script = ExtResource("7_n4fbt")
+
+[node name="PickupStuffHandler" type="Node" parent="."]
+script = ExtResource("8_igpkq")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 

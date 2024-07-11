@@ -9,7 +9,7 @@ func drop_item(item: ItemData, position: Vector2):
 	
 	var drop
 	if item.drop_scene:
-		drop = item.drop_scene.instantiate()
+		drop = load(item.drop_scene).instantiate()
 	else:
 		drop = item_pickup_scene.instantiate()
 		drop.item = item

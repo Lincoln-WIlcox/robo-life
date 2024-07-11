@@ -24,19 +24,18 @@ func add_connection(connector_a: PowerConnector, connector_b: PowerConnector) ->
 	connections_changed.emit()
 	
 	_update_power_consumers_in_tree(connector_a)
-	
 	return true
 
 func remove_connections_to_connector(connector: PowerConnector) -> void:
-	if connector is PowerSupplier or connector is PowerConsumer:
-		_update_power_consumers_in_tree(connector)
 	for i: int in range(power_connector_connections.size()-1, -1, -1):
 		if power_connector_connections[i].power_connector_a == connector or power_connector_connections[i].power_connector_b == connector:
+			var other_connector = power_connector_connections[i].power_connector_a if power_connector_connections[i].power_connector_a != connector else power_connector_connections[i].power_connector_b
 			#the only reason i need to store this is to i can emit it with connection removed after its been deleted
 			var power_connector_at_index = power_connector_connections[i]
 			power_connector_connections.remove_at(i)
 			connection_removed.emit(power_connector_at_index) 
-			connections_changed.emit()
+			_update_power_consumers_in_tree(other_connector)
+	connections_changed.emit()
 
 func get_power_connectors_in_tree(power_connector: PowerConnector) -> Array[PowerConnector]:
 	#this is the full list of power connectors in the tree. the top level function returns this at the end of the recursive functions
@@ -46,14 +45,16 @@ func get_power_connectors_in_tree(power_connector: PowerConnector) -> Array[Powe
 	
 	connectors.append(power_connector)
 	
-	var exclude = connections.duplicate()
+	var exclude: Array[PowerConnectorConnection] = connections.duplicate()
 	
 	for connection: PowerConnectorConnection in connections:
 		var child_connectors_with_exclude = _get_power_connectors_in_tree_with_excludes(connection.power_connector_a if connection.power_connector_a != power_connector else connection.power_connector_b, exclude)
 		exclude.append_array(child_connectors_with_exclude["exclude"])
 		connectors.append_array(child_connectors_with_exclude["connectors"])
 	
-	return connectors
+	var return_array: Array[PowerConnector]
+	return_array.assign(Utils.make_array_unique(connectors))
+	return return_array
 
 func _get_power_connectors_in_tree_with_excludes(power_connector: PowerConnector, exclude: Array[PowerConnectorConnection]) -> Dictionary:
 	#this is the full list of power connectors in the tree. the top level function returns this at the end of the recursive functions
@@ -74,7 +75,7 @@ func _get_power_connectors_in_tree_with_excludes(power_connector: PowerConnector
 		new_exclude.append_array(child_connectors_with_exclude["exclude"])
 		connectors.append_array(child_connectors_with_exclude["connectors"])
 	
-	return {"connectors": connectors, "exclude": connections}
+	return {"connectors": connectors, "exclude": new_exclude}
 
 func _update_power_consumers_in_tree(power_connector: PowerConnector) -> void:
 	var connectors: Array[PowerConnector] = get_power_connectors_in_tree(power_connector)

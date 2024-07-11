@@ -17,3 +17,12 @@ enum CollisionLayers
 	OneWayPlatforms,
 	Entities
 }
+
+static func make_array_unique(array: Array) -> Array:
+	var unique: Array = []
+	
+	for item in array:
+		if not unique.has(item):
+			unique.append(item)
+	
+	return unique

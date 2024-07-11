@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cng4tm54hq536"]
+[gd_scene load_steps=9 format=3 uid="uid://cng4tm54hq536"]
 
 [ext_resource type="Script" path="res://Objects/PowerPole/power_pole.gd" id="1_kt56x"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_gq44m"]
 [ext_resource type="PackedScene" uid="uid://g1sd2n28vfvx" path="res://Components/PowerConnection/power_connection.tscn" id="3_1oihy"]
+[ext_resource type="PackedScene" uid="uid://gfntau5ijo5h" path="res://Components/MousePickupComponent/mouse_pickup_area.tscn" id="4_4q22u"]
+[ext_resource type="Resource" uid="uid://b3au5vg63nxkc" path="res://Items/power_pole.tres" id="5_23ris"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g345s"]
 atlas = ExtResource("2_gq44m")
@@ -10,6 +12,9 @@ region = Rect2(112, 96, 16, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_agpx2"]
 radius = 128.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q0fjy"]
+size = Vector2(16, 16)
 
 [node name="PowerPole" type="Node2D"]
 script = ExtResource("1_kt56x")
@@ -23,3 +28,21 @@ texture = SubResource("AtlasTexture_g345s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ConnectArea"]
 shape = SubResource("CircleShape2D_agpx2")
+
+[node name="MousePickupArea" parent="." node_paths=PackedStringArray("progress_bar", "delete_node") instance=ExtResource("4_4q22u")]
+progress_bar = NodePath("../ProgressBar")
+delete_node = NodePath("..")
+item = ExtResource("5_23ris")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MousePickupArea"]
+shape = SubResource("RectangleShape2D_q0fjy")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = -12.0
+scale = Vector2(0.5, 0.5)
+step = 0.0
+value = 10.0
+show_percentage = false
