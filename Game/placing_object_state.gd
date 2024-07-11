@@ -8,7 +8,7 @@ var placeable_item: PlaceableItemData
 signal item_placed(item)
 
 func enter():
-	place_object_handler.start_placing_placeable(placeable_item.drop_scene.instantiate())
+	place_object_handler.start_placing_placeable(load(placeable_item.drop_scene).instantiate())
 
 func run():
 	place_object_handler.update_placing()
