@@ -15,3 +15,6 @@ var powered := false:
 		elif powered and not new_value:
 			just_lost_power.emit()
 		powered = new_value
+
+func _ready():
+	tree_exited.connect(PowerConnectionHandler.remove_connections_to_connector.bind(self))

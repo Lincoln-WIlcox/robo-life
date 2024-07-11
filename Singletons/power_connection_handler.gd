@@ -28,15 +28,14 @@ func add_connection(connector_a: PowerConnector, connector_b: PowerConnector) ->
 	return true
 
 func remove_connections_to_connector(connector: PowerConnector) -> void:
-	if connector is PowerSupplier or connector is PowerConsumer:
-		_update_power_consumers_in_tree(connector)
 	for i: int in range(power_connector_connections.size()-1, -1, -1):
 		if power_connector_connections[i].power_connector_a == connector or power_connector_connections[i].power_connector_b == connector:
 			#the only reason i need to store this is to i can emit it with connection removed after its been deleted
 			var power_connector_at_index = power_connector_connections[i]
 			power_connector_connections.remove_at(i)
 			connection_removed.emit(power_connector_at_index) 
-			connections_changed.emit()
+	connections_changed.emit()
+	_update_power_consumers_in_tree(connector)
 
 func get_power_connectors_in_tree(power_connector: PowerConnector) -> Array[PowerConnector]:
 	#this is the full list of power connectors in the tree. the top level function returns this at the end of the recursive functions
