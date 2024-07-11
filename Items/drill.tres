@@ -11,3 +11,4 @@ region = Rect2(96, 208, 16, 16)
 script = ExtResource("1_i2unm")
 texture = SubResource("AtlasTexture_6uqyt")
 name = "Drill"
+drop_scene = null

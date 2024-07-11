@@ -52,7 +52,9 @@ func get_power_connectors_in_tree(power_connector: PowerConnector) -> Array[Powe
 		exclude.append_array(child_connectors_with_exclude["exclude"])
 		connectors.append_array(child_connectors_with_exclude["connectors"])
 	
-	return connectors
+	var return_array: Array[PowerConnector]
+	return_array.assign(Utils.make_array_unique(connectors))
+	return return_array
 
 func _get_power_connectors_in_tree_with_excludes(power_connector: PowerConnector, exclude: Array[PowerConnectorConnection]) -> Dictionary:
 	#this is the full list of power connectors in the tree. the top level function returns this at the end of the recursive functions
