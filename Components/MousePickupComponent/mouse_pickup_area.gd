@@ -1,3 +1,4 @@
+class_name MousePickupArea
 extends Area2D
 
 @export var delete_node: Node
@@ -6,5 +7,6 @@ extends Area2D
 func on_selected():
 	pass
 
-func on_pickup():
+func pickup() -> ItemData:
 	delete_node.queue_free()
+	return item

@@ -11,6 +11,7 @@ const DEATH_MESSAGE = "You Died.. Bruh.."
 @export var inventory_state: State
 @export var place_object_handler: PlaceObjectHandler
 @export var placing_object_state: State
+@export var pickup_stuff_handler: PickupStuffHandler
 
 var world: World
 
@@ -55,6 +56,7 @@ func _on_active_player_changed(active_player: PlayerCharacterController):
 		)
 		placing_object_state.item_placed.connect(active_player.inventory.remove_item)
 		place_object_handler.mouse_detect_area = active_player.mouse_detect_area
+		pickup_stuff_handler.inventory = active_player.inventory
 
 func _on_active_player_inventory_changed(inventory: Inventory):
 	hud.battery_quantity = inventory.batteries
