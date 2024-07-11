@@ -6,6 +6,8 @@ func _ready():
 	PowerConnectionHandler.connections_changed.connect(_on_connections_changed)
 
 func _on_connections_changed():
+	await RenderingServer.frame_post_draw
+	
 	for child: Node in get_children():
 		if child is Line2D:
 			child.queue_free()
@@ -15,3 +17,4 @@ func _on_connections_changed():
 		line.add_point(connection.power_connector_a.global_position)
 		line.add_point(connection.power_connector_b.global_position)
 		add_child(line)
+
