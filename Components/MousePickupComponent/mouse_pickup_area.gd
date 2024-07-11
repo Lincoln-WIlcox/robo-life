@@ -1,12 +1,37 @@
 class_name MousePickupArea
 extends Area2D
 
+@export var progress_bar: ProgressBar
 @export var delete_node: Node
 @export var item: ItemData
 
-func on_selected():
-	pass
+@onready var timer = $Timer
 
-func pickup() -> ItemData:
+signal picked_up(item: ItemData)
+
+func _ready():
+	progress_bar.hide()
+	progress_bar.min_value = 0
+	progress_bar.max_value = timer.wait_time
+
+func start_picking_up():
+	timer.start()
+	progress_bar.show()
+
+func cancel_pickup():
+	timer.stop()
+	progress_bar.hide()
+
+func _process(delta):
+	progress_bar.value = timer.time_left
+
+func _input(event):
+	if event.is_action_released("pickup"):
+		cancel_pickup()
+
+func pickup():
 	delete_node.queue_free()
-	return item
+	picked_up.emit(item)
+
+func _on_timer_timeout():
+	pickup()
