@@ -27,6 +27,10 @@ MouseArea="*res://Singletons/MouseArea/mouse_area.tscn"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input]
 
 player_move_up={
