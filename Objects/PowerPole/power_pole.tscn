@@ -38,7 +38,6 @@ item = ExtResource("5_23ris")
 shape = SubResource("RectangleShape2D_q0fjy")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-anchors_preset = -1
 offset_left = -8.0
 offset_top = -16.0
 offset_right = 24.0
