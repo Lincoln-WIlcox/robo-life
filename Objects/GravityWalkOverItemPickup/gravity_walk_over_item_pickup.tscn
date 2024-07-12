@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://l3i3s2jucooj"]
 
-[ext_resource type="Script" path="res://Objects/WalkOverItemPickup/walk_over_item_pickup.gd" id="1_8mli1"]
+[ext_resource type="Script" path="res://Objects/GravityWalkOverItemPickup/gravity_walk_over_item_pickup.gd" id="1_8mli1"]
 [ext_resource type="Script" path="res://Components/VelocityComponent/velocity_component.gd" id="2_40bnr"]
 [ext_resource type="PackedScene" uid="uid://02awkvcr8831" path="res://Components/CharacterGravityComponent/gravity_component.tscn" id="3_aluhd"]
 [ext_resource type="PackedScene" uid="uid://cqdyp438enf1x" path="res://Components/WalkOverItemPickupArea/walk_over_item_pickup_area.tscn" id="4_woill"]
@@ -11,7 +11,7 @@ size = Vector2(8, 8)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lowp8"]
 size = Vector2(8, 8)
 
-[node name="WalkOverItemPickup" type="CharacterBody2D"]
+[node name="GravityWalkOverItemPickup" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_8mli1")
 
