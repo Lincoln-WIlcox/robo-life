@@ -38,11 +38,12 @@ drill = ExtResource("3_lpbnu")
 [node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("4_bitbt")]
 initial_state = NodePath("NotDrilling")
 
-[node name="NotDrilling" type="Node" parent="StateMachine" node_paths=PackedStringArray("inventory_requirement_interaction_area", "power_consumer", "drilling_state")]
+[node name="NotDrilling" type="Node" parent="StateMachine" node_paths=PackedStringArray("inventory_requirement_interaction_area", "power_consumer", "drilling_state", "time_task_handler")]
 script = ExtResource("5_tmnhx")
 inventory_requirement_interaction_area = NodePath("../../CharacterBody2D/InventoryRequirementInteractionArea")
 power_consumer = NodePath("../../CharacterBody2D/PowerConsumer")
 drilling_state = NodePath("../Drilling")
+time_task_handler = NodePath("../../CharacterBody2D/TimeTaskHandler")
 
 [node name="Drilling" type="Node" parent="StateMachine" node_paths=PackedStringArray("gravity_walk_over_pickup_spawner", "time_task_handler", "not_drilling_state")]
 script = ExtResource("6_tuk0r")
@@ -90,3 +91,4 @@ spawn_range_width = 32
 [connection signal="requirements_met" from="CharacterBody2D/InventoryRequirementInteractionArea" to="StateMachine/NotDrilling" method="_on_inventory_requirement_interaction_area_requirements_met"]
 [connection signal="power_requirement_lost" from="CharacterBody2D/PowerConsumer" to="StateMachine/Drilling" method="_on_power_consumer_power_requirement_lost"]
 [connection signal="power_requirement_met" from="CharacterBody2D/PowerConsumer" to="StateMachine/NotDrilling" method="_on_power_consumer_power_requirement_met"]
+[connection signal="task_completed" from="CharacterBody2D/TimeTaskHandler" to="StateMachine/Drilling" method="_on_time_task_handler_task_completed"]
