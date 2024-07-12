@@ -12,6 +12,7 @@ size = Vector2(8, 8)
 size = Vector2(8, 8)
 
 [node name="WalkOverItemPickup" type="CharacterBody2D"]
+collision_layer = 0
 script = ExtResource("1_8mli1")
 
 [node name="VelocityComponent" type="Node" parent="." node_paths=PackedStringArray("affecting_node")]

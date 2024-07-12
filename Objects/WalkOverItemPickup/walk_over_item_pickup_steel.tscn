@@ -15,6 +15,11 @@ gain_steel = 1
 gain_items = Array[Resource("res://Resources/item_data.gd")]([])
 
 [node name="WalkOverItemPickupSteel" instance=ExtResource("1_s7scy")]
+speed = 20
+
+[node name="VelocityComponent" parent="." index="0"]
+terminal_speed = 1000
+move_node_every_frame = false
 
 [node name="Sprite2D" parent="." index="2"]
 texture = SubResource("AtlasTexture_dy2qj")

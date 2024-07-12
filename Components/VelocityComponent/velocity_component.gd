@@ -65,6 +65,11 @@ func _physics_process(delta):
 	
 	_acceleration = Vector2.ZERO
 
+func update():
+	limit_velocity()
+	move_node()
+	_acceleration = Vector2.ZERO
+
 ##When the speed of [member VelocityComponent.velocity] is over [member VelocityComponent.terminal_speed], this will decrease speed by [member VelocityComponent.decrease_to_terminal_speed_weight]. [br]
 ##This will also not allow speed to go above [member VelocityComponent.max_speed].
 func limit_velocity() -> void:

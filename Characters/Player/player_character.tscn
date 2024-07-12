@@ -253,7 +253,7 @@ script = ExtResource("2_7jrx7")
 interactor = NodePath("..")
 detector_area = NodePath("../PlayerCharacterBody/InteractArea")
 
-[node name="BatteryCollector" type="Node" parent="."]
+[node name="WalkOverItemPickupCollector" type="Node" parent="."]
 script = ExtResource("15_hcdgv")
 
 [node name="AnimationHandler" type="Node" parent="." node_paths=PackedStringArray("jumping_state", "falling_state", "animated_sprite")]
@@ -529,7 +529,7 @@ shape = SubResource("CircleShape2D_cuesd")
 [connection signal="interacted_with_area" from="InteractionHandler" to="InteractionAreaInteractionHandler" method="_on_interacted_with_area"]
 [connection signal="interacted_with_area" from="InteractionHandler" to="ItemPickupInteractionHandler" method="_on_interacted_with_area"]
 [connection signal="interacted_with_area" from="InteractionHandler" to="InventoryRequirementInteractionAreaInteractionHandler" method="_on_interacted_with_area"]
-[connection signal="battery_collected" from="BatteryCollector" to="InventoryInteractionHandler" method="collect_battery"]
+[connection signal="walk_over_item_collected" from="WalkOverItemPickupCollector" to="." method="_on_walk_over_item_pickup_collector_walk_over_item_collected"]
 [connection signal="timeout" from="MovementStates/Standing/CoyoteTimer" to="MovementStates/Standing" method="_on_coyote_timer_timeout"]
 [connection signal="ledge_grabbed" from="PlayerLedgeGrabDetector" to="MovementStates/Falling" method="_on_player_ledge_grab_detector_ledge_grabbed"]
 [connection signal="climbable_climbed" from="ClimbingRopeDetector" to="MovementStates/Jumping" method="_on_climbing_rope_detector_climbable_climbed"]
@@ -537,7 +537,7 @@ shape = SubResource("CircleShape2D_cuesd")
 [connection signal="climbable_climbed" from="ClimbingRopeDetector" to="MovementStates/Standing" method="_on_climbing_rope_detector_climbable_climbed"]
 [connection signal="climbable_left" from="ClimbingRopeDetector" to="MovementStates/Climbing" method="_on_climbing_rope_detector_climbable_left"]
 [connection signal="drop_created" from="DropItemHandler" to="." method="_on_drop_item_handler_drop_created"]
-[connection signal="area_entered" from="PlayerCharacterBody/InteractArea" to="BatteryCollector" method="_on_area_entered"]
+[connection signal="area_entered" from="PlayerCharacterBody/InteractArea" to="WalkOverItemPickupCollector" method="_on_area_entered"]
 [connection signal="area_entered" from="PlayerCharacterBody/InteractArea" to="ClimbingRopeDetector" method="_on_interact_area_area_entered"]
 [connection signal="area_exited" from="PlayerCharacterBody/InteractArea" to="ClimbingRopeDetector" method="_on_interact_area_area_exited"]
 [connection signal="damage_received" from="PlayerCharacterBody/Hurtbox" to="HealthComponent" method="take_damage"]

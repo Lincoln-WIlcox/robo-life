@@ -13,7 +13,7 @@ extends Node2D
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var ledge_grab_detector: PlayerLedgeGrabDetector = $PlayerLedgeGrabDetector
 @onready var animation_handler: Node = $AnimationHandler
-@onready var battery_collector: Node = $BatteryCollector
+@onready var walk_over_item_pickup_collector: Node = $WalkOverItemPickupCollector
 @onready var interaction_handler: Node = $InteractionHandler
 @onready var interact_indicator_animation: AnimationPlayer = $PlayerCharacterBody/InteractionIndicator/FlashAnimation
 @onready var character: CharacterBody2D = $PlayerCharacterBody
@@ -35,7 +35,6 @@ var facing_left:
 	get:
 		return animated_sprite.flip_h
 
-signal battery_collected
 signal just_interacted
 signal just_climbed
 signal item_dropped(drop: Object)
@@ -76,7 +75,6 @@ var is_climbing := func(): return false:
 
 func _ready():
 	_update_children()
-	battery_collector.battery_collected.connect(func(): battery_collected.emit())
 	interact_indicator_animation.play("flash")
 	health_component.health_reached_zero.connect(func(): died.emit())
 	inventory_interaction_handler.inventory = inventory
@@ -116,3 +114,6 @@ func drop_item(item: ItemData):
 
 func _on_drop_item_handler_drop_created(drop):
 	item_dropped.emit(drop)
+
+func _on_walk_over_item_pickup_collector_walk_over_item_collected(inventory_addition: InventoryAddition):
+	inventory.add_addition(inventory_addition)
