@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://gfntau5ijo5h"]
+[gd_scene load_steps=3 format=3 uid="uid://gfntau5ijo5h"]
 
 [ext_resource type="Script" path="res://Components/MousePickupComponent/mouse_pickup_area.gd" id="1_80lxw"]
+[ext_resource type="PackedScene" uid="uid://xnd8ne8fypg3" path="res://Components/FloatAwayTextSpawner/float_away_text_spawner.tscn" id="2_ik7t8"]
 
 [node name="MousePickupArea" type="Area2D"]
 collision_layer = 16
@@ -9,5 +10,9 @@ script = ExtResource("1_80lxw")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.2
+
+[node name="FloatAwayTextSpawner" parent="." instance=ExtResource("2_ik7t8")]
+position = Vector2(0, -16)
+text = "too far to pick up"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
