@@ -22,7 +22,7 @@ func use_inventory(inventory: Inventory):
 	for inventory_gui_item: InventoryGUIItem in inventory_items_hbox.get_children():
 		inventory_gui_item.queue_free()
 	
-	for item: ItemData in inventory.items:
+	for item: ItemData in inventory.get_items():
 		var inventory_gui_item: InventoryGUIItem = inventory_gui_item_packed_scene.instantiate()
 		
 		inventory_gui_item.item = item
