@@ -6,6 +6,7 @@ extends Area2D
 @export var item: ItemData
 @export var time := .25
 
+@onready var text_spawner: FloatAwayTextSpawner = $FloatAwayTextSpawner
 @onready var timer = $Timer
 
 signal picked_up(item: ItemData)
@@ -34,6 +35,9 @@ func _input(event):
 func pickup():
 	delete_node.queue_free()
 	picked_up.emit(item)
+
+func pickup_out_of_range():
+	text_spawner.spawn_text()
 
 func _on_timer_timeout():
 	pickup()
