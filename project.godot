@@ -27,6 +27,11 @@ MouseArea="*res://Singletons/MouseArea/mouse_area.tscn"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[editor]
+
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
+
 [filesystem]
 
 import/blender/enabled=false
