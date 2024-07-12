@@ -36,7 +36,8 @@
 [sub_resource type="Resource" id="Resource_i3vek"]
 script = ExtResource("2_f2ewa")
 batteries = 0
-items = Array[Resource("res://Resources/item_data.gd")]([])
+steel = 0
+initial_items = Array[Resource("res://Resources/item_data.gd")]([])
 
 [sub_resource type="GDScript" id="GDScript_h7t3e"]
 script/source = "extends Node
