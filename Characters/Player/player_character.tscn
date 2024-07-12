@@ -247,6 +247,7 @@ script = ExtResource("3_0akcv")
 
 [node name="InvincibilityFramesHandler" parent="." node_paths=PackedStringArray("hurtbox") instance=ExtResource("4_w2wur")]
 hurtbox = NodePath("../PlayerCharacterBody/Hurtbox")
+i_seconds = 2
 
 [node name="InteractionHandler" type="Node" parent="." node_paths=PackedStringArray("interactor", "detector_area")]
 script = ExtResource("2_7jrx7")

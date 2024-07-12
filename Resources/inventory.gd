@@ -36,3 +36,4 @@ func add_addition(inventory_addition: InventoryAddition) -> void:
 	batteries += inventory_addition.gain_batteries
 	steel += inventory_addition.gain_steel
 	_items.append_array(inventory_addition.gain_items)
+	print(steel)

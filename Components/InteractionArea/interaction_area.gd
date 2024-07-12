@@ -10,3 +10,9 @@ signal interacted_with(interactor: Object)
 func interact(interactor: Node) -> void:
 	if !disabled:
 		interacted_with.emit(interactor)
+
+func disable() -> void:
+	disabled = true
+
+func enabled() -> void:
+	disabled = false

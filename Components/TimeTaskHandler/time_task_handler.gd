@@ -48,7 +48,7 @@ func make_progress() -> void:
 func pause_progress() -> void:
 	_paused = true
 
-func complete_task() -> void:
+func _complete_task() -> void:
 	task_completed.emit()
 
 func _set_up_progress_bar() -> void:
@@ -62,4 +62,4 @@ func _on_day_started():
 			timer.start(new_start_time)
 		else:
 			timer.stop()
-			complete_task()
+			_complete_task()
