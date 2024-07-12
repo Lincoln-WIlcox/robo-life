@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dkqe6b0wvlfl2"]
+[gd_scene load_steps=14 format=3 uid="uid://dkqe6b0wvlfl2"]
 
 [ext_resource type="PackedScene" uid="uid://c2nwpx3t8tmc0" path="res://Components/StateMachine/state_machine.tscn" id="1_lmhk6"]
 [ext_resource type="Script" path="res://Objects/DeployableLadder/deployable_ladder.gd" id="1_uq3fh"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" path="res://Objects/DeployableLadder/deploying_state.gd" id="3_lj3cy"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="3_rablb"]
 [ext_resource type="PackedScene" uid="uid://wnwdpxb3bxx4" path="res://Objects/Rope/rope.tscn" id="8_en3r5"]
+[ext_resource type="PackedScene" uid="uid://gfntau5ijo5h" path="res://Components/MousePickupComponent/mouse_pickup_area.tscn" id="9_ny7li"]
+[ext_resource type="Resource" uid="uid://di5ihtaupovf3" path="res://Items/deployable_ladder.tres" id="10_5egjk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qtf72"]
 atlas = ExtResource("3_rablb")
@@ -16,8 +18,19 @@ region = Rect2(96, 160, 16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_orqst"]
 size = Vector2(16, 14)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4j3p7"]
+size = Vector2(16, 14)
+
 [node name="DeployableLadder" type="Node2D"]
 script = ExtResource("1_uq3fh")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -6.0
+offset_top = -12.0
+offset_right = 18.0
+offset_bottom = -8.0
+scale = Vector2(0.5, 0.5)
+show_percentage = false
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("1_lmhk6")]
 initial_state = NodePath("FallingState")
@@ -59,3 +72,12 @@ position = Vector2(-8, -8)
 [node name="Rope" parent="CharacterBody2D/RopePosition" instance=ExtResource("8_en3r5")]
 height = 0
 tile_height = 0.0
+
+[node name="MousePickupArea" parent="." node_paths=PackedStringArray("progress_bar", "delete_node") instance=ExtResource("9_ny7li")]
+progress_bar = NodePath("../ProgressBar")
+delete_node = NodePath("..")
+item = ExtResource("10_5egjk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MousePickupArea"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_4j3p7")

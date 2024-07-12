@@ -4,7 +4,7 @@ extends Area2D
 @export var progress_bar: ProgressBar
 @export var delete_node: Node
 @export var item: ItemData
-@export var time := .3
+@export var time := .25
 
 @onready var timer = $Timer
 
