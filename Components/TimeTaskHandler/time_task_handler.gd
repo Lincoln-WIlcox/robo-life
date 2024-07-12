@@ -13,6 +13,8 @@ extends Node
 			timer.start(task_time)
 @export var start_paused := true
 
+var completed := false
+
 var paused: bool:
 	get:
 		return _paused
@@ -50,6 +52,7 @@ func pause_progress() -> void:
 
 func _complete_task() -> void:
 	task_completed.emit()
+	completed = true
 
 func _set_up_progress_bar() -> void:
 	progress_bar.max_value = task_time

@@ -26,3 +26,6 @@ func _on_spawn_steel_timer_timeout():
 func _on_power_consumer_power_requirement_lost():
 	if is_current_state:
 		state_ended.emit(not_drilling_state)
+
+func _on_time_task_handler_task_completed():
+	state_ended.emit(not_drilling_state)
