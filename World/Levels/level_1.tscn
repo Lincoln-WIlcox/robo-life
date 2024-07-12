@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://4hdu5f7ikd0h"]
+[gd_scene load_steps=17 format=3 uid="uid://4hdu5f7ikd0h"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_s0fbl"]
 [ext_resource type="PackedScene" uid="uid://uusfotp1xgjx" path="res://Objects/Spike/spike.tscn" id="5_a1p1l"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cmog2buogarup" path="res://Objects/ItemPickup/item_pickup.tscn" id="14_q1p5m"]
 [ext_resource type="PackedScene" uid="uid://wnwdpxb3bxx4" path="res://Objects/Rope/rope.tscn" id="15_1u2go"]
 [ext_resource type="Resource" uid="uid://di5ihtaupovf3" path="res://Items/deployable_ladder.tres" id="15_f5urc"]
+[ext_resource type="PackedScene" uid="uid://e2r1erqmej6l" path="res://Objects/WalkOverItemPickup/walk_over_item_pickup_steel.tscn" id="16_vk2kd"]
 [ext_resource type="PackedScene" uid="uid://brg4hptmtkbt2" path="res://Objects/PushableBlock/pushable_block.tscn" id="18_v7l3w"]
 
 [node name="Level1" instance=ExtResource("1_s0fbl")]
@@ -112,6 +113,33 @@ item = ExtResource("11_b2juo")
 [node name="ItemPickup5" parent="Tiles" index="25" instance=ExtResource("14_q1p5m")]
 position = Vector2(-272, 16)
 item = ExtResource("11_b2juo")
+
+[node name="WalkOverItemPickupSteel" parent="." index="5" instance=ExtResource("16_vk2kd")]
+position = Vector2(-224, -48)
+
+[node name="WalkOverItemPickupSteel2" parent="." index="6" instance=ExtResource("16_vk2kd")]
+position = Vector2(-208, -64)
+
+[node name="WalkOverItemPickupSteel3" parent="." index="7" instance=ExtResource("16_vk2kd")]
+position = Vector2(-208, -48)
+
+[node name="WalkOverItemPickupSteel4" parent="." index="8" instance=ExtResource("16_vk2kd")]
+position = Vector2(-192, -48)
+
+[node name="WalkOverItemPickupSteel5" parent="." index="9" instance=ExtResource("16_vk2kd")]
+position = Vector2(-192, -64)
+
+[node name="WalkOverItemPickupSteel6" parent="." index="10" instance=ExtResource("16_vk2kd")]
+position = Vector2(-192, -80)
+
+[node name="WalkOverItemPickupSteel7" parent="." index="11" instance=ExtResource("16_vk2kd")]
+position = Vector2(-224, -80)
+
+[node name="WalkOverItemPickupSteel8" parent="." index="12" instance=ExtResource("16_vk2kd")]
+position = Vector2(-224, -64)
+
+[node name="WalkOverItemPickupSteel9" parent="." index="13" instance=ExtResource("16_vk2kd")]
+position = Vector2(-208, -80)
 
 [connection signal="interacted_with" from="Tiles/Shelter" to="DayNightCycle" method="start_new_day"]
 [connection signal="item_spent" from="Tiles/RockBarrier" to="Tiles" method="add_child"]

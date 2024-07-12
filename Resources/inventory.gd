@@ -31,3 +31,8 @@ func get_item_at_index(i: int) -> ItemData:
 
 func has_item(item: ItemData) -> bool:
 	return _items.has(item)
+
+func add_addition(inventory_addition: InventoryAddition) -> void:
+	batteries += inventory_addition.gain_batteries
+	steel += inventory_addition.gain_steel
+	_items.append_array(inventory_addition.gain_items)

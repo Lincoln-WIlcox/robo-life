@@ -1,8 +1,7 @@
 extends Node
 
-signal battery_collected
+signal walk_over_item_collected(inventory_addition: InventoryAddition)
 
 func _on_area_entered(area: Area2D):
-	if area is BatteryPickup:
-		battery_collected.emit()
-		area.queue_free()
+	if area is WalkOverItemPickupArea:
+		walk_over_item_collected.emit(area.collect())

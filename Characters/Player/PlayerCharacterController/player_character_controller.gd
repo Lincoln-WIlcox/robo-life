@@ -7,7 +7,6 @@ extends Node2D
 
 @export var movement_disabled := false
 
-signal battery_collected
 signal item_dropped(drop: Object)
 signal died
 
@@ -24,7 +23,6 @@ func _ready():
 	player_character.is_moving_up = func(): return Input.is_action_pressed("player_move_up") and not movement_disabled
 	player_character.is_climbing = func(): return Input.is_action_pressed("player_climb") and not movement_disabled
 	player_character.just_climbed_callable = func(): return Input.is_action_just_pressed("player_climb") and not movement_disabled
-	player_character.battery_collected.connect(func(): battery_collected.emit())
 	player_character.item_dropped.connect(func(drop: Object): item_dropped.emit(drop))
 	player_character.died.connect(func(): died.emit())
 
