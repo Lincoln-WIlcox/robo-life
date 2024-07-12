@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cykbmxquct7pp"]
+[gd_scene load_steps=18 format=3 uid="uid://cykbmxquct7pp"]
 
 [ext_resource type="Script" path="res://Objects/SteelMine/steel_mine.gd" id="1_fpyg3"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="1_r1cfi"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://Objects/SteelMine/drilling.gd" id="6_tuk0r"]
 [ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Components/PowerConnection/PowerConsumer/power_consumer.tscn" id="10_budbg"]
 [ext_resource type="PackedScene" uid="uid://cy2f85iqat6q0" path="res://Components/TimeTaskHandler/time_task_handler.tscn" id="11_52nto"]
+[ext_resource type="PackedScene" uid="uid://cqnd47al60df" path="res://Objects/GravityWalkOverPickupSpawner/gravity_walk_over_pickup_spawner.tscn" id="12_t4jqo"]
+[ext_resource type="PackedScene" uid="uid://e2r1erqmej6l" path="res://Objects/GravityWalkOverItemPickup/gravity_walk_over_item_pickup_steel.tscn" id="13_4g10x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6avpw"]
 atlas = ExtResource("1_r1cfi")
@@ -42,9 +44,11 @@ inventory_requirement_interaction_area = NodePath("../../CharacterBody2D/Invento
 power_consumer = NodePath("../../CharacterBody2D/PowerConsumer")
 drilling_state = NodePath("../Drilling")
 
-[node name="Drilling" type="Node" parent="StateMachine" node_paths=PackedStringArray("time_task_handler")]
+[node name="Drilling" type="Node" parent="StateMachine" node_paths=PackedStringArray("gravity_walk_over_pickup_spawner", "time_task_handler", "not_drilling_state")]
 script = ExtResource("6_tuk0r")
+gravity_walk_over_pickup_spawner = NodePath("../../CharacterBody2D/GravityWalkOverPickupSpawner")
 time_task_handler = NodePath("../../CharacterBody2D/TimeTaskHandler")
+not_drilling_state = NodePath("../NotDrilling")
 
 [node name="SpawnSteelTimer" type="Timer" parent="StateMachine/Drilling"]
 
@@ -76,7 +80,13 @@ consumes_power = 1
 position = Vector2(14, 1)
 task_time = 50
 
+[node name="GravityWalkOverPickupSpawner" parent="CharacterBody2D" instance=ExtResource("12_t4jqo")]
+position = Vector2(24, -8)
+gravity_walk_over_pickup_packed_scene = ExtResource("13_4g10x")
+spawn_range_width = 32
+
 [connection signal="timeout" from="StateMachine/Drilling/SpawnSteelTimer" to="StateMachine/Drilling" method="_on_spawn_steel_timer_timeout"]
 [connection signal="requirements_met" from="CharacterBody2D/InventoryRequirementInteractionArea" to="." method="_on_inventory_requirement_interaction_area_requirements_met"]
 [connection signal="requirements_met" from="CharacterBody2D/InventoryRequirementInteractionArea" to="StateMachine/NotDrilling" method="_on_inventory_requirement_interaction_area_requirements_met"]
+[connection signal="power_requirement_lost" from="CharacterBody2D/PowerConsumer" to="StateMachine/Drilling" method="_on_power_consumer_power_requirement_lost"]
 [connection signal="power_requirement_met" from="CharacterBody2D/PowerConsumer" to="StateMachine/NotDrilling" method="_on_power_consumer_power_requirement_met"]

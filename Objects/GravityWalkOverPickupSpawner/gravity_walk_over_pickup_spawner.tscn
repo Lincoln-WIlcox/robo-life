@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqnd47al60df"]
+
+[ext_resource type="Script" path="res://Objects/GravityWalkOverPickupSpawner/gravity_walk_over_pickup_spawner.gd" id="1_x1o7e"]
+
+[node name="GravityWalkOverPickupSpawner" type="Node2D"]
+script = ExtResource("1_x1o7e")

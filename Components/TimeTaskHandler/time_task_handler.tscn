@@ -10,7 +10,8 @@ one_shot = true
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 custom_minimum_size = Vector2(200, 0)
-offset_right = 200.0
+offset_left = -10.0
+offset_right = 190.0
 offset_bottom = 4.0
 scale = Vector2(0.1, 0.1)
 show_percentage = false
