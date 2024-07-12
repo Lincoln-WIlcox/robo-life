@@ -9,11 +9,11 @@ script = ExtResource("1_w7lw1")
 one_shot = true
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-custom_minimum_size = Vector2(200, 0)
-offset_left = -10.0
-offset_right = 190.0
+custom_minimum_size = Vector2(150, 0)
+offset_left = -36.0
+offset_right = 114.0
 offset_bottom = 4.0
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.5, 0.5)
 show_percentage = false
 
-[connection signal="timeout" from="TimeToCompletion" to="." method="complete_task"]
+[connection signal="timeout" from="TimeToCompletion" to="." method="_complete_task"]
