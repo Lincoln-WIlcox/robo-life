@@ -12,7 +12,7 @@ script = ExtResource("1_uqeng")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(0, 750)
+target_position = Vector2(0, 0)
 
 [node name="Area2D" type="Area2D" parent="."]
 
