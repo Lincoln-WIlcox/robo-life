@@ -10,6 +10,8 @@ extends Node2D
 @export var item_pickup_packed_scene: PackedScene
 @export var node_to_put_item_pickup_in: Node
 @export var drill: ItemData
+@export var steel_amount := 20
+@export var progress_bar: ProgressBar
 
 signal item_spent(item_pickup: ItemPickup)
 
@@ -19,6 +21,9 @@ func _ready():
 	not_drilling.is_drill_on_mine = func(): return _drill_on_mine
 	drilling.is_drill_on_mine = func(): return _drill_on_mine
 	gravity_walk_over_pickup_spawner.node_to_spawn_pickup_in = node_to_put_item_pickup_in
+	drilling.steel_remaining = steel_amount
+	progress_bar.max_value = steel_amount
+	progress_bar.value = 0
 
 func _on_inventory_requirement_interaction_area_requirements_met(_interactor):
 	_create_item_pickup()
