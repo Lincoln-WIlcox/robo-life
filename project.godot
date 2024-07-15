@@ -111,6 +111,7 @@ pickup={
 2d_physics/layer_3="Entities"
 2d_physics/layer_4="WalkThroughEntities"
 2d_physics/layer_5="MouseDetector"
+2d_physics/layer_6="Damage"
 
 [physics]
 

@@ -3,4 +3,5 @@
 [ext_resource type="Script" path="res://Components/DamageArea/damage_area.gd" id="1_mku4k"]
 
 [node name="DamageArea" type="Area2D"]
+collision_mask = 32
 script = ExtResource("1_mku4k")
