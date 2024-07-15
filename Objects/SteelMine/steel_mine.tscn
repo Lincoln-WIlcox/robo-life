@@ -51,6 +51,7 @@ not_drilling_state = NodePath("../NotDrilling")
 progress_bar = NodePath("../../CharacterBody2D/ProgressBar")
 
 [node name="SpawnSteelTimer" type="Timer" parent="StateMachine/Drilling"]
+wait_time = 1.5
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 
