@@ -6,7 +6,6 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_8tynd"]
 
 [node name="Laser" type="Node2D"]
-position = Vector2(222, 45)
 script = ExtResource("1_uqeng")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -24,6 +24,7 @@ position = Vector2(8, 32)
 shape = SubResource("RectangleShape2D_yl2go")
 
 [node name="Overheater" parent="." instance=ExtResource("1_eugad")]
+max_heat = 200
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Overheater"]
 position = Vector2(8, 32)

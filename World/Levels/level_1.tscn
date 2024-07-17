@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://4hdu5f7ikd0h"]
+[gd_scene load_steps=18 format=3 uid="uid://4hdu5f7ikd0h"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_s0fbl"]
 [ext_resource type="PackedScene" uid="uid://uusfotp1xgjx" path="res://Objects/Spike/spike.tscn" id="5_a1p1l"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://wnwdpxb3bxx4" path="res://Objects/Rope/rope.tscn" id="15_1u2go"]
 [ext_resource type="Resource" uid="uid://di5ihtaupovf3" path="res://Items/deployable_ladder.tres" id="15_f5urc"]
 [ext_resource type="PackedScene" uid="uid://cykbmxquct7pp" path="res://Objects/SteelMine/steel_mine.tscn" id="16_kdvld"]
+[ext_resource type="PackedScene" uid="uid://dpyu3hof4l6hb" path="res://Objects/OverheatingWall/overheatable_wall.tscn" id="17_8n4om"]
 [ext_resource type="PackedScene" uid="uid://brg4hptmtkbt2" path="res://Objects/PushableBlock/pushable_block.tscn" id="18_v7l3w"]
 
 [node name="Level1" instance=ExtResource("1_s0fbl")]
@@ -130,6 +131,9 @@ item = ExtResource("11_b2juo")
 [node name="SteelMine" parent="Tiles" index="29" node_paths=PackedStringArray("node_to_put_item_pickup_in") instance=ExtResource("16_kdvld")]
 position = Vector2(-848, -32)
 node_to_put_item_pickup_in = NodePath("../..")
+
+[node name="OverheatableWall" parent="Tiles" index="30" instance=ExtResource("17_8n4om")]
+position = Vector2(-101, -165)
 
 [connection signal="interacted_with" from="Tiles/Shelter" to="DayNightCycle" method="start_new_day"]
 [connection signal="item_spent" from="Tiles/RockBarrier" to="Tiles" method="add_child"]
