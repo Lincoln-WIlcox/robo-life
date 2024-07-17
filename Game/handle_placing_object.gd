@@ -2,13 +2,12 @@ class_name PlaceObjectHandler
 extends Node2D
 
 var mouse_detect_area: MouseDetectArea
+var node_to_spawn_placeables_in: Node
 var _placing_placeable: Placeable
-
-signal placing_item(object: Placeable)
 
 func start_placing_placeable(placeable: Placeable) -> void:
 	_placing_placeable = placeable
-	placing_item.emit(placeable)
+	node_to_spawn_placeables_in.add_child(_placing_placeable)
 
 func stop_placing() -> void:
 	_placing_placeable = null

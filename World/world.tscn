@@ -23,7 +23,8 @@ one_shot = true
 
 [node name="PowerLineDrawer" parent="." instance=ExtResource("2_gho6m")]
 
-[node name="PlayerCharacterController" parent="." instance=ExtResource("1_yr2t8")]
+[node name="PlayerCharacterController" parent="." node_paths=PackedStringArray("node_to_spawn_placeables_in") instance=ExtResource("1_yr2t8")]
+node_to_spawn_placeables_in = NodePath("..")
 
 [node name="Tiles" type="TileMap" parent="."]
 format = 2
