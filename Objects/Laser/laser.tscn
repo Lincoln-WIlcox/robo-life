@@ -11,15 +11,16 @@ script = ExtResource("1_uqeng")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(0, 0)
+target_position = Vector2(750, 0)
 
 [node name="DamageArea" type="Area2D" parent="."]
 script = ExtResource("2_eseey")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+position = Vector2(750, 0)
 shape = SubResource("CircleShape2D_8tynd")
 
 [node name="Line2D" type="Line2D" parent="."]
-points = PackedVector2Array(0, 0, 0, 0)
+points = PackedVector2Array(0, 0, 750, 0)
 width = 5.0
 default_color = Color(1, 0, 0, 1)
