@@ -3,8 +3,9 @@ extends Node2D
 
 @onready var player_character = $PlayerCharacter
 @onready var camera = $Camera2D
-@onready var none_state: State
+@onready var none_state: State = $UIStateMachine/None
 @onready var pickup_stuff_handler: PickupStuffHandler = $PickupStuffHandler
+@onready var inventory_state: State = $UIStateMachine/Inventory
 
 @export var movement_disabled := false
 
@@ -29,6 +30,7 @@ func _ready():
 	none_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
 	pickup_stuff_handler.inventory = player_character.inventory
 	pickup_stuff_handler.mouse_detect_area = player_character.mouse_detect_area
+	inventory_state.active_player = player_character
 
 func drop_item(item: ItemData):
 	player_character.drop_item(item)
@@ -41,3 +43,9 @@ func _input(event):
 
 func _process(delta):
 	camera.position = player_character.character.position
+
+func on_drop_item(item: ItemData):
+	if item is PlaceableItemData:
+		inventory_state.on_placeable_item_dropped(item)
+	else:
+		player_character.drop_item(item)

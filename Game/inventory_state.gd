@@ -1,24 +1,24 @@
 extends State
 
-@export var inventory_gui: Control
 @export var none_state: State
 @export var placing_state: State
 
-var get_active_player: Callable = func(): return PlayerCharacterController.new()
+var active_player: PlayerCharacter
+
+signal inventory_opened
+signal inventory_closed
 
 func enter():
-	inventory_gui.show()
+	inventory_opened.emit()
 
 func run():
 	if Input.is_action_just_pressed("toggle_inventory"):
 		state_ended.emit(none_state)
 
 func exit():
-	inventory_gui.hide()
+	inventory_closed.emit()
 
-func _on_inventory_gui_item_dropped(item: ItemData):
-	if item is PlaceableItemData:
+func on_placeable_item_dropped(item: ItemData):
+	if is_current_state:
 		placing_state.placeable_item = item
 		state_ended.emit(placing_state)
-	else:
-		get_active_player.call().drop_item(item)

@@ -32,11 +32,10 @@ script = ExtResource("4_7is3e")
 inventory_state = NodePath("../Inventory")
 pickup_stuff_handler = NodePath("../../PickupStuffHandler")
 
-[node name="Inventory" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("inventory_gui", "none_state", "placing_state")]
+[node name="Inventory" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("none_state", "placing_state")]
 script = ExtResource("5_fsdf8")
-inventory_gui = NodePath("")
-none_state = NodePath("")
-placing_state = NodePath("")
+none_state = NodePath("../None")
+placing_state = NodePath("../PlacingObject")
 
 [node name="PlacingObject" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("place_object_handler", "none_state")]
 script = ExtResource("6_1j2hy")
