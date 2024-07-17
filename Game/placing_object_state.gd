@@ -4,6 +4,8 @@ extends State
 @export var none_state: State
 
 var placeable_item: PlaceableItemData
+var place_object: Callable
+var cancel_placing_object: Callable
 
 signal item_placed(item)
 
@@ -12,10 +14,10 @@ func enter():
 
 func run():
 	place_object_handler.update_placing()
-	if Input.is_action_just_pressed("place_object") and place_object_handler.attempt_place_object():
+	if place_object.call() and place_object_handler.attempt_place_object():
 		item_placed.emit(placeable_item)
 		state_ended.emit(none_state)
-	if Input.is_action_just_pressed("cancel_placing_object"):
+	if cancel_placing_object.call():
 		place_object_handler.cancel_placing()
 		state_ended.emit(none_state)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dw2fqgynxjcit"]
+[gd_scene load_steps=9 format=3 uid="uid://dw2fqgynxjcit"]
 
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/player_character_controller.gd" id="1_bw5ol"]
 [ext_resource type="PackedScene" uid="uid://d1kvhwjb0iy8m" path="res://Characters/Player/player_character.tscn" id="2_u8dgg"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Game/inventory_state.gd" id="5_fsdf8"]
 [ext_resource type="Script" path="res://Game/placing_object_state.gd" id="6_1j2hy"]
 [ext_resource type="Script" path="res://Game/pickup_stuff_handler.gd" id="7_bmrc0"]
+[ext_resource type="Script" path="res://Game/handle_placing_object.gd" id="8_4yuco"]
 
 [node name="PlayerCharacterController" type="Node2D"]
 script = ExtResource("1_bw5ol")
@@ -39,8 +40,11 @@ placing_state = NodePath("../PlacingObject")
 
 [node name="PlacingObject" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("place_object_handler", "none_state")]
 script = ExtResource("6_1j2hy")
-place_object_handler = NodePath("")
-none_state = NodePath("")
+place_object_handler = NodePath("../../PlaceObjectHandler")
+none_state = NodePath("../None")
 
 [node name="PickupStuffHandler" type="Node" parent="."]
 script = ExtResource("7_bmrc0")
+
+[node name="PlaceObjectHandler" type="Node2D" parent="."]
+script = ExtResource("8_4yuco")

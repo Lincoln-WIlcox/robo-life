@@ -6,6 +6,6 @@ extends State
 var toggle_inventory: Callable
 
 func run():
-	if toggle_inventory:
+	if toggle_inventory.call():
 		state_ended.emit(inventory_state)
 	pickup_stuff_handler.update()

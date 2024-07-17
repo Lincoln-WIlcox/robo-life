@@ -4,6 +4,7 @@ extends State
 @export var placing_state: State
 
 var active_player: PlayerCharacter
+var toggle_inventory: Callable
 
 signal inventory_opened
 signal inventory_closed
@@ -12,7 +13,7 @@ func enter():
 	inventory_opened.emit()
 
 func run():
-	if Input.is_action_just_pressed("toggle_inventory"):
+	if toggle_inventory.call():
 		state_ended.emit(none_state)
 
 func exit():
