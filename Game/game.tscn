@@ -6,14 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://cttegcifjq5jb" path="res://UI/InventoryGUI/inventory_gui.tscn" id="5_6ax4x"]
 [ext_resource type="PackedScene" uid="uid://bkc6nabwtybq4" path="res://UI/GameOverMenu/game_over_menu.tscn" id="5_8hpvy"]
 
-[node name="Game" type="Node" node_paths=PackedStringArray("ui_state_machine", "inventory_state", "place_object_handler", "placing_object_state", "pickup_stuff_handler")]
+[node name="Game" type="Node"]
 script = ExtResource("1_p5sec")
-ui_state_machine = NodePath("")
 current_level_packed_scene = ExtResource("1_qsx06")
-inventory_state = NodePath("")
-place_object_handler = NodePath("")
-placing_object_state = NodePath("")
-pickup_stuff_handler = NodePath("")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 

@@ -39,6 +39,7 @@ func _ready():
 	inventory_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
 	placing_object_state.place_object = func(): return Input.is_action_just_pressed("place_object")
 	placing_object_state.cancel_placing_object = func(): return Input.is_action_just_pressed("cancel_placing_object")
+	placing_object_state.inventory = inventory
 	pickup_stuff_handler.pickup = func(): return Input.is_action_just_pressed("pickup")
 	pickup_stuff_handler.mouse_detect_area = player_character.mouse_detect_area
 	pickup_stuff_handler.inventory = inventory
@@ -65,3 +66,4 @@ func handle_drop_item(item: ItemData):
 		inventory_state.on_placeable_item_dropped(item)
 	else:
 		player_character.drop_item(item)
+
