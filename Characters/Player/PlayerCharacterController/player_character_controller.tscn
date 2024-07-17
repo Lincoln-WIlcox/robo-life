@@ -11,7 +11,6 @@
 
 [node name="PlayerCharacterController" type="Node2D"]
 script = ExtResource("1_bw5ol")
-movement_disabled = null
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("2_u8dgg")]
 

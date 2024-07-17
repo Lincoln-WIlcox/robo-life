@@ -7,12 +7,15 @@ extends Node2D
 @onready var pickup_stuff_handler: PickupStuffHandler = $PickupStuffHandler
 @onready var inventory_state: State = $UIStateMachine/Inventory
 @onready var placing_object_state: State = $UIStateMachine/PlacingObject
-@onready var pickup_stuff_handler: PickupStuffHandler = $PickupStuffHandler
+@onready var place_object_handler: PlaceObjectHandler = $PlaceObjectHandler
 
 @export var movement_disabled := false
+@export var node_to_spawn_placeables_in: Node
 
 signal item_dropped(drop: Object)
 signal died
+signal inventory_opened
+signal inventory_closed
 
 var inventory:
 	get:
@@ -30,13 +33,20 @@ func _ready():
 	player_character.item_dropped.connect(func(drop: Object): item_dropped.emit(drop))
 	player_character.died.connect(func(): died.emit())
 	none_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
-	pickup_stuff_handler.inventory = player_character.inventory
+	pickup_stuff_handler.inventory = inventory
 	pickup_stuff_handler.mouse_detect_area = player_character.mouse_detect_area
 	inventory_state.active_player = player_character
 	inventory_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
 	placing_object_state.place_object = func(): return Input.is_action_just_pressed("place_object")
 	placing_object_state.cancel_placing_object = func(): return Input.is_action_just_pressed("cancel_placing_object")
 	pickup_stuff_handler.pickup = func(): return Input.is_action_just_pressed("pickup")
+	pickup_stuff_handler.mouse_detect_area = player_character.mouse_detect_area
+	pickup_stuff_handler.inventory = inventory
+	place_object_handler.mouse_detect_area = player_character.mouse_detect_area
+	place_object_handler.node_to_spawn_placeables_in = node_to_spawn_placeables_in
+	
+	inventory_state.inventory_opened.connect(func(): inventory_opened.emit())
+	inventory_state.inventory_closed.connect(func(): inventory_closed.emit())
 
 func drop_item(item: ItemData):
 	player_character.drop_item(item)
@@ -50,7 +60,7 @@ func _input(event):
 func _process(delta):
 	camera.position = player_character.character.position
 
-func on_drop_item(item: ItemData):
+func handle_drop_item(item: ItemData):
 	if item is PlaceableItemData:
 		inventory_state.on_placeable_item_dropped(item)
 	else:

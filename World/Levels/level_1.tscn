@@ -22,7 +22,7 @@
 [node name="Level1" instance=ExtResource("1_s0fbl")]
 
 [node name="PlayerCharacterController" parent="." index="3"]
-position = Vector2(-59, 485)
+position = Vector2(-190, -47)
 
 [node name="Tiles" parent="." index="4"]
 tile_set = ExtResource("6_3k4c5")
