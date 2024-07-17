@@ -3,7 +3,8 @@ extends Node2D
 
 @onready var player_character = $PlayerCharacter
 @onready var camera = $Camera2D
-@onready var mouse_detect_area: MouseDetectArea = player_character.mouse_detect_area
+@onready var none_state: State
+@onready var pickup_stuff_handler: PickupStuffHandler = $PickupStuffHandler
 
 @export var movement_disabled := false
 
@@ -25,6 +26,9 @@ func _ready():
 	player_character.just_climbed_callable = func(): return Input.is_action_just_pressed("player_climb") and not movement_disabled
 	player_character.item_dropped.connect(func(drop: Object): item_dropped.emit(drop))
 	player_character.died.connect(func(): died.emit())
+	none_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
+	pickup_stuff_handler.inventory = player_character.inventory
+	pickup_stuff_handler.mouse_detect_area = player_character.mouse_detect_area
 
 func drop_item(item: ItemData):
 	player_character.drop_item(item)
