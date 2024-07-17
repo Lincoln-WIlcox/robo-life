@@ -13,10 +13,10 @@ script = ExtResource("1_uqeng")
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(750, 0)
 
-[node name="DamageArea" type="Area2D" parent="."]
+[node name="HeatArea" type="Area2D" parent="."]
 script = ExtResource("2_eseey")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeatArea"]
 position = Vector2(750, 0)
 shape = SubResource("CircleShape2D_8tynd")
 

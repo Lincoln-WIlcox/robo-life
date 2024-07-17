@@ -3,7 +3,7 @@ extends Node2D
 @onready var heat_receiver = $HeatReceiver
 
 @export var max_heat := 1000
-@export var cooldown_rate := 1
+@export var cooldown_rate := 1.0
 
 var heat := 0
 var overheated := false:

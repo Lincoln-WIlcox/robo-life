@@ -4,7 +4,7 @@ extends Node2D
 const SHAPE_OFFSET = 2.5
 
 @onready var raycast: RayCast2D = $RayCast2D
-@onready var collision_shape: CollisionShape2D = $DamageArea/CollisionShape2D
+@onready var collision_shape: CollisionShape2D = $HeatArea/CollisionShape2D
 @onready var line: Line2D = $Line2D
 
 @export var maximum_length := 750:
