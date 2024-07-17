@@ -5,7 +5,12 @@ extends Node2D
 @export var max_heat := 1000
 @export var cooldown_rate := 1
 
-var heat = 0
+var heat := 0
+var overheated := false:
+	set(new_value):
+		if not overheated and new_value:
+			max_heat_reached.emit()
+		overheated = new_value
 
 signal max_heat_reached
 
@@ -18,3 +23,5 @@ func _ready():
 func _physics_process(delta):
 	heat += heat_receiver.receiving_damage if heat_receiver.receiving_damage else -cooldown_rate
 	heat = max(heat, 0)
+	
+	overheated = heat >= max_heat
