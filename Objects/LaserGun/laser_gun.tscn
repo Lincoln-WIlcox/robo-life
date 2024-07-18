@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0pmkjnlnl8p0"]
+
+[ext_resource type="Script" path="res://Objects/LaserGun/laser_gun.gd" id="1_iwen1"]
+[ext_resource type="PackedScene" uid="uid://7k2m5p3o1p4k" path="res://Objects/Laser/laser.tscn" id="1_mst08"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_y4n1s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_osoaw"]
+atlas = ExtResource("2_y4n1s")
+region = Rect2(216, 232, 8, 8)
+
+[node name="LaserGun" type="Node2D"]
+script = ExtResource("1_iwen1")
+firing = false
+
+[node name="Laser" parent="." instance=ExtResource("1_mst08")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -1.57161
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_osoaw")
