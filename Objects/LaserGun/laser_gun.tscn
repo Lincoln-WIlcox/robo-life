@@ -10,9 +10,9 @@ region = Rect2(216, 232, 8, 8)
 
 [node name="LaserGun" type="Node2D"]
 script = ExtResource("1_iwen1")
-firing = false
 
 [node name="Laser" parent="." instance=ExtResource("1_mst08")]
+maximum_length = 280
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = -1.57161

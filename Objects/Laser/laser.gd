@@ -9,8 +9,9 @@ const SHAPE_OFFSET = 2.5
 
 @export var maximum_length := 750:
 	set(new_value):
+		if is_node_ready():
+			raycast.target_position.x = maximum_length
 		maximum_length = new_value
-		raycast.target_position.x = maximum_length
 
 func _ready():
 	raycast.target_position.x = maximum_length
@@ -18,5 +19,8 @@ func _ready():
 func _physics_process(delta):
 	var laser_end_position: Vector2 = raycast.get_collision_point() if raycast.is_colliding() else (raycast.target_position.rotated(raycast.global_rotation)) + raycast.global_position
 	collision_shape.global_position = laser_end_position
+
+func _process(delta):
+	var laser_end_position: Vector2 = raycast.get_collision_point() if raycast.is_colliding() else (raycast.target_position.rotated(raycast.global_rotation)) + raycast.global_position
 	line.set_point_position(1, laser_end_position - line.global_position)
 	line.global_rotation = 0
