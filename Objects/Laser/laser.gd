@@ -9,8 +9,9 @@ const SHAPE_OFFSET = 2.5
 
 @export var maximum_length := 750:
 	set(new_value):
+		if is_node_ready():
+			raycast.target_position.x = maximum_length
 		maximum_length = new_value
-		raycast.target_position.x = maximum_length
 
 func _ready():
 	raycast.target_position.x = maximum_length
