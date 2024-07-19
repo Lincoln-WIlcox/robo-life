@@ -1,9 +1,10 @@
+class_name Bullet
 extends Node2D
 
 @onready var marker = $Marker2D
 @onready var visible_on_screen_notifier = $Marker2D/VisibleOnScreenNotifier2D
 
-@export var speed := 18
+@export var speed := 5
 @export var direction := 0:
 	set(new_value):
 		rotation_degrees = new_value

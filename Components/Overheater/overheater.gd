@@ -26,6 +26,4 @@ func _ready():
 func _physics_process(delta):
 	heat += heat_receiver.receiving_heat if heat_receiver.receiving_heat else -cooldown_rate
 	heat = max(heat, 0)
-	print(cooldown_rate)
-	print(heat_receiver.receiving_heat)
 	overheated = heat >= max_heat
