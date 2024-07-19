@@ -1,3 +1,4 @@
+class_name Overheater
 extends Node2D
 
 @onready var heat_receiver = $HeatReceiver
@@ -16,6 +17,8 @@ signal max_heat_reached
 
 func _ready():
 	var collision_shapes: Array[Node] = get_children().filter(func(c: Node): return c is CollisionShape2D)
+	if collision_shapes.size() == 0:
+		push_warning("There are no CollisionShape2Ds as child of Overheater. It cannot interact with heaters.")
 	for collision_shape: CollisionShape2D in collision_shapes:
 		remove_child(collision_shape)
 		heat_receiver.add_child(collision_shape)

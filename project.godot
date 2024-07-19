@@ -120,7 +120,7 @@ fire={
 
 [physics]
 
-2d/default_gravity=22.0
+2d/default_gravity=17.0
 
 [rendering]
 

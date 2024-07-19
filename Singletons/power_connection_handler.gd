@@ -39,7 +39,7 @@ func remove_connections_to_connector(connector: PowerConnector) -> void:
 
 func get_power_connectors_in_tree(power_connector: PowerConnector) -> Array[PowerConnector]:
 	#this is the full list of power connectors in the tree. the top level function returns this at the end of the recursive functions
-	var connectors: Array[PowerConnector]
+	var connectors: Array[PowerConnector] = []
 	#this is the power connector connections that include this power connector and aren't in exclude
 	var connections: Array[PowerConnectorConnection] = power_connector_connections.filter(func(pc: PowerConnectorConnection): return pc.power_connector_a == power_connector or pc.power_connector_b == power_connector)
 	
@@ -52,13 +52,13 @@ func get_power_connectors_in_tree(power_connector: PowerConnector) -> Array[Powe
 		exclude.append_array(child_connectors_with_exclude["exclude"])
 		connectors.append_array(child_connectors_with_exclude["connectors"])
 	
-	var return_array: Array[PowerConnector]
+	var return_array: Array[PowerConnector] = []
 	return_array.assign(Utils.make_array_unique(connectors))
 	return return_array
 
 func _get_power_connectors_in_tree_with_excludes(power_connector: PowerConnector, exclude: Array[PowerConnectorConnection]) -> Dictionary:
 	#this is the full list of power connectors in the tree. the top level function returns this at the end of the recursive functions
-	var connectors: Array[PowerConnector]
+	var connectors: Array[PowerConnector] = []
 	#this is the power connector connections that include this power connector and aren't in exclude
 	var connections: Array[PowerConnectorConnection] = power_connector_connections.filter(
 		func(pc: PowerConnectorConnection): 
@@ -81,8 +81,8 @@ func _update_power_consumers_in_tree(power_connector: PowerConnector) -> void:
 	var connectors: Array[PowerConnector] = get_power_connectors_in_tree(power_connector)
 	var power_suppliers: Array[PowerConnector] = connectors.filter(func(connector: PowerConnector): return connector is PowerSupplier)
 	var power_consumers: Array[PowerConnector] = connectors.filter(func(connector: PowerConnector): return connector is PowerConsumer)
-	var total_power_supplying: int = power_suppliers.reduce(func(total_power: int, power_supplier: PowerSupplier): return total_power + power_supplier.supplies_power, 0)
-	var consuming_power: int = power_consumers.reduce(func(total_power: int, power_consumer: PowerConsumer): return total_power + power_consumer.consumes_power, 0)
+	var total_power_supplying: float = power_suppliers.reduce(func(total_power: int, power_supplier: PowerSupplier): return total_power + power_supplier.supplies_power, 0)
+	var consuming_power: float = power_consumers.reduce(func(total_power: int, power_consumer: PowerConsumer): return total_power + power_consumer.consumes_power, 0)
 	
 	for power_consumer: PowerConsumer in power_consumers:
 		power_consumer.enough_power_supplied = total_power_supplying >= consuming_power

@@ -18,7 +18,7 @@ func _ready():
 			child.is_current_state = func(): return _current_state == child
 	_current_state = initial_state
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if run_state_every_frame: run_current_state()
 
 ##Change current state to [param new_state]

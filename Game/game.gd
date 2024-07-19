@@ -18,7 +18,8 @@ var world: World
 func _ready():
 	load_level(current_level_packed_scene)
 
-func load_level(level: PackedScene) -> void:
+func load_level(_level: PackedScene) -> void:
+	current_level_packed_scene = _level
 	if world:
 		world.queue_free()
 	world = current_level_packed_scene.instantiate()

@@ -48,7 +48,7 @@ func _ready():
 	place_object_handler.mouse_detect_area = player_character.mouse_detect_area
 	place_object_handler.node_to_spawn_placeables_in = node_to_spawn_placeables_in
 	laser_gun_handler.is_firing = func(): return Input.is_action_pressed("fire")
-	
+	none_state.is_firing = func(): return Input.is_action_pressed("fire")
 	inventory_state.inventory_opened.connect(func(): inventory_opened.emit())
 	inventory_state.inventory_closed.connect(func(): inventory_closed.emit())
 	
@@ -64,7 +64,7 @@ func _input(event):
 	if event.is_action_pressed("player_climb") and not movement_disabled:
 		player_character.just_climbed.emit()
 
-func _process(delta):
+func _process(_delta):
 	camera.position = player_character.character.position
 
 func handle_drop_item(item: ItemData):

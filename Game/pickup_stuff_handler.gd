@@ -10,7 +10,8 @@ func update():
 	
 	if pickup.call() and pickup_areas.size() > 0:
 		if mouse_detect_area.mouse_over:
-			var item: ItemData = pickup_areas[0].start_picking_up()
+			#var item: ItemData = pickup_areas[0].start_picking_up()
+			pickup_areas[0].start_picking_up()
 			if not pickup_areas[0].picked_up.is_connected(_on_pickup_picked_up):
 				pickup_areas[0].picked_up.connect(_on_pickup_picked_up)
 		else:

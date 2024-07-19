@@ -35,11 +35,12 @@ drag_right_margin = 0.01
 [node name="UIStateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("3_aoc7a")]
 initial_state = NodePath("None")
 
-[node name="None" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("inventory_state", "pickup_stuff_handler", "laser_gun_handler")]
+[node name="None" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("inventory_state", "pickup_stuff_handler", "laser_gun_handler", "laser_gun")]
 script = ExtResource("4_7is3e")
 inventory_state = NodePath("../Inventory")
 pickup_stuff_handler = NodePath("../../PickupStuffHandler")
 laser_gun_handler = NodePath("../../LaserGunHandler")
+laser_gun = NodePath("../../LaserGun")
 
 [node name="Inventory" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("none_state", "placing_state")]
 script = ExtResource("5_fsdf8")

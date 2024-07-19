@@ -15,6 +15,7 @@ func run():
 	place_object_handler.update_placing()
 	if place_object.call() and place_object_handler.attempt_place_object():
 		inventory.remove_item(placeable_item)
+		none_state.just_placed_object = true
 		state_ended.emit(none_state)
 	if cancel_placing_object.call():
 		place_object_handler.cancel_placing()
