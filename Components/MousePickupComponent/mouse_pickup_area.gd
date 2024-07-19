@@ -25,7 +25,7 @@ func cancel_pickup():
 	timer.stop()
 	progress_bar.hide()
 
-func _process(delta):
+func _process(_delta):
 	progress_bar.value = timer.time_left
 
 func _input(event):

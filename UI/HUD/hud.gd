@@ -17,5 +17,5 @@ var battery_quantity := 0:
 func _update_batteries_label() -> void:
 	batteries_label.text = BATTERY_MESSAGE + str(battery_quantity)
 
-func _process(delta):
+func _process(_delta):
 	time_left_lable.text = str(time_left.call())

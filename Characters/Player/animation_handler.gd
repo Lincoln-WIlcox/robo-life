@@ -7,7 +7,7 @@ extends Node
 var is_moving_left: Callable
 var is_moving_right: Callable
 
-func _process(delta):
+func _process(_delta):
 	if jumping_state.is_current_state.call():
 		animated_sprite.play("Jumping")
 	elif falling_state.is_current_state.call():

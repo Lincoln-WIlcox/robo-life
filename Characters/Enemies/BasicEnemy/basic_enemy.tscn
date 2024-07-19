@@ -1,0 +1,111 @@
+[gd_scene load_steps=13 format=3 uid="uid://cunc28rnr20cj"]
+
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="1_emesy"]
+[ext_resource type="Script" path="res://Characters/Enemies/BasicEnemy/basic_enemy.gd" id="1_ms7aa"]
+[ext_resource type="Script" path="res://Characters/Enemies/BasicEnemy/shoot_player_controller.gd" id="2_4wh7y"]
+[ext_resource type="Script" path="res://Characters/Enemies/BasicEnemy/movement_controller.gd" id="2_25rc5"]
+[ext_resource type="PackedScene" uid="uid://02awkvcr8831" path="res://Components/CharacterGravityComponent/gravity_component.tscn" id="2_gl1g2"]
+[ext_resource type="PackedScene" uid="uid://vvmx1q8uqi2n" path="res://Components/Overheater/overheater.tscn" id="2_l8e3m"]
+[ext_resource type="PackedScene" uid="uid://bpjyigrxmafpo" path="res://Objects/Bullet/bullet.tscn" id="3_f7jvg"]
+[ext_resource type="PackedScene" uid="uid://lxxl844xt4sk" path="res://Components/VelocityComponent/velocity_component.tscn" id="3_un1su"]
+[ext_resource type="Script" path="res://Components/HeaterProgressBarUpdater/heater_progress_bar_updater.gd" id="4_2p77k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4fpjn"]
+atlas = ExtResource("1_emesy")
+region = Rect2(208, 152, 16, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sjc6e"]
+size = Vector2(16, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rx58i"]
+size = Vector2(18, 25)
+
+[node name="BasicEnemy" type="Node2D"]
+script = ExtResource("1_ms7aa")
+
+[node name="ShootPlayerController" type="Node" parent="." node_paths=PackedStringArray("character", "line_of_sight_of_target")]
+script = ExtResource("2_4wh7y")
+bullet_packed_scene = ExtResource("3_f7jvg")
+character = NodePath("../CharacterBody2D")
+line_of_sight_of_target = NodePath("../CharacterBody2D/LineOfSightOfTarget")
+
+[node name="Timer" type="Timer" parent="ShootPlayerController"]
+wait_time = 2.0
+autostart = true
+
+[node name="MovementController" type="Node" parent="." node_paths=PackedStringArray("velocity_component", "floor_checker_left", "floor_checker_right", "wall_checker_left", "wall_checker_right")]
+script = ExtResource("2_25rc5")
+velocity_component = NodePath("../VelocityComponent")
+floor_checker_left = NodePath("../CharacterBody2D/FloorCheckerLeft")
+floor_checker_right = NodePath("../CharacterBody2D/FloorCheckerRight")
+wall_checker_left = NodePath("../CharacterBody2D/WallCheckerLeft")
+wall_checker_right = NodePath("../CharacterBody2D/WallCheckerRight")
+
+[node name="Timer" type="Timer" parent="MovementController"]
+autostart = true
+
+[node name="GravityComponent" parent="." node_paths=PackedStringArray("velocity_component", "character") instance=ExtResource("2_gl1g2")]
+velocity_component = NodePath("../VelocityComponent")
+character = NodePath("../CharacterBody2D")
+
+[node name="VelocityComponent" parent="." node_paths=PackedStringArray("affecting_node") instance=ExtResource("3_un1su")]
+affecting_node = NodePath("../CharacterBody2D")
+
+[node name="OverheatProgressBarUpdater" type="Node" parent="." node_paths=PackedStringArray("overheater", "progress_bar")]
+script = ExtResource("4_2p77k")
+overheater = NodePath("../CharacterBody2D/Overheater")
+progress_bar = NodePath("../CharacterBody2D/ProgressBar")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+collision_layer = 4
+
+[node name="ProgressBar" type="ProgressBar" parent="CharacterBody2D"]
+offset_left = -9.0
+offset_top = -17.0
+offset_right = 171.0
+offset_bottom = 10.0
+scale = Vector2(0.1, 0.1)
+show_percentage = false
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = SubResource("AtlasTexture_4fpjn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_sjc6e")
+
+[node name="Overheater" parent="CharacterBody2D" instance=ExtResource("2_l8e3m")]
+max_heat = 250.0
+cooldown_rate = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Overheater"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_rx58i")
+
+[node name="FloorCheckerLeft" type="RayCast2D" parent="CharacterBody2D"]
+position = Vector2(-9, 11)
+target_position = Vector2(0, 7)
+collision_mask = 3
+
+[node name="FloorCheckerRight" type="RayCast2D" parent="CharacterBody2D"]
+position = Vector2(8, 11)
+target_position = Vector2(0, 7)
+collision_mask = 3
+
+[node name="WallCheckerLeft" type="RayCast2D" parent="CharacterBody2D"]
+position = Vector2(-8, 8)
+rotation = 1.57079
+target_position = Vector2(0, 7)
+
+[node name="WallCheckerRight" type="RayCast2D" parent="CharacterBody2D"]
+position = Vector2(8, 8)
+rotation = -1.57079
+target_position = Vector2(0, 7)
+
+[node name="LineOfSightOfTarget" type="RayCast2D" parent="CharacterBody2D"]
+position = Vector2(0, -5)
+collision_mask = 3
+
+[connection signal="timeout" from="ShootPlayerController/Timer" to="ShootPlayerController" method="_on_timer_timeout"]
+[connection signal="timeout" from="MovementController/Timer" to="MovementController" method="_on_timer_timeout"]
+[connection signal="max_heat_reached" from="CharacterBody2D/Overheater" to="." method="_on_overheater_max_heat_reached"]

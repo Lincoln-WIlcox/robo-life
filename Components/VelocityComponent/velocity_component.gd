@@ -55,7 +55,7 @@ var is_still: bool:
 #Do not set _acceleration (it's marked as private for a reason). Instead, use the methods provided to interact with _acceleration.
 var _acceleration := Vector2.ZERO 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if limit_velocity_every_frame:
 		limit_velocity()
 	#if add_last_move_y_when_leaving_slope and affecting_node.is_on_wall() and !affecting_node.test_move(affecting_node.transform, velocity * delta):

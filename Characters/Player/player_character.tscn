@@ -423,6 +423,7 @@ floor_snap_length = 15.0
 [node name="DetectPushingComponent" parent="PlayerCharacterBody" instance=ExtResource("27_k7fi7")]
 
 [node name="Area2D" type="Area2D" parent="PlayerCharacterBody/DetectPushingComponent"]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/DetectPushingComponent/Area2D"]
 position = Vector2(0, 5.5)
@@ -459,6 +460,7 @@ offset = Vector2(0, -5)
 position = Vector2(-12, -11)
 
 [node name="GrabLeftArea" type="Area2D" parent="PlayerCharacterBody/GrabLeftMarker"]
+collision_layer = 0
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/GrabLeftMarker/GrabLeftArea"]
@@ -469,6 +471,7 @@ metadata/_edit_lock_ = true
 position = Vector2(12, -11)
 
 [node name="GrabRightArea" type="Area2D" parent="PlayerCharacterBody/GrabRightMarker"]
+collision_layer = 0
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/GrabRightMarker/GrabRightArea"]
@@ -483,7 +486,7 @@ shape = SubResource("RectangleShape2D_6ufrv")
 metadata/_edit_lock_ = true
 
 [node name="InteractArea" type="Area2D" parent="PlayerCharacterBody"]
-collision_mask = 13
+collision_mask = 141
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/InteractArea"]
 position = Vector2(0, -1)
@@ -519,6 +522,7 @@ position = Vector2(-8, 0)
 position = Vector2(8, 0)
 
 [node name="MouseDetectArea" parent="PlayerCharacterBody" instance=ExtResource("32_jrak7")]
+collision_layer = 0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerCharacterBody/MouseDetectArea"]
 shape = SubResource("CircleShape2D_cuesd")

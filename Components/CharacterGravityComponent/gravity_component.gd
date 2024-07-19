@@ -37,9 +37,9 @@ var _gravity_speed: int:
 		else:
 			return ProjectSettings.get_setting("physics/2d/default_gravity")
 
-var _is_on_slope = false
+#var _is_on_slope = false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if active:
 		_apply_gravity()
 

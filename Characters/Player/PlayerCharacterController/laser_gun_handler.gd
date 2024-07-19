@@ -5,7 +5,7 @@ extends Node2D
 
 var is_firing: Callable
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	laser_gun.global_position = player_character.character.global_position
 	laser_gun.look_at(get_global_mouse_position())
 
