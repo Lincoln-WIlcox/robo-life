@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://Components/HeatArea/heat_area.gd" id="2_eseey"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8tynd"]
+radius = 4.0
 
 [node name="Laser" type="Node2D"]
 script = ExtResource("1_uqeng")
@@ -12,13 +13,13 @@ script = ExtResource("1_uqeng")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(750, 0)
-collision_mask = 3
+collision_mask = 7
 
 [node name="HeatArea" type="Area2D" parent="."]
 script = ExtResource("2_eseey")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HeatArea"]
-position = Vector2(750, 0)
+position = Vector2(748, 0)
 shape = SubResource("CircleShape2D_8tynd")
 
 [node name="Line2D" type="Line2D" parent="."]
