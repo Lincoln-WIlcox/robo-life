@@ -1,7 +1,7 @@
 class_name LaserGun
 extends Node2D
 
-@onready var _laser = $Laser
+@onready var _laser := $Laser
 
 @export var firing = true:
 	set = _update_firing
@@ -11,6 +11,8 @@ func _ready():
 		_stop_firing_laser()
 
 func _update_firing(new_value):
+	if not is_node_ready():
+		await ready
 	if firing and not new_value:
 		_stop_firing_laser()
 	elif not firing and new_value:
