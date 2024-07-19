@@ -12,6 +12,7 @@ script = ExtResource("1_uqeng")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(750, 0)
+collision_mask = 3
 
 [node name="HeatArea" type="Area2D" parent="."]
 script = ExtResource("2_eseey")

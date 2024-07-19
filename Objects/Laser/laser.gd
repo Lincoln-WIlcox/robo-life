@@ -18,5 +18,8 @@ func _ready():
 func _physics_process(delta):
 	var laser_end_position: Vector2 = raycast.get_collision_point() if raycast.is_colliding() else (raycast.target_position.rotated(raycast.global_rotation)) + raycast.global_position
 	collision_shape.global_position = laser_end_position
+
+func _process(delta):
+	var laser_end_position: Vector2 = raycast.get_collision_point() if raycast.is_colliding() else (raycast.target_position.rotated(raycast.global_rotation)) + raycast.global_position
 	line.set_point_position(1, laser_end_position - line.global_position)
 	line.global_rotation = 0

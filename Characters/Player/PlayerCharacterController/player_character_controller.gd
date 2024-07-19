@@ -47,7 +47,7 @@ func _ready():
 	pickup_stuff_handler.inventory = inventory
 	place_object_handler.mouse_detect_area = player_character.mouse_detect_area
 	place_object_handler.node_to_spawn_placeables_in = node_to_spawn_placeables_in
-	laser_gun_handler.is_firing = func(): return Input.is_action_just_pressed("fire")
+	laser_gun_handler.is_firing = func(): return Input.is_action_pressed("fire")
 	
 	inventory_state.inventory_opened.connect(func(): inventory_opened.emit())
 	inventory_state.inventory_closed.connect(func(): inventory_closed.emit())

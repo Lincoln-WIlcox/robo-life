@@ -142,5 +142,8 @@ position = Vector2(53, 358)
 [node name="Laser" parent="Tiles" index="32" instance=ExtResource("18_vikjm")]
 position = Vector2(-437, 392)
 
+[node name="OverheatableWall3" parent="Tiles" index="33" instance=ExtResource("17_8n4om")]
+position = Vector2(-368, -80)
+
 [connection signal="interacted_with" from="Tiles/Shelter" to="DayNightCycle" method="start_new_day"]
 [connection signal="item_spent" from="Tiles/RockBarrier" to="Tiles" method="add_child"]
