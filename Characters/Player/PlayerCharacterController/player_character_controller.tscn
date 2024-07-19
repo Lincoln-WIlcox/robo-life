@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dw2fqgynxjcit"]
+[gd_scene load_steps=11 format=3 uid="uid://dw2fqgynxjcit"]
 
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/player_character_controller.gd" id="1_bw5ol"]
+[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/laser_gun_handler.gd" id="2_paldi"]
 [ext_resource type="PackedScene" uid="uid://d1kvhwjb0iy8m" path="res://Characters/Player/player_character.tscn" id="2_u8dgg"]
 [ext_resource type="PackedScene" uid="uid://c2nwpx3t8tmc0" path="res://Components/StateMachine/state_machine.tscn" id="3_aoc7a"]
 [ext_resource type="Script" path="res://Game/none_state.gd" id="4_7is3e"]
@@ -8,9 +9,15 @@
 [ext_resource type="Script" path="res://Game/placing_object_state.gd" id="6_1j2hy"]
 [ext_resource type="Script" path="res://Game/pickup_stuff_handler.gd" id="7_bmrc0"]
 [ext_resource type="Script" path="res://Game/handle_placing_object.gd" id="8_4yuco"]
+[ext_resource type="PackedScene" uid="uid://b0pmkjnlnl8p0" path="res://Objects/LaserGun/laser_gun.tscn" id="9_03qrv"]
 
 [node name="PlayerCharacterController" type="Node2D"]
 script = ExtResource("1_bw5ol")
+
+[node name="LaserGunHandler" type="Node" parent="." node_paths=PackedStringArray("player_character", "laser_gun")]
+script = ExtResource("2_paldi")
+player_character = NodePath("../PlayerCharacter")
+laser_gun = NodePath("../LaserGun")
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("2_u8dgg")]
 
@@ -48,3 +55,6 @@ script = ExtResource("7_bmrc0")
 
 [node name="PlaceObjectHandler" type="Node2D" parent="."]
 script = ExtResource("8_4yuco")
+
+[node name="LaserGun" parent="." instance=ExtResource("9_03qrv")]
+firing = false

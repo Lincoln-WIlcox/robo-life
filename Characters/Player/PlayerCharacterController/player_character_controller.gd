@@ -8,6 +8,8 @@ extends Node2D
 @onready var inventory_state: State = $UIStateMachine/Inventory
 @onready var placing_object_state: State = $UIStateMachine/PlacingObject
 @onready var place_object_handler: PlaceObjectHandler = $PlaceObjectHandler
+@onready var laser_gun = $LaserGun
+@onready var laser_gun_handler = $LaserGunHandler
 
 @export var movement_disabled := false
 @export var node_to_spawn_placeables_in: Node
@@ -48,6 +50,9 @@ func _ready():
 	
 	inventory_state.inventory_opened.connect(func(): inventory_opened.emit())
 	inventory_state.inventory_closed.connect(func(): inventory_closed.emit())
+	
+	remove_child(laser_gun)
+	player_character.character.add_child(laser_gun)
 
 func drop_item(item: ItemData):
 	player_character.drop_item(item)
@@ -66,4 +71,3 @@ func handle_drop_item(item: ItemData):
 		inventory_state.on_placeable_item_dropped(item)
 	else:
 		player_character.drop_item(item)
-
