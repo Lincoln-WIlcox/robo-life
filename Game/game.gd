@@ -47,21 +47,20 @@ func _on_game_over_menu_play_again_pressed():
 	load_level(current_level_packed_scene)
 
 func _on_active_player_changed(active_player: PlayerCharacterController):
-	if not active_player.inventory.changed.is_connected(_on_active_player_inventory_changed):
-		active_player.inventory.changed.connect(_on_active_player_inventory_changed.bind(active_player.inventory))
-		#inventory_state.get_active_player = func(): return active_player
-		active_player.died.connect(
-			func(): 
-				world.call_deferred("set_process_mode", Node.PROCESS_MODE_DISABLED)
-				game_over_menu.show_menu_with_death_message(DEATH_MESSAGE)
-		)
-		active_player.inventory_opened.connect(inventory_gui.open_gui)
-		active_player.inventory_closed.connect(inventory_gui.close_gui)
-		inventory_gui.item_dropped.connect(active_player.handle_drop_item)
-		#placing_object_state.item_placed.connect(active_player.inventory.remove_item)
-		#place_object_handler.mouse_detect_area = active_player.mouse_detect_area
-		#pickup_stuff_handler.mouse_detect_area = active_player.mouse_detect_area
-		#pickup_stuff_handler.inventory = active_player.inventory
+	active_player.inventory.changed.connect(_on_active_player_inventory_changed.bind(active_player.inventory))
+	#inventory_state.get_active_player = func(): return active_player
+	active_player.died.connect(
+		func(): 
+			world.call_deferred("set_process_mode", Node.PROCESS_MODE_DISABLED)
+			game_over_menu.show_menu_with_death_message(DEATH_MESSAGE)
+	)
+	active_player.inventory_opened.connect(inventory_gui.open_gui)
+	active_player.inventory_closed.connect(inventory_gui.close_gui)
+	inventory_gui.item_dropped.connect(active_player.handle_drop_item)
+	#placing_object_state.item_placed.connect(active_player.inventory.remove_item)
+	#place_object_handler.mouse_detect_area = active_player.mouse_detect_area
+	#pickup_stuff_handler.mouse_detect_area = active_player.mouse_detect_area
+	#pickup_stuff_handler.inventory = active_player.inventory
 
 func _on_active_player_inventory_changed(inventory: Inventory):
 	hud.battery_quantity = inventory.batteries

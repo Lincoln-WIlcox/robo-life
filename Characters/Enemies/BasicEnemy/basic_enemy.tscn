@@ -103,6 +103,7 @@ rotation = -1.57079
 target_position = Vector2(0, 7)
 
 [node name="LineOfSightOfTarget" type="RayCast2D" parent="CharacterBody2D"]
+position = Vector2(0, -5)
 collision_mask = 3
 
 [connection signal="timeout" from="ShootPlayerController/Timer" to="ShootPlayerController" method="_on_timer_timeout"]
