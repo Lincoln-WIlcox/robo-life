@@ -3,10 +3,10 @@ extends Node2D
 
 @onready var heat_receiver = $HeatReceiver
 
-@export var max_heat := 1000
+@export var max_heat := 1000.0
 @export var cooldown_rate := 1.0
 
-var heat := 0
+var heat := 0.0
 var overheated := false:
 	set(new_value):
 		if not overheated and new_value:
@@ -26,5 +26,6 @@ func _ready():
 func _physics_process(delta):
 	heat += heat_receiver.receiving_heat if heat_receiver.receiving_heat else -cooldown_rate
 	heat = max(heat, 0)
-	
+	print(cooldown_rate)
+	print(heat_receiver.receiving_heat)
 	overheated = heat >= max_heat

@@ -11,7 +11,7 @@ var is_moving_left: Callable
 var is_moving_right: Callable
 var facing_left = false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if active:
 		handle_movement()
 

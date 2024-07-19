@@ -5,10 +5,16 @@ extends Node2D
 
 @export var firing = true:
 	set = _update_firing
+@export var heat_amount := 1:
+	set(new_value):
+		if is_node_ready():
+			_laser.heat_amount = new_value
+		heat_amount = new_value
 
 func _ready():
 	if firing == false:
 		_stop_firing_laser()
+	_laser.heat_amount = heat_amount
 
 func _update_firing(new_value):
 	if not is_node_ready():

@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cunc28rnr20cj"]
+[gd_scene load_steps=8 format=3 uid="uid://cunc28rnr20cj"]
 
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="1_emesy"]
+[ext_resource type="Script" path="res://Objects/Enemies/BasicEnemy/basic_enemy.gd" id="1_ms7aa"]
 [ext_resource type="PackedScene" uid="uid://vvmx1q8uqi2n" path="res://Components/Overheater/overheater.tscn" id="2_l8e3m"]
+[ext_resource type="Script" path="res://Components/HeaterProgressBarUpdater/heater_progress_bar_updater.gd" id="4_2p77k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4fpjn"]
 atlas = ExtResource("1_emesy")
@@ -10,9 +12,26 @@ region = Rect2(208, 152, 16, 24)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sjc6e"]
 size = Vector2(16, 23)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rx58i"]
+size = Vector2(18, 25)
+
 [node name="BasicEnemy" type="Node2D"]
+script = ExtResource("1_ms7aa")
+
+[node name="OverheatProgressBarUpdater" type="Node" parent="." node_paths=PackedStringArray("overheater", "progress_bar")]
+script = ExtResource("4_2p77k")
+overheater = NodePath("../CharacterBody2D/Overheater")
+progress_bar = NodePath("../CharacterBody2D/ProgressBar")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="ProgressBar" type="ProgressBar" parent="CharacterBody2D"]
+offset_left = -9.0
+offset_top = -17.0
+offset_right = 171.0
+offset_bottom = 10.0
+scale = Vector2(0.1, 0.1)
+show_percentage = false
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 texture = SubResource("AtlasTexture_4fpjn")
@@ -22,5 +41,11 @@ position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_sjc6e")
 
 [node name="Overheater" parent="CharacterBody2D" instance=ExtResource("2_l8e3m")]
+max_heat = 200.0
+cooldown_rate = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Overheater"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_rx58i")
+
+[connection signal="max_heat_reached" from="CharacterBody2D/Overheater" to="." method="_on_overheater_max_heat_reached"]

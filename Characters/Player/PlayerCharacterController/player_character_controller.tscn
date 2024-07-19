@@ -60,3 +60,4 @@ script = ExtResource("8_4yuco")
 
 [node name="LaserGun" parent="." instance=ExtResource("9_03qrv")]
 firing = false
+heat_amount = 2
