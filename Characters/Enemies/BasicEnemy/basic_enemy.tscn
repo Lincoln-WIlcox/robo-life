@@ -23,13 +23,14 @@ size = Vector2(18, 25)
 [node name="BasicEnemy" type="Node2D"]
 script = ExtResource("1_ms7aa")
 
-[node name="ShootPlayerController" type="Node" parent="." node_paths=PackedStringArray("character")]
+[node name="ShootPlayerController" type="Node" parent="." node_paths=PackedStringArray("character", "line_of_sight_of_target")]
 script = ExtResource("2_4wh7y")
 bullet_packed_scene = ExtResource("3_f7jvg")
 character = NodePath("../CharacterBody2D")
+line_of_sight_of_target = NodePath("../CharacterBody2D/LineOfSightOfTarget")
 
 [node name="Timer" type="Timer" parent="ShootPlayerController"]
-wait_time = 3.0
+wait_time = 2.0
 autostart = true
 
 [node name="MovementController" type="Node" parent="." node_paths=PackedStringArray("velocity_component", "floor_checker_left", "floor_checker_right", "wall_checker_left", "wall_checker_right")]
@@ -100,6 +101,9 @@ target_position = Vector2(0, 7)
 position = Vector2(8, 8)
 rotation = -1.57079
 target_position = Vector2(0, 7)
+
+[node name="LineOfSightOfTarget" type="RayCast2D" parent="CharacterBody2D"]
+collision_mask = 3
 
 [connection signal="timeout" from="ShootPlayerController/Timer" to="ShootPlayerController" method="_on_timer_timeout"]
 [connection signal="timeout" from="MovementController/Timer" to="MovementController" method="_on_timer_timeout"]
