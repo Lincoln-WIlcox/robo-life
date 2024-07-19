@@ -10,9 +10,9 @@ extends Node2D
 	get:
 		return rotation_degrees
 
-func _ready():
-	if not visible_on_screen_notifier.is_on_screen():
-		destroy()
+#func _ready():
+	#if not visible_on_screen_notifier.is_on_screen():
+		#destroy()
 
 func _physics_process(delta):
 	marker.position.x += speed
