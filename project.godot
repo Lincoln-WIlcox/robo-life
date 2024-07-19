@@ -117,6 +117,8 @@ fire={
 2d_physics/layer_4="WalkThroughEntities"
 2d_physics/layer_5="MouseDetector"
 2d_physics/layer_6="Damage"
+2d_physics/layer_7="Heat"
+2d_physics/layer_8="IntangibleEnviornmentObjects"
 
 [physics]
 

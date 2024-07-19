@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgs10o16n0tc"]
+
+[ext_resource type="Script" path="res://Characters/Enemies/BasicEnemy/basic_enemy_attacking_player.gd" id="1_0bwye"]
+[ext_resource type="PackedScene" uid="uid://cunc28rnr20cj" path="res://Characters/Enemies/BasicEnemy/basic_enemy.tscn" id="2_402vd"]
+
+[node name="BasicEnemyAttackingPlayer" type="Node2D"]
+script = ExtResource("1_0bwye")
+
+[node name="BasicEnemy" parent="." instance=ExtResource("2_402vd")]

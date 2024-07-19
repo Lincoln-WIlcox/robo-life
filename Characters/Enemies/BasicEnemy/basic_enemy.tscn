@@ -1,9 +1,9 @@
 [gd_scene load_steps=13 format=3 uid="uid://cunc28rnr20cj"]
 
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="1_emesy"]
-[ext_resource type="Script" path="res://Objects/Enemies/BasicEnemy/basic_enemy.gd" id="1_ms7aa"]
-[ext_resource type="Script" path="res://Objects/Enemies/BasicEnemy/shoot_player_controller.gd" id="2_4wh7y"]
-[ext_resource type="Script" path="res://Objects/Enemies/BasicEnemy/movement_controller.gd" id="2_25rc5"]
+[ext_resource type="Script" path="res://Characters/Enemies/BasicEnemy/basic_enemy.gd" id="1_ms7aa"]
+[ext_resource type="Script" path="res://Characters/Enemies/BasicEnemy/shoot_player_controller.gd" id="2_4wh7y"]
+[ext_resource type="Script" path="res://Characters/Enemies/BasicEnemy/movement_controller.gd" id="2_25rc5"]
 [ext_resource type="PackedScene" uid="uid://02awkvcr8831" path="res://Components/CharacterGravityComponent/gravity_component.tscn" id="2_gl1g2"]
 [ext_resource type="PackedScene" uid="uid://vvmx1q8uqi2n" path="res://Components/Overheater/overheater.tscn" id="2_l8e3m"]
 [ext_resource type="PackedScene" uid="uid://bpjyigrxmafpo" path="res://Objects/Bullet/bullet.tscn" id="3_f7jvg"]
@@ -29,7 +29,7 @@ bullet_packed_scene = ExtResource("3_f7jvg")
 character = NodePath("../CharacterBody2D")
 
 [node name="Timer" type="Timer" parent="ShootPlayerController"]
-wait_time = 1.5
+wait_time = 3.0
 autostart = true
 
 [node name="MovementController" type="Node" parent="." node_paths=PackedStringArray("velocity_component", "floor_checker_left", "floor_checker_right", "wall_checker_left", "wall_checker_right")]

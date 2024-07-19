@@ -18,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://dpyu3hof4l6hb" path="res://Objects/OverheatingWall/overheatable_wall.tscn" id="17_8n4om"]
 [ext_resource type="PackedScene" uid="uid://brg4hptmtkbt2" path="res://Objects/PushableBlock/pushable_block.tscn" id="18_v7l3w"]
 [ext_resource type="PackedScene" uid="uid://7k2m5p3o1p4k" path="res://Objects/Laser/laser.tscn" id="18_vikjm"]
-[ext_resource type="PackedScene" uid="uid://cunc28rnr20cj" path="res://Objects/Enemies/BasicEnemy/basic_enemy.tscn" id="19_8bhho"]
+[ext_resource type="PackedScene" uid="uid://cgs10o16n0tc" path="res://Characters/Enemies/BasicEnemy/basic_enemy_attacking_player.tscn" id="19_htpc3"]
 
 [node name="Level1" instance=ExtResource("1_s0fbl")]
 
@@ -146,10 +146,10 @@ position = Vector2(-437, 392)
 [node name="OverheatableWall3" parent="Tiles" index="33" instance=ExtResource("17_8n4om")]
 position = Vector2(-368, -80)
 
-[node name="BasicEnemy" parent="Tiles" index="34" node_paths=PackedStringArray("target", "node_to_put_bullets_in") instance=ExtResource("19_8bhho")]
+[node name="BasicEnemyAttackingPlayer" parent="Tiles" index="34" node_paths=PackedStringArray("player_character_controller", "world") instance=ExtResource("19_htpc3")]
 position = Vector2(0, -16)
-target = NodePath("../../PlayerCharacterController")
-node_to_put_bullets_in = NodePath("../..")
+player_character_controller = NodePath("../../PlayerCharacterController")
+world = NodePath("../..")
 
 [connection signal="interacted_with" from="Tiles/Shelter" to="DayNightCycle" method="start_new_day"]
 [connection signal="item_spent" from="Tiles/RockBarrier" to="Tiles" method="add_child"]

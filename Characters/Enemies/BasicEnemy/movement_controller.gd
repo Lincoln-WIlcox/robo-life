@@ -21,19 +21,15 @@ func _physics_process(delta):
 	if not floor_checker_left.is_colliding():
 		_is_moving_right = true
 		_randomize_timer()
-		print("about to fall off")
 	elif not floor_checker_right.is_colliding():
 		_is_moving_right = false
 		_randomize_timer()
-		print("about to fall off")
 	if wall_checker_left.is_colliding():
 		_is_moving_right = true
 		_randomize_timer()
-		print("about to hit wall")
 	elif wall_checker_right.is_colliding():
 		_is_moving_right = false
 		_randomize_timer()
-		print("about to hit wall")
 
 func _on_timer_timeout():
 	_is_moving_right = !_is_moving_right
