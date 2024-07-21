@@ -21,12 +21,12 @@ func handle_inventory_requirement(inventory_requirement: InventoryRequirement) -
 
 func _check_can_spend_items(inventory_requirement: InventoryRequirement) -> bool:
 	var indexes_used: Array[int] = []
-	
+	var items: Array[ItemData] = inventory.get_items()
 	#this iterates through each item in inventory_requirement.costs_items and ensures the item exists in inventory.items and hasn't been used yet.
 	for item: ItemData in inventory_requirement.costs_items:
 		var found_inventory_item := false
-		for i: int in range(inventory.get_items().size()):
-			if item == inventory.get_item_at_index(i) and not indexes_used.has(i):
+		for i: int in range(items.size()):
+			if item == items[i] and not indexes_used.has(i):
 				indexes_used.append(i)
 				found_inventory_item = true
 				break
