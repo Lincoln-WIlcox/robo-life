@@ -11,4 +11,7 @@ const TILE_SIZE = 64
 		$PanelContainer.custom_minimum_size = Vector2(new_value.x * TILE_SIZE, new_value.y * TILE_SIZE)
 @export var item_grid_item: ItemGridItem
 
-signal drop_pressed
+signal drop_pressed(item_data: ItemData)
+
+func _on_button_pressed():
+	drop_pressed.emit(item_grid_item.item_data)

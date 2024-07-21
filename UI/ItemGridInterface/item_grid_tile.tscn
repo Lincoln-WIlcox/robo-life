@@ -34,3 +34,5 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Drop"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]

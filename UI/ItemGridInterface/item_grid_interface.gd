@@ -31,6 +31,9 @@ func close_gui() -> void:
 func update_grid() -> void:
 	remove_tiles()
 	
+	if tiles.size() > 0:
+		await tiles[0].tree_exited
+	
 	for y: int in range(0, item_grid.size.y):
 		for x: int in range(0, item_grid.size.x):
 			var grid_position = Vector2i(x,y)
@@ -52,7 +55,7 @@ func update_grid() -> void:
 
 func remove_tiles() -> void:
 	for child: Node in grid_container.get_children():
-		child.free()
+		child.queue_free()
 
 func make_margin() -> void:
 	var margin = MarginContainer.new()
@@ -64,4 +67,5 @@ func make_item_tile(grid_item: ItemGridItem) -> void:
 	item_grid_tile.texture = grid_item.item_data.texture
 	item_grid_tile.tile_size = grid_item.item_data.grid_size
 	item_grid_tile.item_grid_item = grid_item
+	item_grid_tile.drop_pressed.connect(func(item_data: ItemData): item_dropped.emit(item_data))
 	grid_container.add_child(item_grid_tile)
