@@ -14,8 +14,12 @@ var _items: Array[ItemGridItem]
 func add_item(item_data: ItemData) -> bool:
 	var new_item_grid_item: ItemGridItem = ItemGridItem.new(item_data, Vector2i(0, 0))
 	
-	for y: int in range(0, size.y):
-		for x: int in range(0, size.x):
+	#if the size of the grid item is greater than the size of the grid, return false
+	if size.y - new_item_grid_item.item_data.grid_size.x < 0 or size.x - new_item_grid_item.rect.size.y < 0:
+		return false
+	
+	for y: int in range(0, size.y - new_item_grid_item.rect.size.x):
+		for x: int in range(0, size.x - new_item_grid_item.rect.size.y):
 			new_item_grid_item.position = Vector2i(x, y)
 			
 			if _item_grid_item_can_be_placed(new_item_grid_item):
