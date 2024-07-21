@@ -12,15 +12,14 @@ var _items: Array[ItemGridItem]
 ##The item will not be added to the grid if there is not space.
 ##Returns true if the item was added to the grid, returns false if it fails.
 func add_item(item_data: ItemData) -> bool:
-	print(size)
 	var new_item_grid_item: ItemGridItem = ItemGridItem.new(item_data, Vector2i(0, 0))
 	
 	#if the size of the grid item is greater than the size of the grid, return false
 	if size.y - new_item_grid_item.item_data.grid_size.x < 0 or size.x - new_item_grid_item.rect.size.y < 0:
 		return false
 	
-	for y: int in range(0, size.y - new_item_grid_item.rect.size.x):
-		for x: int in range(0, size.x - new_item_grid_item.rect.size.y):
+	for y: int in range(0, size.y - new_item_grid_item.rect.size.y + 1):
+		for x: int in range(0, size.x - new_item_grid_item.rect.size.x + 1):
 			new_item_grid_item.position = Vector2i(x, y)
 			
 			if _item_grid_item_can_be_placed(new_item_grid_item):
