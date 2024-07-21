@@ -12,6 +12,7 @@ var _items: Array[ItemGridItem]
 ##The item will not be added to the grid if there is not space.
 ##Returns true if the item was added to the grid, returns false if it fails.
 func add_item(item_data: ItemData) -> bool:
+	print(size)
 	var new_item_grid_item: ItemGridItem = ItemGridItem.new(item_data, Vector2i(0, 0))
 	
 	#if the size of the grid item is greater than the size of the grid, return false
@@ -58,10 +59,13 @@ func remove_item(item_data: ItemData) -> void:
 
 ##Returns the [ItemData] for each item in the grid.
 func get_items() -> Array[ItemData]:
-	return _items.map(func(item: ItemGridItem): return item.item_data)
+	var return_items: Array[ItemData]
+	var item_datas := _items.map(func(item: ItemGridItem): return item.item_data)
+	return_items.assign(item_datas)
+	return return_items
 
 func _item_grid_item_can_be_placed(item_grid_item: ItemGridItem) -> bool:
-	if item_grid_item.position.x > 0 or item_grid_item.position.y > 0 or item_grid_item.rect.end.x < size.x or item_grid_item.rect.end.y < size.y:
+	if not (item_grid_item.position.x >= 0 or item_grid_item.position.y >= 0 or item_grid_item.rect.end.x <= size.x or item_grid_item.rect.end.y <= size.y):
 		return false
 	for existing_item: ItemGridItem in _items:
 		if existing_item.rect.intersects(item_grid_item.rect) and existing_item != item_grid_item:
