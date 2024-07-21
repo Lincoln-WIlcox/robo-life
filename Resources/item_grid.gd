@@ -4,6 +4,7 @@ extends Resource
 ##Used to represent a grid with items in it.
 
 @export var size: Vector2i = Vector2i(6,4)
+@export var initial_items: Array[ItemGridItem]
 
 var _items: Array[ItemGridItem]
 
@@ -51,6 +52,8 @@ func remove_item(item_data: ItemData) -> void:
 	push_warning("item_data not in _items.")
 
 func _item_grid_item_can_be_placed(item_grid_item: ItemGridItem) -> bool:
+	if item_grid_item.position.x > 0 or item_grid_item.position.y > 0 or item_grid_item.rect.end.x < size.x or item_grid_item.rect.end.y < size.y:
+		return false
 	for existing_item: ItemGridItem in _items:
 		if existing_item.rect.intersects(item_grid_item.rect) and existing_item != item_grid_item:
 			return false

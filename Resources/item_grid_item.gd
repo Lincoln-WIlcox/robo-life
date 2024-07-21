@@ -5,9 +5,9 @@ extends Resource
 
 @export var item_data: ItemData
 @export var position: Vector2
-var rect: Rect2:
+var rect: Rect2i:
 	get:
-		return Rect2(position, item_data.grid_size)
+		return Rect2i(position, item_data.grid_size)
 
 func _init(_item_data: ItemData, _position: Vector2):
 	item_data = _item_data
