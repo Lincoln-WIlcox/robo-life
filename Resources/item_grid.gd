@@ -63,6 +63,9 @@ func get_items() -> Array[ItemData]:
 	return_items.assign(item_datas)
 	return return_items
 
+func get_grid_items() -> Array[ItemGridItem]:
+	return _items
+
 func _item_grid_item_can_be_placed(item_grid_item: ItemGridItem) -> bool:
 	if not (item_grid_item.position.x >= 0 or item_grid_item.position.y >= 0 or item_grid_item.rect.end.x <= size.x or item_grid_item.rect.end.y <= size.y):
 		return false
