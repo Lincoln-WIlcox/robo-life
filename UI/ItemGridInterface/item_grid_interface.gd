@@ -2,6 +2,8 @@ extends Control
 
 const TILE_SIZE = 48
 
+@onready var grid_container = $GridContainer
+
 @export var item_grid_tile_packed_scene: PackedScene
 @export var item_grid: ItemGrid:
 	set(new_value):
@@ -34,11 +36,11 @@ func update_grid() -> void:
 func make_margin() -> void:
 	var margin = MarginContainer.new()
 	margin.custom_minimum_size = Vector2(TILE_SIZE, TILE_SIZE)
-	add_child(margin)
+	grid_container.add_child(margin)
 
 func make_item_tile(grid_item: ItemGridItem) -> void:
 	var item_grid_tile: ItemGridTile = item_grid_tile_packed_scene.instantiate()
 	item_grid_tile.texture = grid_item.item_data.texture
 	item_grid_tile.grid_size = grid_item.item_data.grid_size
 	item_grid_tile.item_grid_item = grid_item
-	add_child(item_grid_tile)
+	grid_container.add_child(item_grid_tile)
