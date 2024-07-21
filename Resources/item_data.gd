@@ -3,7 +3,7 @@ extends Resource
 
 @export var texture: Texture
 @export var name: String
-@export var grid_size: Vector2 = Vector2(1,1):
+@export var grid_size: Vector2i = Vector2i(1,1):
 	set(new_value):
 		assert(new_value.x > 0 and new_value.y > 0, "grid size cannot be 0 or less than 0 on either axis.")
 		grid_size = new_value

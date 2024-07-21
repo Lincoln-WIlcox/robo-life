@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Game/game.gd" id="1_p5sec"]
 [ext_resource type="PackedScene" uid="uid://4hdu5f7ikd0h" path="res://World/Levels/level_1.tscn" id="1_qsx06"]
 [ext_resource type="PackedScene" uid="uid://cstcp7nfordr7" path="res://UI/HUD/hud.tscn" id="2_0xbcc"]
-[ext_resource type="PackedScene" uid="uid://cttegcifjq5jb" path="res://UI/InventoryGUI/inventory_gui.tscn" id="5_6ax4x"]
 [ext_resource type="PackedScene" uid="uid://bkc6nabwtybq4" path="res://UI/GameOverMenu/game_over_menu.tscn" id="5_8hpvy"]
+[ext_resource type="PackedScene" uid="uid://cwncv8ljmchc5" path="res://UI/ItemGridInterface/item_grid_interface.tscn" id="5_fdrmx"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_p5sec")
@@ -18,8 +18,7 @@ mouse_filter = 2
 [node name="GameOverMenu" parent="UILayer" instance=ExtResource("5_8hpvy")]
 mouse_filter = 2
 
-[node name="InventoryGUI" parent="UILayer" instance=ExtResource("5_6ax4x")]
+[node name="ItemGridInterface" parent="UILayer" instance=ExtResource("5_fdrmx")]
 visible = false
-mouse_filter = 2
 
 [connection signal="play_again_pressed" from="UILayer/GameOverMenu" to="." method="_on_game_over_menu_play_again_pressed"]
