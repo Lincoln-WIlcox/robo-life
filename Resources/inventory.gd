@@ -11,29 +11,26 @@ extends Resource
 		steel = new_value
 		
 		emit_changed()
-@export var initial_items: Array[ItemData]
+@export var initial_item_grid: ItemGrid
 
-var _items := initial_items
+var _item_grid := initial_item_grid
 
 func add_item(item: ItemData) -> void:
-	_items.append(item)
+	_item_grid.add_item(item)
 	emit_changed()
 
 func remove_item(item: ItemData) -> void:
-	_items.erase(item)
+	_item_grid.remove_item(item)
 	emit_changed()
 
 func get_items() -> Array[ItemData]:
-	return _items
-
-func get_item_at_index(i: int) -> ItemData:
-	return _items[i]
+	return _item_grid.get_items()
 
 func has_item(item: ItemData) -> bool:
-	return _items.has(item)
+	return _item_grid.has_item(item)
 
 func add_addition(inventory_addition: InventoryAddition) -> void:
 	batteries += inventory_addition.gain_batteries
 	steel += inventory_addition.gain_steel
-	_items.append_array(inventory_addition.gain_items)
-	print(steel)
+	for item: ItemData in inventory_addition.gain_items:
+		_item_grid.add_item(item)

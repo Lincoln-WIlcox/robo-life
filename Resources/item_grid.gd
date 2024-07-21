@@ -41,19 +41,24 @@ func add_item_at_position(item_data: ItemData, position: Vector2i) -> bool:
 	
 	return true
 
-##returns true if this item grid contains the passed item
+##Returns true if this item grid contains the passed item
 func has_item(item_data: ItemData) -> bool:
 	for item_grid_item: ItemGridItem in _items:
 		if item_grid_item.item_data == item_data:
 			return true
 	return false
 
+##Removes the first occurrence of an item in a grid
 func remove_item(item_data: ItemData) -> void:
 	for item_grid_item: ItemGridItem in _items:
 		if item_grid_item.item_data == item_data:
 			_items.erase(item_grid_item)
 			return
 	push_warning("item_data not in _items.")
+
+##Returns the [ItemData] for each item in the grid.
+func get_items() -> Array[ItemData]:
+	return _items.map(func(item: ItemGridItem): return item.item_data)
 
 func _item_grid_item_can_be_placed(item_grid_item: ItemGridItem) -> bool:
 	if item_grid_item.position.x > 0 or item_grid_item.position.y > 0 or item_grid_item.rect.end.x < size.x or item_grid_item.rect.end.y < size.y:
