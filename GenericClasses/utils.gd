@@ -4,6 +4,7 @@ extends Object
 const MINIMUM_SPEED = 0.2
 const TIME_PASSED_AT_NIGHT = 50
 const HIGHEST_LADDER_OFFSET = 5
+const ITEM_GRID_TILE_SIZE = 64
 
 enum GrabDirections
 {

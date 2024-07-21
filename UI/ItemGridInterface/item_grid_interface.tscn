@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwncv8ljmchc5"]
+[gd_scene load_steps=4 format=3 uid="uid://cwncv8ljmchc5"]
 
 [ext_resource type="Script" path="res://UI/ItemGridInterface/item_grid_interface.gd" id="1_pi64m"]
+[ext_resource type="PackedScene" uid="uid://b7ewdl311174v" path="res://UI/ItemGridInterface/empty_tile.tscn" id="2_4k4i8"]
 [ext_resource type="PackedScene" uid="uid://cxu02inpnbs4y" path="res://UI/ItemGridInterface/item_grid_tile.tscn" id="2_xk4oi"]
 
 [node name="ItemGridInterface" type="Control"]
@@ -11,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pi64m")
+empty_tile_packed_scene = ExtResource("2_4k4i8")
 item_grid_tile_packed_scene = ExtResource("2_xk4oi")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]

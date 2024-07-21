@@ -1,10 +1,9 @@
 class_name ItemGridInterface
 extends Control
 
-const TILE_SIZE = 48
-
 @onready var grid_container = $CenterContainer/GridContainer
 
+@export var empty_tile_packed_scene: PackedScene
 @export var item_grid_tile_packed_scene: PackedScene
 @export var item_grid: ItemGrid:
 	set(new_value):
@@ -32,13 +31,20 @@ func update_grid() -> void:
 	remove_tiles()
 	
 	if tiles.size() > 0:
-		await tiles[0].tree_exited
+		await tiles[tiles.size() - 1].tree_exited
 	
 	for y: int in range(0, item_grid.size.y):
 		for x: int in range(0, item_grid.size.x):
 			var grid_position = Vector2i(x,y)
 			
 			var found_overlapping_grid_item := false
+			
+			for tile: ItemGridTile in tiles:
+				if tile.item_grid_item.rect.has_point(grid_position):
+					make_margin()
+					found_overlapping_grid_item = true
+					break
+			
 			for grid_item: ItemGridItem in item_grid.get_grid_items():
 				if grid_item.position == Vector2(grid_position):
 					make_item_tile(grid_item)
@@ -46,12 +52,7 @@ func update_grid() -> void:
 					break
 			
 			if not found_overlapping_grid_item:
-				make_margin()
-			
-			#for tile: ItemGridTile in tiles:
-				#if tile.item_grid_item.rect.has_point(grid_position):
-					#make_margin()
-					#break
+				make_empty_tile()
 
 func remove_tiles() -> void:
 	for child: Node in grid_container.get_children():
@@ -59,8 +60,12 @@ func remove_tiles() -> void:
 
 func make_margin() -> void:
 	var margin = MarginContainer.new()
-	margin.custom_minimum_size = Vector2(TILE_SIZE, TILE_SIZE)
+	margin.custom_minimum_size = Vector2i(Utils.ITEM_GRID_TILE_SIZE, Utils.ITEM_GRID_TILE_SIZE)
 	grid_container.add_child(margin)
+
+func make_empty_tile() -> void:
+	var empty_tile = empty_tile_packed_scene.instantiate()
+	grid_container.add_child(empty_tile)
 
 func make_item_tile(grid_item: ItemGridItem) -> void:
 	var item_grid_tile: ItemGridTile = item_grid_tile_packed_scene.instantiate()
