@@ -46,6 +46,12 @@ func remove_item(item_data: ItemData) -> void:
 			return
 	push_warning("item_data not in _items.")
 
+func remove_grid_item(grid_item: ItemGridItem) -> void:
+	_items.erase(grid_item)
+
+func remove_index(index: int) -> void:
+	_items.remove_at(index)
+
 ##Returns the [ItemData] for each item in the grid.
 func get_items() -> Array[ItemData]:
 	var return_items: Array[ItemData]

@@ -17,7 +17,7 @@ var tiles: Array[ItemGridTile]:
 		item_grid_tiles.assign(nodes)
 		return item_grid_tiles
 
-signal item_dropped
+signal item_dropped(grid_item: ItemGridItem)
 
 func open_gui() -> void:
 	show()
@@ -61,6 +61,7 @@ func remove_tiles() -> void:
 func make_margin() -> void:
 	var margin = MarginContainer.new()
 	margin.custom_minimum_size = Vector2i(Utils.ITEM_GRID_TILE_SIZE, Utils.ITEM_GRID_TILE_SIZE)
+	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	grid_container.add_child(margin)
 
 func make_empty_tile() -> void:
@@ -72,5 +73,5 @@ func make_item_tile(grid_item: ItemGridItem) -> void:
 	item_grid_tile.texture = grid_item.item_data.texture
 	item_grid_tile.tile_size = grid_item.item_data.grid_size
 	item_grid_tile.item_grid_item = grid_item
-	item_grid_tile.drop_pressed.connect(func(item_data: ItemData): item_dropped.emit(item_data))
+	item_grid_tile.drop_pressed.connect(func(item_data: ItemData): item_dropped.emit(grid_item))
 	grid_container.add_child(item_grid_tile)

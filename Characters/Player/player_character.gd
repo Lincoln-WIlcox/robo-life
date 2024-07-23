@@ -108,9 +108,9 @@ func _update_children():
 	animation_handler.is_moving_left = is_moving_left
 	animation_handler.is_moving_right = is_moving_right
 
-func drop_item(item: ItemData):
-	inventory.remove_item(item)
-	drop_item_handler.drop_item(item, drop_item_left.global_position if facing_left else drop_item_right.global_position)
+func drop_item(grid_item: ItemGridItem):
+	inventory.remove_grid_item(grid_item)
+	drop_item_handler.drop_item(grid_item.item_data, drop_item_left.global_position if facing_left else drop_item_right.global_position)
 
 func _on_drop_item_handler_drop_created(drop):
 	item_dropped.emit(drop)

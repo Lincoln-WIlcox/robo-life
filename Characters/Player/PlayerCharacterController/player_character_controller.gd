@@ -67,8 +67,8 @@ func _input(event):
 func _process(_delta):
 	camera.position = player_character.character.position
 
-func handle_drop_item(item: ItemData):
-	if item is PlaceableItemData:
-		inventory_state.on_placeable_item_dropped(item)
+func handle_drop_item(grid_item: ItemGridItem):
+	if grid_item.item_data is PlaceableItemData:
+		inventory_state.on_placeable_item_dropped(grid_item)
 	else:
-		player_character.drop_item(item)
+		player_character.drop_item(grid_item)

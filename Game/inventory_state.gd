@@ -19,7 +19,7 @@ func run():
 func exit():
 	inventory_closed.emit()
 
-func on_placeable_item_dropped(item: ItemData):
+func on_placeable_item_dropped(grid_item: ItemGridItem):
 	if is_current_state:
-		placing_state.placeable_item = item
+		placing_state.placeable_item = grid_item
 		state_ended.emit(placing_state)

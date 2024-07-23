@@ -33,6 +33,9 @@ func remove_item(item: ItemData) -> void:
 	item_grid.remove_item(item)
 	emit_changed()
 
+func remove_grid_item(grid_item: ItemGridItem) -> void:
+	item_grid.remove_grid_item(grid_item)
+
 ##Gets all the items in the item grid
 func get_items() -> Array[ItemData]:
 	return item_grid.get_items()
