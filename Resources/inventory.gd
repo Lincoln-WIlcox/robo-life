@@ -47,3 +47,4 @@ func add_addition(inventory_addition: InventoryAddition) -> void:
 	steel += inventory_addition.gain_steel
 	for item: ItemData in inventory_addition.gain_items:
 		item_grid.add_item(item)
+	emit_changed()
