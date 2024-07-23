@@ -46,7 +46,8 @@ script/source = "extends Node
 
 func _on_interacted_with_area(interaction_area: InteractionArea):
 	if interaction_area is ItemCollectInteractionArea:
-		inventory_interaction_handler.collect_item(interaction_area.collect_item(interactor))
+		if inventory_interaction_handler.collect_item(interaction_area.item):
+			interaction_area.collect_item(interactor)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nsq18"]

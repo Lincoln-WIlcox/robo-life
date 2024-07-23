@@ -22,9 +22,11 @@ extends Resource
 var item_grid = null
 
 ##Adds an item to the item grid
-func add_item(item: ItemData) -> void:
-	item_grid.add_item(item)
-	emit_changed()
+func add_item(item: ItemData) -> bool:
+	if item_grid.add_item(item):
+		emit_changed()
+		return true
+	return false
 
 ##Removes an item from the item grid
 func remove_item(item: ItemData) -> void:
