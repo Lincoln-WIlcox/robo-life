@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5ux0a1ldgf60"]
+
+[ext_resource type="Script" path="res://Components/ItemGridTileArea/item_grid_tile_area.gd" id="1_upy4d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p6o2e"]
+size = Vector2(64, 64)
+
+[node name="ItemGridTileArea" type="Area2D"]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("1_upy4d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(32, 32)
+shape = SubResource("RectangleShape2D_p6o2e")

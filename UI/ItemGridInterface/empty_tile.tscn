@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://b7ewdl311174v"]
+[gd_scene load_steps=2 format=3 uid="uid://b7ewdl311174v"]
+
+[ext_resource type="PackedScene" uid="uid://b5ux0a1ldgf60" path="res://Components/ItemGridTileArea/item_grid_tile_area.tscn" id="1_63spo"]
 
 [node name="EmptyTile" type="Control"]
 custom_minimum_size = Vector2(64, 64)
@@ -16,3 +18,5 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ItemGridTileArea" parent="." instance=ExtResource("1_63spo")]

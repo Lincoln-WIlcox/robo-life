@@ -5,6 +5,7 @@ extends Control
 
 @export var empty_tile_packed_scene: PackedScene
 @export var item_grid_tile_packed_scene: PackedScene
+@export var margin_tile_packed_scene: PackedScene
 @export var item_grid: ItemGrid:
 	set(new_value):
 		item_grid = new_value
@@ -59,9 +60,7 @@ func remove_tiles() -> void:
 		child.queue_free()
 
 func make_margin() -> void:
-	var margin = MarginContainer.new()
-	margin.custom_minimum_size = Vector2i(Utils.ITEM_GRID_TILE_SIZE, Utils.ITEM_GRID_TILE_SIZE)
-	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var margin: MarginTile = margin_tile_packed_scene.instantiate()
 	grid_container.add_child(margin)
 
 func make_empty_tile() -> void:
