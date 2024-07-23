@@ -119,6 +119,7 @@ fire={
 2d_physics/layer_6="Damage"
 2d_physics/layer_7="Heat"
 2d_physics/layer_8="IntangibleEnviornmentObjects"
+2d_physics/layer_9="ItemGridTiles"
 
 [physics]
 

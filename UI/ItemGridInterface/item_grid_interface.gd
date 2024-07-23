@@ -46,7 +46,7 @@ func update_grid() -> void:
 					break
 			
 			for grid_item: ItemGridItem in item_grid.get_grid_items():
-				if grid_item.position == Vector2(grid_position):
+				if grid_item.position == grid_position:
 					make_item_tile(grid_item)
 					found_overlapping_grid_item = true
 					break
@@ -73,5 +73,9 @@ func make_item_tile(grid_item: ItemGridItem) -> void:
 	item_grid_tile.texture = grid_item.item_data.texture
 	item_grid_tile.tile_size = grid_item.item_data.grid_size
 	item_grid_tile.item_grid_item = grid_item
-	item_grid_tile.drop_pressed.connect(func(item_data: ItemData): item_dropped.emit(grid_item))
+	item_grid_tile.drop_pressed.connect(_on_item_tile_drop_pressed)
 	grid_container.add_child(item_grid_tile)
+
+func _on_item_tile_drop_pressed(grid_item: ItemGridItem):
+	item_dropped.emit(grid_item)
+	update_grid()
