@@ -12,20 +12,10 @@ var _items: Array[ItemGridItem]
 ##The item will not be added to the grid if there is not space.
 ##Returns true if the item was added to the grid, returns false if it fails.
 func add_item(item_data: ItemData) -> bool:
-	var new_item_grid_item: ItemGridItem = ItemGridItem.new(item_data, Vector2i(0, 0))
-	
-	#if the size of the grid item is greater than the size of the grid, return false
-	if size.y - new_item_grid_item.item_data.grid_size.x < 0 or size.x - new_item_grid_item.rect.size.y < 0:
-		return false
-	
-	for y: int in range(0, size.y - new_item_grid_item.rect.size.y + 1):
-		for x: int in range(0, size.x - new_item_grid_item.rect.size.x + 1):
-			new_item_grid_item.position = Vector2i(x, y)
-			
-			if _item_grid_item_can_be_placed(new_item_grid_item):
-				_items.append(new_item_grid_item)
-				return true
-	
+	var item_grid_item = item_can_be_added(item_data)
+	if item_grid_item:
+		_items.append(item_grid_item)
+		return true
 	return false
 
 ##Add an item to the grid at the given position.
@@ -34,7 +24,7 @@ func add_item(item_data: ItemData) -> bool:
 func add_item_at_position(item_data: ItemData, position: Vector2i) -> bool:
 	var new_item_grid_item: ItemGridItem = ItemGridItem.new(item_data, position)
 	
-	if not _item_grid_item_can_be_placed(new_item_grid_item):
+	if not _item_grid_item_can_be_added(new_item_grid_item):
 		return false
 	
 	_items.append(new_item_grid_item)
@@ -63,10 +53,28 @@ func get_items() -> Array[ItemData]:
 	return_items.assign(item_datas)
 	return return_items
 
+##Returns the grid items.
 func get_grid_items() -> Array[ItemGridItem]:
 	return _items
 
-func _item_grid_item_can_be_placed(item_grid_item: ItemGridItem) -> bool:
+##Returns false if there is no space for the item. Returns the item grid item for the first spot where it can fit if there is space.
+func item_can_be_added(item_data: ItemData):
+	var new_item_grid_item: ItemGridItem = ItemGridItem.new(item_data, Vector2i(0, 0))
+	
+	#if the size of the grid item is greater than the size of the grid, return false
+	if size.y - new_item_grid_item.item_data.grid_size.x < 0 or size.x - new_item_grid_item.rect.size.y < 0:
+		return false
+	
+	for y: int in range(0, size.y - new_item_grid_item.rect.size.y + 1):
+		for x: int in range(0, size.x - new_item_grid_item.rect.size.x + 1):
+			new_item_grid_item.position = Vector2i(x, y)
+			
+			if _item_grid_item_can_be_added(new_item_grid_item):
+				return new_item_grid_item
+	
+	return false
+
+func _item_grid_item_can_be_added(item_grid_item: ItemGridItem) -> bool:
 	if not (item_grid_item.position.x >= 0 or item_grid_item.position.y >= 0 or item_grid_item.rect.end.x <= size.x or item_grid_item.rect.end.y <= size.y):
 		return false
 	for existing_item: ItemGridItem in _items:
