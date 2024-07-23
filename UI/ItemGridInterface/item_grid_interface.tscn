@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cwncv8ljmchc5"]
+[gd_scene load_steps=8 format=3 uid="uid://cwncv8ljmchc5"]
 
 [ext_resource type="Script" path="res://UI/ItemGridInterface/item_grid_interface.gd" id="1_pi64m"]
 [ext_resource type="PackedScene" uid="uid://b7ewdl311174v" path="res://UI/ItemGridInterface/empty_tile.tscn" id="2_4k4i8"]
 [ext_resource type="PackedScene" uid="uid://cxu02inpnbs4y" path="res://UI/ItemGridInterface/item_grid_tile.tscn" id="2_xk4oi"]
 [ext_resource type="PackedScene" uid="uid://cikhx27twofld" path="res://UI/ItemGridInterface/margin_tile.tscn" id="4_a4hqd"]
+[ext_resource type="PackedScene" uid="uid://c2nwpx3t8tmc0" path="res://Components/StateMachine/state_machine.tscn" id="5_w8id8"]
+[ext_resource type="Script" path="res://Components/StateMachine/state.gd" id="6_hlwud"]
+[ext_resource type="Script" path="res://UI/ItemGridInterface/none.gd" id="6_hruyc"]
 
 [node name="ItemGridInterface" type="Control"]
 layout_mode = 3
@@ -16,6 +19,15 @@ script = ExtResource("1_pi64m")
 empty_tile_packed_scene = ExtResource("2_4k4i8")
 item_grid_tile_packed_scene = ExtResource("2_xk4oi")
 margin_tile_packed_scene = ExtResource("4_a4hqd")
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("5_w8id8")]
+initial_state = NodePath("Dragging")
+
+[node name="None" type="Node" parent="StateMachine"]
+script = ExtResource("6_hruyc")
+
+[node name="Dragging" type="Node" parent="StateMachine"]
+script = ExtResource("6_hlwud")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1

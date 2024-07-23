@@ -1,9 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://cikhx27twofld"]
+[gd_scene load_steps=4 format=3 uid="uid://cikhx27twofld"]
 
 [ext_resource type="Script" path="res://UI/ItemGridInterface/margin_tile.gd" id="1_fmhx4"]
+[ext_resource type="Script" path="res://UI/ItemGridInterface/grid_tile.gd" id="1_pb05r"]
 [ext_resource type="PackedScene" uid="uid://b5ux0a1ldgf60" path="res://Components/ItemGridTileArea/item_grid_tile_area.tscn" id="2_0fe8f"]
 
-[node name="MarginTile" type="MarginContainer"]
+[node name="MarginTile" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_pb05r")
+
+[node name="ItemGridTileArea" parent="." instance=ExtResource("2_0fe8f")]
+
+[node name="Tile" type="MarginContainer" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -11,5 +22,3 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_fmhx4")
-
-[node name="ItemGridTileArea" parent="." instance=ExtResource("2_0fe8f")]
