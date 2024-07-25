@@ -1,7 +1,5 @@
-class_name GridTile
-extends Control
+class_name MarginTile
+extends ItemGridEmptyTile
 
-@export var grid_position: Vector2i:
-	set(new_value):
-		grid_position = new_value
-		$ItemGridTileArea.grid_position = new_value
+func _ready():
+	custom_minimum_size = Vector2(Utils.ITEM_GRID_TILE_SIZE, Utils.ITEM_GRID_TILE_SIZE)

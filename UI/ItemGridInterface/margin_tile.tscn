@@ -5,15 +5,19 @@
 [ext_resource type="PackedScene" uid="uid://b5ux0a1ldgf60" path="res://Components/ItemGridTileArea/item_grid_tile_area.tscn" id="2_0fe8f"]
 
 [node name="MarginTile" type="Control"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 script = ExtResource("1_pb05r")
 
-[node name="ItemGridTileArea" parent="." instance=ExtResource("2_0fe8f")]
+[node name="ItemGridTileArea" parent="." node_paths=PackedStringArray("item_grid_tile") instance=ExtResource("2_0fe8f")]
+item_grid_tile = NodePath("..")
 
 [node name="Tile" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

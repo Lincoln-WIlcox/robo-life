@@ -276,7 +276,7 @@ max_speed = 1200
 [node name="HorizontalMovementComponent" type="Node" parent="." node_paths=PackedStringArray("velocity_component")]
 script = ExtResource("4_17a06")
 velocity_component = NodePath("../VelocityComponent")
-movement_speed = 240
+movement_speed = 220
 default_accel_rate = 18
 active = false
 

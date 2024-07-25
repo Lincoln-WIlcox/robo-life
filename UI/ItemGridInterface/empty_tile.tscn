@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b7ewdl311174v"]
+[gd_scene load_steps=3 format=3 uid="uid://b7ewdl311174v"]
 
 [ext_resource type="PackedScene" uid="uid://b5ux0a1ldgf60" path="res://Components/ItemGridTileArea/item_grid_tile_area.tscn" id="1_63spo"]
+[ext_resource type="Script" path="res://UI/ItemGridInterface/empty_tile.gd" id="1_vp8bm"]
 
 [node name="EmptyTile" type="Control"]
 custom_minimum_size = Vector2(64, 64)
@@ -10,6 +11,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_vp8bm")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -19,4 +22,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemGridTileArea" parent="." instance=ExtResource("1_63spo")]
+[node name="ItemGridTileArea" parent="." node_paths=PackedStringArray("item_grid_tile") instance=ExtResource("1_63spo")]
+item_grid_tile = NodePath("..")

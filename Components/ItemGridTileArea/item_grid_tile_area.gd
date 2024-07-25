@@ -1,6 +1,8 @@
 class_name ItemGridTileArea
 extends Area2D
 
+@export var item_grid_tile: Control
+
 var grid_position: Vector2i
 
 func _ready():

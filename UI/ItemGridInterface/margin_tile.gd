@@ -1,4 +1,3 @@
-class_name MarginTile
 extends MarginContainer
 
 func _ready():

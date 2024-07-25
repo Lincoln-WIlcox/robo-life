@@ -1,7 +1,6 @@
 class_name ItemGridTile
 extends Control
 
-
 @export var texture: Texture:
 	set(new_value):
 		$PanelContainer/VBoxContainer/MarginContainer/TextureRect.texture = new_value
@@ -12,8 +11,19 @@ extends Control
 	set(new_value):
 		item_grid_item = new_value
 		$ItemGridTileArea.grid_position = item_grid_item.position
+@export var grid_position: Vector2i:
+	get:
+		return item_grid_item.position
 
+signal dragged(grid_item: ItemGridItem)
 signal drop_pressed(item_data: ItemGridItem)
 
 func _on_button_pressed():
 	drop_pressed.emit(item_grid_item)
+
+func _drag():
+	dragged.emit(item_grid_item)
+
+func _gui_input(event):
+	if event.is_action_pressed("drag_item"):
+		_drag()
