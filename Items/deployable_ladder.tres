@@ -11,5 +11,5 @@ region = Rect2(96, 160, 16, 16)
 script = ExtResource("1_a86aq")
 texture = SubResource("AtlasTexture_v0kko")
 name = "Deployable Ladder"
-grid_size = Vector2i(2, 2)
+grid_size = Vector2i(1, 2)
 drop_scene = "res://Objects/DeployableLadder/deployable_ladder.tscn"

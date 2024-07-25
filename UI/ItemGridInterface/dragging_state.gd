@@ -32,10 +32,16 @@ func run():
 
 func exit():
 	var first_tile = get_placing_tile()
+	var placed_tile_on_grid := false
+	var initial_position = grid_item.position
 	if first_tile:
-		item_grid.call().add_item_at_position(grid_item.item_data, first_tile.grid_position)
-	else:
-		item_grid.call().add_item_at_position(grid_item.item_data, grid_item.position)
+		grid_item.position = first_tile.grid_position
+		if item_grid.call().item_grid_item_can_be_added(grid_item):
+			item_grid.call().add_grid_item(grid_item)
+			placed_tile_on_grid = true
+	if not placed_tile_on_grid:
+		grid_item.position = initial_position
+		item_grid.call().add_grid_item(grid_item)
 	placed_tile.emit()
 	
 	_move_tile_area.queue_free()

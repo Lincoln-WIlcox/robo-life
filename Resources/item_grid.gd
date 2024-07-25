@@ -8,7 +8,7 @@ extends Resource
 
 var _items: Array[ItemGridItem]
 
-##Add an item to the grid at the first position that works.
+##Add an [ItemData] to the grid at the first position that works.
 ##The item will not be added to the grid if there is not space.
 ##Returns true if the item was added to the grid, returns false if it fails.
 func add_item(item_data: ItemData) -> bool:
@@ -18,18 +18,27 @@ func add_item(item_data: ItemData) -> bool:
 		return true
 	return false
 
-##Add an item to the grid at the given position.
+##Add an [ItemData] to the grid at the given position.
 ##The item will not be added to the grid if there is not space at the given position.
 ##Returns true if the item was added to the grid, returns false if it fails.
 func add_item_at_position(item_data: ItemData, position: Vector2i) -> bool:
 	var new_item_grid_item: ItemGridItem = ItemGridItem.new(item_data, position)
 	
-	if not _item_grid_item_can_be_added(new_item_grid_item):
+	if not item_grid_item_can_be_added(new_item_grid_item):
 		return false
 	
 	_items.append(new_item_grid_item)
 	
 	return true
+
+##Add a [ItemGridItem] to the grid.
+##The item will not be added to the grid if there is not space at the grid item's position.
+##Returns true if the item was added to the grid, returns false if it fails.
+func add_grid_item(grid_item: ItemGridItem) -> bool:
+	if item_grid_item_can_be_added(grid_item):
+		_items.append(grid_item)
+		return true
+	return false
 
 ##Returns true if this item grid contains the passed item
 func has_item(item_data: ItemData) -> bool:
@@ -75,12 +84,12 @@ func item_can_be_added(item_data: ItemData):
 		for x: int in range(0, size.x - new_item_grid_item.rect.size.x + 1):
 			new_item_grid_item.position = Vector2i(x, y)
 			
-			if _item_grid_item_can_be_added(new_item_grid_item):
+			if item_grid_item_can_be_added(new_item_grid_item):
 				return new_item_grid_item
 	
 	return false
 
-func _item_grid_item_can_be_added(item_grid_item: ItemGridItem) -> bool:
+func item_grid_item_can_be_added(item_grid_item: ItemGridItem) -> bool:
 	if not (item_grid_item.position.x >= 0 or item_grid_item.position.y >= 0 or item_grid_item.rect.end.x <= size.x or item_grid_item.rect.end.y <= size.y):
 		return false
 	for existing_item: ItemGridItem in _items:
