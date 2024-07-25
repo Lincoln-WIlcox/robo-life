@@ -48,3 +48,4 @@ columns = 4
 
 [connection signal="tile_dragged" from="." to="StateMachine/None" method="_on_item_grid_interface_tile_dragged"]
 [connection signal="placed_tile" from="StateMachine/Dragging" to="." method="update_grid"]
+[connection signal="removed_item" from="StateMachine/Dragging" to="." method="update_grid"]

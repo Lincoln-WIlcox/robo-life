@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxu02inpnbs4y"]
+[gd_scene load_steps=4 format=3 uid="uid://cxu02inpnbs4y"]
 
 [ext_resource type="Script" path="res://UI/ItemGridInterface/item_grid_tile.gd" id="1_8jwer"]
+[ext_resource type="Script" path="res://UI/ItemGridInterface/drag.gd" id="2_f2645"]
 [ext_resource type="PackedScene" uid="uid://b5ux0a1ldgf60" path="res://Components/ItemGridTileArea/item_grid_tile_area.tscn" id="2_r3i6n"]
 
 [node name="ItemGridTile" type="Control"]
@@ -16,20 +17,18 @@ custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
-mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
-mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-mouse_filter = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
+script = ExtResource("2_f2645")
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
@@ -45,4 +44,5 @@ text = "Drop"
 [node name="ItemGridTileArea" parent="." node_paths=PackedStringArray("item_grid_tile") instance=ExtResource("2_r3i6n")]
 item_grid_tile = NodePath("..")
 
+[connection signal="dragged" from="PanelContainer/VBoxContainer/MarginContainer" to="." method="_on_margin_container_dragged"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]

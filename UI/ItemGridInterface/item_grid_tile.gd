@@ -7,6 +7,7 @@ extends Control
 @export var tile_size: Vector2i:
 	set(new_value):
 		$PanelContainer.custom_minimum_size = Vector2(new_value.x * Utils.ITEM_GRID_TILE_SIZE, new_value.y * Utils.ITEM_GRID_TILE_SIZE)
+		$ItemGridTileArea.size = new_value
 @export var item_grid_item: ItemGridItem:
 	set(new_value):
 		item_grid_item = new_value
@@ -21,9 +22,5 @@ signal drop_pressed(item_data: ItemGridItem)
 func _on_button_pressed():
 	drop_pressed.emit(item_grid_item)
 
-func _drag():
+func _on_margin_container_dragged():
 	dragged.emit(item_grid_item)
-
-func _gui_input(event):
-	if event.is_action_pressed("drag_item"):
-		_drag()

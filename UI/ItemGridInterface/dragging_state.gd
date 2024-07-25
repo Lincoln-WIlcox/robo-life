@@ -12,12 +12,15 @@ var item_grid: Callable = func(): return ItemGrid.new()
 var _move_tile_area: MoveTileArea
 
 signal placed_tile
+signal removed_item
 
 func enter():
 	_move_tile_area = move_tile_area_packed_scene.instantiate()
 	_move_tile_area.grid_size = grid_item.item_data.grid_size
 	_move_tile_area.area_entered.connect(_on_move_tile_area_area_entered)
 	_move_tile_area.area_exited.connect(_on_move_tile_area_area_exited)
+	item_grid.call().remove_grid_item(grid_item)
+	removed_item.emit()
 	node_to_put_color_rect_in.add_child(_move_tile_area)
 
 func run():
@@ -30,9 +33,10 @@ func run():
 func exit():
 	var first_tile = get_placing_tile()
 	if first_tile:
-		item_grid.call().remove_grid_item(grid_item)
 		item_grid.call().add_item_at_position(grid_item.item_data, first_tile.grid_position)
-		placed_tile.emit()
+	else:
+		item_grid.call().add_item_at_position(grid_item.item_data, grid_item.position)
+	placed_tile.emit()
 	
 	_move_tile_area.queue_free()
 	_remove_highlights()
