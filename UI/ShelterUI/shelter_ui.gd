@@ -18,3 +18,9 @@ func _ready():
 	$VBoxContainer/TwoInventoryInterfaces.item_grid_two = item_grid_two
 	
 	$VBoxContainer/EndDayButtonMargin/EndDayHbox/EndDayButton.pressed.connect(func(): end_day_pressed.emit())
+
+func open_gui():
+	show()
+
+func close_gui():
+	hide()

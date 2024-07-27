@@ -67,8 +67,9 @@ script = ExtResource("6_1j2hy")
 place_object_handler = NodePath("../../PlaceObjectHandler")
 none_state = NodePath("../None")
 
-[node name="Shelter" type="Node" parent="UIStateMachine"]
+[node name="Shelter" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("none_state")]
 script = ExtResource("10_0syx4")
+none_state = NodePath("../None")
 
 [node name="PickupStuffHandler" type="Node" parent="."]
 script = ExtResource("7_bmrc0")

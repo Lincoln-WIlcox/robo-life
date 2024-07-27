@@ -28,6 +28,7 @@ func load_level(_level: PackedScene) -> void:
 	world.player_died.connect(_on_world_day_ended)
 	world.active_player_changed.connect(_on_active_player_changed)
 	_on_active_player_changed(world.active_player)
+	shelter_ui.item_grid_one = world.shelter_item_grid
 	hud.time_left = func(): return round(world.day_night_cycle.get_time_left())
 	#place_object_handler.placing_item.connect(world.add_child)
 
@@ -60,8 +61,13 @@ func _on_active_player_changed(active_player: PlayerCharacterController):
 		active_player.inventory_closed.connect(inventory_gui.close_gui)
 	if not inventory_gui.item_dropped.is_connected(active_player.handle_drop_item):
 		inventory_gui.item_dropped.connect(active_player.handle_drop_item)
+	if not active_player.shelter_opened.is_connected(shelter_ui.open_gui):
+		active_player.shelter_opened.connect(shelter_ui.open_gui)
+	if not active_player.shelter_closed.is_connected(shelter_ui.close_gui):
+		active_player.shelter_closed.connect(shelter_ui.close_gui)
 	inventory_gui.item_grid = active_player.inventory.item_grid
 	shelter_ui.item_grid_two = active_player.inventory.item_grid
+	
 	#placing_object_state.item_placed.connect(active_player.inventory.remove_item)
 	#place_object_handler.mouse_detect_area = active_player.mouse_detect_area
 	#pickup_stuff_handler.mouse_detect_area = active_player.mouse_detect_area

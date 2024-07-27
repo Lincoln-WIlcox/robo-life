@@ -151,5 +151,4 @@ position = Vector2(0, -16)
 player_character_controller = NodePath("../PlayerCharacterController")
 world = NodePath("..")
 
-[connection signal="interacted_with" from="Shelter" to="DayNightCycle" method="start_new_day"]
 [connection signal="item_spent" from="RockBarrier" to="Tiles" method="add_child"]
