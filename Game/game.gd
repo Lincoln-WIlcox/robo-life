@@ -47,8 +47,6 @@ func _on_game_over_menu_play_again_pressed():
 	load_level(current_level_packed_scene)
 
 func _on_active_player_changed(active_player: PlayerCharacterController):
-	if not active_player.inventory.changed.is_connected(_on_active_player_inventory_changed):
-		active_player.inventory.changed.connect(_on_active_player_inventory_changed.bind(active_player.inventory))
 	#inventory_state.get_active_player = func(): return active_player
 	active_player.died.connect(
 		func(): 

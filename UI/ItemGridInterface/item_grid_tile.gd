@@ -12,7 +12,6 @@ var tile_area:
 	set(new_value):
 		$PanelContainer.custom_minimum_size = Vector2(new_value.x * Utils.ITEM_GRID_TILE_SIZE, new_value.y * Utils.ITEM_GRID_TILE_SIZE)
 		$PanelContainer.position = Vector2.ZERO
-		print($PanelContainer.position)
 		$ItemGridTileArea.size = new_value
 @export var item_grid_item: ItemGridItem:
 	set(new_value):

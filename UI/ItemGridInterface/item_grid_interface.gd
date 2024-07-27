@@ -103,4 +103,3 @@ func make_item_tile(grid_item: ItemGridItem) -> void:
 
 func _on_item_tile_drop_pressed(grid_item: ItemGridItem):
 	item_dropped.emit(grid_item)
-	update_grid()
