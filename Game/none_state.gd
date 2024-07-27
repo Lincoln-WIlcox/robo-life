@@ -1,6 +1,7 @@
 extends State
 
 @export var inventory_state: State
+@export var shelter_state: State
 @export var pickup_stuff_handler: PickupStuffHandler
 @export var laser_gun_handler: Node2D
 @export var laser_gun: LaserGun
@@ -20,3 +21,7 @@ func run():
 
 func exit():
 	laser_gun.firing = false
+
+func _on_player_character_shelter_interacted_with():
+	if is_current_state.call():
+		state_ended.emit(shelter_state)

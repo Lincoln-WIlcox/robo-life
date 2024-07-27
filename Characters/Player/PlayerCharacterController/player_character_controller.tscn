@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dw2fqgynxjcit"]
+[gd_scene load_steps=16 format=3 uid="uid://dw2fqgynxjcit"]
 
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/player_character_controller.gd" id="1_bw5ol"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/laser_gun_handler.gd" id="2_paldi"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Game/pickup_stuff_handler.gd" id="7_bmrc0"]
 [ext_resource type="Script" path="res://Game/handle_placing_object.gd" id="8_4yuco"]
 [ext_resource type="PackedScene" uid="uid://b0pmkjnlnl8p0" path="res://Objects/LaserGun/laser_gun.tscn" id="9_03qrv"]
+[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_state.gd" id="10_0syx4"]
 
 [sub_resource type="Resource" id="Resource_6kkjt"]
 script = ExtResource("4_saie0")
@@ -48,9 +49,10 @@ drag_right_margin = 0.01
 [node name="UIStateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("3_aoc7a")]
 initial_state = NodePath("None")
 
-[node name="None" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("inventory_state", "pickup_stuff_handler", "laser_gun_handler", "laser_gun")]
+[node name="None" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("inventory_state", "shelter_state", "pickup_stuff_handler", "laser_gun_handler", "laser_gun")]
 script = ExtResource("4_7is3e")
 inventory_state = NodePath("../Inventory")
+shelter_state = NodePath("../Shelter")
 pickup_stuff_handler = NodePath("../../PickupStuffHandler")
 laser_gun_handler = NodePath("../../LaserGunHandler")
 laser_gun = NodePath("../../LaserGun")
@@ -65,6 +67,9 @@ script = ExtResource("6_1j2hy")
 place_object_handler = NodePath("../../PlaceObjectHandler")
 none_state = NodePath("../None")
 
+[node name="Shelter" type="Node" parent="UIStateMachine"]
+script = ExtResource("10_0syx4")
+
 [node name="PickupStuffHandler" type="Node" parent="."]
 script = ExtResource("7_bmrc0")
 
@@ -74,3 +79,5 @@ script = ExtResource("8_4yuco")
 [node name="LaserGun" parent="." instance=ExtResource("9_03qrv")]
 firing = false
 heat_amount = 2
+
+[connection signal="shelter_interacted_with" from="PlayerCharacter" to="UIStateMachine/None" method="_on_player_character_shelter_interacted_with"]

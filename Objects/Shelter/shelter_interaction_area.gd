@@ -1,2 +1,2 @@
-class_name Shelter
+class_name ShelterInteractionArea
 extends InteractionArea
