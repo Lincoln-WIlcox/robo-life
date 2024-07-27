@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bvpfxo05k5nyo"]
+[gd_scene load_steps=7 format=3 uid="uid://bvpfxo05k5nyo"]
 
 [ext_resource type="Script" path="res://Game/game.gd" id="1_p5sec"]
 [ext_resource type="PackedScene" uid="uid://4hdu5f7ikd0h" path="res://World/Levels/level_1.tscn" id="1_qsx06"]
 [ext_resource type="PackedScene" uid="uid://cstcp7nfordr7" path="res://UI/HUD/hud.tscn" id="2_0xbcc"]
 [ext_resource type="PackedScene" uid="uid://bkc6nabwtybq4" path="res://UI/GameOverMenu/game_over_menu.tscn" id="5_8hpvy"]
 [ext_resource type="PackedScene" uid="uid://cwncv8ljmchc5" path="res://UI/ItemGridInterface/item_grid_interface.tscn" id="5_fdrmx"]
+[ext_resource type="PackedScene" uid="uid://v7qso20aqmk5" path="res://UI/ShelterUI/shelter_ui.tscn" id="6_kupdd"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_p5sec")
@@ -20,6 +21,9 @@ visible = false
 mouse_filter = 2
 
 [node name="ItemGridInterface" parent="UILayer" instance=ExtResource("5_fdrmx")]
+visible = false
+
+[node name="ShelterUI" parent="UILayer" instance=ExtResource("6_kupdd")]
 visible = false
 
 [connection signal="play_again_pressed" from="UILayer/GameOverMenu" to="." method="_on_game_over_menu_play_again_pressed"]

@@ -9,6 +9,7 @@ extends Node2D
 	set(new_value):
 		active_player = new_value
 		active_player_changed.emit(active_player)
+@export var shelter_item_grid: ItemGrid
 
 signal player_died
 signal active_player_changed(active_player: PlayerCharacterController)

@@ -5,6 +5,7 @@ const DEATH_MESSAGE = "You Died.. Bruh.."
 @onready var hud: HUD = $UILayer/HUD
 @onready var game_over_menu: GameOverMenu = $UILayer/GameOverMenu
 @onready var inventory_gui: ItemGridInterface = $UILayer/ItemGridInterface
+@onready var shelter_ui = $UILayer/ShelterUI
 
 @export var ui_state_machine: StateMachine
 @export var current_level_packed_scene: PackedScene
@@ -60,6 +61,7 @@ func _on_active_player_changed(active_player: PlayerCharacterController):
 	if not inventory_gui.item_dropped.is_connected(active_player.handle_drop_item):
 		inventory_gui.item_dropped.connect(active_player.handle_drop_item)
 	inventory_gui.item_grid = active_player.inventory.item_grid
+	shelter_ui.item_grid_two = active_player.inventory.item_grid
 	#placing_object_state.item_placed.connect(active_player.inventory.remove_item)
 	#place_object_handler.mouse_detect_area = active_player.mouse_detect_area
 	#pickup_stuff_handler.mouse_detect_area = active_player.mouse_detect_area

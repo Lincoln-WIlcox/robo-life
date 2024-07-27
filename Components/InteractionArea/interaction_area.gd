@@ -5,7 +5,7 @@ extends Area2D
 @export var disabled := false
 @export var interaction_priority := 0
 
-signal interacted_with(interactor: Object)
+signal interacted_with(interactor: Node)
 
 func interact(interactor: Node) -> void:
 	if !disabled:

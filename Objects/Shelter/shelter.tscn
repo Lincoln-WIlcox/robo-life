@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bofsie7wntey3"]
 
-[ext_resource type="Script" path="res://Objects/Shelter/shelter.gd" id="1_ono5b"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_2wgjq"]
+[ext_resource type="Script" path="res://Objects/Shelter/shelter_interaction_area.gd" id="3_bk1c3"]
 [ext_resource type="PackedScene" uid="uid://d3disugmcknvo" path="res://Components/InteractionArea/interaction_area.tscn" id="3_lf5i5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8gy5f"]
@@ -12,17 +12,15 @@ region = Rect2(112, 120, 48, 24)
 size = Vector2(46, 27)
 
 [node name="Shelter" type="Node2D"]
-script = ExtResource("1_ono5b")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_8gy5f")
 
-[node name="InteractionArea" parent="." instance=ExtResource("3_lf5i5")]
-collision_layer = 128
-collision_mask = 0
+[node name="ShelterInteractionArea" parent="." instance=ExtResource("3_lf5i5")]
+script = ExtResource("3_bk1c3")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShelterInteractionArea"]
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_rukdd")
 
-[connection signal="interacted_with" from="InteractionArea" to="." method="_on_interaction_area_interacted_with"]
+[connection signal="interacted_with" from="ShelterInteractionArea" to="." method="_on_interaction_area_interacted_with"]
