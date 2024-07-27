@@ -3,6 +3,7 @@ extends Control
 
 @onready var grid_container = $CenterContainer/GridContainer
 @onready var dragging: State = $StateMachine/Dragging
+@onready var dragging_tile_over_manager = $DraggingTileOverManager
 
 @export var empty_tile_packed_scene: PackedScene
 @export var item_grid_tile_packed_scene: PackedScene
@@ -10,6 +11,8 @@ extends Control
 @export var item_grid: ItemGrid:
 	set(new_value):
 		item_grid = new_value
+		grid_container.columns = item_grid.size.x
+		item_grid.changed.connect(update_grid)
 		update_grid()
 
 var tiles: Array[ItemGridTile]:
@@ -33,6 +36,9 @@ func _ready():
 	dragging.tiles = func(): return tiles
 	dragging.empty_tiles = func(): return empty_tiles
 	dragging.item_grid = func(): return item_grid
+	dragging_tile_over_manager.tiles = func(): return tiles
+	dragging_tile_over_manager.empty_tiles = func(): return empty_tiles
+	dragging_tile_over_manager.item_grid = func(): return item_grid
 
 func open_gui() -> void:
 	show()
@@ -81,7 +87,10 @@ func make_margin() -> void:
 func make_empty_tile(grid_position: Vector2i) -> void:
 	var empty_tile = empty_tile_packed_scene.instantiate()
 	empty_tile.grid_position = grid_position
+	empty_tile.associated_item_grid = item_grid
 	grid_container.add_child(empty_tile)
+	empty_tile.tile_area.area_entered.connect(dragging_tile_over_manager.on_tile_area_entered)
+	empty_tile.tile_area.area_exited.connect(dragging_tile_over_manager.on_tile_area_exited)
 
 func make_item_tile(grid_item: ItemGridItem) -> void:
 	var item_grid_tile: ItemGridTile = item_grid_tile_packed_scene.instantiate()

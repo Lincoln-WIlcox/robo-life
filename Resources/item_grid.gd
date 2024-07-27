@@ -4,7 +4,10 @@ extends Resource
 ##Used to represent a grid with items in it.
 
 @export var size: Vector2i = Vector2i(6,4)
-@export var initial_items: Array[ItemGridItem]
+@export var initial_items: Array[ItemGridItem]:
+	set(new_value):
+		initial_items = new_value
+		_items = initial_items
 
 var _items: Array[ItemGridItem]
 
@@ -15,6 +18,7 @@ func add_item(item_data: ItemData) -> bool:
 	var item_grid_item = item_can_be_added(item_data)
 	if item_grid_item:
 		_items.append(item_grid_item)
+		emit_changed()
 		return true
 	return false
 
@@ -28,7 +32,7 @@ func add_item_at_position(item_data: ItemData, position: Vector2i) -> bool:
 		return false
 	
 	_items.append(new_item_grid_item)
-	
+	emit_changed()
 	return true
 
 ##Add a [ItemGridItem] to the grid.
@@ -37,6 +41,7 @@ func add_item_at_position(item_data: ItemData, position: Vector2i) -> bool:
 func add_grid_item(grid_item: ItemGridItem) -> bool:
 	if item_grid_item_can_be_added(grid_item):
 		_items.append(grid_item)
+		emit_changed()
 		return true
 	return false
 
@@ -52,14 +57,17 @@ func remove_item(item_data: ItemData) -> void:
 	for item_grid_item: ItemGridItem in _items:
 		if item_grid_item.item_data == item_data:
 			_items.erase(item_grid_item)
+			emit_changed()
 			return
 	push_warning("item_data not in _items.")
 
 func remove_grid_item(grid_item: ItemGridItem) -> void:
 	_items.erase(grid_item)
+	emit_changed()
 
 func remove_index(index: int) -> void:
 	_items.remove_at(index)
+	emit_changed()
 
 ##Returns the [ItemData] for each item in the grid.
 func get_items() -> Array[ItemData]:

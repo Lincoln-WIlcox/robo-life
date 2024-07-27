@@ -16,6 +16,7 @@ current_level_packed_scene = ExtResource("1_qsx06")
 mouse_filter = 2
 
 [node name="GameOverMenu" parent="UILayer" instance=ExtResource("5_8hpvy")]
+visible = false
 mouse_filter = 2
 
 [node name="ItemGridInterface" parent="UILayer" instance=ExtResource("5_fdrmx")]

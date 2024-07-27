@@ -18,6 +18,12 @@ var in_range := true:
 			_on_in_range()
 		in_range = new_value
 
+func _ready():
+	if in_range:
+		_on_in_range()
+	else:
+		_on_out_of_range()
+
 func _on_placed():
 	modulate = Color(1,1,1)
 

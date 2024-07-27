@@ -15,10 +15,10 @@ signal placed_tile
 signal removed_item
 
 func enter():
-	_move_tile_area = move_tile_area_packed_scene.instantiate()
-	_move_tile_area.grid_size = grid_item.item_data.grid_size
-	_move_tile_area.area_entered.connect(_on_move_tile_area_area_entered)
-	_move_tile_area.area_exited.connect(_on_move_tile_area_area_exited)
+	_move_tile_area = move_tile_area_packed_scene.instantiate() 
+	#_move_tile_area.area_entered.connect(_on_move_tile_area_area_entered)
+	#_move_tile_area.area_exited.connect(_on_move_tile_area_area_exited)
+	_move_tile_area.grid_item = grid_item
 	item_grid.call().remove_grid_item(grid_item)
 	removed_item.emit()
 	node_to_put_color_rect_in.add_child(_move_tile_area)
@@ -33,11 +33,11 @@ func run():
 func exit():
 	var first_tile = get_placing_tile()
 	var placed_tile_on_grid := false
-	var initial_position = grid_item.position
-	if first_tile:
+	var initial_position := grid_item.position
+	if first_tile is ItemGridEmptyTile:
 		grid_item.position = first_tile.grid_position
-		if item_grid.call().item_grid_item_can_be_added(grid_item):
-			item_grid.call().add_grid_item(grid_item)
+		if first_tile.associated_item_grid.item_grid_item_can_be_added(grid_item):
+			first_tile.associated_item_grid.add_grid_item(grid_item)
 			placed_tile_on_grid = true
 	if not placed_tile_on_grid:
 		grid_item.position = initial_position
@@ -47,7 +47,7 @@ func exit():
 	_move_tile_area.queue_free()
 	_remove_highlights()
 
-func _update_tiles():
+func _update_tiles() -> void:
 	_remove_highlights()
 	
 	var first_tile = get_placing_tile()
@@ -84,7 +84,7 @@ func get_placing_tile():
 		first_tile = item_grid_tile_areas.reduce(func(first_tile, area: ItemGridTileArea): return area.item_grid_tile if area.item_grid_tile.grid_position < first_tile.grid_position else first_tile, item_grid_tile_areas[0].item_grid_tile)
 	return first_tile
 
-func _remove_highlights():
+func _remove_highlights() -> void:
 	for tile: ItemGridEmptyTile in empty_tiles.call():
 		tile.highlighted = false
 

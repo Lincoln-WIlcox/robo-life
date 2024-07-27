@@ -9,6 +9,8 @@ var rect: Rect2i:
 	get:
 		return Rect2i(position, item_data.grid_size)
 
-func _init(_item_data: ItemData, _position: Vector2i):
-	item_data = _item_data
-	position = _position
+func _init(_item_data = null, _position = null):
+	if _item_data != null:
+		item_data = _item_data
+	if _position != null:
+		position = _position
