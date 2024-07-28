@@ -2,14 +2,24 @@ extends State
 
 @export var none_state: State
 @export var placing_state: State
+@export var inventory_ui_packed_scene: PackedScene
 
 var active_player: PlayerCharacter
 var toggle_inventory: Callable
+var inventory: Inventory
+
+var show_ui: Callable
+var hide_ui: Callable
 
 signal inventory_opened
 signal inventory_closed
+signal item_dropped
 
 func enter():
+	var inventory_ui = inventory_ui_packed_scene.instantiate()
+	inventory_ui.item_grid = inventory.item_grid
+	inventory_ui.item_dropped.connect(func(grid_item: ItemGridItem): item_dropped.emit(grid_item))
+	show_ui.call(inventory_ui)
 	inventory_opened.emit()
 
 func run():
@@ -17,6 +27,7 @@ func run():
 		state_ended.emit(none_state)
 
 func exit():
+	hide_ui.call()
 	inventory_closed.emit()
 
 func on_placeable_item_dropped(grid_item: ItemGridItem):

@@ -11,9 +11,10 @@ extends Control
 @export var item_grid: ItemGrid:
 	set(new_value):
 		item_grid = new_value
-		grid_container.columns = item_grid.size.x
-		item_grid.changed.connect(update_grid)
-		update_grid()
+		if is_node_ready():
+			grid_container.columns = item_grid.size.x
+			item_grid.changed.connect(update_grid)
+			update_grid()
 
 var tiles: Array[ItemGridTile]:
 	get:
@@ -33,6 +34,9 @@ signal item_dropped(grid_item: ItemGridItem)
 signal tile_dragged(grid_item: ItemGridItem)
 
 func _ready():
+	grid_container.columns = item_grid.size.x
+	item_grid.changed.connect(update_grid)
+	update_grid()
 	dragging.tiles = func(): return tiles
 	dragging.empty_tiles = func(): return empty_tiles
 	dragging.item_grid = func(): return item_grid
@@ -89,8 +93,8 @@ func make_empty_tile(grid_position: Vector2i) -> void:
 	empty_tile.grid_position = grid_position
 	empty_tile.associated_item_grid = item_grid
 	grid_container.add_child(empty_tile)
-	empty_tile.tile_area.area_entered.connect(dragging_tile_over_manager.on_tile_area_entered)
-	empty_tile.tile_area.area_exited.connect(dragging_tile_over_manager.on_tile_area_exited)
+	#empty_tile.tile_area.area_entered.connect(dragging_tile_over_manager.on_tile_area_entered)
+	#empty_tile.tile_area.area_exited.connect(dragging_tile_over_manager.on_tile_area_exited)
 
 func make_item_tile(grid_item: ItemGridItem) -> void:
 	var item_grid_tile: ItemGridTile = item_grid_tile_packed_scene.instantiate()

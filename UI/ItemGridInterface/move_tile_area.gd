@@ -14,8 +14,41 @@ const NOT_PLACEABLE_COLOR = Color(1,0,0,.5)
 		$CollisionShape2D.shape.size = Vector2(grid_size.x * Utils.ITEM_GRID_TILE_SIZE, grid_size.y * Utils.ITEM_GRID_TILE_SIZE)
 		$CollisionShape2D.position = Vector2(grid_size.x * Utils.ITEM_GRID_TILE_SIZE / 2, grid_size.y * Utils.ITEM_GRID_TILE_SIZE / 2)
 
+var _placing_tile
+
 func on_placeable():
 	color_rect.modulate = PLACEABLE_COLOR
 
 func on_not_placeable():
 	color_rect.modulate = NOT_PLACEABLE_COLOR
+
+func _physics_process(delta):
+	var new_placing_tile = Utils.get_placing_tile(self)
+	
+	var placeable_on_tile = false
+	if new_placing_tile:
+		var initial_position := grid_item.position
+		grid_item.position = new_placing_tile.grid_position
+		if new_placing_tile.associated_item_grid.item_grid_item_can_be_added(grid_item):
+			placeable_on_tile = true
+	
+	if placeable_on_tile:
+		if new_placing_tile != _placing_tile:
+			_change_placing_tile(new_placing_tile)
+		on_placeable()
+	else:
+		if _placing_tile:
+			_placing_tile.highlighted = false
+			_placing_tile = null
+		on_not_placeable()
+
+func _exit_tree():
+	if _placing_tile != null:
+		_placing_tile.highlighted = false
+
+func _change_placing_tile(new_placing_tile):
+	if _placing_tile:
+		_placing_tile.highlighted = false
+	_placing_tile = new_placing_tile
+	if _placing_tile:
+		_placing_tile.highlighted = true
