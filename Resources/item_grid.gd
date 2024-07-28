@@ -98,7 +98,7 @@ func item_can_be_added(item_data: ItemData):
 	return false
 
 func item_grid_item_can_be_added(item_grid_item: ItemGridItem) -> bool:
-	if not (item_grid_item.position.x >= 0 or item_grid_item.position.y >= 0 or item_grid_item.rect.end.x <= size.x or item_grid_item.rect.end.y <= size.y):
+	if not (item_grid_item.position.x >= 0 and item_grid_item.position.y >= 0 and item_grid_item.rect.end.x <= size.x and item_grid_item.rect.end.y <= size.y):
 		return false
 	for existing_item: ItemGridItem in _items:
 		if existing_item.rect.intersects(item_grid_item.rect) and existing_item != item_grid_item:

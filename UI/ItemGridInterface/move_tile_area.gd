@@ -24,23 +24,23 @@ func on_not_placeable():
 
 func _physics_process(delta):
 	var new_placing_tile = Utils.get_placing_tile(self)
-	
-	var placeable_on_tile = false
-	if new_placing_tile:
-		var initial_position := grid_item.position
-		grid_item.position = new_placing_tile.grid_position
-		if new_placing_tile.associated_item_grid.item_grid_item_can_be_added(grid_item):
-			placeable_on_tile = true
-	
-	if placeable_on_tile:
+	if new_placing_tile and _can_place_on_new_tile(new_placing_tile):
 		if new_placing_tile != _placing_tile:
 			_change_placing_tile(new_placing_tile)
 		on_placeable()
 	else:
 		if _placing_tile:
-			_placing_tile.highlighted = false
-			_placing_tile = null
+			_stop_placing_tile()
 		on_not_placeable()
+
+func _can_place_on_new_tile(new_placing_tile) -> bool:
+	var initial_position := grid_item.position
+	grid_item.position = new_placing_tile.grid_position
+	var can_place: bool = new_placing_tile.associated_item_grid.item_grid_item_can_be_added(grid_item)
+	grid_item.position = initial_position
+	#print(can_place)
+	return can_place
+	
 
 func _exit_tree():
 	if _placing_tile != null:
@@ -48,7 +48,10 @@ func _exit_tree():
 
 func _change_placing_tile(new_placing_tile):
 	if _placing_tile:
-		_placing_tile.highlighted = false
+		_stop_placing_tile()
 	_placing_tile = new_placing_tile
-	if _placing_tile:
-		_placing_tile.highlighted = true
+	_placing_tile.highlight(grid_item)
+
+func _stop_placing_tile():
+	_placing_tile.stop_highlighting()
+	_placing_tile = null
