@@ -10,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_4jutj")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -19,6 +20,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="ItemGridInterface1" parent="HBoxContainer" instance=ExtResource("2_5r2yc")]
 layout_mode = 2

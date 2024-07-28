@@ -31,7 +31,7 @@ func run():
 	_move_tile_area.global_position = _move_tile_area.get_global_mouse_position()
 
 func exit():
-	var first_tile = get_placing_tile()
+	var first_tile = Utils.get_placing_tile(_move_tile_area)
 	var placed_tile_on_grid := false
 	var initial_position := grid_item.position
 	if first_tile is ItemGridEmptyTile:
@@ -45,53 +45,3 @@ func exit():
 	placed_tile.emit()
 	
 	_move_tile_area.queue_free()
-	_remove_highlights()
-
-func _update_tiles() -> void:
-	_remove_highlights()
-	
-	var first_tile = get_placing_tile()
-	
-	var placeable := false
-	if first_tile:
-		var placing_onto_tiles: Array
-		var all_positions_empty := true
-		var end = first_tile.grid_position + grid_item.item_data.grid_size
-		if end.x <= item_grid.call().size.x and end.y <= item_grid.call().size.y:
-			for x: int in range(0, grid_item.item_data.grid_size.x):
-				for y: int in range(0, grid_item.item_data.grid_size.y):
-					var current_position: Vector2i = first_tile.grid_position + Vector2i(x, y)
-					for tile: ItemGridTile in tiles.call():
-						if tile.grid_position == current_position:
-							all_positions_empty = false
-							placing_onto_tiles.append(tile)
-					for empty_tile: ItemGridEmptyTile in empty_tiles.call():
-						if empty_tile.grid_position == current_position:
-							placing_onto_tiles.append(empty_tile)
-			if all_positions_empty:
-				_move_tile_area.on_placeable()
-				placeable = true
-				for tile in placing_onto_tiles:
-					tile.highlighted = true
-	
-	if placeable == false:
-		_move_tile_area.on_not_placeable()
-
-func get_placing_tile():
-	var item_grid_tile_areas: Array[Area2D] = _move_tile_area.get_overlapping_areas().filter(func(a: Area2D): return a is ItemGridTileArea)
-	var first_tile = null
-	if item_grid_tile_areas.size() > 0:
-		first_tile = item_grid_tile_areas.reduce(func(first_tile, area: ItemGridTileArea): return area.item_grid_tile if area.item_grid_tile.grid_position < first_tile.grid_position else first_tile, item_grid_tile_areas[0].item_grid_tile)
-	return first_tile
-
-func _remove_highlights() -> void:
-	for tile: ItemGridEmptyTile in empty_tiles.call():
-		tile.highlighted = false
-
-func _on_move_tile_area_area_entered(area: Area2D):
-	if is_current_state.call():
-		_update_tiles()
-
-func _on_move_tile_area_area_exited(area: Area2D):
-	if is_current_state.call():
-		_update_tiles()

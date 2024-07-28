@@ -7,7 +7,7 @@ var item_grid: Callable = func(): return ItemGrid.new()
 func _update_tiles(move_tile: MoveTileArea):
 	_remove_highlights()
 	
-	var first_tile = get_placing_tile(move_tile)
+	var first_tile = Utils.get_placing_tile(move_tile)
 	
 	var placeable := false
 	if first_tile:
@@ -34,24 +34,19 @@ func _update_tiles(move_tile: MoveTileArea):
 	if placeable == false:
 		move_tile.on_not_placeable()
 
-func get_placing_tile(move_tile: MoveTileArea):
-	var item_grid_tile_areas: Array[Area2D] = move_tile.get_overlapping_areas().filter(func(a: Area2D): return a is ItemGridTileArea)
-	var first_tile = null
-	if item_grid_tile_areas.size() > 0:
-		first_tile = item_grid_tile_areas.reduce(func(first_tile, area: ItemGridTileArea): return area.item_grid_tile if area.item_grid_tile.grid_position < first_tile.grid_position else first_tile, item_grid_tile_areas[0].item_grid_tile)
-	return first_tile
-
 func _remove_highlights():
 	for tile: ItemGridEmptyTile in empty_tiles.call():
 		tile.highlighted = false
 
 func on_tile_area_entered(area: Area2D):
 	if area is MoveTileArea:
+		print("entering " + str(area))
 		await get_tree().physics_frame
 		_update_tiles(area)
 
 func on_tile_area_exited(area: Area2D):
 	if area is MoveTileArea:
+		print("exiting " + str(area))
 		if area.is_queued_for_deletion():
 			_remove_highlights()
 			return

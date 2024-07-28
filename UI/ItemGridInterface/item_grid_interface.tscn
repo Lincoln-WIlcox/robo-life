@@ -17,6 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_pi64m")
 empty_tile_packed_scene = ExtResource("2_4k4i8")
 item_grid_tile_packed_scene = ExtResource("2_xk4oi")
@@ -45,9 +46,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="GridContainer" type="GridContainer" parent="CenterContainer"]
 layout_mode = 2
+mouse_filter = 2
 columns = 4
 
 [connection signal="tile_dragged" from="." to="StateMachine/None" method="_on_item_grid_interface_tile_dragged"]
