@@ -5,6 +5,7 @@ const MINIMUM_SPEED = 0.2
 const TIME_PASSED_AT_NIGHT = 50
 const HIGHEST_LADDER_OFFSET = 5
 const ITEM_GRID_TILE_SIZE = 48
+const AMOUNT_OF_FOOD_TO_CONSUME = 10
 
 enum GrabDirections
 {

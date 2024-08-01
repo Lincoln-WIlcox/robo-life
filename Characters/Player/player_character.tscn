@@ -38,6 +38,8 @@
 script = ExtResource("2_f2ewa")
 batteries = 0
 steel = 0
+initial_food = 0
+max_food = 50
 
 [sub_resource type="GDScript" id="GDScript_h7t3e"]
 script/source = "extends Node

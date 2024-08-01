@@ -25,6 +25,8 @@ initial_items = Array[Resource("res://Resources/item_grid_item.gd")]([])
 script = ExtResource("4_d214o")
 batteries = 0
 steel = 0
+initial_food = 0
+max_food = 5
 initial_item_grid = SubResource("Resource_6kkjt")
 
 [node name="PlayerCharacterController" type="Node2D"]
@@ -87,4 +89,5 @@ heat_amount = 2
 
 [connection signal="shelter_interacted_with" from="PlayerCharacter" to="UIStateMachine/None" method="_on_player_character_shelter_interacted_with"]
 [connection signal="item_dropped" from="UIStateMachine/Inventory" to="." method="handle_drop_item"]
-[connection signal="end_day_pressed" from="UIStateMachine/Shelter" to="." method="_on_shelter_end_day_pressed"]
+[connection signal="day_ended" from="UIStateMachine/Shelter" to="." method="_on_shelter_day_ended"]
+[connection signal="transfer_food_pressed" from="UIStateMachine/Shelter" to="." method="_transfer_food"]

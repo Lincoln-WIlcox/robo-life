@@ -8,4 +8,4 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	basic_enemy.target = player_character_controller.player_character.character
-	basic_enemy.node_to_put_bullets_in = world
+	basic_enemy.node_to_put_nodes_in = world

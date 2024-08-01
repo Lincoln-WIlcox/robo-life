@@ -12,6 +12,10 @@ extends Node
 			_set_up_progress_bar()
 			timer.start(task_time)
 @export var start_paused := true
+@export var day_night_cycle: DayNightCycle:
+	set(new_value):
+		day_night_cycle = new_value
+		day_night_cycle.day_started.connect(_on_day_started)
 
 var completed := false
 
@@ -37,8 +41,6 @@ func _ready():
 		pause_progress()
 	else:
 		make_progress()
-	
-	Events.day_started.connect(_on_day_started)
 
 func _process(delta):
 	progress_bar.value = timer.time_left
@@ -58,7 +60,7 @@ func _set_up_progress_bar() -> void:
 	progress_bar.max_value = task_time
 	progress_bar.value = progress_bar.max_value
 
-func _on_day_started():
+func _on_day_started(_day):
 	if !paused:
 		var new_start_time = timer.time_left - Utils.TIME_PASSED_AT_NIGHT
 		if new_start_time > 0:

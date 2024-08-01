@@ -20,11 +20,13 @@ extends Node2D
 			_handle_sprite_direction()
 @export var drill_time := 3
 @export var drill_item: ItemData
+@export var day_night_cycle: DayNightCycle
 
 signal item_spent(item_pickup: ItemPickup)
 
 func _ready():
 	time_task_handler.task_time = drill_time
+	time_task_handler.day_night_cycle = day_night_cycle
 	inventory_requirement_interaction_area.insufficient_requirements.connect(func(_interactor): float_away_text_spawner.spawn_text())
 
 func _handle_sprite_direction() -> void:

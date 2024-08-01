@@ -3,11 +3,17 @@ extends Resource
 
 ##Used to represent a grid with items in it.
 
+##The size of the grid in tiles.
 @export var size: Vector2i = Vector2i(6,4)
+##The initial items in the grid.
 @export var initial_items: Array[ItemGridItem]:
 	set(new_value):
-		initial_items = new_value
-		_items = initial_items
+		if not _items:
+			initial_items = new_value
+			_items = initial_items
+			emit_changed()
+		else:
+			push_warning("changing initial_items after initialization does nothing.")
 
 var _items: Array[ItemGridItem]
 

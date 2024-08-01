@@ -52,6 +52,19 @@ size_flags_stretch_ratio = 0.5
 text = "End Day
 "
 
+[node name="EndDayButtonMiddleMargin" type="MarginContainer" parent="VBoxContainer/EndDayButtonMargin/EndDayHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="TransferFoodButton" type="Button" parent="VBoxContainer/EndDayButtonMargin/EndDayHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+text = "Transfer Food
+"
+
 [node name="EndDayButtonRightMargin" type="MarginContainer" parent="VBoxContainer/EndDayButtonMargin/EndDayHbox"]
 layout_mode = 2
 size_flags_horizontal = 3

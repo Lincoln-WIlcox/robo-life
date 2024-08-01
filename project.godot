@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Events="*res://Singletons/events.gd"
 PowerConnectionHandler="*res://Singletons/power_connection_handler.gd"
 MouseArea="*res://Singletons/MouseArea/mouse_area.tscn"
 
