@@ -69,12 +69,19 @@ func get_items() -> Array[ItemData]:
 func has_item(item: ItemData) -> bool:
 	return item_grid.has_item(item)
 
-##Adds an [InventoryAddition] to the inventory
+##Adds an [InventoryAddition] to the inventory. Anything the inventory takes is subtracted from [param inventory_addition]. If the inventory can't take something in an addition, it will only subtract what it can take from the inventory addition.
 func add_addition(inventory_addition: InventoryAddition) -> void:
 	batteries += inventory_addition.gain_batteries
+	inventory_addition.gain_batteries = 0
 	steel += inventory_addition.gain_steel
-	for item: ItemData in inventory_addition.gain_items:
-		item_grid.add_item(item)
+	inventory_addition.gain_steel = 0
+	for item: ItemData in inventory_addition.get_gain_items():
+		if item_grid.item_can_be_added(item):
+			item_grid.add_item(item)
+			inventory_addition.remove_item(item)
+	var gain_food: int = inventory_addition.gain_food if _food + inventory_addition.gain_food <= max_food else max_food - _food
+	inventory_addition.gain_food -= gain_food
+	_food += gain_food
 	emit_changed()
 
 ##Returns the amount of food in the inventory

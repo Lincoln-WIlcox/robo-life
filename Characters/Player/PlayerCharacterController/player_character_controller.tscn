@@ -26,7 +26,7 @@ script = ExtResource("4_d214o")
 batteries = 0
 steel = 0
 initial_food = 0
-max_food = 50
+max_food = 5
 initial_item_grid = SubResource("Resource_6kkjt")
 
 [node name="PlayerCharacterController" type="Node2D"]
