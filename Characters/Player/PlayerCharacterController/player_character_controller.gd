@@ -17,7 +17,7 @@ extends Node2D
 @export var shelter_inventory: Inventory:
 	set(new_value):
 		shelter_inventory = new_value
-		shelter_state.inventory = shelter_inventory.inventory
+		shelter_state.shelter_inventory = shelter_inventory
 
 var inventory:
 	get:
@@ -79,7 +79,7 @@ func _ready():
 	shelter_state.shelter_closed.connect(func(): shelter_closed.emit())
 	shelter_state.show_ui = show_ui
 	shelter_state.hide_ui = hide_ui
-	shelter_state.shelter_item_grid = shelter_item_grid
+	shelter_state.shelter_inventory = shelter_inventory
 	shelter_state.inventory = inventory
 	remove_child(laser_gun)
 	player_character.character.add_child(laser_gun)
@@ -107,5 +107,8 @@ func handle_drop_item(grid_item: ItemGridItem):
 func on_shelter_closed():
 	shelter_state.on_shelter_closed()
 
-func _on_shelter_end_day_pressed():
+func _on_day_night_cycle_day_ended():
+	shelter_inventory.change_food(-Utils.AMOUNT_OF_FOOD_TO_CONSUME)
+
+func _on_shelter_day_ended():
 	day_ended.emit()

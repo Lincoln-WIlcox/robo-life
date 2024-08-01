@@ -90,8 +90,11 @@ func get_food() -> int:
 
 ##Changes the amount of food in the inventory. Will not set food above [member Inventory.max_food] or below 0
 func change_food(change: int) -> void:
-	_food += change
+	set_food(_food + change)
+
+##Sets the amount of food in the inventory.  Will not set food above [member Inventory.max_food] or below 0
+func set_food(new_food: int) -> void:
+	_food = new_food
 	_food = min(_food, max_food)
 	_food = max(0, _food)
 	emit_changed()
-
