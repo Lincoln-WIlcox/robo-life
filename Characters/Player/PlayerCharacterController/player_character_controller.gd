@@ -107,8 +107,8 @@ func handle_drop_item(grid_item: ItemGridItem):
 func on_shelter_closed():
 	shelter_state.on_shelter_closed()
 
-func _on_day_night_cycle_day_ended():
-	shelter_inventory.change_food(-Utils.AMOUNT_OF_FOOD_TO_CONSUME)
-
 func _on_shelter_day_ended():
 	day_ended.emit()
+
+func _on_day_night_cycle_day_started(_day):
+	shelter_inventory.change_food(-Utils.AMOUNT_OF_FOOD_TO_CONSUME)

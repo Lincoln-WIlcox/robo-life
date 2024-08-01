@@ -60,7 +60,7 @@ func _set_up_progress_bar() -> void:
 	progress_bar.max_value = task_time
 	progress_bar.value = progress_bar.max_value
 
-func _on_day_started():
+func _on_day_started(_day):
 	if !paused:
 		var new_start_time = timer.time_left - Utils.TIME_PASSED_AT_NIGHT
 		if new_start_time > 0:
