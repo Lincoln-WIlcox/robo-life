@@ -1,6 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://4hdu5f7ikd0h"]
+[gd_scene load_steps=24 format=3 uid="uid://4hdu5f7ikd0h"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_s0fbl"]
+[ext_resource type="Script" path="res://Resources/item_grid_item.gd" id="3_dumpx"]
+[ext_resource type="Script" path="res://Resources/item_grid.gd" id="4_sp52b"]
 [ext_resource type="PackedScene" uid="uid://uusfotp1xgjx" path="res://Objects/Spike/spike.tscn" id="5_a1p1l"]
 [ext_resource type="TileSet" uid="uid://b2ajxli8pwv36" path="res://Resources/TileSets/level_1.tres" id="6_3k4c5"]
 [ext_resource type="PackedScene" uid="uid://bni6clyp4sg3" path="res://Objects/RockBarrier/rock_barrier.tscn" id="9_d0j2f"]
@@ -20,7 +22,18 @@
 [ext_resource type="PackedScene" uid="uid://7k2m5p3o1p4k" path="res://Objects/Laser/laser.tscn" id="18_vikjm"]
 [ext_resource type="PackedScene" uid="uid://cgs10o16n0tc" path="res://Characters/Enemies/BasicEnemy/basic_enemy_attacking_player.tscn" id="19_htpc3"]
 
+[sub_resource type="Resource" id="Resource_fw07w"]
+script = ExtResource("3_dumpx")
+item_data = ExtResource("15_f5urc")
+position = Vector2i(2, 2)
+
+[sub_resource type="Resource" id="Resource_ae7ki"]
+script = ExtResource("4_sp52b")
+size = Vector2i(6, 4)
+initial_items = Array[ExtResource("3_dumpx")]([SubResource("Resource_fw07w")])
+
 [node name="Level1" instance=ExtResource("1_s0fbl")]
+shelter_item_grid = SubResource("Resource_ae7ki")
 
 [node name="PlayerCharacterController" parent="." index="3"]
 position = Vector2(-190, -47)
