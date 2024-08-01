@@ -87,3 +87,4 @@ heat_amount = 2
 
 [connection signal="shelter_interacted_with" from="PlayerCharacter" to="UIStateMachine/None" method="_on_player_character_shelter_interacted_with"]
 [connection signal="item_dropped" from="UIStateMachine/Inventory" to="." method="handle_drop_item"]
+[connection signal="end_day_pressed" from="UIStateMachine/Shelter" to="." method="_on_shelter_end_day_pressed"]

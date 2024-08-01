@@ -14,7 +14,10 @@ extends Node2D
 
 @export var movement_disabled := false
 @export var node_to_spawn_placeables_in: Node
-@export var shelter_item_grid: ItemGrid
+@export var shelter_item_grid: ItemGrid:
+	set(new_value):
+		shelter_item_grid = new_value
+		shelter_state.shelter_item_grid = shelter_item_grid
 
 signal item_dropped(drop: Object)
 signal died
@@ -22,6 +25,7 @@ signal inventory_opened(inventory_ui: Control)
 signal inventory_closed
 signal shelter_opened(shelter_ui: Control)
 signal shelter_closed
+signal day_ended
 
 var inventory:
 	get:
@@ -102,3 +106,6 @@ func handle_drop_item(grid_item: ItemGridItem):
 
 func on_shelter_closed():
 	shelter_state.on_shelter_closed()
+
+func _on_shelter_end_day_pressed():
+	day_ended.emit()

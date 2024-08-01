@@ -48,5 +48,6 @@ ledge_packed_scene = ExtResource("7_p745u")
 one_way_platform_packed_scene = ExtResource("8_k3r3x")
 
 [connection signal="timeout" from="DayNightCycle/DayTimer" to="DayNightCycle" method="_on_day_timer_timeout"]
+[connection signal="day_ended" from="PlayerCharacterController" to="DayNightCycle" method="start_new_day"]
 [connection signal="item_dropped" from="PlayerCharacterController" to="." method="add_child"]
 [connection signal="changed" from="Tiles" to="Tiles" method="_on_changed"]

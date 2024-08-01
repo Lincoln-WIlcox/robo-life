@@ -43,5 +43,8 @@ func exit():
 		grid_item.position = initial_position
 		item_grid.call().add_grid_item(grid_item)
 	placed_tile.emit()
-	
 	_move_tile_area.queue_free()
+
+func gui_exited():
+	if is_current_state.call():
+		item_grid.call().add_grid_item(grid_item)

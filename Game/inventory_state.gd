@@ -15,11 +15,13 @@ signal inventory_opened
 signal inventory_closed
 signal item_dropped
 
+var _inventory_ui
+
 func enter():
-	var inventory_ui = inventory_ui_packed_scene.instantiate()
-	inventory_ui.item_grid = inventory.item_grid
-	inventory_ui.item_dropped.connect(func(grid_item: ItemGridItem): item_dropped.emit(grid_item))
-	show_ui.call(inventory_ui)
+	_inventory_ui = inventory_ui_packed_scene.instantiate()
+	_inventory_ui.item_grid = inventory.item_grid
+	_inventory_ui.item_dropped.connect(func(grid_item: ItemGridItem): item_dropped.emit(grid_item))
+	show_ui.call(_inventory_ui)
 	inventory_opened.emit()
 
 func run():
@@ -28,6 +30,7 @@ func run():
 
 func exit():
 	hide_ui.call()
+	_inventory_ui.close_gui()
 	inventory_closed.emit()
 
 func on_placeable_item_dropped(grid_item: ItemGridItem):

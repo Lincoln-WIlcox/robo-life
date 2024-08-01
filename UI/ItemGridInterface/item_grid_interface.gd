@@ -34,9 +34,10 @@ signal item_dropped(grid_item: ItemGridItem)
 signal tile_dragged(grid_item: ItemGridItem)
 
 func _ready():
-	grid_container.columns = item_grid.size.x
-	item_grid.changed.connect(update_grid)
-	update_grid()
+	if item_grid:
+		grid_container.columns = item_grid.size.x
+		item_grid.changed.connect(update_grid)
+		update_grid()
 	dragging.tiles = func(): return tiles
 	dragging.empty_tiles = func(): return empty_tiles
 	dragging.item_grid = func(): return item_grid
@@ -44,13 +45,12 @@ func _ready():
 	dragging_tile_over_manager.empty_tiles = func(): return empty_tiles
 	dragging_tile_over_manager.item_grid = func(): return item_grid
 
-func open_gui() -> void:
-	show()
-	update_grid()
+#func open_gui() -> void:
+	#show()
+	#update_grid()
 
 func close_gui() -> void:
-	hide()
-	remove_tiles()
+	dragging.gui_exited()
 
 func update_grid() -> void:
 	remove_tiles()
