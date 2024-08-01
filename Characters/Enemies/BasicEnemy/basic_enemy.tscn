@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cunc28rnr20cj"]
+[gd_scene load_steps=15 format=3 uid="uid://cunc28rnr20cj"]
 
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="1_emesy"]
 [ext_resource type="Script" path="res://Characters/Enemies/BasicEnemy/basic_enemy.gd" id="1_ms7aa"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://bpjyigrxmafpo" path="res://Objects/Bullet/bullet.tscn" id="3_f7jvg"]
 [ext_resource type="PackedScene" uid="uid://lxxl844xt4sk" path="res://Components/VelocityComponent/velocity_component.tscn" id="3_un1su"]
 [ext_resource type="Script" path="res://Components/HeaterProgressBarUpdater/heater_progress_bar_updater.gd" id="4_2p77k"]
+[ext_resource type="PackedScene" uid="uid://cqnd47al60df" path="res://Objects/GravityWalkOverPickupSpawner/gravity_walk_over_pickup_spawner.tscn" id="10_s21ta"]
+[ext_resource type="PackedScene" uid="uid://g1jj5acjo7c5" path="res://Objects/GravityWalkOverItemPickup/gravity_walk_over_item_pickup_food.tscn" id="11_76ehh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4fpjn"]
 atlas = ExtResource("1_emesy")
@@ -105,6 +107,10 @@ target_position = Vector2(0, 7)
 [node name="LineOfSightOfTarget" type="RayCast2D" parent="CharacterBody2D"]
 position = Vector2(0, -5)
 collision_mask = 3
+
+[node name="GravityWalkOverPickupSpawner" parent="." instance=ExtResource("10_s21ta")]
+gravity_walk_over_pickup_packed_scene = ExtResource("11_76ehh")
+spawn_amount = 3
 
 [connection signal="timeout" from="ShootPlayerController/Timer" to="ShootPlayerController" method="_on_timer_timeout"]
 [connection signal="timeout" from="MovementController/Timer" to="MovementController" method="_on_timer_timeout"]
