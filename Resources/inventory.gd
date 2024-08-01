@@ -37,7 +37,11 @@ extends Resource
 			item_grid = new_value
 
 ##This inventory's associated [ItemGrid]
-var item_grid = null
+var item_grid = null:
+	set(new_value):
+		item_grid = new_value
+		item_grid.changed.connect(func(): emit_changed())
+		emit_changed()
 var _food := initial_food
 
 ##Adds an item to the item grid
@@ -55,6 +59,7 @@ func remove_item(item: ItemData) -> void:
 ##Used primarily by [ItemGridInterface]. Removes a [GridItem] from the [member Inventory.item_grid]
 func remove_grid_item(grid_item: ItemGridItem) -> void:
 	item_grid.remove_grid_item(grid_item)
+	emit_changed()
 
 ##Gets all the items in the item grid
 func get_items() -> Array[ItemData]:
@@ -81,4 +86,5 @@ func change_food(change: int) -> void:
 	_food += change
 	_food = min(_food, max_food)
 	_food = max(0, _food)
+	emit_changed()
 
