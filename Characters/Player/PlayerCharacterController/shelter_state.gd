@@ -5,7 +5,7 @@ extends State
 
 var show_ui: Callable
 var hide_ui: Callable
-var shelter_item_grid: ItemGrid
+var shelter_inventory: Inventory
 var inventory: Inventory
 
 signal shelter_opened
@@ -14,7 +14,7 @@ signal end_day_pressed
 
 func enter():
 	var shelter_ui = shelter_ui_packed_scene.instantiate()
-	shelter_ui.item_grid_one = shelter_item_grid
+	shelter_ui.item_grid_one = shelter_inventory.item_grid
 	shelter_ui.item_grid_two = inventory.item_grid
 	shelter_ui.end_day_pressed.connect(func(): end_day_pressed.emit())
 	show_ui.call(shelter_ui)

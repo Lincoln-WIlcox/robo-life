@@ -14,18 +14,10 @@ extends Node2D
 
 @export var movement_disabled := false
 @export var node_to_spawn_placeables_in: Node
-@export var shelter_item_grid: ItemGrid:
+@export var shelter_inventory: Inventory:
 	set(new_value):
-		shelter_item_grid = new_value
-		shelter_state.shelter_item_grid = shelter_item_grid
-
-signal item_dropped(drop: Object)
-signal died
-signal inventory_opened(inventory_ui: Control)
-signal inventory_closed
-signal shelter_opened(shelter_ui: Control)
-signal shelter_closed
-signal day_ended
+		shelter_inventory = new_value
+		shelter_state.inventory = shelter_inventory.inventory
 
 var inventory:
 	get:
@@ -43,6 +35,14 @@ var hide_ui: Callable:
 		if is_node_ready():
 			inventory_state.hide_ui = hide_ui
 			shelter_state.hide_ui = hide_ui
+
+signal item_dropped(drop: Object)
+signal died
+signal inventory_opened(inventory_ui: Control)
+signal inventory_closed
+signal shelter_opened(shelter_ui: Control)
+signal shelter_closed
+signal day_ended
 
 func _ready():
 	player_character.is_jumping = func(): return Input.is_action_pressed("player_jump") and not movement_disabled
