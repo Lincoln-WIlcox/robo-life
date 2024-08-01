@@ -39,6 +39,7 @@ signal just_interacted
 signal just_climbed
 signal item_dropped(drop: Object)
 signal died
+signal shelter_interacted_with
 
 var is_jumping := func(): return false:
 	set(new_value):
@@ -108,12 +109,15 @@ func _update_children():
 	animation_handler.is_moving_left = is_moving_left
 	animation_handler.is_moving_right = is_moving_right
 
-func drop_item(item: ItemData):
-	inventory.remove_item(item)
-	drop_item_handler.drop_item(item, drop_item_left.global_position if facing_left else drop_item_right.global_position)
+func drop_item(grid_item: ItemGridItem):
+	inventory.remove_grid_item(grid_item)
+	drop_item_handler.drop_item(grid_item.item_data, drop_item_left.global_position if facing_left else drop_item_right.global_position)
 
 func _on_drop_item_handler_drop_created(drop):
 	item_dropped.emit(drop)
 
 func _on_walk_over_item_pickup_collector_walk_over_item_collected(inventory_addition: InventoryAddition):
 	inventory.add_addition(inventory_addition)
+
+func _on_shelter_interaction_area_interaction_handler_shelter_interacted_with():
+	shelter_interacted_with.emit()

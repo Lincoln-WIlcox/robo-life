@@ -24,6 +24,8 @@ MouseArea="*res://Singletons/MouseArea/mouse_area.tscn"
 
 [display]
 
+window/size/viewport_width=768
+window/size/viewport_height=432
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
@@ -108,6 +110,11 @@ fire={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(274, 35),"global_position":Vector2(280, 97),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
+drag_item={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(591, 26),"global_position":Vector2(597, 88),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -119,6 +126,7 @@ fire={
 2d_physics/layer_6="Damage"
 2d_physics/layer_7="Heat"
 2d_physics/layer_8="IntangibleEnviornmentObjects"
+2d_physics/layer_9="ItemGridTiles"
 
 [physics]
 

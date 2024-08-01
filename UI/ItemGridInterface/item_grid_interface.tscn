@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://cwncv8ljmchc5"]
+
+[ext_resource type="Script" path="res://UI/ItemGridInterface/item_grid_interface.gd" id="1_pi64m"]
+[ext_resource type="PackedScene" uid="uid://b7ewdl311174v" path="res://UI/ItemGridInterface/empty_tile.tscn" id="2_4k4i8"]
+[ext_resource type="PackedScene" uid="uid://cxu02inpnbs4y" path="res://UI/ItemGridInterface/item_grid_tile.tscn" id="2_xk4oi"]
+[ext_resource type="PackedScene" uid="uid://cikhx27twofld" path="res://UI/ItemGridInterface/margin_tile.tscn" id="4_a4hqd"]
+[ext_resource type="Script" path="res://UI/ItemGridInterface/dragging_tile_over_manager.gd" id="5_ul5to"]
+[ext_resource type="PackedScene" uid="uid://c2nwpx3t8tmc0" path="res://Components/StateMachine/state_machine.tscn" id="5_w8id8"]
+[ext_resource type="Script" path="res://UI/ItemGridInterface/none_state.gd" id="6_hruyc"]
+[ext_resource type="Script" path="res://UI/ItemGridInterface/dragging_state.gd" id="7_w8j84"]
+[ext_resource type="PackedScene" uid="uid://dhwyldylayefs" path="res://UI/ItemGridInterface/move_tile_area.tscn" id="8_datx3"]
+
+[node name="ItemGridInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_pi64m")
+empty_tile_packed_scene = ExtResource("2_4k4i8")
+item_grid_tile_packed_scene = ExtResource("2_xk4oi")
+margin_tile_packed_scene = ExtResource("4_a4hqd")
+
+[node name="DraggingTileOverManager" type="Node" parent="."]
+script = ExtResource("5_ul5to")
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("5_w8id8")]
+initial_state = NodePath("None")
+
+[node name="None" type="Node" parent="StateMachine" node_paths=PackedStringArray("dragging_state")]
+script = ExtResource("6_hruyc")
+dragging_state = NodePath("../Dragging")
+
+[node name="Dragging" type="Node" parent="StateMachine" node_paths=PackedStringArray("none_state", "node_to_put_color_rect_in")]
+script = ExtResource("7_w8j84")
+move_tile_area_packed_scene = ExtResource("8_datx3")
+none_state = NodePath("../None")
+node_to_put_color_rect_in = NodePath("../..")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="GridContainer" type="GridContainer" parent="CenterContainer"]
+layout_mode = 2
+mouse_filter = 2
+columns = 4
+
+[connection signal="tile_dragged" from="." to="StateMachine/None" method="_on_item_grid_interface_tile_dragged"]

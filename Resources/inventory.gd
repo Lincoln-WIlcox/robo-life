@@ -1,6 +1,8 @@
 class_name Inventory
 extends Resource
 
+##Used to represent the batteries, steel, and items a character or object holds.
+
 @export var batteries := 0:
 	set(new_value):
 		batteries = new_value
@@ -11,29 +13,41 @@ extends Resource
 		steel = new_value
 		
 		emit_changed()
-@export var initial_items: Array[ItemData]
+##The initial value for the item grid. The item grid itself is private. To interact with it, use the functions provided.
+@export var initial_item_grid: ItemGrid:
+	set(new_value):
+		if item_grid == null:
+			item_grid = new_value
 
-var _items := initial_items
+var item_grid = null
 
-func add_item(item: ItemData) -> void:
-	_items.append(item)
-	emit_changed()
+##Adds an item to the item grid
+func add_item(item: ItemData) -> bool:
+	if item_grid.add_item(item):
+		emit_changed()
+		return true
+	return false
 
+##Removes an item from the item grid
 func remove_item(item: ItemData) -> void:
-	_items.erase(item)
+	item_grid.remove_item(item)
 	emit_changed()
 
+func remove_grid_item(grid_item: ItemGridItem) -> void:
+	item_grid.remove_grid_item(grid_item)
+
+##Gets all the items in the item grid
 func get_items() -> Array[ItemData]:
-	return _items
+	return item_grid.get_items()
 
-func get_item_at_index(i: int) -> ItemData:
-	return _items[i]
-
+##Returns true if the item grid contains the given item
 func has_item(item: ItemData) -> bool:
-	return _items.has(item)
+	return item_grid.has_item(item)
 
+##Adds an [InventoryAddition] to the inventory.
 func add_addition(inventory_addition: InventoryAddition) -> void:
 	batteries += inventory_addition.gain_batteries
 	steel += inventory_addition.gain_steel
-	_items.append_array(inventory_addition.gain_items)
-	print(steel)
+	for item: ItemData in inventory_addition.gain_items:
+		item_grid.add_item(item)
+	emit_changed()

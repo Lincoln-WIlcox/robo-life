@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://v7qso20aqmk5"]
+
+[ext_resource type="PackedScene" uid="uid://eg4r6pex37fh" path="res://UI/TwoInventoryInterfaces/two_inventory_interfaces.tscn" id="1_on5yk"]
+[ext_resource type="Script" path="res://UI/ShelterUI/shelter_ui.gd" id="1_wyca2"]
+
+[node name="ShelterUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_wyca2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TwoInventoryInterfaces" parent="VBoxContainer" instance=ExtResource("1_on5yk")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EndDayButtonMargin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.15
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="EndDayHbox" type="HBoxContainer" parent="VBoxContainer/EndDayButtonMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="EndDayButtonLeftMargin" type="MarginContainer" parent="VBoxContainer/EndDayButtonMargin/EndDayHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EndDayButton" type="Button" parent="VBoxContainer/EndDayButtonMargin/EndDayHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+text = "End Day
+"
+
+[node name="EndDayButtonRightMargin" type="MarginContainer" parent="VBoxContainer/EndDayButtonMargin/EndDayHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

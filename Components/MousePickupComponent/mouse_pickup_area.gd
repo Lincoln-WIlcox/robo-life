@@ -6,10 +6,12 @@ extends Area2D
 @export var item: ItemData
 @export var time := .25
 
-@onready var text_spawner: FloatAwayTextSpawner = $FloatAwayTextSpawner
+@onready var out_of_range_text_spawner: FloatAwayTextSpawner = $OutOfRangeTextSpawner
+@onready var no_inventory_space_text_spawner: FloatAwayTextSpawner = $NoInventorySpaceTextSpawner
 @onready var timer = $Timer
 
 signal picked_up(item: ItemData)
+signal pickup_timer_ended
 
 func _ready():
 	timer.wait_time = time
@@ -17,11 +19,11 @@ func _ready():
 	progress_bar.min_value = 0
 	progress_bar.max_value = timer.wait_time
 
-func start_picking_up():
+func start_picking_up() -> void:
 	timer.start()
 	progress_bar.show()
 
-func cancel_pickup():
+func cancel_pickup() -> void:
 	timer.stop()
 	progress_bar.hide()
 
@@ -32,12 +34,15 @@ func _input(event):
 	if event.is_action_released("pickup"):
 		cancel_pickup()
 
-func pickup():
+func on_pickup() -> void:
 	delete_node.queue_free()
 	picked_up.emit(item)
 
-func pickup_out_of_range():
-	text_spawner.spawn_text()
+func pickup_out_of_range() -> void:
+	out_of_range_text_spawner.spawn_text()
+
+func no_space() -> void:
+	no_inventory_space_text_spawner.spawn_text()
 
 func _on_timer_timeout():
-	pickup()
+	pickup_timer_ended.emit()

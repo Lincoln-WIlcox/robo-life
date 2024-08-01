@@ -7,21 +7,42 @@ extends Node2D
 @onready var pickup_stuff_handler: PickupStuffHandler = $PickupStuffHandler
 @onready var inventory_state: State = $UIStateMachine/Inventory
 @onready var placing_object_state: State = $UIStateMachine/PlacingObject
+@onready var shelter_state: State = $UIStateMachine/Shelter
 @onready var place_object_handler: PlaceObjectHandler = $PlaceObjectHandler
 @onready var laser_gun = $LaserGun
 @onready var laser_gun_handler = $LaserGunHandler
 
 @export var movement_disabled := false
 @export var node_to_spawn_placeables_in: Node
+@export var shelter_item_grid: ItemGrid:
+	set(new_value):
+		shelter_item_grid = new_value
+		shelter_state.shelter_item_grid = shelter_item_grid
 
 signal item_dropped(drop: Object)
 signal died
-signal inventory_opened
+signal inventory_opened(inventory_ui: Control)
 signal inventory_closed
+signal shelter_opened(shelter_ui: Control)
+signal shelter_closed
+signal day_ended
 
 var inventory:
 	get:
 		return player_character.inventory
+
+var show_ui: Callable:
+	set(new_value):
+		show_ui = new_value
+		if is_node_ready():
+			inventory_state.show_ui = show_ui
+			shelter_state.show_ui = show_ui
+var hide_ui: Callable:
+	set(new_value):
+		hide_ui = new_value
+		if is_node_ready():
+			inventory_state.hide_ui = hide_ui
+			shelter_state.hide_ui = hide_ui
 
 func _ready():
 	player_character.is_jumping = func(): return Input.is_action_pressed("player_jump") and not movement_disabled
@@ -51,7 +72,15 @@ func _ready():
 	none_state.is_firing = func(): return Input.is_action_pressed("fire")
 	inventory_state.inventory_opened.connect(func(): inventory_opened.emit())
 	inventory_state.inventory_closed.connect(func(): inventory_closed.emit())
-	
+	inventory_state.show_ui = show_ui
+	inventory_state.hide_ui = hide_ui
+	inventory_state.inventory = inventory
+	shelter_state.shelter_opened.connect(func(): shelter_opened.emit())
+	shelter_state.shelter_closed.connect(func(): shelter_closed.emit())
+	shelter_state.show_ui = show_ui
+	shelter_state.hide_ui = hide_ui
+	shelter_state.shelter_item_grid = shelter_item_grid
+	shelter_state.inventory = inventory
 	remove_child(laser_gun)
 	player_character.character.add_child(laser_gun)
 
@@ -63,12 +92,20 @@ func _input(event):
 		player_character.just_interacted.emit()
 	if event.is_action_pressed("player_climb") and not movement_disabled:
 		player_character.just_climbed.emit()
+	if event.is_action_pressed("toggle_inventory"):
+		shelter_state.on_shelter_closed()
 
 func _process(_delta):
 	camera.position = player_character.character.position
 
-func handle_drop_item(item: ItemData):
-	if item is PlaceableItemData:
-		inventory_state.on_placeable_item_dropped(item)
+func handle_drop_item(grid_item: ItemGridItem):
+	if grid_item.item_data is PlaceableItemData:
+		inventory_state.on_placeable_item_dropped(grid_item)
 	else:
-		player_character.drop_item(item)
+		player_character.drop_item(grid_item)
+
+func on_shelter_closed():
+	shelter_state.on_shelter_closed()
+
+func _on_shelter_end_day_pressed():
+	day_ended.emit()

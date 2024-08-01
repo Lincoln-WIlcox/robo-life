@@ -11,4 +11,5 @@ region = Rect2(112, 96, 16, 16)
 script = ExtResource("1_q6l43")
 texture = SubResource("AtlasTexture_husyg")
 name = "Power Pole"
+grid_size = Vector2i(1, 1)
 drop_scene = "res://Objects/PowerPole/power_pole.tscn"

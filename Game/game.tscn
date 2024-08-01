@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Game/game.gd" id="1_p5sec"]
 [ext_resource type="PackedScene" uid="uid://4hdu5f7ikd0h" path="res://World/Levels/level_1.tscn" id="1_qsx06"]
 [ext_resource type="PackedScene" uid="uid://cstcp7nfordr7" path="res://UI/HUD/hud.tscn" id="2_0xbcc"]
-[ext_resource type="PackedScene" uid="uid://cttegcifjq5jb" path="res://UI/InventoryGUI/inventory_gui.tscn" id="5_6ax4x"]
+[ext_resource type="Script" path="res://Game/UILayer.gd" id="3_6x136"]
 [ext_resource type="PackedScene" uid="uid://bkc6nabwtybq4" path="res://UI/GameOverMenu/game_over_menu.tscn" id="5_8hpvy"]
 
 [node name="Game" type="Node"]
@@ -11,14 +11,12 @@ script = ExtResource("1_p5sec")
 current_level_packed_scene = ExtResource("1_qsx06")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
+script = ExtResource("3_6x136")
 
 [node name="HUD" parent="UILayer" instance=ExtResource("2_0xbcc")]
 mouse_filter = 2
 
 [node name="GameOverMenu" parent="UILayer" instance=ExtResource("5_8hpvy")]
-mouse_filter = 2
-
-[node name="InventoryGUI" parent="UILayer" instance=ExtResource("5_6ax4x")]
 visible = false
 mouse_filter = 2
 
