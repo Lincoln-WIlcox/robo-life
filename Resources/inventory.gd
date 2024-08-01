@@ -13,6 +13,19 @@ extends Resource
 		steel = new_value
 		
 		emit_changed()
+@export var initial_food := 0:
+	set(new_value):
+		if not _food:
+			initial_food = new_value
+			_food = initial_food
+			emit_changed()
+		else:
+			push_warning("changing initial_food after creation of resource does nothing")
+@export var max_food := 50:
+	set(new_value):
+		max_food = new_value
+		
+		emit_changed()
 ##The initial value for the item grid. The item grid itself is private. To interact with it, use the functions provided.
 @export var initial_item_grid: ItemGrid:
 	set(new_value):
@@ -20,6 +33,7 @@ extends Resource
 			item_grid = new_value
 
 var item_grid = null
+var _food := initial_food
 
 ##Adds an item to the item grid
 func add_item(item: ItemData) -> bool:
