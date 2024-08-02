@@ -34,8 +34,6 @@ func on_shelter_closed() -> void:
 		state_ended.emit(none_state)
 
 func _on_end_day_pressed() -> void:
-	print("player food ", inventory.get_food())
-	print("shelter food ", shelter_inventory.get_food())
 	if shelter_inventory.get_food() + inventory.get_food() >= Utils.AMOUNT_OF_FOOD_TO_CONSUME:
 		_transfer_food()
 		day_ended.emit()

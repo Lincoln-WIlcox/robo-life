@@ -11,8 +11,8 @@
 [ext_resource type="Script" path="res://Game/placing_object_state.gd" id="6_1j2hy"]
 [ext_resource type="Script" path="res://Game/pickup_stuff_handler.gd" id="7_bmrc0"]
 [ext_resource type="Script" path="res://Game/handle_placing_object.gd" id="8_4yuco"]
+[ext_resource type="PackedScene" uid="uid://buke53aipiw0n" path="res://UI/PlayerInventoryUI/player_inventory_ui.tscn" id="9_1p1ww"]
 [ext_resource type="PackedScene" uid="uid://b0pmkjnlnl8p0" path="res://Objects/LaserGun/laser_gun.tscn" id="9_03qrv"]
-[ext_resource type="PackedScene" uid="uid://cwncv8ljmchc5" path="res://UI/ItemGridInterface/item_grid_interface.tscn" id="9_fyom5"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_state.gd" id="10_0syx4"]
 [ext_resource type="PackedScene" uid="uid://v7qso20aqmk5" path="res://UI/ShelterUI/shelter_ui.tscn" id="12_vxdl5"]
 
@@ -65,7 +65,7 @@ laser_gun = NodePath("../../LaserGun")
 script = ExtResource("5_fsdf8")
 none_state = NodePath("../None")
 placing_state = NodePath("../PlacingObject")
-inventory_ui_packed_scene = ExtResource("9_fyom5")
+inventory_ui_packed_scene = ExtResource("9_1p1ww")
 
 [node name="PlacingObject" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("place_object_handler", "none_state")]
 script = ExtResource("6_1j2hy")

@@ -40,8 +40,7 @@ none_state = NodePath("../None")
 node_to_put_color_rect_in = NodePath("../..")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
+layout_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2

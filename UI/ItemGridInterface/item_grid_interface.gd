@@ -13,7 +13,8 @@ extends Control
 		item_grid = new_value
 		if is_node_ready():
 			grid_container.columns = item_grid.size.x
-			item_grid.changed.connect(update_grid)
+			if not item_grid.changed.is_connected(update_grid):
+				item_grid.changed.connect(update_grid)
 			update_grid()
 
 var tiles: Array[ItemGridTile]:
@@ -29,6 +30,8 @@ var empty_tiles: Array[ItemGridEmptyTile]:
 		var nodes = grid_container.get_children().filter(func(n: Node): return n is ItemGridEmptyTile)
 		item_grid_tiles.assign(nodes)
 		return item_grid_tiles
+
+var _updating_grid = false
 
 signal item_dropped(grid_item: ItemGridItem)
 signal tile_dragged(grid_item: ItemGridItem)
@@ -52,33 +55,39 @@ func _ready():
 func close_gui() -> void:
 	dragging.gui_exited()
 
+func _physics_process(delta):
+	_updating_grid = false
+
 func update_grid() -> void:
-	remove_tiles()
-	
-	if tiles.size() > 0:
-		await tiles[tiles.size() - 1].tree_exited
-	
-	for y: int in range(0, item_grid.size.y):
-		for x: int in range(0, item_grid.size.x):
-			var grid_position = Vector2i(x,y)
-			
-			var found_overlapping_grid_item := false
-			
-			for tile: ItemGridTile in tiles:
-				if tile.item_grid_item.rect.has_point(grid_position):
-					make_margin()
-					found_overlapping_grid_item = true
-					break
-			
-			if not found_overlapping_grid_item:
-				for grid_item: ItemGridItem in item_grid.get_grid_items():
-					if grid_item.position == grid_position:
-						make_item_tile(grid_item)
+	if _updating_grid == false:
+		_updating_grid = true
+		remove_tiles()
+		
+		if grid_container.get_children().size() > 0:
+			await grid_container.get_children()[grid_container.get_children().size() - 1].tree_exited
+		
+		for y: int in range(0, item_grid.size.y):
+			for x: int in range(0, item_grid.size.x):
+				var grid_position = Vector2i(x,y)
+				
+				var found_overlapping_grid_item := false
+				
+				for tile: ItemGridTile in tiles:
+					if tile.item_grid_item.rect.has_point(grid_position):
+						make_margin()
 						found_overlapping_grid_item = true
 						break
-			
-			if not found_overlapping_grid_item:
-				make_empty_tile(grid_position)
+				
+				if not found_overlapping_grid_item:
+					for grid_item: ItemGridItem in item_grid.get_grid_items():
+						if grid_item.position == grid_position:
+							make_item_tile(grid_item)
+							found_overlapping_grid_item = true
+							break
+				
+				if not found_overlapping_grid_item:
+					make_empty_tile(grid_position)
+		
 
 func remove_tiles() -> void:
 	for child: Node in grid_container.get_children():
