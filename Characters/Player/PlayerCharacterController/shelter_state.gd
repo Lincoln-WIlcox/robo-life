@@ -15,8 +15,8 @@ signal transfer_food_pressed
 
 func enter():
 	var shelter_ui = shelter_ui_packed_scene.instantiate()
-	shelter_ui.item_grid_one = shelter_inventory.item_grid
-	shelter_ui.item_grid_two = inventory.item_grid
+	shelter_ui.shelter_inventory = shelter_inventory
+	shelter_ui.player_inventory = inventory
 	shelter_ui.end_day_pressed.connect(_on_end_day_pressed)
 	shelter_ui.transfer_food_pressed.connect(_transfer_food)
 	show_ui.call(shelter_ui)

@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dhwyldylayefs" path="res://UI/ItemGridInterface/move_tile_area.tscn" id="8_datx3"]
 
 [node name="ItemGridInterface" type="Control"]
+custom_minimum_size = Vector2(300, 200)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
