@@ -11,13 +11,19 @@ const END_DAY_BUTTON_TEXT = "end day "
 		shelter_inventory = new_value
 		if is_node_ready():
 			$ShelterContentVbox/ItemGridHbox/Interface1Vbox/ItemGridInterface1.item_grid = shelter_inventory.item_grid
-		shelter_inventory.changed.connect(update_labels)
+		if not shelter_inventory.changed.is_connected(update_labels):
+			shelter_inventory.changed.connect(update_labels)
+		if not shelter_inventory.changed.is_connected(update_end_day_disabled):
+			shelter_inventory.changed.connect(update_end_day_disabled)
 @export var player_inventory: Inventory:
 	set(new_value):
 		player_inventory = new_value
-		player_inventory.changed.connect(update_labels)
 		if is_node_ready():
 			$ShelterContentVbox/ItemGridHbox/VBoxContainer2/ItemGridInterface2.item_grid = player_inventory.item_grid
+		if not player_inventory.changed.is_connected(update_labels):
+			player_inventory.changed.connect(update_labels)
+		if not player_inventory.changed.is_connected(update_end_day_disabled):
+			player_inventory.changed.connect(update_end_day_disabled)
 
 signal end_day_pressed
 signal transfer_food_pressed
