@@ -126,6 +126,7 @@ drag_item={
 2d_physics/layer_7="Heat"
 2d_physics/layer_8="IntangibleEnviornmentObjects"
 2d_physics/layer_9="ItemGridTiles"
+2d_physics/layer_10="Player"
 
 [physics]
 
