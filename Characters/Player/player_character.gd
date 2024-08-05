@@ -39,7 +39,7 @@ signal just_interacted
 signal just_climbed
 signal item_dropped(drop: Object)
 signal died
-signal shelter_interacted_with
+signal shelter_interacted_with(shelter_area: ShelterInteractionArea)
 
 var is_jumping := func(): return false:
 	set(new_value):
@@ -119,5 +119,5 @@ func _on_drop_item_handler_drop_created(drop):
 func _on_walk_over_item_pickup_collector_walk_over_item_collected(inventory_addition: InventoryAddition):
 	inventory.add_addition(inventory_addition)
 
-func _on_shelter_interaction_area_interaction_handler_shelter_interacted_with():
-	shelter_interacted_with.emit()
+func _on_shelter_interaction_area_interaction_handler_shelter_interacted_with(shelter_area: ShelterInteractionArea):
+	shelter_interacted_with.emit(shelter_area)

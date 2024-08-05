@@ -421,7 +421,7 @@ item_pickup_scene = ExtResource("25_grfva")
 script = ExtResource("28_6gxux")
 
 [node name="PlayerCharacterBody" type="CharacterBody2D" parent="."]
-collision_layer = 4
+collision_layer = 516
 slide_on_ceiling = false
 floor_constant_speed = true
 floor_snap_length = 15.0

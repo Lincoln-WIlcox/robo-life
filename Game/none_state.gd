@@ -22,6 +22,7 @@ func run():
 func exit():
 	laser_gun.firing = false
 
-func _on_player_character_shelter_interacted_with():
+func _on_player_character_shelter_interacted_with(shelter_area: ShelterInteractionArea):
 	if is_current_state.call():
+		shelter_state.shelter_area = shelter_area
 		state_ended.emit(shelter_state)

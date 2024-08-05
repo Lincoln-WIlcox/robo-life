@@ -9,7 +9,7 @@ atlas = ExtResource("2_2wgjq")
 region = Rect2(112, 120, 48, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rukdd"]
-size = Vector2(46, 27)
+size = Vector2(46, 80)
 
 [node name="Shelter" type="Node2D"]
 
@@ -17,10 +17,11 @@ size = Vector2(46, 27)
 texture = SubResource("AtlasTexture_8gy5f")
 
 [node name="ShelterInteractionArea" parent="." instance=ExtResource("3_lf5i5")]
+collision_mask = 512
 script = ExtResource("3_bk1c3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ShelterInteractionArea"]
-position = Vector2(0, 2.5)
+position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_rukdd")
 
 [connection signal="interacted_with" from="ShelterInteractionArea" to="." method="_on_interaction_area_interacted_with"]
