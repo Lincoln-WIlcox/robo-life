@@ -23,8 +23,8 @@ MouseArea="*res://Singletons/MouseArea/mouse_area.tscn"
 
 [display]
 
-window/size/viewport_width=768
-window/size/viewport_height=432
+window/size/viewport_width=845
+window/size/viewport_height=475
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/vsync/vsync_mode=0
