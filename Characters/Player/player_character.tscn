@@ -436,11 +436,10 @@ position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_nsq18")
 
 [node name="HealthIndicator" parent="PlayerCharacterBody" node_paths=PackedStringArray("health_component") instance=ExtResource("26_xva2i")]
-offset_left = -6.0
-offset_top = -23.0
-offset_right = 34.0
-offset_bottom = 0.0
-scale = Vector2(0.3, 0.3)
+offset_left = -11.0
+offset_top = -38.0
+offset_right = 29.0
+offset_bottom = -15.0
 text = "10"
 health_component = NodePath("../../HealthComponent")
 

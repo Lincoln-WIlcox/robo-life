@@ -24,6 +24,7 @@ extends Node2D
 @onready var inventory_interaction_handler = $InventoryInteractionHandler
 @onready var drop_item_handler = $DropItemHandler
 @onready var mouse_detect_area = $PlayerCharacterBody/MouseDetectArea
+@onready var interaction_area = $PlayerCharacterBody/InteractArea
 
 @export var inventory: Inventory:
 	set(new_value):
@@ -34,12 +35,6 @@ extends Node2D
 var facing_left:
 	get:
 		return animated_sprite.flip_h
-
-signal just_interacted
-signal just_climbed
-signal item_dropped(drop: Object)
-signal died
-signal shelter_interacted_with(shelter_area: ShelterInteractionArea)
 
 var is_jumping := func(): return false:
 	set(new_value):
@@ -73,6 +68,12 @@ var is_climbing := func(): return false:
 	set(new_value):
 		is_climbing = new_value
 		_update_children()
+
+signal just_interacted
+signal just_climbed
+signal item_dropped(drop: Object)
+signal died
+signal shelter_interacted_with(shelter_area: ShelterInteractionArea)
 
 func _ready():
 	_update_children()
