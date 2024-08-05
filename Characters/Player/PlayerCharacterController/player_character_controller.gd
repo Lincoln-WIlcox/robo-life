@@ -81,7 +81,7 @@ func _ready():
 	shelter_state.hide_ui = hide_ui
 	shelter_state.shelter_inventory = shelter_inventory
 	shelter_state.inventory = inventory
-	shelter_state.player_character = player_character.character
+	shelter_state.interaction_area = player_character.interaction_area
 	remove_child(laser_gun)
 	player_character.character.add_child(laser_gun)
 

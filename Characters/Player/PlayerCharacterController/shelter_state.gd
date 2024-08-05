@@ -7,13 +7,12 @@ var show_ui: Callable
 var hide_ui: Callable
 var shelter_inventory: Inventory
 var inventory: Inventory
-var shelter_area: ShelterInteractionArea:
+var interaction_area: Area2D:
 	set(new_value):
-		if shelter_area and shelter_area.body_exited.is_connected(_on_shelter_area_body_exited):
-			shelter_area.body_exited.disconnect(_on_shelter_area_body_exited)
-		shelter_area = new_value
-		shelter_area.body_exited.connect(_on_shelter_area_body_exited)
-var player_character: CharacterBody2D
+		if new_value:
+			interaction_area = new_value
+			interaction_area.area_exited.connect(_on_interaction_area_area_exited)
+var shelter_area: ShelterInteractionArea
 
 signal shelter_opened
 signal shelter_closed
@@ -46,6 +45,6 @@ func _transfer_food() -> void:
 	shelter_inventory.change_food(inventory.get_food())
 	inventory.set_food(0)
 
-func _on_shelter_area_body_exited(body: PhysicsBody2D):
-	if is_current_state.call() and body == player_character:
+func _on_interaction_area_area_exited(area: Area2D):
+	if is_current_state.call() and area == shelter_area:
 		state_ended.emit(none_state)
