@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://v7qso20aqmk5"]
 
-[ext_resource type="PackedScene" uid="uid://eg4r6pex37fh" path="res://UI/TwoInventoryInterfaces/two_inventory_interfaces.tscn" id="1_on5yk"]
 [ext_resource type="Script" path="res://UI/ShelterUI/shelter_ui.gd" id="1_wyca2"]
+[ext_resource type="PackedScene" uid="uid://cwncv8ljmchc5" path="res://UI/ItemGridInterface/item_grid_interface.tscn" id="2_r5snk"]
 
 [node name="ShelterUI" type="Control"]
 layout_mode = 3
@@ -13,7 +13,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_wyca2")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="ShelterContentVbox" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,11 +22,56 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TwoInventoryInterfaces" parent="VBoxContainer" instance=ExtResource("1_on5yk")]
+[node name="ItemGridHbox" type="HBoxContainer" parent="ShelterContentVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Interface1Vbox" type="VBoxContainer" parent="ShelterContentVbox/ItemGridHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TopMargin" type="MarginContainer" parent="ShelterContentVbox/ItemGridHbox/Interface1Vbox"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="EndDayButtonMargin" type="MarginContainer" parent="VBoxContainer"]
+[node name="ItemGridInterface1" parent="ShelterContentVbox/ItemGridHbox/Interface1Vbox" instance=ExtResource("2_r5snk")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="ShelterContentVbox/ItemGridHbox/Interface1Vbox"]
+layout_mode = 2
+
+[node name="ItemGridInterface1FoodLabel" type="Label" parent="ShelterContentVbox/ItemGridHbox/Interface1Vbox/CenterContainer"]
+layout_mode = 2
+
+[node name="BottomMargin" type="MarginContainer" parent="ShelterContentVbox/ItemGridHbox/Interface1Vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ShelterContentVbox/ItemGridHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TopMargin" type="MarginContainer" parent="ShelterContentVbox/ItemGridHbox/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemGridInterface2" parent="ShelterContentVbox/ItemGridHbox/VBoxContainer2" instance=ExtResource("2_r5snk")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="ShelterContentVbox/ItemGridHbox/VBoxContainer2"]
+layout_mode = 2
+
+[node name="ItemGridInterface2FoodLabel" type="Label" parent="ShelterContentVbox/ItemGridHbox/VBoxContainer2/CenterContainer"]
+layout_mode = 2
+
+[node name="BottomMargin" type="MarginContainer" parent="ShelterContentVbox/ItemGridHbox/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EndDayButtonMargin" type="MarginContainer" parent="ShelterContentVbox"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.15
@@ -35,37 +80,37 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="EndDayHbox" type="HBoxContainer" parent="VBoxContainer/EndDayButtonMargin"]
+[node name="EndDayHbox" type="HBoxContainer" parent="ShelterContentVbox/EndDayButtonMargin"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.1
 
-[node name="EndDayButtonLeftMargin" type="MarginContainer" parent="VBoxContainer/EndDayButtonMargin/EndDayHbox"]
+[node name="EndDayButtonLeftMargin" type="MarginContainer" parent="ShelterContentVbox/EndDayButtonMargin/EndDayHbox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="EndDayButton" type="Button" parent="VBoxContainer/EndDayButtonMargin/EndDayHbox"]
+[node name="EndDayButton" type="Button" parent="ShelterContentVbox/EndDayButtonMargin/EndDayHbox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 text = "End Day
 "
 
-[node name="EndDayButtonMiddleMargin" type="MarginContainer" parent="VBoxContainer/EndDayButtonMargin/EndDayHbox"]
+[node name="EndDayButtonMiddleMargin" type="MarginContainer" parent="ShelterContentVbox/EndDayButtonMargin/EndDayHbox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 
-[node name="TransferFoodButton" type="Button" parent="VBoxContainer/EndDayButtonMargin/EndDayHbox"]
+[node name="TransferFoodButton" type="Button" parent="ShelterContentVbox/EndDayButtonMargin/EndDayHbox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 text = "Transfer Food
 "
 
-[node name="EndDayButtonRightMargin" type="MarginContainer" parent="VBoxContainer/EndDayButtonMargin/EndDayHbox"]
+[node name="EndDayButtonRightMargin" type="MarginContainer" parent="ShelterContentVbox/EndDayButtonMargin/EndDayHbox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

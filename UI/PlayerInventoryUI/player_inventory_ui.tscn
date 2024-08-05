@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://buke53aipiw0n"]
+
+[ext_resource type="Script" path="res://UI/PlayerInventoryUI/player_inventory_ui.gd" id="1_fbupe"]
+[ext_resource type="PackedScene" uid="uid://cwncv8ljmchc5" path="res://UI/ItemGridInterface/item_grid_interface.tscn" id="1_h7dq1"]
+
+[node name="PlayerInventoryUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fbupe")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopMargin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemGridInterface" parent="VBoxContainer" instance=ExtResource("1_h7dq1")]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/CenterContainer"]
+layout_mode = 2
+text = "food:"
+
+[node name="BottomMargin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3

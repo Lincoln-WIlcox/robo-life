@@ -19,7 +19,7 @@ var _inventory_ui
 
 func enter():
 	_inventory_ui = inventory_ui_packed_scene.instantiate()
-	_inventory_ui.item_grid = inventory.item_grid
+	_inventory_ui.player_inventory = inventory
 	_inventory_ui.item_dropped.connect(func(grid_item: ItemGridItem): item_dropped.emit(grid_item))
 	show_ui.call(_inventory_ui)
 	inventory_opened.emit()
