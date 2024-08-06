@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dw2fqgynxjcit"]
+[gd_scene load_steps=22 format=3 uid="uid://dw2fqgynxjcit"]
 
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/player_character_controller.gd" id="1_bw5ol"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/laser_gun_handler.gd" id="2_paldi"]
@@ -15,6 +15,10 @@
 [ext_resource type="PackedScene" uid="uid://b0pmkjnlnl8p0" path="res://Objects/LaserGun/laser_gun.tscn" id="9_03qrv"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_state.gd" id="10_0syx4"]
 [ext_resource type="PackedScene" uid="uid://v7qso20aqmk5" path="res://UI/ShelterUI/shelter_ui.tscn" id="12_vxdl5"]
+[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_none.gd" id="13_itu6i"]
+[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_ui.gd" id="13_v1eve"]
+[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_crafting.gd" id="15_0w8mt"]
+[ext_resource type="PackedScene" uid="uid://wgwi4qdwfkaq" path="res://UI/Crafting/crafting_ui.tscn" id="16_tn7rg"]
 
 [sub_resource type="Resource" id="Resource_6kkjt"]
 script = ExtResource("4_saie0")
@@ -75,7 +79,22 @@ none_state = NodePath("../None")
 [node name="Shelter" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("none_state")]
 script = ExtResource("10_0syx4")
 none_state = NodePath("../None")
+
+[node name="ShelterStateMachine" parent="UIStateMachine/Shelter" node_paths=PackedStringArray("initial_state") instance=ExtResource("3_aoc7a")]
+initial_state = NodePath("None")
+
+[node name="None" type="Node" parent="UIStateMachine/Shelter/ShelterStateMachine"]
+script = ExtResource("13_itu6i")
+
+[node name="Shelter" type="Node" parent="UIStateMachine/Shelter/ShelterStateMachine" node_paths=PackedStringArray("none_state", "crafting_state")]
+script = ExtResource("13_v1eve")
+none_state = NodePath("../None")
+crafting_state = NodePath("../Crafting")
 shelter_ui_packed_scene = ExtResource("12_vxdl5")
+
+[node name="Crafting" type="Node" parent="UIStateMachine/Shelter/ShelterStateMachine"]
+script = ExtResource("15_0w8mt")
+crafting_ui_packed_scene = ExtResource("16_tn7rg")
 
 [node name="PickupStuffHandler" type="Node" parent="."]
 script = ExtResource("7_bmrc0")
@@ -89,5 +108,4 @@ heat_amount = 2
 
 [connection signal="shelter_interacted_with" from="PlayerCharacter" to="UIStateMachine/None" method="_on_player_character_shelter_interacted_with"]
 [connection signal="item_dropped" from="UIStateMachine/Inventory" to="." method="handle_drop_item"]
-[connection signal="day_ended" from="UIStateMachine/Shelter" to="." method="_on_shelter_day_ended"]
-[connection signal="transfer_food_pressed" from="UIStateMachine/Shelter" to="." method="_transfer_food"]
+[connection signal="day_ended" from="UIStateMachine/Shelter/ShelterStateMachine/Shelter" to="." method="_on_shelter_day_ended"]

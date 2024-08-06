@@ -93,7 +93,6 @@ size_flags_vertical = 3
 [node name="EndDayButton" type="Button" parent="ShelterContentVbox/EndDayButtonMargin/EndDayHbox"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.5
 text = "End Day
 "
 
@@ -106,11 +105,21 @@ size_flags_stretch_ratio = 0.5
 [node name="TransferFoodButton" type="Button" parent="ShelterContentVbox/EndDayButtonMargin/EndDayHbox"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.5
 text = "Transfer Food
 "
 
-[node name="EndDayButtonRightMargin" type="MarginContainer" parent="ShelterContentVbox/EndDayButtonMargin/EndDayHbox"]
+[node name="TransferFoodMiddleMargin" type="MarginContainer" parent="ShelterContentVbox/EndDayButtonMargin/EndDayHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="CraftButton" type="Button" parent="ShelterContentVbox/EndDayButtonMargin/EndDayHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Crafting"
+
+[node name="EndDayButtonRightMargin2" type="MarginContainer" parent="ShelterContentVbox/EndDayButtonMargin/EndDayHbox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
