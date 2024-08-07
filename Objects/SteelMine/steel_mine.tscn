@@ -23,6 +23,7 @@ size = Vector2(48, 16)
 [sub_resource type="Resource" id="Resource_hyw3n"]
 script = ExtResource("4_qbvvb")
 batteries_cost = 0
+steel_cost = 0
 costs_items = Array[Resource("res://Resources/item_data.gd")]([ExtResource("3_lpbnu")])
 requires_items = Array[Resource("res://Resources/item_data.gd")]([])
 
@@ -54,6 +55,7 @@ progress_bar = NodePath("../../CharacterBody2D/ProgressBar")
 wait_time = 1.5
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 position = Vector2(24, 8)
@@ -75,6 +77,8 @@ position = Vector2(24, -8)
 
 [node name="PowerConsumer" parent="CharacterBody2D" instance=ExtResource("10_budbg")]
 position = Vector2(24, 8)
+collision_layer = 1024
+collision_mask = 0
 consumes_power = 1
 
 [node name="GravityWalkOverPickupSpawner" parent="CharacterBody2D" instance=ExtResource("12_t4jqo")]

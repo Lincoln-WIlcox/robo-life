@@ -10,7 +10,7 @@ var node_to_put_bullets_in: Node
 var target := Vector2.ZERO
 
 func _physics_process(delta):
-	line_of_sight_of_target.target_position = target
+	line_of_sight_of_target.target_position = target - line_of_sight_of_target.global_position
 	if line_of_sight_of_target.is_colliding() and not timer.is_stopped():
 		timer.stop()
 	elif not line_of_sight_of_target.is_colliding() and timer.is_stopped():

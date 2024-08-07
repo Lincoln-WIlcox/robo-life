@@ -14,4 +14,6 @@ position = Vector2(0, -4)
 texture = SubResource("AtlasTexture_b71ma")
 
 [node name="PowerSupplier" parent="." instance=ExtResource("2_5prhe")]
+collision_layer = 1024
+collision_mask = 0
 supplies_power = 1
