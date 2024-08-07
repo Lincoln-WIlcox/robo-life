@@ -96,6 +96,7 @@ func _ready():
 	player_shield_handler.just_started_shielding = func(): return Input.is_action_just_pressed("shield")
 	player_shield_handler.just_stopped_shielding = func(): return Input.is_action_just_released("shield")
 	player_shield_handler.player_character = player_character.character
+	player_shield_handler.shield_progress_bar = player_character.shield_progress_bar
 
 func drop_item(item: ItemData):
 	player_character.drop_item(item)

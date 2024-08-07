@@ -532,6 +532,14 @@ collision_layer = 0
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerCharacterBody/MouseDetectArea"]
 shape = SubResource("CircleShape2D_cuesd")
 
+[node name="ShieldProgressBar" type="ProgressBar" parent="PlayerCharacterBody"]
+offset_left = -10.0
+offset_top = -18.0
+offset_right = 190.0
+offset_bottom = 9.0
+scale = Vector2(0.1, 0.1)
+show_percentage = false
+
 [connection signal="just_climbed" from="." to="ClimbingRopeDetector" method="_on_player_character_just_climbed"]
 [connection signal="just_interacted" from="." to="InteractionHandler" method="_on_player_character_just_interacted"]
 [connection signal="damage_taken" from="HealthComponent" to="InvincibilityFramesHandler" method="on_damage_taken"]
