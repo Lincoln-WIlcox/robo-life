@@ -4,7 +4,16 @@ extends Placeable
 @onready var power_connector: PowerConnector = $PowerConnector
 @onready var connect_area: Area2D = $ConnectArea
 
+@export var start_placed := false
+
 var _drawn_lines = []
+
+func _ready():
+	if start_placed:
+		#for some reason you have to wait two physics frams
+		await Engine.get_main_loop().physics_frame
+		await Engine.get_main_loop().physics_frame
+		place()
 
 func _on_placed():
 	super()

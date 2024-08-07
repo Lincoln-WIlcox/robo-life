@@ -20,6 +20,7 @@ extends Node2D
 	set(new_value):
 		shelter_inventory = new_value
 		shelter_shelter_state.shelter_inventory = shelter_inventory
+		crafting_state.shelter_inventory = shelter_inventory
 
 var inventory:
 	get:

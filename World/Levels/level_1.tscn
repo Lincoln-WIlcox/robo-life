@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://4hdu5f7ikd0h"]
+[gd_scene load_steps=20 format=3 uid="uid://4hdu5f7ikd0h"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_s0fbl"]
 [ext_resource type="PackedScene" uid="uid://uusfotp1xgjx" path="res://Objects/Spike/spike.tscn" id="5_a1p1l"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://bni6clyp4sg3" path="res://Objects/RockBarrier/rock_barrier.tscn" id="9_d0j2f"]
 [ext_resource type="Resource" uid="uid://bckiex7mctva7" path="res://Resources/Items/drill.tres" id="10_q43bl"]
 [ext_resource type="PackedScene" uid="uid://csa7weg8wqsft" path="res://Objects/Battery/battery.tscn" id="11_5lcsl"]
-[ext_resource type="Resource" uid="uid://b3au5vg63nxkc" path="res://Resources/Items/power_pole.tres" id="11_b2juo"]
 [ext_resource type="PackedScene" uid="uid://bofsie7wntey3" path="res://Objects/Shelter/shelter.tscn" id="11_go86j"]
 [ext_resource type="PackedScene" uid="uid://cmoc1kw7465h" path="res://Objects/Door/BatteryDoor/battery_door.tscn" id="12_iinjg"]
 [ext_resource type="PackedScene" uid="uid://dlsesjelytao" path="res://Objects/PowerSupply/power_supply.tscn" id="12_v1npi"]
@@ -18,13 +17,13 @@
 [ext_resource type="PackedScene" uid="uid://dpyu3hof4l6hb" path="res://Objects/OverheatingWall/overheatable_wall.tscn" id="17_8n4om"]
 [ext_resource type="PackedScene" uid="uid://brg4hptmtkbt2" path="res://Objects/PushableBlock/pushable_block.tscn" id="18_v7l3w"]
 [ext_resource type="PackedScene" uid="uid://7k2m5p3o1p4k" path="res://Objects/Laser/laser.tscn" id="18_vikjm"]
+[ext_resource type="PackedScene" uid="uid://cng4tm54hq536" path="res://Objects/PowerPole/power_pole.tscn" id="19_fa7aj"]
 [ext_resource type="PackedScene" uid="uid://cgs10o16n0tc" path="res://Characters/Enemies/BasicEnemy/basic_enemy_attacking_player.tscn" id="19_htpc3"]
-[ext_resource type="PackedScene" uid="uid://g1jj5acjo7c5" path="res://Objects/GravityWalkOverItemPickup/gravity_walk_over_item_pickup_food.tscn" id="21_wuake"]
 
 [node name="Level1" instance=ExtResource("1_s0fbl")]
 
 [node name="PlayerCharacterController" parent="." index="3"]
-position = Vector2(-190, -47)
+position = Vector2(-192, -48)
 
 [node name="Tiles" parent="." index="4"]
 tile_set = ExtResource("6_3k4c5")
@@ -86,122 +85,60 @@ position = Vector2(64, -160)
 day_night_cycle = NodePath("../DayNightCycle")
 
 [node name="ItemPickup2" parent="." index="21" instance=ExtResource("14_q1p5m")]
-position = Vector2(64, -16)
+position = Vector2(-288, 14)
 item = ExtResource("10_q43bl")
 
 [node name="Battery" parent="." index="22" instance=ExtResource("11_5lcsl")]
 position = Vector2(-16, 160)
 
-[node name="BatteryDoor" parent="." index="23" instance=ExtResource("12_iinjg")]
+[node name="Battery2" parent="." index="23" instance=ExtResource("11_5lcsl")]
+position = Vector2(-800, -80)
+
+[node name="BatteryDoor" parent="." index="24" instance=ExtResource("12_iinjg")]
 position = Vector2(96, 128)
 
-[node name="PoweredDoor2" parent="." index="24" instance=ExtResource("13_hwury")]
+[node name="PoweredDoor2" parent="." index="25" instance=ExtResource("13_hwury")]
 position = Vector2(-608, -64)
 
-[node name="PowerSupply" parent="." index="25" instance=ExtResource("12_v1npi")]
+[node name="PowerSupply" parent="." index="26" instance=ExtResource("12_v1npi")]
 position = Vector2(-400, -32)
 
-[node name="PowerSupply2" parent="." index="26" instance=ExtResource("12_v1npi")]
+[node name="PowerSupply2" parent="." index="27" instance=ExtResource("12_v1npi")]
 position = Vector2(-256, -80)
 
-[node name="ItemPickup3" parent="." index="27" instance=ExtResource("14_q1p5m")]
-position = Vector2(-176, 16)
-item = ExtResource("11_b2juo")
-
-[node name="ItemPickup4" parent="." index="28" instance=ExtResource("14_q1p5m")]
-position = Vector2(-224, 16)
-item = ExtResource("11_b2juo")
-
-[node name="ItemPickup6" parent="." index="29" instance=ExtResource("14_q1p5m")]
-position = Vector2(-256, 16)
-item = ExtResource("11_b2juo")
-
-[node name="ItemPickup7" parent="." index="30" instance=ExtResource("14_q1p5m")]
-position = Vector2(-240, 16)
-item = ExtResource("11_b2juo")
-
-[node name="ItemPickup8" parent="." index="31" instance=ExtResource("14_q1p5m")]
-position = Vector2(-208, 16)
-item = ExtResource("11_b2juo")
-
-[node name="ItemPickup9" parent="." index="32" instance=ExtResource("14_q1p5m")]
-position = Vector2(-192, 16)
-item = ExtResource("11_b2juo")
-
-[node name="ItemPickup5" parent="." index="33" instance=ExtResource("14_q1p5m")]
-position = Vector2(-272, 16)
-item = ExtResource("11_b2juo")
-
-[node name="SteelMine" parent="." index="34" node_paths=PackedStringArray("node_to_put_item_pickup_in") instance=ExtResource("16_kdvld")]
+[node name="SteelMine" parent="." index="28" node_paths=PackedStringArray("node_to_put_item_pickup_in") instance=ExtResource("16_kdvld")]
 position = Vector2(-848, -32)
 node_to_put_item_pickup_in = NodePath("..")
 
-[node name="OverheatableWall" parent="." index="35" instance=ExtResource("17_8n4om")]
+[node name="SteelMine2" parent="." index="29" node_paths=PackedStringArray("node_to_put_item_pickup_in", "progress_bar") instance=ExtResource("16_kdvld")]
+position = Vector2(-253, 16)
+node_to_put_item_pickup_in = NodePath("..")
+progress_bar = NodePath("../SteelMine/CharacterBody2D/ProgressBar")
+
+[node name="OverheatableWall" parent="." index="30" instance=ExtResource("17_8n4om")]
 position = Vector2(-188, 358)
 
-[node name="OverheatableWall2" parent="." index="36" instance=ExtResource("17_8n4om")]
+[node name="OverheatableWall2" parent="." index="31" instance=ExtResource("17_8n4om")]
 position = Vector2(53, 358)
 
-[node name="Laser" parent="." index="37" instance=ExtResource("18_vikjm")]
+[node name="Laser" parent="." index="32" instance=ExtResource("18_vikjm")]
 position = Vector2(-437, 392)
 
-[node name="OverheatableWall3" parent="." index="38" instance=ExtResource("17_8n4om")]
+[node name="OverheatableWall3" parent="." index="33" instance=ExtResource("17_8n4om")]
 position = Vector2(-368, -80)
 
-[node name="BasicEnemyAttackingPlayer" parent="." index="39" node_paths=PackedStringArray("player_character_controller", "world") instance=ExtResource("19_htpc3")]
+[node name="BasicEnemyAttackingPlayer" parent="." index="34" node_paths=PackedStringArray("player_character_controller", "world") instance=ExtResource("19_htpc3")]
 position = Vector2(0, -16)
 player_character_controller = NodePath("../PlayerCharacterController")
 world = NodePath("..")
 
-[node name="GravityWalkOverItemPickupFood" parent="." index="40" instance=ExtResource("21_wuake")]
-position = Vector2(-528, -32)
+[node name="BasicEnemyAttackingPlayer2" parent="." index="35" node_paths=PackedStringArray("player_character_controller", "world") instance=ExtResource("19_htpc3")]
+position = Vector2(-722, -16)
+player_character_controller = NodePath("../PlayerCharacterController")
+world = NodePath("..")
 
-[node name="GravityWalkOverItemPickupFood2" parent="." index="41" instance=ExtResource("21_wuake")]
-position = Vector2(-512, -32)
-
-[node name="GravityWalkOverItemPickupFood3" parent="." index="42" instance=ExtResource("21_wuake")]
-position = Vector2(-480, -32)
-
-[node name="GravityWalkOverItemPickupFood4" parent="." index="43" instance=ExtResource("21_wuake")]
-position = Vector2(-512, -32)
-
-[node name="GravityWalkOverItemPickupFood5" parent="." index="44" instance=ExtResource("21_wuake")]
-position = Vector2(-496, -33)
-
-[node name="GravityWalkOverItemPickupFood6" parent="." index="45" instance=ExtResource("21_wuake")]
-position = Vector2(-480, -32)
-
-[node name="GravityWalkOverItemPickupFood7" parent="." index="46" instance=ExtResource("21_wuake")]
-position = Vector2(-480, -48)
-
-[node name="GravityWalkOverItemPickupFood9" parent="." index="47" instance=ExtResource("21_wuake")]
-position = Vector2(-513, -50)
-
-[node name="GravityWalkOverItemPickupFood17" parent="." index="48" instance=ExtResource("21_wuake")]
-position = Vector2(-467, -41)
-
-[node name="GravityWalkOverItemPickupFood8" parent="." index="49" instance=ExtResource("21_wuake")]
-position = Vector2(-496, -48)
-
-[node name="GravityWalkOverItemPickupFood10" parent="." index="50" instance=ExtResource("21_wuake")]
-position = Vector2(-544, -48)
-
-[node name="GravityWalkOverItemPickupFood11" parent="." index="51" instance=ExtResource("21_wuake")]
-position = Vector2(-528, -48)
-
-[node name="GravityWalkOverItemPickupFood12" parent="." index="52" instance=ExtResource("21_wuake")]
-position = Vector2(-544, -32)
-
-[node name="GravityWalkOverItemPickupFood13" parent="." index="53" instance=ExtResource("21_wuake")]
-position = Vector2(-536, -37)
-
-[node name="GravityWalkOverItemPickupFood14" parent="." index="54" instance=ExtResource("21_wuake")]
-position = Vector2(-520, -42)
-
-[node name="GravityWalkOverItemPickupFood15" parent="." index="55" instance=ExtResource("21_wuake")]
-position = Vector2(-504, -38)
-
-[node name="GravityWalkOverItemPickupFood16" parent="." index="56" instance=ExtResource("21_wuake")]
-position = Vector2(-488, -40)
+[node name="PowerPole" parent="." index="36" instance=ExtResource("19_fa7aj")]
+position = Vector2(-314, -32)
+start_placed = true
 
 [connection signal="item_spent" from="RockBarrier" to="Tiles" method="add_child"]
