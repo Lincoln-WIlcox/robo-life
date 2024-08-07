@@ -16,8 +16,8 @@ const AMOUNT_LABEL_TEXT = "Amount: "
 			update_nodes()
 @export var amount := 1:
 	set(new_value):
-		assert(amount > 0, "amount must be greater than 0")
 		amount = new_value
+		assert(amount > 0, "amount must be greater than 0")
 		if is_node_ready():
 			update_nodes()
 
