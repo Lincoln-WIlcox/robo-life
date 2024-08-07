@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_gq44m"]
 [ext_resource type="PackedScene" uid="uid://g1sd2n28vfvx" path="res://Components/PowerConnection/power_connection.tscn" id="3_1oihy"]
 [ext_resource type="PackedScene" uid="uid://gfntau5ijo5h" path="res://Components/MousePickupComponent/mouse_pickup_area.tscn" id="4_4q22u"]
-[ext_resource type="Resource" uid="uid://b3au5vg63nxkc" path="res://Items/power_pole.tres" id="5_23ris"]
+[ext_resource type="Resource" uid="uid://b3au5vg63nxkc" path="res://Resources/Items/power_pole.tres" id="5_23ris"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g345s"]
 atlas = ExtResource("2_gq44m")

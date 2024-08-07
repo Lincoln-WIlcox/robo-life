@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://wgwi4qdwfkaq"]
+
+[ext_resource type="Script" path="res://UI/Crafting/crafting_ui.gd" id="1_ab6bm"]
+[ext_resource type="Resource" uid="uid://d2daim5btky2m" path="res://Resources/CraftingRecipes/power_pole_recipe.tres" id="2_23ils"]
+[ext_resource type="PackedScene" uid="uid://i18bwfti3ecg" path="res://UI/Crafting/crafting_row.tscn" id="2_ibjwy"]
+[ext_resource type="Resource" uid="uid://rrx5jsdom0ee" path="res://Resources/CraftingRecipes/drill_recipe.tres" id="3_r8meb"]
+[ext_resource type="Resource" uid="uid://dnsrdyywy76m" path="res://Resources/CraftingRecipes/deployable_ladder_recipe.tres" id="4_lmltp"]
+
+[node name="CraftingUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ab6bm")
+crafting_recipes = Array[Resource("res://Resources/crafting_recipe.gd")]([ExtResource("2_23ils"), ExtResource("3_r8meb"), ExtResource("4_lmltp")])
+crafting_row_packed_scene = ExtResource("2_ibjwy")
+
+[node name="CraftingUIContentVbox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CraftingUIContentVbox"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ReturnButtonHbox" type="HBoxContainer" parent="CraftingUIContentVbox/MarginContainer"]
+layout_mode = 2
+
+[node name="LeftMargin" type="MarginContainer" parent="CraftingUIContentVbox/MarginContainer/ReturnButtonHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ReturnButton" type="Button" parent="CraftingUIContentVbox/MarginContainer/ReturnButtonHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+text = "Return"
+
+[node name="RightMargin" type="MarginContainer" parent="CraftingUIContentVbox/MarginContainer/ReturnButtonHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CraftingRowsContainer" type="VBoxContainer" parent="CraftingUIContentVbox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="pressed" from="CraftingUIContentVbox/MarginContainer/ReturnButtonHbox/ReturnButton" to="." method="_on_return_button_pressed"]

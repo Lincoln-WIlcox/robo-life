@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="3_rablb"]
 [ext_resource type="PackedScene" uid="uid://wnwdpxb3bxx4" path="res://Objects/Rope/rope.tscn" id="8_en3r5"]
 [ext_resource type="PackedScene" uid="uid://gfntau5ijo5h" path="res://Components/MousePickupComponent/mouse_pickup_area.tscn" id="9_ny7li"]
-[ext_resource type="Resource" uid="uid://di5ihtaupovf3" path="res://Items/deployable_ladder.tres" id="10_5egjk"]
+[ext_resource type="Resource" uid="uid://di5ihtaupovf3" path="res://Resources/Items/deployable_ladder.tres" id="10_5egjk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qtf72"]
 atlas = ExtResource("3_rablb")

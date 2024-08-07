@@ -11,13 +11,16 @@ extends Node2D
 @onready var place_object_handler: PlaceObjectHandler = $PlaceObjectHandler
 @onready var laser_gun = $LaserGun
 @onready var laser_gun_handler = $LaserGunHandler
+@onready var crafting_state = $UIStateMachine/Shelter/ShelterStateMachine/Crafting
+@onready var shelter_shelter_state = $UIStateMachine/Shelter/ShelterStateMachine/Shelter
 
 @export var movement_disabled := false
 @export var node_to_spawn_placeables_in: Node
 @export var shelter_inventory: Inventory:
 	set(new_value):
 		shelter_inventory = new_value
-		shelter_state.shelter_inventory = shelter_inventory
+		shelter_shelter_state.shelter_inventory = shelter_inventory
+		crafting_state.shelter_inventory = shelter_inventory
 
 var inventory:
 	get:
@@ -28,13 +31,15 @@ var show_ui: Callable:
 		show_ui = new_value
 		if is_node_ready():
 			inventory_state.show_ui = show_ui
-			shelter_state.show_ui = show_ui
+			shelter_shelter_state.show_ui = show_ui
+			crafting_state.show_ui = show_ui
 var hide_ui: Callable:
 	set(new_value):
 		hide_ui = new_value
 		if is_node_ready():
 			inventory_state.hide_ui = hide_ui
-			shelter_state.hide_ui = hide_ui
+			shelter_shelter_state.hide_ui = hide_ui
+			crafting_state.hide_ui = hide_ui
 
 signal item_dropped(drop: Object)
 signal died
@@ -75,13 +80,16 @@ func _ready():
 	inventory_state.show_ui = show_ui
 	inventory_state.hide_ui = hide_ui
 	inventory_state.inventory = inventory
-	shelter_state.shelter_opened.connect(func(): shelter_opened.emit())
-	shelter_state.shelter_closed.connect(func(): shelter_closed.emit())
-	shelter_state.show_ui = show_ui
-	shelter_state.hide_ui = hide_ui
-	shelter_state.shelter_inventory = shelter_inventory
-	shelter_state.inventory = inventory
 	shelter_state.interaction_area = player_character.interaction_area
+	crafting_state.show_ui = show_ui
+	crafting_state.hide_ui = hide_ui
+	crafting_state.player_inventory = inventory
+	shelter_shelter_state.shelter_opened.connect(func(): shelter_opened.emit())
+	shelter_shelter_state.shelter_closed.connect(func(): shelter_closed.emit())
+	shelter_shelter_state.show_ui = show_ui
+	shelter_shelter_state.hide_ui = hide_ui
+	shelter_shelter_state.shelter_inventory = shelter_inventory
+	shelter_shelter_state.inventory = inventory
 	remove_child(laser_gun)
 	player_character.character.add_child(laser_gun)
 

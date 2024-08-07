@@ -1,3 +1,4 @@
+class_name ShelterUI
 extends Control
 
 const FOOD_TEXT = "food: "
@@ -27,14 +28,15 @@ const END_DAY_BUTTON_TEXT = "end day "
 
 signal end_day_pressed
 signal transfer_food_pressed
+signal crafting_pressed
 
 func _ready():
 	$ShelterContentVbox/ItemGridHbox/Interface1Vbox/ItemGridInterface1.item_grid = shelter_inventory.item_grid
 	$ShelterContentVbox/ItemGridHbox/VBoxContainer2/ItemGridInterface2.item_grid = player_inventory.item_grid
 	$ShelterContentVbox/EndDayButtonMargin/EndDayHbox/EndDayButton.text = END_DAY_BUTTON_TEXT + "(" + str(Utils.AMOUNT_OF_FOOD_TO_CONSUME) + ")"
-	
 	$ShelterContentVbox/EndDayButtonMargin/EndDayHbox/EndDayButton.pressed.connect(func(): end_day_pressed.emit())
 	$ShelterContentVbox/EndDayButtonMargin/EndDayHbox/TransferFoodButton.pressed.connect(func(): transfer_food_pressed.emit())
+	$ShelterContentVbox/EndDayButtonMargin/EndDayHbox/CraftButton.pressed.connect(func(): crafting_pressed.emit())
 	
 	update_labels()
 	update_end_day_disabled()
