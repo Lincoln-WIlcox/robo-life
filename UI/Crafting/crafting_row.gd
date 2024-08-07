@@ -8,7 +8,10 @@ const STEEL_TEXT = "steel: "
 @onready var craft_item_label = %CraftItemLabel
 @onready var costs_items_hbox = %CostItemsHbox
 @onready var steel_label = %SteelLabel
+@onready var battery_label = %BatteryLabel
 @onready var craft_button = %CraftButton
+@onready var steel_margin = %SteelMargin
+@onready var battery_margin = %BatteryMargin
 
 var _costs_items: Array[CostsItem]:
 	get:
@@ -43,14 +46,18 @@ func update_nodes() -> void:
 	if crafting_recipe:
 		craft_item_texture.texture = crafting_recipe.crafting_item.texture
 		craft_item_label.text = crafting_recipe.crafting_item.name
-		steel_label.text = STEEL_TEXT + str(crafting_recipe.requirement.steel_cost)
+		steel_label.text = str(crafting_recipe.requirement.steel_cost)
+		battery_label.text = str(crafting_recipe.requirement.batteries_cost)
+		steel_margin.visible = crafting_recipe.requirement.steel_cost > 0
+		battery_margin.visible = crafting_recipe.requirement.batteries_cost > 0
 		
 		costs_items_hbox.visible = crafting_recipe.requirement.costs_items.size() > 0
 		create_cost_items(crafting_recipe.requirement.costs_items)
 	else:
 		craft_item_texture.texture = Texture.new()
-		craft_item_label.text = ""
-		steel_label.text = STEEL_TEXT
+		craft_item_label.text = "???"
+		steel_margin.visible = false
+		battery_margin.visible = false
 
 func create_cost_items(cost_items: Array[ItemData]) -> void:
 	var costs_items_duplicate = cost_items.duplicate()
