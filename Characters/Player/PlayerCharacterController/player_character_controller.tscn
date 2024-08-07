@@ -92,9 +92,10 @@ none_state = NodePath("../None")
 crafting_state = NodePath("../Crafting")
 shelter_ui_packed_scene = ExtResource("12_vxdl5")
 
-[node name="Crafting" type="Node" parent="UIStateMachine/Shelter/ShelterStateMachine"]
+[node name="Crafting" type="Node" parent="UIStateMachine/Shelter/ShelterStateMachine" node_paths=PackedStringArray("shelter_state")]
 script = ExtResource("15_0w8mt")
 crafting_ui_packed_scene = ExtResource("16_yn3tl")
+shelter_state = NodePath("../Shelter")
 
 [node name="PickupStuffHandler" type="Node" parent="."]
 script = ExtResource("7_bmrc0")

@@ -19,6 +19,8 @@ var crafting_rows: Array[CraftingRow]:
 		crafting_rows_typed.assign(crafting_rows)
 		return crafting_rows_typed
 
+signal return_pressed
+
 func _ready():
 	update_nodes()
 
@@ -45,3 +47,6 @@ func _on_crafting_row_craft_pressed(crafting_recipe: CraftingRecipe):
 			player_inventory.spend_requirement(crafting_recipe.requirement)
 			shelter_inventory.add_item(crafting_recipe.crafting_item)
 	update_nodes()
+
+func _on_return_button_pressed():
+	return_pressed.emit()
