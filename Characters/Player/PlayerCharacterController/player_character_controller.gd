@@ -10,7 +10,7 @@ extends Node2D
 @onready var shelter_state: State = $UIStateMachine/Shelter
 @onready var place_object_handler: PlaceObjectHandler = $PlaceObjectHandler
 @onready var laser_gun = $LaserGun
-@onready var laser_gun_handler = $LaserGunHandler
+@onready var laser_gun_handler = $PlayerLaserGunHandler
 @onready var crafting_state = $UIStateMachine/Shelter/ShelterStateMachine/Crafting
 @onready var shelter_shelter_state = $UIStateMachine/Shelter/ShelterStateMachine/Shelter
 
