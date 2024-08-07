@@ -18,6 +18,7 @@ grow_horizontal = 2
 script = ExtResource("1_ncldr")
 crafting_recipe = ExtResource("2_vebtb")
 costs_item_packed_scene = ExtResource("2_q3w1n")
+disabled = null
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -42,6 +43,7 @@ theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 8
 
 [node name="CraftButton" type="Button" parent="MarginContainer/HBoxContainer/CraftButtonMargin"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Craft"
 
@@ -82,3 +84,5 @@ layout_mode = 2
 [node name="CostsItemsLabel" type="Label" parent="MarginContainer/HBoxContainer/CostsItemsMargin/CostItemsHbox"]
 layout_mode = 2
 text = "Costs Items:"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/CraftButtonMargin/CraftButton" to="." method="_on_craft_button_pressed"]

@@ -98,3 +98,35 @@ func set_food(new_food: int) -> void:
 	_food = min(_food, max_food)
 	_food = max(0, _food)
 	emit_changed()
+
+##Returns true if this inventory can spend [param inventory_requirement].
+func meets_requirements(inventory_requirement: InventoryRequirement) -> bool:
+	var indexes_used: Array[int] = []
+	var items: Array[ItemData] = get_items()
+	
+	if batteries < inventory_requirement.batteries_cost or steel < inventory_requirement.steel_cost:
+		return false
+	
+	#this iterates through each item in inventory_requirement.costs_items and ensures the item exists in items and hasn't been used yet.
+	for item: ItemData in inventory_requirement.costs_items:
+		var found_inventory_item := false
+		for i: int in range(items.size()):
+			if item == items[i] and not indexes_used.has(i):
+				indexes_used.append(i)
+				found_inventory_item = true
+				break
+		if !found_inventory_item:
+			return false
+	
+	return true
+
+##Attemps to spend the requirement. Returns true if successful, and false if not. The exchange might not be successful if the inventory does not meet the requirements.
+func spend_requirement(inventory_requirement: InventoryRequirement) -> bool:
+	if meets_requirements(inventory_requirement):
+		batteries -= inventory_requirement.batteries_cost
+		steel -= inventory_requirement.steel_cost
+		for item: ItemData in inventory_requirement.costs_items:
+			remove_item(item)
+		return true
+	else:
+		return false

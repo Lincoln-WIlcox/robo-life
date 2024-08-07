@@ -82,6 +82,7 @@ func _ready():
 	shelter_state.interaction_area = player_character.interaction_area
 	crafting_state.show_ui = show_ui
 	crafting_state.hide_ui = hide_ui
+	crafting_state.player_inventory = inventory
 	shelter_shelter_state.shelter_opened.connect(func(): shelter_opened.emit())
 	shelter_shelter_state.shelter_closed.connect(func(): shelter_closed.emit())
 	shelter_shelter_state.show_ui = show_ui
