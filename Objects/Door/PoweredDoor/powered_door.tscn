@@ -9,6 +9,8 @@ script = ExtResource("2_mgmdi")
 
 [node name="PowerConsumer" parent="." index="2" instance=ExtResource("2_ufmqk")]
 position = Vector2(8, 0)
+collision_layer = 1024
+collision_mask = 0
 consumes_power = 1
 
 [connection signal="power_requirement_lost" from="PowerConsumer" to="." method="_on_power_consumer_power_requirement_lost"]

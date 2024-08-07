@@ -25,6 +25,8 @@ texture = SubResource("AtlasTexture_g345s")
 [node name="PowerConnector" parent="." instance=ExtResource("3_1oihy")]
 
 [node name="ConnectArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1024
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ConnectArea"]
 shape = SubResource("CircleShape2D_agpx2")

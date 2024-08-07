@@ -133,6 +133,7 @@ shield={
 2d_physics/layer_8="IntangibleEnviornmentObjects"
 2d_physics/layer_9="ItemGridTiles"
 2d_physics/layer_10="Player"
+2d_physics/layer_11="Power"
 
 [physics]
 

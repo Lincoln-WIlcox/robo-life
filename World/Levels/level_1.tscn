@@ -138,7 +138,7 @@ player_character_controller = NodePath("../PlayerCharacterController")
 world = NodePath("..")
 
 [node name="PowerPole" parent="." index="36" instance=ExtResource("19_fa7aj")]
-position = Vector2(-314, -32)
+position = Vector2(-320, -32)
 start_placed = true
 
 [connection signal="item_spent" from="RockBarrier" to="Tiles" method="add_child"]
