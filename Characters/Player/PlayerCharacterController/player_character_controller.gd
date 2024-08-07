@@ -10,9 +10,10 @@ extends Node2D
 @onready var shelter_state: State = $UIStateMachine/Shelter
 @onready var place_object_handler: PlaceObjectHandler = $PlaceObjectHandler
 @onready var laser_gun = $LaserGun
-@onready var laser_gun_handler = $LaserGunHandler
+@onready var laser_gun_handler = $PlayerLaserGunHandler
 @onready var crafting_state = $UIStateMachine/Shelter/ShelterStateMachine/Crafting
 @onready var shelter_shelter_state = $UIStateMachine/Shelter/ShelterStateMachine/Shelter
+@onready var player_shield_handler = $PlayerShieldHandler
 
 @export var movement_disabled := false
 @export var node_to_spawn_placeables_in: Node
@@ -92,6 +93,10 @@ func _ready():
 	shelter_shelter_state.inventory = inventory
 	remove_child(laser_gun)
 	player_character.character.add_child(laser_gun)
+	player_shield_handler.just_started_shielding = func(): return Input.is_action_just_pressed("shield")
+	player_shield_handler.just_stopped_shielding = func(): return Input.is_action_just_released("shield")
+	player_shield_handler.player_character = player_character.character
+	player_shield_handler.shield_progress_bar = player_character.shield_progress_bar
 
 func drop_item(item: ItemData):
 	player_character.drop_item(item)

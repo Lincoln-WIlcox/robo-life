@@ -25,6 +25,7 @@ extends Node2D
 @onready var drop_item_handler = $DropItemHandler
 @onready var mouse_detect_area = $PlayerCharacterBody/MouseDetectArea
 @onready var interaction_area = $PlayerCharacterBody/InteractArea
+@onready var shield_progress_bar = $PlayerCharacterBody/ShieldProgressBar
 
 @export var inventory: Inventory:
 	set(new_value):
