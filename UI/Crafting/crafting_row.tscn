@@ -3,11 +3,14 @@
 [ext_resource type="Script" path="res://UI/Crafting/crafting_row.gd" id="1_ncldr"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_pu1rd"]
 [ext_resource type="PackedScene" uid="uid://lteqvs7mwld4" path="res://UI/Crafting/costs_item.tscn" id="2_q3w1n"]
-[ext_resource type="Resource" uid="uid://d2daim5btky2m" path="res://Resources/CraftingRecipes/power_pole_recipe.tres" id="2_vebtb"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_husyg"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dm2y"]
 atlas = ExtResource("2_pu1rd")
-region = Rect2(112, 96, 16, 16)
+region = Rect2(152, 128, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwtle"]
+atlas = ExtResource("2_pu1rd")
+region = Rect2(264, 88, 8, 8)
 
 [node name="CraftingRow" type="Control"]
 custom_minimum_size = Vector2(0, 64)
@@ -16,9 +19,7 @@ anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 script = ExtResource("1_ncldr")
-crafting_recipe = ExtResource("2_vebtb")
 costs_item_packed_scene = ExtResource("2_q3w1n")
-disabled = null
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -59,18 +60,56 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-texture = SubResource("AtlasTexture_husyg")
 stretch_mode = 5
 
 [node name="CraftItemLabel" type="Label" parent="MarginContainer/HBoxContainer/CraftItemMargin/CraftItemHbox"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Power Pole"
+text = "???"
 
-[node name="SteelLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="SteelMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="SteelHbox" type="HBoxContainer" parent="MarginContainer/HBoxContainer/SteelMargin"]
+layout_mode = 2
+
+[node name="SteelIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/SteelMargin/SteelHbox"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_1dm2y")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SteelLabel" type="Label" parent="MarginContainer/HBoxContainer/SteelMargin/SteelHbox"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "steel: 3"
+text = "0"
+
+[node name="BatteryMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="BatteryHbox" type="HBoxContainer" parent="MarginContainer/HBoxContainer/BatteryMargin"]
+layout_mode = 2
+
+[node name="BatteryIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/BatteryMargin/BatteryHbox"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_cwtle")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BatteryLabel" type="Label" parent="MarginContainer/HBoxContainer/BatteryMargin/BatteryHbox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
 
 [node name="CostsItemsMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -79,6 +118,7 @@ theme_override_constants/margin_right = 8
 
 [node name="CostItemsHbox" type="HBoxContainer" parent="MarginContainer/HBoxContainer/CostsItemsMargin"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
 [node name="CostsItemsLabel" type="Label" parent="MarginContainer/HBoxContainer/CostsItemsMargin/CostItemsHbox"]
