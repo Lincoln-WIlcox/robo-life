@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://lteqvs7mwld4"]
+
+[ext_resource type="Script" path="res://UI/Crafting/costs_item.gd" id="1_3txis"]
+
+[node name="CostsItemMargin" type="MarginContainer"]
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+script = ExtResource("1_3txis")
+amount = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ItemTexture" type="TextureRect" parent="HBoxContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 3
+
+[node name="ItemNameLabel" type="Label" parent="HBoxContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="AmountMargin" type="MarginContainer" parent="HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="AmountLabel" type="Label" parent="HBoxContainer/AmountMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Amount: 0"

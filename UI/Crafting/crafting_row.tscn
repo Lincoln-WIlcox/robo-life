@@ -1,0 +1,82 @@
+[gd_scene load_steps=4 format=3 uid="uid://i18bwfti3ecg"]
+
+[ext_resource type="Script" path="res://UI/Crafting/crafting_row.gd" id="1_ncldr"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_pu1rd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ic3cc"]
+atlas = ExtResource("2_pu1rd")
+region = Rect2(112, 96, 16, 16)
+
+[node name="CraftingRow" type="Control"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("1_ncldr")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="CraftButtonMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 8
+
+[node name="CraftButton" type="Button" parent="MarginContainer/HBoxContainer/CraftButtonMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Craft"
+
+[node name="CraftItemMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="CraftItemHbox" type="HBoxContainer" parent="MarginContainer/HBoxContainer/CraftItemMargin"]
+layout_mode = 2
+
+[node name="CraftItemTexture" type="TextureRect" parent="MarginContainer/HBoxContainer/CraftItemMargin/CraftItemHbox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_ic3cc")
+stretch_mode = 5
+
+[node name="CraftItemLabel" type="Label" parent="MarginContainer/HBoxContainer/CraftItemMargin/CraftItemHbox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Power Pole
+"
+
+[node name="SteelLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Steel:"
+
+[node name="CostsItemsMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="CostItemsHbox" type="HBoxContainer" parent="MarginContainer/HBoxContainer/CostsItemsMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CostsItemsLabel" type="Label" parent="MarginContainer/HBoxContainer/CostsItemsMargin/CostItemsHbox"]
+layout_mode = 2
+text = "Costs Items:"
