@@ -12,7 +12,7 @@ var shield_progress_bar: ProgressBar:
 
 func _physics_process(delta):
 	shield_progress_bar.value = shield.energy
-	if shield.energy == 0:
+	if shield.energy == shield.max_energy:
 		shield_progress_bar.hide()
 	else:
 		shield_progress_bar.show()
