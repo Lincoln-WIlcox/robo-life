@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://wqdgq1a7r2ml"]
+[gd_scene load_steps=14 format=3 uid="uid://wqdgq1a7r2ml"]
 
 [ext_resource type="Script" path="res://World/world.gd" id="1_fuqf5"]
 [ext_resource type="Script" path="res://World/day_night_cycle.gd" id="1_yp3no"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://World/tiles.gd" id="6_7fj4g"]
 [ext_resource type="PackedScene" uid="uid://c33tblr4cbh8p" path="res://Objects/Ledge/ledge.tscn" id="7_p745u"]
 [ext_resource type="PackedScene" uid="uid://daw30mg70crel" path="res://Objects/OneWayPlatform/one_way_platform.tscn" id="8_k3r3x"]
+[ext_resource type="PackedScene" uid="uid://c4ikfoien6boi" path="res://Components/Target/target.tscn" id="10_7fjhp"]
+[ext_resource type="Script" path="res://World/player_target.gd" id="11_bifaf"]
 
 [sub_resource type="Resource" id="Resource_c2ic6"]
 script = ExtResource("2_y51w7")
@@ -55,6 +57,10 @@ layer_1/tile_data = PackedInt32Array(2293802, 131074, 3, 2228266, 131074, 2, 216
 script = ExtResource("6_7fj4g")
 ledge_packed_scene = ExtResource("7_p745u")
 one_way_platform_packed_scene = ExtResource("8_k3r3x")
+
+[node name="PlayerTarget" parent="." node_paths=PackedStringArray("player_character_controller") instance=ExtResource("10_7fjhp")]
+script = ExtResource("11_bifaf")
+player_character_controller = NodePath("../PlayerCharacterController")
 
 [connection signal="day_started" from="DayNightCycle" to="PlayerCharacterController" method="_on_day_night_cycle_day_started"]
 [connection signal="timeout" from="DayNightCycle/DayTimer" to="DayNightCycle" method="_on_day_timer_timeout"]
