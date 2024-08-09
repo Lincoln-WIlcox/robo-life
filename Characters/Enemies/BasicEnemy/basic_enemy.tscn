@@ -32,7 +32,6 @@ character = NodePath("../CharacterBody2D")
 line_of_sight_of_target = NodePath("../CharacterBody2D/LineOfSightOfTarget")
 
 [node name="Timer" type="Timer" parent="ShootPlayerController"]
-wait_time = 2.0
 autostart = true
 
 [node name="MovementController" type="Node" parent="." node_paths=PackedStringArray("velocity_component", "floor_checker_left", "floor_checker_right", "wall_checker_left", "wall_checker_right")]
