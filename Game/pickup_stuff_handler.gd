@@ -5,10 +5,14 @@ var inventory: Inventory
 var mouse_detect_area: MouseDetectArea
 var pickup: Callable
 
+var just_started_picking_up := false
+
 func update():
+	just_started_picking_up = false
 	var pickup_areas: Array[Area2D] = MouseArea.get_overlapping_areas().filter(func(a: Area2D): return a is MousePickupArea)
 	
 	if pickup.call() and pickup_areas.size() > 0:
+		just_started_picking_up = true
 		var pickup_area: MousePickupArea = pickup_areas[0]
 		
 		if not inventory.item_grid.item_can_be_added(pickup_area.item):

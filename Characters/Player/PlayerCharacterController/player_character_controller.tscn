@@ -43,12 +43,14 @@ script = ExtResource("1_bw5ol")
 script = ExtResource("2_rrboe")
 
 [node name="Shield" parent="ShieldRotationPivot" instance=ExtResource("2_ipind")]
-position = Vector2(20, 0)
+position = Vector2(22, 0)
 
-[node name="PlayerShieldHandler" type="Node" parent="." node_paths=PackedStringArray("shield", "shield_rotation_pivot")]
+[node name="PlayerShieldHandler" type="Node" parent="." node_paths=PackedStringArray("shield", "shield_rotation_pivot", "pickup_stuff_handler")]
+process_priority = -1
 script = ExtResource("4_j00oc")
 shield = NodePath("../ShieldRotationPivot/Shield")
 shield_rotation_pivot = NodePath("../ShieldRotationPivot")
+pickup_stuff_handler = NodePath("../PickupStuffHandler")
 
 [node name="PlayerLaserGunHandler" type="Node2D" parent="." node_paths=PackedStringArray("player_character", "laser_gun")]
 script = ExtResource("2_paldi")
