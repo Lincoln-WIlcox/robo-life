@@ -1,9 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgs10o16n0tc"]
+[gd_scene load_steps=3 format=3 uid="uid://dk56khc2p4dyy"]
 
-[ext_resource type="Script" path="res://Characters/Enemies/BasicEnemy/basic_enemy_attacking_player.gd" id="1_0bwye"]
 [ext_resource type="PackedScene" uid="uid://cunc28rnr20cj" path="res://Characters/Enemies/BasicEnemy/basic_enemy.tscn" id="2_402vd"]
 
+[sub_resource type="GDScript" id="GDScript_47rj3"]
+script/source = "extends Node2D
+
+@onready var basic_enemy := $BasicEnemy
+
+@export var player_character_controller: PlayerCharacterController
+@export var world: World
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	basic_enemy.target = player_character_controller.player_character.character
+	basic_enemy.node_to_put_nodes_in = world
+"
+
 [node name="BasicEnemyAttackingPlayer" type="Node2D"]
-script = ExtResource("1_0bwye")
+script = SubResource("GDScript_47rj3")
 
 [node name="BasicEnemy" parent="." instance=ExtResource("2_402vd")]

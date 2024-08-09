@@ -3,7 +3,7 @@ extends Node2D
 @onready var shoot_player_controller = $ShootPlayerController
 @onready var pickup_spawner = $CharacterBody2D/GravityWalkOverPickupSpawner
 
-@export var target: Node2D
+@export var target: Target
 @export var node_to_put_nodes_in: Node:
 	set(new_value):
 		node_to_put_nodes_in = new_value
