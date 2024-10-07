@@ -1,15 +1,16 @@
-[gd_resource type="Resource" script_class="CraftingRecipe" load_steps=5 format=3 uid="uid://d2daim5btky2m"]
+[gd_resource type="Resource" script_class="CraftingRecipe" load_steps=6 format=3 uid="uid://d2daim5btky2m"]
 
 [ext_resource type="Resource" uid="uid://b3au5vg63nxkc" path="res://Resources/Items/power_pole.tres" id="1_66w3f"]
 [ext_resource type="Script" path="res://Resources/crafting_recipe.gd" id="1_ftho6"]
 [ext_resource type="Script" path="res://Resources/inventory_requirement.gd" id="1_l7igl"]
+[ext_resource type="Script" path="res://Resources/item_data.gd" id="2_8i8py"]
 
 [sub_resource type="Resource" id="Resource_yylny"]
 script = ExtResource("1_l7igl")
 batteries_cost = 0
 steel_cost = 3
-costs_items = Array[Resource("res://Resources/item_data.gd")]([])
-requires_items = Array[Resource("res://Resources/item_data.gd")]([])
+costs_items = Array[ExtResource("2_8i8py")]([])
+requires_items = Array[ExtResource("2_8i8py")]([])
 
 [resource]
 script = ExtResource("1_ftho6")

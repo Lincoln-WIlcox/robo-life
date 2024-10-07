@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CraftingRecipe" load_steps=5 format=3 uid="uid://dnsrdyywy76m"]
+[gd_resource type="Resource" script_class="CraftingRecipe" load_steps=6 format=3 uid="uid://dnsrdyywy76m"]
 
 [ext_resource type="Resource" uid="uid://di5ihtaupovf3" path="res://Resources/Items/deployable_ladder.tres" id="1_qbifw"]
+[ext_resource type="Script" path="res://Resources/item_data.gd" id="2_fatj2"]
 [ext_resource type="Script" path="res://Resources/inventory_requirement.gd" id="2_plv4j"]
 [ext_resource type="Script" path="res://Resources/crafting_recipe.gd" id="3_6wtas"]
 
@@ -8,8 +9,8 @@
 script = ExtResource("2_plv4j")
 batteries_cost = 1
 steel_cost = 5
-costs_items = Array[Resource("res://Resources/item_data.gd")]([])
-requires_items = Array[Resource("res://Resources/item_data.gd")]([])
+costs_items = Array[ExtResource("2_fatj2")]([])
+requires_items = Array[ExtResource("2_fatj2")]([])
 
 [resource]
 script = ExtResource("3_6wtas")
