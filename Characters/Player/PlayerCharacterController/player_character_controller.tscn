@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dw2fqgynxjcit"]
+[gd_scene load_steps=26 format=3 uid="uid://dw2fqgynxjcit"]
 
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/player_character_controller.gd" id="1_bw5ol"]
 [ext_resource type="PackedScene" uid="uid://by3dehhgwxdqr" path="res://Objects/Shield/shield.tscn" id="2_ipind"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Resources/item_grid.gd" id="4_saie0"]
 [ext_resource type="Script" path="res://Game/inventory_state.gd" id="5_fsdf8"]
 [ext_resource type="Script" path="res://Game/placing_object_state.gd" id="6_1j2hy"]
+[ext_resource type="Script" path="res://Resources/item_grid_item.gd" id="7_45g5n"]
 [ext_resource type="Script" path="res://Game/pickup_stuff_handler.gd" id="7_bmrc0"]
 [ext_resource type="Script" path="res://Game/handle_placing_object.gd" id="8_4yuco"]
 [ext_resource type="PackedScene" uid="uid://buke53aipiw0n" path="res://UI/PlayerInventoryUI/player_inventory_ui.tscn" id="9_1p1ww"]
@@ -26,7 +27,7 @@
 [sub_resource type="Resource" id="Resource_6kkjt"]
 script = ExtResource("4_saie0")
 size = Vector2i(4, 3)
-initial_items = Array[Resource("res://Resources/item_grid_item.gd")]([])
+initial_items = Array[ExtResource("7_45g5n")]([])
 
 [sub_resource type="Resource" id="Resource_yw67y"]
 script = ExtResource("4_d214o")
@@ -46,7 +47,7 @@ script = ExtResource("2_rrboe")
 position = Vector2(22, 0)
 
 [node name="PlayerShieldHandler" type="Node" parent="." node_paths=PackedStringArray("shield", "shield_rotation_pivot", "pickup_stuff_handler")]
-process_priority = -1
+process_physics_priority = 1
 script = ExtResource("4_j00oc")
 shield = NodePath("../ShieldRotationPivot/Shield")
 shield_rotation_pivot = NodePath("../ShieldRotationPivot")

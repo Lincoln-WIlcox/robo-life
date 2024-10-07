@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://wqdgq1a7r2ml"]
+[gd_scene load_steps=15 format=3 uid="uid://wqdgq1a7r2ml"]
 
 [ext_resource type="Script" path="res://World/world.gd" id="1_fuqf5"]
 [ext_resource type="Script" path="res://World/day_night_cycle.gd" id="1_yp3no"]
 [ext_resource type="PackedScene" uid="uid://dw2fqgynxjcit" path="res://Characters/Player/PlayerCharacterController/player_character_controller.tscn" id="1_yr2t8"]
 [ext_resource type="PackedScene" uid="uid://dxd0kh8rswpem" path="res://Components/PowerLineDrawer/power_line_drawer.tscn" id="2_gho6m"]
+[ext_resource type="Script" path="res://Resources/item_grid_item.gd" id="2_xyax1"]
 [ext_resource type="Script" path="res://Resources/item_grid.gd" id="2_y51w7"]
 [ext_resource type="Script" path="res://Resources/inventory.gd" id="2_ymyob"]
 [ext_resource type="Script" path="res://World/tiles.gd" id="6_7fj4g"]
@@ -15,7 +16,7 @@
 [sub_resource type="Resource" id="Resource_c2ic6"]
 script = ExtResource("2_y51w7")
 size = Vector2i(6, 4)
-initial_items = Array[Resource("res://Resources/item_grid_item.gd")]([])
+initial_items = Array[ExtResource("2_xyax1")]([])
 
 [sub_resource type="Resource" id="Resource_ecwqp"]
 script = ExtResource("2_ymyob")
