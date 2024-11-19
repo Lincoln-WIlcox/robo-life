@@ -6,6 +6,24 @@ const TIME_PASSED_AT_NIGHT = 50
 const HIGHEST_LADDER_OFFSET = 5
 const ITEM_GRID_TILE_SIZE = 48
 const AMOUNT_OF_FOOD_TO_CONSUME = 10
+const POINTS_SIMILAR_MARGIN = 0.05
+
+#ordered such that it's easy to work with angle math.
+enum DIRECTIONS
+{
+	RIGHT = 0,
+	DOWN,
+	LEFT,
+	UP
+}
+
+enum QUADRANTS
+{
+	UPPER_LEFT = 0,
+	UPPER_RIGHT,
+	LOWER_RIGHT,
+	LOWER_LEFT
+}
 
 enum GrabDirections
 {
@@ -20,6 +38,21 @@ enum CollisionLayers
 	Entities
 }
 
+#used for the return of get_point_along_polygon_and_vertex_closest_to_point
+enum POINT_ALONG_POLYGON_RETURN_DICTIONARY_KEYS
+{
+	CLOSEST_POINT,
+	CLOSEST_VERTEX_INDEX
+}
+
+#used for the return of get_point_along_polygon_and_vertex_closest_to_point in res://Characters/Enemies/NightRobot/find_closest_point.gd
+enum IS_CLOCKWISE_SHORTER_RETURN_DICTIONARY_KEYS
+{
+	CLOCKWISE_SHORTER,
+	CLOSEST_POINT_TO_TARGET
+}
+
+##Removes duplicates from the array.
 static func make_array_unique(array: Array) -> Array:
 	var unique: Array = []
 	
@@ -29,6 +62,7 @@ static func make_array_unique(array: Array) -> Array:
 	
 	return unique
 
+##Used by inventories to determine which tile a move tile is hovering over.
 static func get_placing_tile(move_tile: MoveTileArea):
 	var item_grid_tile_areas: Array[Area2D] = move_tile.get_overlapping_areas().filter(func(a: Area2D): return a is ItemGridTileArea)
 	
@@ -37,6 +71,189 @@ static func get_placing_tile(move_tile: MoveTileArea):
 		if first_tile != null and tile_area.item_grid_tile is ItemGridEmptyTile:
 			first_tile = tile_area.item_grid_tile if tile_area.item_grid_tile.global_position.distance_to(move_tile.global_position) < first_tile.global_position.distance_to(move_tile.global_position) else first_tile
 		elif tile_area.item_grid_tile is ItemGridEmptyTile:
-				first_tile = tile_area.item_grid_tile
+			first_tile = tile_area.item_grid_tile
 	
 	return first_tile
+
+##Converts an angle in radians to an index in the DIRECTIONS enum.
+static func convert_angle_to_dir_index(angle: float, diagonal_offset = 0.1) -> int:
+	var using_angle = angle + (diagonal_offset if angle_is_diagonal(angle) else 0)
+	#gets how far around a circle the angle is from 0 to 1, multiplies by 4 and then rounds. then modulos to shrink high or low angles
+	var step_one = roundi(using_angle / TAU * DIRECTIONS.size()) % DIRECTIONS.size()
+	#adds the full amount and modulos again to make negative indexes positive
+	var step_two = (step_one + DIRECTIONS.size()) % DIRECTIONS.size()
+	return step_two
+
+##Returns true if an angle is diagonal.
+static func angle_is_diagonal(angle: float) -> bool:
+	var int_angle = roundi(rad_to_deg(angle))
+	return int_angle % 45 == 0 && not angle_is_orthogonal(int_angle)
+
+##Returns true if an angle is orthogonal.
+static func angle_is_orthogonal(angle: float) -> bool:
+	var int_angle = roundi(rad_to_deg(angle))
+	return int_angle % 90 == 0
+
+##Returns all the tiles with collision that are connected to the tile at tile_pos. 
+static func get_touching_tiles_with_collision(tile_map_layer: TileMapLayer, tile_pos: Vector2i, collision_layer: int = 0, exclude: Array[Vector2i] = []) -> Array[Vector2i]:
+	var tile: TileData = tile_map_layer.get_cell_tile_data(tile_pos)
+	var tile_has_collision: bool = tile.get_collision_polygons_count(collision_layer) > 0 if tile else false
+	
+	if tile_has_collision:
+		var surrounding_tiles_pos: Array[Vector2i] = tile_map_layer.get_surrounding_cells(tile_pos)
+		
+		if not exclude.has(tile_pos):
+			exclude.append(tile_pos)
+		
+		var new_tiles: Array[Vector2i] = [tile_pos]
+		for checking_tile_pos: Vector2i in surrounding_tiles_pos:
+			if not exclude.has(checking_tile_pos) and tile_map_layer.get_used_rect().has_point(checking_tile_pos):
+				new_tiles.append_array(get_touching_tiles_with_collision(tile_map_layer, checking_tile_pos, collision_layer, exclude))
+		
+		return new_tiles
+	
+	return []
+
+##Finds the point along the polygon closest to the given point. It will only return a point on the perimeter, even if the point is inside the polygon.
+static func get_point_along_polygon_closest_to_point(polygon: PackedVector2Array, point: Vector2) -> Vector2: 
+	var closest_point_along_wall: Vector2 = polygon[0]
+	
+	for i: int in range(polygon.size()):
+		var starting_point = polygon[i]
+		var ending_point = polygon[(i + 1 if i < polygon.size() - 1 else 0)]
+		
+		var closest_point_on_segment = Geometry2D.get_closest_point_to_segment(point, starting_point, ending_point)
+		
+		if closest_point_on_segment.distance_to(point) < closest_point_along_wall.distance_to(point):
+			closest_point_along_wall = closest_point_on_segment
+	
+	return closest_point_along_wall
+
+##Finds the index of the vertex in polygon that is closest to the given point.
+static func get_closest_vertex_index_to_point(polygon: PackedVector2Array, point: Vector2) -> int:
+	var closest_vertex_index: int = 0
+	
+	for i: int in range(polygon.size()):
+		if polygon[i].distance_to(point) < polygon[closest_vertex_index].distance_to(point):
+			closest_vertex_index = i
+	
+	return closest_vertex_index
+
+##Finds the point along the polygon closest to the given point and the index of the vertex before the closest point. It will only return a point along the perimeter, even if the point is inside the polygon.
+##Combines the get_point_along_polygon_closest_to_point and get_closest_vertex_index_to_point functions for more efficiency, as this is a somewhat costly function.
+##The closest vertex will be clockwise of the closest point if the polygon is counterclockwise, and vice versa.
+static func get_point_along_polygon_and_vertex_closest_to_point(polygon: PackedVector2Array, point: Vector2) -> Dictionary: 
+	var closest_point_along_wall: Vector2 = polygon[0]
+	var closest_vertex_index: int = 0
+	
+	for i: int in range(polygon.size()):
+		var starting_point = polygon[i]
+		var ending_point = polygon[(i + 1 if i < polygon.size() - 1 else 0)]
+		
+		var closest_point_on_segment = Geometry2D.get_closest_point_to_segment(point, starting_point, ending_point)
+		
+		if closest_point_on_segment.distance_to(point) < closest_point_along_wall.distance_to(point):
+			closest_point_along_wall = closest_point_on_segment
+			closest_vertex_index = i
+	
+	return {POINT_ALONG_POLYGON_RETURN_DICTIONARY_KEYS.CLOSEST_POINT: closest_point_along_wall,POINT_ALONG_POLYGON_RETURN_DICTIONARY_KEYS.CLOSEST_VERTEX_INDEX: closest_vertex_index}
+
+##Finds the next vertex along the polygon in the given direction from the point on the polygon closest to the given point. Assumes polygon is counter-clockwise. If polygon is clockwise, return will by inverted.
+static func get_next_vertex_in_direction(polygon: PackedVector2Array, point: Vector2, clockwise: bool) -> int:
+	var closest_point_along_wall: Vector2 = get_point_along_polygon_closest_to_point(polygon, point)
+	
+	for i: int in range(polygon.size()):
+		var starting_point = polygon[i]
+		var next_index = i + 1 if i < polygon.size() - 1 else 0
+		var ending_point = polygon[next_index]
+		
+		var closest_point_on_segment = Geometry2D.get_closest_point_to_segment(point, starting_point, ending_point)
+		if (closest_point_on_segment - closest_point_along_wall).length() <= POINTS_SIMILAR_MARGIN:
+			return i if clockwise else next_index
+	
+	return 0
+
+##Will merge an array of polygons. This will ignore any holes inside the polygons, returning only the outermost perimeter. 
+##It will exclude polygons that are only touching at points; polygons need to be overlapping or share an edge segment to be merged.
+static func merge_polygons(collision_polygons: Array[PackedVector2Array]) -> PackedVector2Array:
+	var total_polygon: PackedVector2Array = collision_polygons[0]
+	collision_polygons.remove_at(0)
+	
+	for collision_polygon: PackedVector2Array in collision_polygons:
+		var merged_polygons: Array[PackedVector2Array] = Geometry2D.merge_polygons(total_polygon, collision_polygon)
+		for merged_polygon: PackedVector2Array in merged_polygons:
+			if not Geometry2D.is_polygon_clockwise(merged_polygon):
+				total_polygon = merged_polygon
+				break
+	
+	return total_polygon
+
+##Assumes the collider is a TileMapLayer. Check if the collider is a TileMapLayer before passing.
+static func get_colliding_tile_position(collision: KinematicCollision2D) -> Vector2i:
+	var tile_map_layer = collision.get_collider()
+	assert(tile_map_layer is TileMapLayer, "not colliding with a tilemap. Check if the collider is a tilemap before using this function.")
+	
+	var collision_position: Vector2 = collision.get_position()
+	collision_position = tile_map_layer.to_local(collision_position)
+	collision_position = collision_position - collision.get_normal()
+	var tile_pos: Vector2i = tile_map_layer.local_to_map(collision_position)
+	return tile_pos
+
+##Returns tile data at the position local to tile_map.
+static func get_tile_data_at_local_position(tile_map: TileMapLayer, at_position: Vector2) -> TileData:
+	var tile_pos = tile_map.local_to_map(at_position)
+	return tile_map.get_cell_tile_data(tile_pos)
+
+static func total_distance_along_path(path: PackedVector2Array) -> float:
+	var total_distance: float = 0
+	
+	#minus 1 because we don't have to add the distance between the final vertex and any other vertex; just the vertices in between.
+	for i: int in range(path.size()-1):
+		total_distance += path[i].distance_to(path[i + 1])
+	
+	return total_distance
+
+##Acts as a normal slice if from is less than to, but if from is greater than to then it gets the values from from up and to down.
+##This still excludes to, so if to is 0 it won't include 0, and if to is 1 it will only include 0 and not 1.
+static func wrap_around_slice(array: Array, from: int, to: int, wrap_around_if_same: bool = false) -> Array:
+	var return_array
+	
+	if from > to or from == to and wrap_around_if_same:
+		return_array = array.slice(from)
+		return_array.append_array(array.slice(0, to))
+	else:
+		return_array = array.slice(from, to)
+	
+	return return_array
+
+##Returns the quadrant given point is in. Check against QUADRANTS enum.
+##If X is zero, it will return as right, and if Y is zero is will return as down.
+static func get_quadrant_of_point(point: Vector2) -> int:
+	if point.x < 0:
+		if point.y < 0:
+			return QUADRANTS.UPPER_LEFT
+		else:
+			return QUADRANTS.LOWER_LEFT
+	else:
+		if point.y < 0:
+			return QUADRANTS.UPPER_RIGHT
+		else:
+			return QUADRANTS.LOWER_RIGHT
+
+##Returns the quadrant given angle is in. Check against QUADRANTS enum.
+static func get_quadrant_of_angle(angle: float) -> int:
+	var point := Vector2(1, 0).rotated(angle)
+	return get_quadrant_of_point(point)
+
+static func quadrant_to_diagonal_angle(quadrant: int) -> float:
+	match(quadrant):
+		QUADRANTS.UPPER_LEFT:
+			return deg_to_rad(-135)
+		QUADRANTS.UPPER_RIGHT:
+			return deg_to_rad(-45)
+		QUADRANTS.LOWER_RIGHT:
+			return deg_to_rad(45)
+		QUADRANTS.LOWER_LEFT:
+			return deg_to_rad(135)
+	printerr("value " + str(quadrant) + " is not a quadrant.")
+	return 0
