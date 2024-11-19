@@ -26,6 +26,7 @@ extends Node2D
 @onready var mouse_detect_area = $PlayerCharacterBody/MouseDetectArea
 @onready var interaction_area = $PlayerCharacterBody/InteractArea
 @onready var shield_progress_bar = $PlayerCharacterBody/ShieldProgressBar
+@onready var gas_handler = $GasHandler
 
 @export var inventory: Inventory:
 	set(new_value):
@@ -69,6 +70,9 @@ var is_climbing := func(): return false:
 	set(new_value):
 		is_climbing = new_value
 		_update_children()
+var being_gassed := false:
+	set(new_value):
+		being_gassed = new_value
 
 signal just_interacted
 signal just_climbed
@@ -81,6 +85,7 @@ func _ready():
 	interact_indicator_animation.play("flash")
 	health_component.health_reached_zero.connect(func(): died.emit())
 	inventory_interaction_handler.inventory = inventory
+	gas_handler.being_gassed = func(): return being_gassed
 
 func _update_children():
 	pushing_state.is_moving_left = is_moving_left

@@ -63,6 +63,7 @@ one_way_platform_packed_scene = ExtResource("8_k3r3x")
 script = ExtResource("11_bifaf")
 player_character_controller = NodePath("../PlayerCharacterController")
 
+[connection signal="day_ended" from="DayNightCycle" to="PlayerCharacterController" method="_on_day_night_cycle_day_ended"]
 [connection signal="day_started" from="DayNightCycle" to="PlayerCharacterController" method="_on_day_night_cycle_day_started"]
 [connection signal="timeout" from="DayNightCycle/DayTimer" to="DayNightCycle" method="_on_day_timer_timeout"]
 [connection signal="day_ended" from="PlayerCharacterController" to="DayNightCycle" method="start_new_day"]

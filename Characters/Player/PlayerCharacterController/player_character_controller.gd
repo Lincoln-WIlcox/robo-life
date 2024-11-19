@@ -126,3 +126,6 @@ func _on_shelter_day_ended():
 
 func _on_day_night_cycle_day_started(_day):
 	shelter_inventory.change_food(-Utils.AMOUNT_OF_FOOD_TO_CONSUME)
+
+func _on_day_night_cycle_day_ended():
+	pass # Replace with function body.
