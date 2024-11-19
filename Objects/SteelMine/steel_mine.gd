@@ -15,11 +15,15 @@ extends Node2D
 
 signal item_spent(item_pickup: ItemPickup)
 
-var _drill_on_mine := false
+var _drill_on_mine := false:
+	set(new_value):
+		_drill_on_mine = new_value
+		power_consumer.active = _drill_on_mine
 
 func _ready():
 	not_drilling.is_drill_on_mine = func(): return _drill_on_mine
 	drilling.is_drill_on_mine = func(): return _drill_on_mine
+	power_consumer.active = _drill_on_mine
 	gravity_walk_over_pickup_spawner.node_to_spawn_pickup_in = node_to_put_item_pickup_in
 	drilling.steel_remaining = steel_amount
 	progress_bar.max_value = steel_amount

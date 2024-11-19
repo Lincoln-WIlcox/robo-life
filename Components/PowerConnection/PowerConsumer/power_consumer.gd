@@ -1,7 +1,15 @@
 class_name PowerConsumer
 extends PowerConnector
 
-@export var consumes_power: int
+@export var consumes_power: int:
+	set(new_value):
+		consumes_power = new_value
+		status_changed.emit()
+#when false, this won't consume power even if its plugged in.
+@export var active := true:
+	set(new_value):
+		active = new_value
+		status_changed.emit()
 
 signal power_requirement_met
 signal power_requirement_lost

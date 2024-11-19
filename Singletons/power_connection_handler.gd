@@ -23,8 +23,19 @@ func add_connection(connector_a: PowerConnector, connector_b: PowerConnector) ->
 	connection_added.emit(power_connector_connection)
 	connections_changed.emit()
 	
+	if not _connector_is_handled(connector_a):
+		_handle_connector_added(connector_a)
+	if not _connector_is_handled(connector_b):
+		_handle_connector_added(connector_b)
+	
 	_update_power_consumers_in_tree(connector_a)
 	return true
+
+func _connector_is_handled(connector: PowerConnector) -> bool:
+	return connector.is_connected("status_changed", _update_power_consumers_in_tree)
+
+func _handle_connector_added(connector: PowerConnector) -> void:
+	connector.status_changed.connect(_update_power_consumers_in_tree.bind(connector))
 
 func remove_connections_to_connector(connector: PowerConnector) -> void:
 	for i: int in range(power_connector_connections.size()-1, -1, -1):
@@ -82,9 +93,8 @@ func _update_power_consumers_in_tree(power_connector: PowerConnector) -> void:
 	var power_suppliers: Array[PowerConnector] = connectors.filter(func(connector: PowerConnector): return connector is PowerSupplier)
 	var power_consumers: Array[PowerConnector] = connectors.filter(func(connector: PowerConnector): return connector is PowerConsumer)
 	var total_power_supplying: float = power_suppliers.reduce(func(total_power: int, power_supplier: PowerSupplier): return total_power + power_supplier.supplies_power, 0)
-	var consuming_power: float = power_consumers.reduce(func(total_power: int, power_consumer: PowerConsumer): return total_power + power_consumer.consumes_power, 0)
+	var consuming_power: float = power_consumers.reduce(func(total_power: int, power_consumer: PowerConsumer): return total_power + (power_consumer.consumes_power if power_consumer.active else 0), 0)
 	
 	for power_consumer: PowerConsumer in power_consumers:
 		power_consumer.enough_power_supplied = total_power_supplying >= consuming_power
 		power_consumer.extra_power = total_power_supplying - consuming_power / power_consumers.size() if total_power_supplying > consuming_power else 0
-
