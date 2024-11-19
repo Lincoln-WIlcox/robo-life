@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://4hdu5f7ikd0h"]
+[gd_scene load_steps=21 format=3 uid="uid://4hdu5f7ikd0h"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_s0fbl"]
 [ext_resource type="PackedScene" uid="uid://uusfotp1xgjx" path="res://Objects/Spike/spike.tscn" id="5_a1p1l"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://7k2m5p3o1p4k" path="res://Objects/Laser/laser.tscn" id="18_vikjm"]
 [ext_resource type="PackedScene" uid="uid://cng4tm54hq536" path="res://Objects/PowerPole/power_pole.tscn" id="19_fa7aj"]
 [ext_resource type="PackedScene" uid="uid://cunc28rnr20cj" path="res://Characters/Enemies/BasicEnemy/basic_enemy.tscn" id="19_q2u7d"]
+[ext_resource type="PackedScene" uid="uid://g1jj5acjo7c5" path="res://Objects/GravityWalkOverItemPickup/gravity_walk_over_item_pickup_food.tscn" id="20_gpwbd"]
 
 [node name="Level1" instance=ExtResource("1_s0fbl")]
 
@@ -134,5 +135,33 @@ start_placed = true
 position = Vector2(16, -16)
 target = NodePath("../PlayerTarget")
 node_to_put_nodes_in = NodePath("..")
+
+[node name="BasicEnemy2" parent="." index="37" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("19_q2u7d")]
+position = Vector2(-481, -12)
+target = NodePath("../PlayerTarget")
+node_to_put_nodes_in = NodePath("..")
+
+[node name="BasicEnemy3" parent="." index="38" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("19_q2u7d")]
+position = Vector2(-710, -12)
+target = NodePath("../PlayerTarget")
+node_to_put_nodes_in = NodePath("..")
+
+[node name="GravityWalkOverItemPickupFood" parent="." index="39" instance=ExtResource("20_gpwbd")]
+position = Vector2(-659, -20)
+
+[node name="GravityWalkOverItemPickupFood2" parent="." index="40" instance=ExtResource("20_gpwbd")]
+position = Vector2(-648, -21)
+
+[node name="GravityWalkOverItemPickupFood3" parent="." index="41" instance=ExtResource("20_gpwbd")]
+position = Vector2(-655, -26)
+
+[node name="GravityWalkOverItemPickupFood4" parent="." index="42" instance=ExtResource("20_gpwbd")]
+position = Vector2(-650, -29)
+
+[node name="GravityWalkOverItemPickupFood5" parent="." index="43" instance=ExtResource("20_gpwbd")]
+position = Vector2(-661, -27)
+
+[node name="GravityWalkOverItemPickupFood6" parent="." index="44" instance=ExtResource("20_gpwbd")]
+position = Vector2(-654, -19)
 
 [connection signal="item_spent" from="RockBarrier" to="Tiles" method="add_child"]
