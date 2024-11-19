@@ -37,7 +37,7 @@ shelter_inventory = SubResource("Resource_ecwqp")
 script = ExtResource("1_yp3no")
 
 [node name="DayTimer" type="Timer" parent="DayNightCycle"]
-wait_time = 240.0
+wait_time = 80.0
 one_shot = true
 
 [node name="PowerLineDrawer" parent="." instance=ExtResource("2_gho6m")]

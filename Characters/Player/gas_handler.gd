@@ -8,7 +8,7 @@ extends Node
 func start_gassing():
 	timer.start()
 
-func end_gassing():
+func stop_gassing():
 	timer.stop()
 
 func _on_between_gas_damage_timer_timeout():

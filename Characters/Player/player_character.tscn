@@ -421,8 +421,9 @@ item_pickup_scene = ExtResource("25_grfva")
 [node name="ShelterInteractionAreaInteractionHandler" type="Node" parent="."]
 script = ExtResource("28_6gxux")
 
-[node name="GasHandler" type="Node" parent="."]
+[node name="GasHandler" type="Node" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("29_yxvar")
+health_component = NodePath("../HealthComponent")
 
 [node name="BetweenGasDamageTimer" type="Timer" parent="GasHandler"]
 wait_time = 3.0
