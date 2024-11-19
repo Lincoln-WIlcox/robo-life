@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cykbmxquct7pp"]
+[gd_scene load_steps=18 format=3 uid="uid://cykbmxquct7pp"]
 
 [ext_resource type="Script" path="res://Objects/SteelMine/steel_mine.gd" id="1_fpyg3"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="1_r1cfi"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Resources/inventory_requirement.gd" id="4_qbvvb"]
 [ext_resource type="Script" path="res://Objects/SteelMine/not_drilling.gd" id="5_tmnhx"]
 [ext_resource type="Script" path="res://Objects/SteelMine/drilling.gd" id="6_tuk0r"]
+[ext_resource type="Script" path="res://Resources/item_data.gd" id="9_2rjwa"]
 [ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Components/PowerConnection/PowerConsumer/power_consumer.tscn" id="10_budbg"]
 [ext_resource type="PackedScene" uid="uid://cqnd47al60df" path="res://Objects/GravityWalkOverPickupSpawner/gravity_walk_over_pickup_spawner.tscn" id="12_t4jqo"]
 [ext_resource type="PackedScene" uid="uid://e2r1erqmej6l" path="res://Objects/GravityWalkOverItemPickup/gravity_walk_over_item_pickup_steel.tscn" id="13_4g10x"]
@@ -24,8 +25,8 @@ size = Vector2(48, 16)
 script = ExtResource("4_qbvvb")
 batteries_cost = 0
 steel_cost = 0
-costs_items = Array[Resource("res://Resources/item_data.gd")]([ExtResource("3_lpbnu")])
-requires_items = Array[Resource("res://Resources/item_data.gd")]([])
+costs_items = Array[ExtResource("9_2rjwa")]([ExtResource("3_lpbnu")])
+requires_items = Array[ExtResource("9_2rjwa")]([])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c8hd8"]
 size = Vector2(96, 32)
@@ -80,6 +81,7 @@ position = Vector2(24, 8)
 collision_layer = 1024
 collision_mask = 0
 consumes_power = 1
+active = false
 
 [node name="GravityWalkOverPickupSpawner" parent="CharacterBody2D" instance=ExtResource("12_t4jqo")]
 position = Vector2(24, -8)

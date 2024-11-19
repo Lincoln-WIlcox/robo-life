@@ -4,6 +4,7 @@ extends Area2D
 signal just_powered
 signal just_lost_power
 signal connections_changed
+signal status_changed
 
 func connect_to(connector: PowerConnector):
 	PowerConnectionHandler.add_connection(self, connector)
