@@ -63,7 +63,6 @@ func get_tile_maps_solidity() -> Array[PackedVector2Array]:
 
 func get_map_data() -> MapData:
 	var tile_map_polygons: Array[PackedVector2Array] = get_tile_maps_solidity()
-	
 	var map_data: MapData = MapData.new(_map_entities, tile_map_polygons)
 	return map_data
 

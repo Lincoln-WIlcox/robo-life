@@ -2,7 +2,6 @@ extends State
 
 @export var map_ui_packed_scene: PackedScene
 @export var none_state: State
-
 var toggle_map: Callable
 var show_ui: Callable
 var hide_ui: Callable
