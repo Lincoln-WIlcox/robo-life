@@ -94,6 +94,9 @@ static func angle_is_orthogonal(angle: float) -> bool:
 	var int_angle = roundi(rad_to_deg(angle))
 	return int_angle % 90 == 0
 
+static func tile_data_has_collision(tile_data: TileData, collision_layer = 0):
+	return tile_data.get_collision_polygons_count(collision_layer) > 0
+
 ##Returns all the tiles with collision that are connected to the tile at tile_pos. 
 static func get_touching_tiles_with_collision(tile_map_layer: TileMapLayer, tile_pos: Vector2i, collision_layer: int = 0, exclude: Array[Vector2i] = []) -> Array[Vector2i]:
 	var tile: TileData = tile_map_layer.get_cell_tile_data(tile_pos)
@@ -257,3 +260,15 @@ static func quadrant_to_diagonal_angle(quadrant: int) -> float:
 			return deg_to_rad(135)
 	printerr("value " + str(quadrant) + " is not a quadrant.")
 	return 0
+
+static func packed_vector_array_to_polygon(packed_vector_array: PackedVector2Array) -> Polygon2D:
+	var polygon: Polygon2D = Polygon2D.new()
+	polygon.polygon = packed_vector_array
+	return polygon
+
+static func packed_vector_arrays_to_polygons(packed_vector_arrays: Array[PackedVector2Array]) -> Array[Polygon2D]:
+	var polygons: Array[Polygon2D]
+	for packed_vector_array: PackedVector2Array in packed_vector_arrays:
+		var polygon = packed_vector_array_to_polygon(packed_vector_array)
+		polygons.append(polygon)
+	return polygons
