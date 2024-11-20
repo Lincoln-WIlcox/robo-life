@@ -14,6 +14,7 @@ extends Node2D
 @onready var crafting_state = $UIStateMachine/Shelter/ShelterStateMachine/Crafting
 @onready var shelter_shelter_state = $UIStateMachine/Shelter/ShelterStateMachine/Shelter
 @onready var player_shield_handler = $PlayerShieldHandler
+@onready var map_state = $UIStateMachine/Map
 
 @export var movement_disabled := false
 @export var node_to_spawn_placeables_in: Node
@@ -34,6 +35,7 @@ var show_ui: Callable:
 			inventory_state.show_ui = show_ui
 			shelter_shelter_state.show_ui = show_ui
 			crafting_state.show_ui = show_ui
+			map_state.show_ui = show_ui
 var hide_ui: Callable:
 	set(new_value):
 		hide_ui = new_value
@@ -41,6 +43,7 @@ var hide_ui: Callable:
 			inventory_state.hide_ui = hide_ui
 			shelter_shelter_state.hide_ui = hide_ui
 			crafting_state.hide_ui = hide_ui
+			map_state.hide_ui = hide_ui
 
 signal item_dropped(drop: Object)
 signal died

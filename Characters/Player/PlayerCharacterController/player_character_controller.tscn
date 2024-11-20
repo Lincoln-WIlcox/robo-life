@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dw2fqgynxjcit"]
+[gd_scene load_steps=28 format=3 uid="uid://dw2fqgynxjcit"]
 
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/player_character_controller.gd" id="1_bw5ol"]
 [ext_resource type="PackedScene" uid="uid://by3dehhgwxdqr" path="res://Objects/Shield/shield.tscn" id="2_ipind"]
@@ -23,6 +23,8 @@
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_ui.gd" id="13_v1eve"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_crafting.gd" id="15_0w8mt"]
 [ext_resource type="PackedScene" uid="uid://wgwi4qdwfkaq" path="res://UI/Crafting/crafting_ui.tscn" id="16_yn3tl"]
+[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/map.gd" id="21_hxwre"]
+[ext_resource type="PackedScene" uid="uid://cfhvw7mmxv7dy" path="res://UI/map.tscn" id="22_hokhb"]
 
 [sub_resource type="Resource" id="Resource_6kkjt"]
 script = ExtResource("4_saie0")
@@ -113,6 +115,10 @@ shelter_ui_packed_scene = ExtResource("12_vxdl5")
 script = ExtResource("15_0w8mt")
 crafting_ui_packed_scene = ExtResource("16_yn3tl")
 shelter_state = NodePath("../Shelter")
+
+[node name="Map" type="Node" parent="UIStateMachine"]
+script = ExtResource("21_hxwre")
+map_ui_packed_scene = ExtResource("22_hokhb")
 
 [node name="PickupStuffHandler" type="Node" parent="."]
 script = ExtResource("7_bmrc0")
