@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://d1kvhwjb0iy8m"]
+[gd_scene load_steps=63 format=3 uid="uid://d1kvhwjb0iy8m"]
 
 [ext_resource type="Script" path="res://Characters/Player/player_character.gd" id="1_ru1lf"]
 [ext_resource type="Script" path="res://Characters/Player/interaction_handler.gd" id="2_7jrx7"]
@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://chb5lnwnnd2fx" path="res://Components/DetectPushingComponent/detect_pushing_component.tscn" id="27_k7fi7"]
 [ext_resource type="PackedScene" uid="uid://dgvaforh1h0ou" path="res://Components/Hurtbox/hurtbox.tscn" id="27_rvuxm"]
 [ext_resource type="Script" path="res://Characters/Player/shelter_interaction_area_interaction_handler.gd" id="28_6gxux"]
+[ext_resource type="Script" path="res://Characters/Player/gas_handler.gd" id="29_yxvar"]
 [ext_resource type="PackedScene" uid="uid://dgsqt81g28ys" path="res://Components/MouseDetectArea/mouse_detect_area.tscn" id="32_jrak7"]
 
 [sub_resource type="Resource" id="Resource_i3vek"]
@@ -420,6 +421,13 @@ item_pickup_scene = ExtResource("25_grfva")
 [node name="ShelterInteractionAreaInteractionHandler" type="Node" parent="."]
 script = ExtResource("28_6gxux")
 
+[node name="GasHandler" type="Node" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("29_yxvar")
+health_component = NodePath("../HealthComponent")
+
+[node name="BetweenGasDamageTimer" type="Timer" parent="GasHandler"]
+wait_time = 3.0
+
 [node name="PlayerCharacterBody" type="CharacterBody2D" parent="."]
 collision_layer = 516
 slide_on_ceiling = false
@@ -557,6 +565,7 @@ show_percentage = false
 [connection signal="climbable_left" from="ClimbingRopeDetector" to="MovementStates/Climbing" method="_on_climbing_rope_detector_climbable_left"]
 [connection signal="drop_created" from="DropItemHandler" to="." method="_on_drop_item_handler_drop_created"]
 [connection signal="shelter_interacted_with" from="ShelterInteractionAreaInteractionHandler" to="." method="_on_shelter_interaction_area_interaction_handler_shelter_interacted_with"]
+[connection signal="timeout" from="GasHandler/BetweenGasDamageTimer" to="GasHandler" method="_on_between_gas_damage_timer_timeout"]
 [connection signal="area_entered" from="PlayerCharacterBody/InteractArea" to="WalkOverItemPickupCollector" method="_on_area_entered"]
 [connection signal="area_entered" from="PlayerCharacterBody/InteractArea" to="ClimbingRopeDetector" method="_on_interact_area_area_entered"]
 [connection signal="area_exited" from="PlayerCharacterBody/InteractArea" to="ClimbingRopeDetector" method="_on_interact_area_area_exited"]

@@ -26,6 +26,7 @@ extends Node2D
 @onready var mouse_detect_area = $PlayerCharacterBody/MouseDetectArea
 @onready var interaction_area = $PlayerCharacterBody/InteractArea
 @onready var shield_progress_bar = $PlayerCharacterBody/ShieldProgressBar
+@onready var gas_handler = $GasHandler
 
 @export var inventory: Inventory:
 	set(new_value):
@@ -111,7 +112,7 @@ func _update_children():
 	animation_handler.is_moving_left = is_moving_left
 	animation_handler.is_moving_right = is_moving_right
 
-func drop_item(grid_item: ItemGridItem):
+func drop_item(grid_item: ItemGridItem) -> void:
 	inventory.remove_grid_item(grid_item)
 	drop_item_handler.drop_item(grid_item.item_data, drop_item_left.global_position if facing_left else drop_item_right.global_position)
 
@@ -123,3 +124,9 @@ func _on_walk_over_item_pickup_collector_walk_over_item_collected(inventory_addi
 
 func _on_shelter_interaction_area_interaction_handler_shelter_interacted_with(shelter_area: ShelterInteractionArea):
 	shelter_interacted_with.emit(shelter_area)
+
+func start_gassing() -> void:
+	gas_handler.start_gassing()
+
+func stop_gassing() -> void:
+	gas_handler.stop_gassing()

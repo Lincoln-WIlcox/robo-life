@@ -27,7 +27,7 @@ var hide_ui: Callable:
 
 func _ready():
 	day_night_cycle.start_first_day()
-	day_night_cycle.day_ended.connect(func(): player_died.emit())
+	#day_night_cycle.day_ended.connect(func(): player_died.emit())
 	player_character_controller.show_ui = show_ui
 	player_character_controller.hide_ui = hide_ui
 	player_character_controller.shelter_inventory = shelter_inventory

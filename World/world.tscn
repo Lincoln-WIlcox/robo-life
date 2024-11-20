@@ -38,7 +38,7 @@ shelter_inventory = SubResource("Resource_ecwqp")
 script = ExtResource("1_yp3no")
 
 [node name="DayTimer" type="Timer" parent="DayNightCycle"]
-wait_time = 240.0
+wait_time = 80.0
 one_shot = true
 
 [node name="PowerLineDrawer" parent="." instance=ExtResource("2_gho6m")]
@@ -67,6 +67,7 @@ player_character_controller = NodePath("../PlayerCharacterController")
 [node name="EnviornmentQuerySystem" type="Node" parent="."]
 script = ExtResource("13_0dgh0")
 
+[connection signal="day_ended" from="DayNightCycle" to="PlayerCharacterController" method="_on_day_night_cycle_day_ended"]
 [connection signal="day_started" from="DayNightCycle" to="PlayerCharacterController" method="_on_day_night_cycle_day_started"]
 [connection signal="timeout" from="DayNightCycle/DayTimer" to="DayNightCycle" method="_on_day_timer_timeout"]
 [connection signal="day_ended" from="PlayerCharacterController" to="DayNightCycle" method="start_new_day"]

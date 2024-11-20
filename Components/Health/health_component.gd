@@ -1,8 +1,8 @@
 class_name HealthComponent
 extends Node
 
-@export var max_health = 10
-@export var health = max_health:
+@export var max_health := 20
+@export var health := max_health:
 	set(new_value):
 		if new_value > health:
 			healed.emit(health - new_value)
