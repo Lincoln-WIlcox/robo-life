@@ -56,3 +56,4 @@ layout_mode = 2
 focus_mode = 2
 
 [node name="ScrollableContainer" type="Node2D" parent="MapMargin/MapPanel/MapPadding/MapContainer"]
+scale = Vector2(0.5, 0.5)

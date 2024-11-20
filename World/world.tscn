@@ -47,8 +47,9 @@ one_shot = true
 script = ExtResource("13_0dgh0")
 initial_tile_map_layers = [NodePath("../Tiles")]
 
-[node name="PlayerCharacterController" parent="." node_paths=PackedStringArray("node_to_spawn_placeables_in") instance=ExtResource("1_yr2t8")]
+[node name="PlayerCharacterController" parent="." node_paths=PackedStringArray("node_to_spawn_placeables_in", "enviornment_query_system") instance=ExtResource("1_yr2t8")]
 node_to_spawn_placeables_in = NodePath("..")
+enviornment_query_system = NodePath("../EnviornmentQuerySystem")
 
 [node name="Tiles" type="TileMapLayer" parent="."]
 script = ExtResource("6_7fj4g")

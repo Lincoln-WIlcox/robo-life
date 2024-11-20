@@ -5,5 +5,4 @@ extends Node
 
 func _input(event):
 	if event is InputEventMouseMotion and map_control.has_focus() and Input.is_action_pressed("map_pan"):
-		print(event.velocity)
 		scrollable_container.position += event.relative
