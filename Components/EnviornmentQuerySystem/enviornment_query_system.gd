@@ -3,7 +3,6 @@ extends Node
 
 ##Used for getting information about the enviornment. Instanced as part of the world and injected into objects that depend on it. Objects will add themselves to the system.
 
-
 const TILE_COLLISION_LAYER = 0
 const TILE_POLYGON_INDEX = 0
 
@@ -12,7 +11,6 @@ enum TILE_POLYGON_RETURN_KEYS
 	POLYGON,
 	TILES
 }
-
 
 @export var initial_tile_map_layers: Array[TileMapLayer]
 
@@ -24,6 +22,8 @@ var _map_entities: Array[MapEntity]
 func _ready():
 	for tile_map_layer: TileMapLayer in initial_tile_map_layers:
 		add_tile_map_layer(tile_map_layer)
+
+# --- methods to track data
 
 ##Used to add a tile map layer to the query system.
 func add_tile_map_layer(tile_map_layer: TileMapLayer, remove_on_tree_exiting = true) -> void:
@@ -43,14 +43,13 @@ func add_entity_queryable(queryable_entity: QueryableEntity, remove_on_tree_exit
 		queryable_entity.tree_exiting.connect(func(): _queryable_entities.erase(queryable_entity))
 	_queryable_entities.append(queryable_entity)
 
+##Used to add a map entity. These will be shown on the map.
 func add_map_entity(map_entity: MapEntity, remove_on_tree_exiting = true) -> void:
 	if remove_on_tree_exiting:
 		map_entity.tree_exiting.connect(func(): _map_entities.erase(map_entity))
 	_map_entities.append(map_entity)
 
-func get_solidity_as_polygons() -> Array[PackedVector2Array]:
-	var tile_map_polygons = _get_collision_polygons_for_tile_map_layer(_tile_map_layers[0])
-	return []
+# --- methods to get data
 
 ##Returns polygons representing the solidity of every tile map tracked by the environment query system merged.
 func get_tile_maps_solidity() -> Array[PackedVector2Array]:
@@ -58,7 +57,8 @@ func get_tile_maps_solidity() -> Array[PackedVector2Array]:
 	for tile_map_layer: TileMapLayer in _tile_map_layers:
 		var tile_map_layer_polygons: Array[PackedVector2Array] = _get_collision_polygons_for_tile_map_layer(tile_map_layer)
 		polygons.append_array(tile_map_layer_polygons)
-	polygons = Utils.merge_polygons(polygons)
+	if polygons.size() > 0:
+		polygons = Utils.merge_touching_polygons(polygons)
 	return polygons
 
 func get_map_data() -> MapData:
@@ -66,6 +66,8 @@ func get_map_data() -> MapData:
 	
 	var map_data: MapData = MapData.new(_map_entities, tile_map_polygons)
 	return map_data
+
+# --- private methods
 
 func _get_collision_polygons_for_tile_map_layer(tile_map_layer: TileMapLayer) -> Array[PackedVector2Array]:
 	#tries every tile pos in tile map layer to see if its solid, when it finds a solid one gets all connected solid tiles and 

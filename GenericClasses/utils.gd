@@ -176,7 +176,7 @@ static func get_next_vertex_in_direction(polygon: PackedVector2Array, point: Vec
 	
 	return 0
 
-##Will merge an array of polygons. This will ignore any holes inside the polygons, returning only the outermost perimeter. 
+##Will merge an array of polygons into one polygon. This will ignore any holes inside the polygons, returning only the outermost perimeter. 
 ##It will exclude polygons that are only touching at points; polygons need to be overlapping or share an edge segment to be merged.
 static func merge_polygons(collision_polygons: Array[PackedVector2Array]) -> PackedVector2Array:
 	var total_polygon: PackedVector2Array = collision_polygons[0]
@@ -190,6 +190,19 @@ static func merge_polygons(collision_polygons: Array[PackedVector2Array]) -> Pac
 				break
 	
 	return total_polygon
+
+##Merges touching polygons in array. Returns an array of the merged polygons. Excludes holes.
+static func merge_touching_polygons(collision_polygons: Array[PackedVector2Array]) -> Array[PackedVector2Array]:
+	var merged_counterclockwise_polygons: Array[PackedVector2Array]
+	
+	for polygon_a: PackedVector2Array in collision_polygons:
+		for polygon_b: PackedVector2Array in collision_polygons:
+			var merged_polygons: Array[PackedVector2Array] = Geometry2D.merge_polygons(polygon_a, polygon_b)
+			for merged_polygon: PackedVector2Array in merged_polygons:
+				if not Geometry2D.is_polygon_clockwise(merged_polygon):
+					merged_counterclockwise_polygons.append(merged_polygon)
+	
+	return merged_counterclockwise_polygons
 
 ##Assumes the collider is a TileMapLayer. Check if the collider is a TileMapLayer before passing.
 static func get_colliding_tile_position(collision: KinematicCollision2D) -> Vector2i:
@@ -272,3 +285,7 @@ static func packed_vector_arrays_to_polygons(packed_vector_arrays: Array[PackedV
 		var polygon = packed_vector_array_to_polygon(packed_vector_array)
 		polygons.append(polygon)
 	return polygons
+
+static func add_children(adding_to_node: Node, nodes_to_add: Array[Node]) -> void:
+	for child: Node in nodes_to_add:
+		adding_to_node.add_child(child)

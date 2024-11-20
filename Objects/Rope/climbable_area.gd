@@ -39,4 +39,3 @@ func _create_collision_shape() -> void:
 func _update_size_and_position() -> void:
 	collision_box.shape.size.y = height
 	position.y = height / 2
-
