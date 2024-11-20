@@ -23,9 +23,6 @@
 
 [node name="Level1" instance=ExtResource("1_s0fbl")]
 
-[node name="DayTimer" parent="DayNightCycle" index="0"]
-wait_time = 240.0
-
 [node name="PlayerCharacterController" parent="." index="3"]
 position = Vector2(-192, -48)
 

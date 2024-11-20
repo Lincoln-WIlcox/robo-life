@@ -11,6 +11,7 @@ const TILE_POLYGON_INDEX = 0
 var _tile_map_layers: Array[TileMapLayer]
 var _solid_entity_bodies: Array[PhysicsBody2D]
 var _queryable_entities: Array[QueryableEntity]
+var _map_entities: Array[MapEntity]
 
 func _ready():
 	for tile_map_layer: TileMapLayer in initial_tile_map_layers:
@@ -32,23 +33,28 @@ func add_solid_entity_body(body: PhysicsBody2D, remove_on_tree_exiting = true) -
 func add_entity_queryable(queryable_entity: QueryableEntity, remove_on_tree_exiting = true) -> void:
 	if remove_on_tree_exiting:
 		queryable_entity.tree_exiting.connect(func(): _queryable_entities.erase(queryable_entity))
-	_queryable_entities.append(QueryableEntity)
+	_queryable_entities.append(queryable_entity)
 
-##Used to get the shape of the colliders in the surrounding area. A range of size 0 will be infinite.
-func get_collision_shapes_as_polygons(position: Vector2, range: Rect2 = Rect2(0,0,0,0)):
-	pass
+func add_map_entity(map_entity: MapEntity, remove_on_tree_exiting = true) -> void:
+	if remove_on_tree_exiting:
+		map_entity.tree_exiting.connect(func(): _map_entities.erase(map_entity))
+	_map_entities.append(map_entity)
 
-func get_collision_polygons_for_tile_map_layer(tile_map_layer: TileMapLayer) -> Array[PackedVector2Array]:
-	#tries every tile pos in tile map layer to see if its solid, when it finds a solid one gets all connected solid tiles and 
-	
-	var tile_pos := Vector2i(0,0)
-	
-	#getting the wall polygon
-	var tiles: Array[Vector2i] = Utils.get_touching_tiles_with_collision(tile_map_layer, tile_pos, TILE_COLLISION_LAYER, [])
-	var tiles_collision_polygons: Array[PackedVector2Array] = _get_collision_polygons_from_collision_tiles(tile_map_layer, tiles)
-	var full_polygon: PackedVector2Array = Utils.merge_polygons(tiles_collision_polygons)
-	
-	return full_polygon
+###Used to get the shape of the colliders in the surrounding area. A range of size 0 will be infinite.
+#func get_collision_shapes_as_polygons(position: Vector2, range: Rect2 = Rect2(0,0,0,0)):
+	#pass
+
+#func get_collision_polygons_for_tile_map_layer(tile_map_layer: TileMapLayer) -> Array[PackedVector2Array]:
+	##tries every tile pos in tile map layer to see if its solid, when it finds a solid one gets all connected solid tiles and 
+	#
+	#var tile_pos := Vector2i(0,0)
+	#
+	##getting the wall polygon
+	#var tiles: Array[Vector2i] = Utils.get_touching_tiles_with_collision(tile_map_layer, tile_pos, TILE_COLLISION_LAYER, [])
+	#var tiles_collision_polygons: Array[PackedVector2Array] = _get_collision_polygons_from_collision_tiles(tile_map_layer, tiles)
+	#var full_polygon: PackedVector2Array = Utils.merge_polygons(tiles_collision_polygons)
+	#
+	#return full_polygon
 
 func get_collision_polygon_for_tile(tile_pos: Vector2i, tile_map_layer: TileMapLayer) -> PackedVector2Array:
 	var tiles: Array[Vector2i] = Utils.get_touching_tiles_with_collision(tile_map_layer, tile_pos, TILE_COLLISION_LAYER, [])

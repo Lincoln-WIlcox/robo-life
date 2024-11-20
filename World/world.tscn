@@ -43,6 +43,9 @@ one_shot = true
 
 [node name="PowerLineDrawer" parent="." instance=ExtResource("2_gho6m")]
 
+[node name="EnviornmentQuerySystem" type="Node" parent="."]
+script = ExtResource("13_0dgh0")
+
 [node name="PlayerCharacterController" parent="." node_paths=PackedStringArray("node_to_spawn_placeables_in") instance=ExtResource("1_yr2t8")]
 node_to_spawn_placeables_in = NodePath("..")
 
@@ -63,9 +66,6 @@ one_way_platform_packed_scene = ExtResource("10_kift4")
 [node name="PlayerTarget" parent="." node_paths=PackedStringArray("player_character_controller") instance=ExtResource("10_7fjhp")]
 script = ExtResource("11_bifaf")
 player_character_controller = NodePath("../PlayerCharacterController")
-
-[node name="EnviornmentQuerySystem" type="Node" parent="."]
-script = ExtResource("13_0dgh0")
 
 [connection signal="day_ended" from="DayNightCycle" to="PlayerCharacterController" method="_on_day_night_cycle_day_ended"]
 [connection signal="day_started" from="DayNightCycle" to="PlayerCharacterController" method="_on_day_night_cycle_day_started"]
