@@ -14,7 +14,7 @@ focus_mode = 2
 mouse_filter = 1
 script = ExtResource("1_82s18")
 
-[node name="PanningHandler" type="Node" parent="." node_paths=PackedStringArray("scrollable_container", "map_control")]
+[node name="MapViewHandler" type="Node" parent="." node_paths=PackedStringArray("scrollable_container", "map_control")]
 script = ExtResource("2_qn6yq")
 scrollable_container = NodePath("../MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer")
 map_control = NodePath("../MapMargin/MapPanel/MapPadding/MapContainer")
@@ -56,4 +56,4 @@ layout_mode = 2
 focus_mode = 2
 
 [node name="ScrollableContainer" type="Node2D" parent="MapMargin/MapPanel/MapPadding/MapContainer"]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
