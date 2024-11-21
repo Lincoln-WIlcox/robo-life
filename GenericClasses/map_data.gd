@@ -10,8 +10,11 @@ func _init(map_entities: Array[MapEntity], tilemap_polygons: Array[PackedVector2
 	_tilemap_polygons = tilemap_polygons
 	_bounding_box = bounding_box
 
-func get_tilemap_polygons():
+func get_tilemap_polygons() -> Array[PackedVector2Array]:
 	return _tilemap_polygons
 
-func get_map_entities():
+func get_map_entities() -> Array[MapEntity]:
 	return _map_entities
+
+func get_bounding_box() -> Rect2:
+	return _bounding_box

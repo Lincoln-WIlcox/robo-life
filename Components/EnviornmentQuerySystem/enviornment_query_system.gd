@@ -63,10 +63,47 @@ func get_tile_maps_solidity() -> Array[PackedVector2Array]:
 
 func get_map_data() -> MapData:
 	var tile_map_polygons: Array[PackedVector2Array] = get_tile_maps_solidity()
-	var map_data: MapData = MapData.new(_map_entities, tile_map_polygons)
+	var map_data: MapData = MapData.new(_map_entities, tile_map_polygons, _get_all_used_rect())
 	return map_data
 
 # --- private methods
+
+func _get_all_used_rect() -> Rect2:
+	var half_tile_size: Vector2 = Vector2(_tile_map_layers[0].tile_set.tile_size.x / 2, _tile_map_layers[0].tile_set.tile_size.x / 2)
+	
+	var biggest_recti: Rect2i = _tile_map_layers[0].get_used_rect()
+	var biggest_rect: Rect2 = Rect2(
+		_tile_map_layers[0].map_to_local(biggest_recti.position) - half_tile_size,
+		_tile_map_layers[0].map_to_local(biggest_recti.size) + half_tile_size
+		)
+	biggest_rect = Rect2(
+		_tile_map_layers[0].to_global(biggest_rect.position),
+		_tile_map_layers[0].to_global(biggest_rect.size)
+		)
+	
+	for tile_map_layer: TileMapLayer in _tile_map_layers:
+		var used_recti: Rect2i = tile_map_layer.get_used_rect()
+		var used_rect: Rect2 = Rect2(
+			_tile_map_layers[0].map_to_local(used_recti.position) - half_tile_size,
+			_tile_map_layers[0].map_to_local(used_recti.size) + half_tile_size
+			)
+		used_rect = Rect2(
+			_tile_map_layers[0].to_global(biggest_rect.position),
+			_tile_map_layers[0].to_global(biggest_rect.size)
+			)
+		
+		if used_rect.position.x < biggest_rect.position.x:
+			biggest_rect.size.x += biggest_rect.position.x + used_rect.position.x
+			biggest_rect.position.x = used_rect.position.x
+		if used_rect.position.y < biggest_rect.position.y:
+			biggest_rect.size.y += biggest_rect.position.y + used_rect.position.y
+			biggest_rect.position.y= used_rect.position.y
+		if used_rect.end.x > biggest_rect.end.x:
+			biggest_rect.end.x = used_rect.end.x
+		if used_rect.end.y > biggest_rect.end.y:
+			biggest_rect.end.y = used_rect.end.y
+	
+	return biggest_rect
 
 func _get_collision_polygons_for_tile_map_layer(tile_map_layer: TileMapLayer) -> Array[PackedVector2Array]:
 	#tries every tile pos in tile map layer to see if its solid, when it finds a solid one gets all connected solid tiles and 
