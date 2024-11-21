@@ -3,11 +3,15 @@ extends Control
 
 const MAP_BOX_OFFSET = Vector2(10, 10)
 
+@export var solidity_color: Color
+
 @onready var map_view_handler: Node = $MapViewHandler
 @onready var node_to_put_map_in: Node2D = $MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer
 
 func _display_polygons(packed_vectors: Array[PackedVector2Array]) -> void:
 	var polygons: Array[Polygon2D] = Utils.packed_vector_arrays_to_polygons(packed_vectors)
+	for polygon: Polygon2D in polygons:
+		polygon.color = solidity_color
 	var polygons_assigned: Array[Node]
 	polygons_assigned.assign(polygons)
 	Utils.add_children(node_to_put_map_in, polygons_assigned)
@@ -19,6 +23,8 @@ func _display_map_entities(map_entities: Array[MapEntity]) -> void:
 		var sprite: Sprite2D = Sprite2D.new()
 		sprite.texture = map_entity.display_texture
 		sprite.global_position = map_entity.global_position
+		sprite.z_index = map_entity.z_index
+		sprite.scale = map_entity.scale
 		sprites.append(sprite)
 	
 	#necessary because you cannot pass sub-types of arrays as arguments. the function accepts Array[Node], so i have to pass that.

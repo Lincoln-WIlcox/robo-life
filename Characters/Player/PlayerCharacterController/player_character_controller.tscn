@@ -30,7 +30,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ank07"]
 atlas = ExtResource("3_wtset")
-region = Rect2(256, 48, 16, 32)
+region = Rect2(214, 62, 8, 8)
 
 [sub_resource type="Resource" id="Resource_6kkjt"]
 script = ExtResource("4_saie0")
@@ -49,6 +49,8 @@ initial_item_grid = SubResource("Resource_6kkjt")
 script = ExtResource("1_bw5ol")
 
 [node name="MapEntity" type="Node2D" parent="." node_paths=PackedStringArray("player_character")]
+z_index = 1
+scale = Vector2(3, 3)
 script = ExtResource("2_gu82f")
 player_character = NodePath("../PlayerCharacter")
 display_texture = SubResource("AtlasTexture_ank07")

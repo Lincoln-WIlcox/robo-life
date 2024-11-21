@@ -13,6 +13,7 @@ grow_vertical = 2
 focus_mode = 2
 mouse_filter = 1
 script = ExtResource("1_82s18")
+solidity_color = Color(0.494118, 0.498039, 0.584314, 1)
 
 [node name="MapViewHandler" type="Node" parent="." node_paths=PackedStringArray("scrollable_container", "map_control")]
 script = ExtResource("2_qn6yq")
