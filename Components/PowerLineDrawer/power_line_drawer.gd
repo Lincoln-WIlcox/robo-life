@@ -17,4 +17,3 @@ func _on_connections_changed():
 		line.add_point(connection.power_connector_a.global_position)
 		line.add_point(connection.power_connector_b.global_position)
 		add_child(line)
-

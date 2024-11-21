@@ -14,6 +14,8 @@ extends Node2D
 @onready var crafting_state = $UIStateMachine/Shelter/ShelterStateMachine/Crafting
 @onready var shelter_shelter_state = $UIStateMachine/Shelter/ShelterStateMachine/Shelter
 @onready var player_shield_handler = $PlayerShieldHandler
+@onready var map_state = $UIStateMachine/Map
+@onready var map_entity = $MapEntity
 
 @export var movement_disabled := false
 @export var node_to_spawn_placeables_in: Node
@@ -22,6 +24,7 @@ extends Node2D
 		shelter_inventory = new_value
 		shelter_shelter_state.shelter_inventory = shelter_inventory
 		crafting_state.shelter_inventory = shelter_inventory
+@export var enviornment_query_system: EnvironmentQuerySystem
 
 var inventory:
 	get:
@@ -34,6 +37,7 @@ var show_ui: Callable:
 			inventory_state.show_ui = show_ui
 			shelter_shelter_state.show_ui = show_ui
 			crafting_state.show_ui = show_ui
+			map_state.show_ui = show_ui
 var hide_ui: Callable:
 	set(new_value):
 		hide_ui = new_value
@@ -41,6 +45,12 @@ var hide_ui: Callable:
 			inventory_state.hide_ui = hide_ui
 			shelter_shelter_state.hide_ui = hide_ui
 			crafting_state.hide_ui = hide_ui
+			map_state.hide_ui = hide_ui
+var get_map_data: Callable:
+	set(new_value):
+		get_map_data = new_value
+		if is_node_ready():
+			map_state.get_map_data = get_map_data
 
 signal item_dropped(drop: Object)
 signal died
@@ -91,12 +101,18 @@ func _ready():
 	shelter_shelter_state.hide_ui = hide_ui
 	shelter_shelter_state.shelter_inventory = shelter_inventory
 	shelter_shelter_state.inventory = inventory
-	remove_child(laser_gun)
-	player_character.character.add_child(laser_gun)
 	player_shield_handler.just_started_shielding = func(): return Input.is_action_just_pressed("shield")
 	player_shield_handler.just_stopped_shielding = func(): return Input.is_action_just_released("shield")
 	player_shield_handler.player_character = player_character.character
 	player_shield_handler.shield_progress_bar = player_character.shield_progress_bar
+	none_state.toggle_map = func(): return Input.is_action_just_pressed("open_map")
+	map_state.toggle_map = func(): return Input.is_action_just_pressed("open_map")
+	map_state.get_map_data = enviornment_query_system.get_map_data
+	
+	enviornment_query_system.add_map_entity(map_entity)
+	
+	remove_child(laser_gun)
+	player_character.character.add_child(laser_gun)
 
 func drop_item(item: ItemData):
 	player_character.drop_item(item)
