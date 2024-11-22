@@ -1,27 +1,31 @@
-[gd_scene load_steps=6 format=3 uid="uid://daw30mg70crel"]
+[gd_scene load_steps=7 format=3 uid="uid://daw30mg70crel"]
 
-[ext_resource type="Script" path="res://Components/EnviornmentQuerySystem/map_entity.gd" id="1_5cw0y"]
 [ext_resource type="Script" path="res://Objects/OneWayPlatform/one_way_platform.gd" id="1_rd68l"]
 [ext_resource type="Texture2D" uid="uid://cyltpwa2v038e" path="res://Assets/MapEmpty.png" id="3_fbc1p"]
+[ext_resource type="Script" path="res://GenericClasses/map_texture.gd" id="3_rgg3s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u322l"]
+atlas = ExtResource("3_fbc1p")
+region = Rect2(0, 8, 16, 8)
+margin = Rect2(0, 0, 0, 8)
+
+[sub_resource type="Resource" id="Resource_h06gr"]
+resource_local_to_scene = true
+script = ExtResource("3_rgg3s")
+display_texture = SubResource("AtlasTexture_u322l")
+z_index = 0
+scale = Vector2(1, 1)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_yjfqh"]
 a = Vector2(-8, -8)
 b = Vector2(8, -8)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7ii8f"]
-atlas = ExtResource("3_fbc1p")
-region = Rect2(0, 0, 16, 8)
-margin = Rect2(0, 0, 0, 8)
-
 [node name="OneWayPlatform" type="StaticBody2D"]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_rd68l")
+map_texture = SubResource("Resource_h06gr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("SegmentShape2D_yjfqh")
 one_way_collision = true
-
-[node name="MapEntity" type="Node2D" parent="."]
-script = ExtResource("1_5cw0y")
-display_texture = SubResource("AtlasTexture_7ii8f")
