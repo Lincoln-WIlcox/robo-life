@@ -44,9 +44,7 @@ func add_entity_queryable(queryable_entity: QueryableEntity, remove_on_tree_exit
 	_queryable_entities.append(queryable_entity)
 
 ##Used to add a map entity. These will be shown on the map.
-func add_map_entity(map_entity: MapEntity, remove_on_tree_exiting = true) -> void:
-	if remove_on_tree_exiting:
-		map_entity.tree_exiting.connect(func(): _map_entities.erase(map_entity))
+func add_map_entity(map_entity: MapEntity) -> void:
 	_map_entities.append(map_entity)
 
 # --- methods to get data

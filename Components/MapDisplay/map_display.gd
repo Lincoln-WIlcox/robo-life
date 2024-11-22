@@ -17,20 +17,17 @@ func _display_polygons(packed_vectors: Array[PackedVector2Array]) -> void:
 	Utils.add_children(node_to_put_map_in, polygons_assigned)
 
 func _display_map_entities(map_entities: Array[MapEntity]) -> void:
-	var sprites: Array[Sprite2D]
-	
 	for map_entity: MapEntity in map_entities:
-		var sprite: Sprite2D = Sprite2D.new()
-		sprite.texture = map_entity.display_texture
-		sprite.global_position = map_entity.global_position
-		sprite.z_index = map_entity.z_index
-		sprite.scale = map_entity.scale
-		sprites.append(sprite)
-	
-	#necessary because you cannot pass sub-types of arrays as arguments. the function accepts Array[Node], so i have to pass that.
-	var sprites_assigned: Array[Node]
-	sprites_assigned.assign(sprites)
-	Utils.add_children(node_to_put_map_in, sprites_assigned)
+		if map_entity is MapTexture:
+			_display_map_texture(map_entity)
+
+func _display_map_texture(map_texture: MapTexture) -> void:
+	var sprite: Sprite2D = Sprite2D.new()
+	sprite.texture = map_texture.display_texture
+	sprite.global_position = map_texture.get_position.call()
+	sprite.z_index = map_texture.z_index
+	sprite.scale = map_texture.scale
+	node_to_put_map_in.add_child(sprite)
 
 func _add_corner_markers(bounding_box: Rect2) -> void:
 	var upper_left_marker = Node2D.new()
