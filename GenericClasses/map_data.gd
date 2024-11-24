@@ -5,6 +5,8 @@ var _map_entities: Array[MapEntity]
 var _tilemap_polygons: Array[PackedVector2Array]
 var _bounding_box: Rect2
 
+signal tilemaps_updated
+
 func _init(map_entities: Array[MapEntity], tilemap_polygons: Array[PackedVector2Array], bounding_box: Rect2):
 	_map_entities = map_entities
 	_tilemap_polygons = tilemap_polygons

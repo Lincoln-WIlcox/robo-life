@@ -20,14 +20,19 @@ func _display_map_entities(map_entities: Array[MapEntity]) -> void:
 	for map_entity: MapEntity in map_entities:
 		if map_entity is MapTexture:
 			_display_map_texture(map_entity)
+		
 
 func _display_map_texture(map_texture: MapTexture) -> void:
 	var sprite: Sprite2D = Sprite2D.new()
+	_apply_map_texture_to_sprite(map_texture, sprite)
+	map_texture.update_sprite.connect(_apply_map_texture_to_sprite.bind(map_texture, sprite))
+	node_to_put_map_in.add_child(sprite)
+
+func _apply_map_texture_to_sprite(map_texture: MapTexture, sprite: Sprite2D) -> void:
 	sprite.texture = map_texture.display_texture
-	sprite.global_position = map_texture.get_position.call()
+	sprite.position = map_texture.get_position.call()
 	sprite.z_index = map_texture.z_index
 	sprite.scale = map_texture.scale
-	node_to_put_map_in.add_child(sprite)
 
 func _add_corner_markers(bounding_box: Rect2) -> void:
 	var upper_left_marker = Node2D.new()

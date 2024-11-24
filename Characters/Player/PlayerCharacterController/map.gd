@@ -12,9 +12,11 @@ var _map_ui: Map
 func _ready():
 	_map_ui = map_ui_packed_scene.instantiate()
 
-func enter():
+func setup_map() -> void:
 	var new_map_data: MapData = get_map_data.call()
 	_map_ui.display_map_data(new_map_data)
+
+func enter():
 	show_ui.call(_map_ui)
 
 func run():
