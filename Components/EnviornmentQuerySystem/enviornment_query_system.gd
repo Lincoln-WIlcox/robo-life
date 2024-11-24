@@ -19,6 +19,8 @@ var _solid_entity_bodies: Array[PhysicsBody2D]
 var _queryable_entities: Array[QueryableEntity]
 var _map_entities: Array[MapEntity]
 
+signal map_entity_added(added_map_entity: MapEntity)
+
 func _ready():
 	for tile_map_layer: TileMapLayer in initial_tile_map_layers:
 		add_tile_map_layer(tile_map_layer)
@@ -46,6 +48,7 @@ func add_entity_queryable(queryable_entity: QueryableEntity, remove_on_tree_exit
 ##Used to add a map entity. These will be shown on the map.
 func add_map_entity(map_entity: MapEntity) -> void:
 	_map_entities.append(map_entity)
+	map_entity_added.emit(map_entity)
 
 # --- methods to get data
 

@@ -52,6 +52,12 @@ enum IS_CLOCKWISE_SHORTER_RETURN_DICTIONARY_KEYS
 	CLOSEST_POINT_TO_TARGET
 }
 
+#used for map entities to store what type of maps they should be in. Mapdata and map display are not concerned about this, this is purely for the logic of deciding what entities to put into map data.
+#enum MAPS
+#{
+	#MAP
+#}
+
 ##Removes duplicates from the array.
 static func make_array_unique(array: Array) -> Array:
 	var unique: Array = []

@@ -65,10 +65,11 @@ map_texture = SubResource("Resource_xtc4p")
 node_to_spawn_placeables_in = NodePath("..")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 
-[node name="Tiles" type="TileMapLayer" parent="."]
+[node name="Tiles" type="TileMapLayer" parent="." node_paths=PackedStringArray("environment_query_system")]
 script = ExtResource("6_7fj4g")
 ledge_packed_scene = ExtResource("7_p745u")
 one_way_platform_packed_scene = ExtResource("10_kift4")
+environment_query_system = NodePath("../EnvironmentQuerySystem")
 
 [node name="PlayerTarget" parent="." node_paths=PackedStringArray("player_character_controller") instance=ExtResource("10_7fjhp")]
 script = ExtResource("11_bifaf")

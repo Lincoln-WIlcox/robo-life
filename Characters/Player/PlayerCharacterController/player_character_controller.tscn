@@ -8,11 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://c2nwpx3t8tmc0" path="res://Components/StateMachine/state_machine.tscn" id="3_aoc7a"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="3_wtset"]
 [ext_resource type="Script" path="res://GenericClasses/map_texture.gd" id="3_xy8oe"]
+[ext_resource type="PackedScene" uid="uid://cx1e5ov1byhig" path="res://Components/MapTextureUpdater/map_texture_updater.tscn" id="4_5f3iy"]
 [ext_resource type="Script" path="res://Game/none_state.gd" id="4_7is3e"]
 [ext_resource type="Script" path="res://Resources/inventory.gd" id="4_d214o"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/player_shield_handler.gd" id="4_j00oc"]
 [ext_resource type="Script" path="res://Resources/item_grid.gd" id="4_saie0"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/map_texture_handler.gd" id="4_u22g6"]
 [ext_resource type="Script" path="res://Game/inventory_state.gd" id="5_fsdf8"]
 [ext_resource type="Script" path="res://Game/placing_object_state.gd" id="6_1j2hy"]
 [ext_resource type="Script" path="res://Resources/item_grid_item.gd" id="7_45g5n"]
@@ -57,12 +57,7 @@ initial_item_grid = SubResource("Resource_6kkjt")
 script = ExtResource("1_bw5ol")
 map_texture = SubResource("Resource_d6xii")
 
-[node name="MapTextureHandler" type="Node" parent="."]
-script = ExtResource("4_u22g6")
-
-[node name="Timer" type="Timer" parent="MapTextureHandler"]
-wait_time = 0.2
-autostart = true
+[node name="MapTextureUpdater" parent="." instance=ExtResource("4_5f3iy")]
 
 [node name="ShieldRotationPivot" type="Node2D" parent="."]
 script = ExtResource("2_rrboe")
@@ -154,7 +149,6 @@ script = ExtResource("8_4yuco")
 firing = false
 heat_amount = 2
 
-[connection signal="timeout" from="MapTextureHandler/Timer" to="MapTextureHandler" method="_on_timer_timeout"]
 [connection signal="shelter_interacted_with" from="PlayerCharacter" to="UIStateMachine/None" method="_on_player_character_shelter_interacted_with"]
 [connection signal="item_dropped" from="UIStateMachine/Inventory" to="." method="handle_drop_item"]
 [connection signal="day_ended" from="UIStateMachine/Shelter/ShelterStateMachine/Shelter" to="." method="_on_shelter_day_ended"]

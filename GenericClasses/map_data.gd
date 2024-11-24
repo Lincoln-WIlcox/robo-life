@@ -16,8 +16,10 @@ signal map_entity_added(added_entity: MapEntity)
 signal map_entity_removed(removed_entity: MapEntity)
 
 func _init(map_entities: Array[MapEntity], solidity_polygons: Array[PackedVector2Array], bounding_box: Rect2):
-	_map_entities = map_entities
-	_solidity_polygons = solidity_polygons
+	_map_entities = map_entities.duplicate()
+	for map_entity: MapEntity in map_entities:
+		map_entity.source_removed.connect(remove_map_entity.bind(map_entity))
+	_solidity_polygons = solidity_polygons.duplicate()
 	_bounding_box = bounding_box
 
 func get_solidity_polygons() -> Array[PackedVector2Array]:
@@ -36,6 +38,7 @@ func add_solidity_polygon(polygon: PackedVector2Array) -> void:
 func add_map_entity(map_entity: MapEntity) -> void:
 	_map_entities.append(map_entity)
 	map_entity_added.emit(map_entity)
+	map_entity.source_removed.connect(remove_map_entity.bind(map_entity))
 
 func map_entity_in_data(map_entity: MapEntity) -> bool:
 	return _map_entities.find(map_entity) != -1

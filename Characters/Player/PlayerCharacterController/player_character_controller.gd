@@ -15,7 +15,7 @@ extends Node2D
 @onready var shelter_shelter_state = $UIStateMachine/Shelter/ShelterStateMachine/Shelter
 @onready var player_shield_handler = $PlayerShieldHandler
 @onready var map_state = $UIStateMachine/Map
-@onready var map_texture_handler = $MapTextureHandler
+@onready var map_texture_updater = $MapTextureUpdater
 
 @export var map_texture: MapTexture
 @export var movement_disabled := false
@@ -113,8 +113,9 @@ func _ready():
 	map_state.environment_query_system = environment_query_system
 	map_state.setup_map()
 	map_texture.get_position = func(): return player_character.character.global_position
+	map_texture.remove_on_node_freed = self
 	
-	map_texture_handler.map_texture = map_texture
+	map_texture_updater.map_texture = map_texture
 	
 	remove_child(laser_gun)
 	player_character.character.add_child(laser_gun)
