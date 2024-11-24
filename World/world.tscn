@@ -56,14 +56,14 @@ one_shot = true
 
 [node name="PowerLineDrawer" parent="." instance=ExtResource("2_gho6m")]
 
-[node name="EnviornmentQuerySystem" type="Node" parent="." node_paths=PackedStringArray("initial_tile_map_layers")]
+[node name="EnvironmentQuerySystem" type="Node" parent="." node_paths=PackedStringArray("initial_tile_map_layers")]
 script = ExtResource("13_0dgh0")
 initial_tile_map_layers = [NodePath("../Tiles")]
 
-[node name="PlayerCharacterController" parent="." node_paths=PackedStringArray("node_to_spawn_placeables_in", "enviornment_query_system") instance=ExtResource("1_yr2t8")]
+[node name="PlayerCharacterController" parent="." node_paths=PackedStringArray("node_to_spawn_placeables_in", "environment_query_system") instance=ExtResource("1_yr2t8")]
 map_texture = SubResource("Resource_xtc4p")
 node_to_spawn_placeables_in = NodePath("..")
-enviornment_query_system = NodePath("../EnviornmentQuerySystem")
+environment_query_system = NodePath("../EnvironmentQuerySystem")
 
 [node name="Tiles" type="TileMapLayer" parent="."]
 script = ExtResource("6_7fj4g")

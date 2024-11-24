@@ -1,7 +1,7 @@
 class_name EnvironmentQuerySystem
 extends Node
 
-##Used for getting information about the enviornment. Instanced as part of the world and injected into objects that depend on it. Objects will add themselves to the system.
+##Used for getting information about the environment. Instanced as part of the world and injected into objects that depend on it. Objects will add themselves to the system.
 
 const TILE_COLLISION_LAYER = 0
 const TILE_POLYGON_INDEX = 0
@@ -49,6 +49,10 @@ func add_map_entity(map_entity: MapEntity) -> void:
 
 # --- methods to get data
 
+##Returns map entities.
+func get_map_entities() -> Array[MapEntity]:
+	return _map_entities
+
 ##Returns polygons representing the solidity of every tile map tracked by the environment query system merged.
 func get_tile_maps_solidity() -> Array[PackedVector2Array]:
 	var polygons: Array[PackedVector2Array]
@@ -59,14 +63,7 @@ func get_tile_maps_solidity() -> Array[PackedVector2Array]:
 		polygons = Utils.merge_touching_polygons(polygons)
 	return polygons
 
-func get_map_data() -> MapData:
-	var tile_map_polygons: Array[PackedVector2Array] = get_tile_maps_solidity()
-	var map_data: MapData = MapData.new(_map_entities, tile_map_polygons, _get_all_used_rect())
-	return map_data
-
-# --- private methods
-
-func _get_all_used_rect() -> Rect2:
+func get_solidity_bounding_box() -> Rect2:
 	var half_tile_size: Vector2 = Vector2(_tile_map_layers[0].tile_set.tile_size.x / 2, _tile_map_layers[0].tile_set.tile_size.x / 2)
 	
 	var biggest_recti: Rect2i = _tile_map_layers[0].get_used_rect()
@@ -102,6 +99,8 @@ func _get_all_used_rect() -> Rect2:
 			biggest_rect.end.y = used_rect.end.y
 	
 	return biggest_rect
+
+# --- private methods
 
 func _get_collision_polygons_for_tile_map_layer(tile_map_layer: TileMapLayer) -> Array[PackedVector2Array]:
 	#tries every tile pos in tile map layer to see if its solid, when it finds a solid one gets all connected solid tiles and 

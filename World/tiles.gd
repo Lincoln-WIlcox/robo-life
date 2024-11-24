@@ -2,7 +2,7 @@ extends TileMapLayer
 
 @export var ledge_packed_scene: PackedScene
 @export var one_way_platform_packed_scene: PackedScene
-@export var enviornment_query_system: EnvironmentQuerySystem
+@export var environment_query_system: EnvironmentQuerySystem
 
 signal battery_used
 
@@ -40,7 +40,7 @@ func _apply_one_way(tile_position):
 	var local_position: Vector2 = map_to_local(tile_position)
 	var one_way_platform: OneWayPlatform = one_way_platform_packed_scene.instantiate()
 	one_way_platform.position = local_position
-	enviornment_query_system.add_map_entity(one_way_platform.get_map_entity())
+	environment_query_system.add_map_entity(one_way_platform.get_map_entity())
 	add_child(one_way_platform)
 
 func _on_changed():

@@ -25,7 +25,7 @@ extends Node2D
 		shelter_inventory = new_value
 		shelter_shelter_state.shelter_inventory = shelter_inventory
 		crafting_state.shelter_inventory = shelter_inventory
-@export var enviornment_query_system: EnvironmentQuerySystem
+@export var environment_query_system: EnvironmentQuerySystem
 
 var inventory:
 	get:
@@ -109,8 +109,8 @@ func _ready():
 	none_state.toggle_map = func(): return Input.is_action_just_pressed("open_map")
 	map_state.toggle_map = func(): return Input.is_action_just_pressed("open_map")
 	
-	enviornment_query_system.add_map_entity(map_texture)
-	map_state.get_map_data = enviornment_query_system.get_map_data
+	environment_query_system.add_map_entity(map_texture)
+	map_state.environment_query_system = environment_query_system
 	map_state.setup_map()
 	map_texture.get_position = func(): return player_character.character.global_position
 	
