@@ -25,7 +25,7 @@ func _display_map_entities(map_entities: Array[MapEntity]) -> void:
 func _display_map_texture(map_texture: MapTexture) -> void:
 	var sprite: Sprite2D = Sprite2D.new()
 	_apply_map_texture_to_sprite(map_texture, sprite)
-	map_texture.changed.connect(_apply_map_texture_to_sprite.bind(map_texture, sprite))
+	map_texture.update_sprite.connect(_apply_map_texture_to_sprite.bind(map_texture, sprite))
 	node_to_put_map_in.add_child(sprite)
 
 func _apply_map_texture_to_sprite(map_texture: MapTexture, sprite: Sprite2D) -> void:
