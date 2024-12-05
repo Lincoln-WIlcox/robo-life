@@ -11,7 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2
-mouse_filter = 1
+mouse_filter = 2
 script = ExtResource("1_82s18")
 solidity_color = Color(0.494118, 0.498039, 0.584314, 1)
 

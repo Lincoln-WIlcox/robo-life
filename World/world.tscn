@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://wqdgq1a7r2ml"]
+[gd_scene load_steps=21 format=3 uid="uid://wqdgq1a7r2ml"]
 
 [ext_resource type="Script" path="res://World/world.gd" id="1_fuqf5"]
 [ext_resource type="Script" path="res://World/day_night_cycle.gd" id="1_yp3no"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Resources/item_grid_item.gd" id="2_xyax1"]
 [ext_resource type="Script" path="res://Resources/item_grid.gd" id="2_y51w7"]
 [ext_resource type="Script" path="res://Resources/inventory.gd" id="2_ymyob"]
+[ext_resource type="PackedScene" uid="uid://ub0qa7k8xrx7" path="res://Components/MapEntityCollection/map_entity_collection.tscn" id="5_0ixtc"]
 [ext_resource type="Script" path="res://World/tiles.gd" id="6_7fj4g"]
 [ext_resource type="PackedScene" uid="uid://c33tblr4cbh8p" path="res://Objects/Ledge/ledge.tscn" id="7_p745u"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="9_dna0g"]
@@ -45,30 +46,34 @@ script = ExtResource("1_fuqf5")
 active_player = NodePath("PlayerCharacterController")
 shelter_inventory = SubResource("Resource_ecwqp")
 
+[node name="LevelMapMapEntityInjector" parent="." instance=ExtResource("5_0ixtc")]
+
 [node name="PowerLineConnector" parent="." instance=ExtResource("2_gho6m")]
 
 [node name="DayNightCycle" type="Node" parent="."]
 script = ExtResource("1_yp3no")
 
 [node name="DayTimer" type="Timer" parent="DayNightCycle"]
-wait_time = 80.0
+wait_time = 120.0
 one_shot = true
 
 [node name="PowerLineDrawer" parent="." instance=ExtResource("2_gho6m")]
 
-[node name="EnviornmentQuerySystem" type="Node" parent="." node_paths=PackedStringArray("initial_tile_map_layers")]
+[node name="EnvironmentQuerySystem" type="Node" parent="." node_paths=PackedStringArray("initial_tile_map_layers")]
 script = ExtResource("13_0dgh0")
 initial_tile_map_layers = [NodePath("../Tiles")]
 
-[node name="PlayerCharacterController" parent="." node_paths=PackedStringArray("node_to_spawn_placeables_in", "enviornment_query_system") instance=ExtResource("1_yr2t8")]
+[node name="PlayerCharacterController" parent="." node_paths=PackedStringArray("node_to_spawn_placeables_in", "environment_query_system", "level_map_map_entity_injector") instance=ExtResource("1_yr2t8")]
 map_texture = SubResource("Resource_xtc4p")
 node_to_spawn_placeables_in = NodePath("..")
-enviornment_query_system = NodePath("../EnviornmentQuerySystem")
+environment_query_system = NodePath("../EnvironmentQuerySystem")
+level_map_map_entity_injector = NodePath("../LevelMapMapEntityInjector")
 
-[node name="Tiles" type="TileMapLayer" parent="."]
+[node name="Tiles" type="TileMapLayer" parent="." node_paths=PackedStringArray("environment_query_system")]
 script = ExtResource("6_7fj4g")
 ledge_packed_scene = ExtResource("7_p745u")
 one_way_platform_packed_scene = ExtResource("10_kift4")
+environment_query_system = NodePath("../EnvironmentQuerySystem")
 
 [node name="PlayerTarget" parent="." node_paths=PackedStringArray("player_character_controller") instance=ExtResource("10_7fjhp")]
 script = ExtResource("11_bifaf")

@@ -1,7 +1,11 @@
 extends Node2D
 
-signal interacted_with
+@export var level_map_map_entity_injector: MapEntityInjector
+@export var map_scene: MapScene
 
-func _on_interaction_area_interacted_with(interactor: Node):
-	if interactor is PlayerCharacter:
-		print("wowzers!")
+func _ready():
+	level_map_map_entity_injector.add_map_entity(map_scene)
+	map_scene.scene_setup.connect(_set_map_entity_position)
+
+func _set_map_entity_position() -> void:
+	map_scene.instance.position = global_position
