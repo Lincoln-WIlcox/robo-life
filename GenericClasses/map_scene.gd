@@ -1,7 +1,7 @@
+##Allows you to instance a scene within a map.
+
 class_name MapScene
 extends MapEntity
-
-##Allows you to instance a scene within a map.
 
 ##The scene to be instanced.
 @export var packed_scene: PackedScene

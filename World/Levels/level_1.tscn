@@ -112,8 +112,9 @@ position = Vector2(208, 48)
 [node name="Spike10" parent="." index="19" instance=ExtResource("5_a1p1l")]
 position = Vector2(224, 48)
 
-[node name="Shelter" parent="." index="20" instance=ExtResource("11_go86j")]
+[node name="Shelter" parent="." index="20" node_paths=PackedStringArray("level_map_map_entity_injector") instance=ExtResource("11_go86j")]
 position = Vector2(-48, -16)
+level_map_map_entity_injector = NodePath("../LevelMapMapEntityInjector")
 
 [node name="ItemPickup" parent="." index="21" instance=ExtResource("14_q1p5m")]
 position = Vector2(192, 0)

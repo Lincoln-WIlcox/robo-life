@@ -27,7 +27,7 @@
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_crafting.gd" id="15_0w8mt"]
 [ext_resource type="PackedScene" uid="uid://wgwi4qdwfkaq" path="res://UI/Crafting/crafting_ui.tscn" id="16_yn3tl"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/map.gd" id="21_hxwre"]
-[ext_resource type="PackedScene" uid="uid://cfhvw7mmxv7dy" path="res://UI/map.tscn" id="22_hokhb"]
+[ext_resource type="PackedScene" uid="uid://cfhvw7mmxv7dy" path="res://UI/Map/map.tscn" id="22_hokhb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_evjoi"]
 atlas = ExtResource("3_wtset")

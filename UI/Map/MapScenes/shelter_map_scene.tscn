@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://diqjv4565hiir"]
+
+[ext_resource type="Script" path="res://UI/Map/MapScenes/shelter_map_scene.gd" id="1_tsshx"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_liotu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36bvo"]
+atlas = ExtResource("2_liotu")
+region = Rect2(112, 120, 48, 24)
+
+[node name="ShelterMapScene" type="Node2D"]
+script = ExtResource("1_tsshx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_36bvo")
