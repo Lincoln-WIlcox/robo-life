@@ -38,9 +38,9 @@ func _apply_ledge(tile_position: Vector2i, ledge_bitflags: int):
 
 func _apply_one_way(tile_position):
 	var local_position: Vector2 = map_to_local(tile_position)
-	var one_way_platform: OneWayPlatform = one_way_platform_packed_scene.instantiate()
+	var one_way_platform: StaticBody2D = one_way_platform_packed_scene.instantiate()
 	one_way_platform.position = local_position
-	environment_query_system.add_map_entity(one_way_platform.get_map_entity())
+	environment_query_system.add_solid_entity_body(one_way_platform)
 	add_child(one_way_platform)
 
 func _on_changed():

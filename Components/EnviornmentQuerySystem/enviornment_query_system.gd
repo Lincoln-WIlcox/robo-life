@@ -17,9 +17,6 @@ enum TILE_POLYGON_RETURN_KEYS
 var _tile_map_layers: Array[TileMapLayer]
 var _solid_entity_bodies: Array[PhysicsBody2D]
 var _queryable_entities: Array[QueryableEntity]
-var _map_entities: Array[MapEntity]
-
-signal map_entity_added(added_map_entity: MapEntity)
 
 func _ready():
 	for tile_map_layer: TileMapLayer in initial_tile_map_layers:
@@ -45,16 +42,7 @@ func add_entity_queryable(queryable_entity: QueryableEntity, remove_on_tree_exit
 		queryable_entity.tree_exiting.connect(func(): _queryable_entities.erase(queryable_entity))
 	_queryable_entities.append(queryable_entity)
 
-##Used to add a map entity. These will be shown on the map.
-func add_map_entity(map_entity: MapEntity) -> void:
-	_map_entities.append(map_entity)
-	map_entity_added.emit(map_entity)
-
 # --- methods to get data
-
-##Returns map entities.
-func get_map_entities() -> Array[MapEntity]:
-	return _map_entities
 
 ##Returns polygons representing the solidity of every tile map tracked by the environment query system merged.
 func get_tile_maps_solidity() -> Array[PackedVector2Array]:

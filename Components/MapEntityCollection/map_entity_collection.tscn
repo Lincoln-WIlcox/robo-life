@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ub0qa7k8xrx7"]
+
+[ext_resource type="Script" path="res://World/map_entity_collection.gd" id="1_ubsrv"]
+
+[node name="MapEntityInjector" type="Node"]
+script = ExtResource("1_ubsrv")
