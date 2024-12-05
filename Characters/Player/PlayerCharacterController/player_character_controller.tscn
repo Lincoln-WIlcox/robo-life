@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d1kvhwjb0iy8m" path="res://Characters/Player/player_character.tscn" id="2_u8dgg"]
 [ext_resource type="PackedScene" uid="uid://c2nwpx3t8tmc0" path="res://Components/StateMachine/state_machine.tscn" id="3_aoc7a"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="3_wtset"]
-[ext_resource type="Script" path="res://GenericClasses/map_texture.gd" id="3_xy8oe"]
+[ext_resource type="Script" path="res://GenericClasses/MapData/map_texture.gd" id="3_xy8oe"]
 [ext_resource type="PackedScene" uid="uid://cx1e5ov1byhig" path="res://Components/MapTextureUpdater/map_texture_updater.tscn" id="4_5f3iy"]
 [ext_resource type="Script" path="res://Game/none_state.gd" id="4_7is3e"]
 [ext_resource type="Script" path="res://Resources/inventory.gd" id="4_d214o"]

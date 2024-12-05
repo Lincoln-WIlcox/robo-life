@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_s0fbl"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_52sld"]
-[ext_resource type="Script" path="res://GenericClasses/map_texture.gd" id="3_67wrv"]
+[ext_resource type="Script" path="res://GenericClasses/MapData/map_texture.gd" id="3_67wrv"]
 [ext_resource type="PackedScene" uid="uid://uusfotp1xgjx" path="res://Objects/Spike/spike.tscn" id="5_a1p1l"]
 [ext_resource type="TileSet" uid="uid://b2ajxli8pwv36" path="res://Resources/TileSets/level_1.tres" id="6_3k4c5"]
 [ext_resource type="PackedScene" uid="uid://bni6clyp4sg3" path="res://Objects/RockBarrier/rock_barrier.tscn" id="9_d0j2f"]

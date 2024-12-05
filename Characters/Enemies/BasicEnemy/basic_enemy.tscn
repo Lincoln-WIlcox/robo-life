@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Characters/Enemies/BasicEnemy/movement_controller.gd" id="2_25rc5"]
 [ext_resource type="PackedScene" uid="uid://02awkvcr8831" path="res://Components/CharacterGravityComponent/gravity_component.tscn" id="2_gl1g2"]
 [ext_resource type="PackedScene" uid="uid://vvmx1q8uqi2n" path="res://Components/Overheater/overheater.tscn" id="2_l8e3m"]
-[ext_resource type="Script" path="res://GenericClasses/map_texture.gd" id="3_353bx"]
+[ext_resource type="Script" path="res://GenericClasses/MapData/map_texture.gd" id="3_353bx"]
 [ext_resource type="PackedScene" uid="uid://bpjyigrxmafpo" path="res://Objects/Bullet/bullet.tscn" id="3_f7jvg"]
 [ext_resource type="PackedScene" uid="uid://lxxl844xt4sk" path="res://Components/VelocityComponent/velocity_component.tscn" id="3_un1su"]
 [ext_resource type="Script" path="res://Components/HeaterProgressBarUpdater/heater_progress_bar_updater.gd" id="4_2p77k"]
