@@ -1,7 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://nifofmv4xqni"]
+[gd_scene load_steps=10 format=3 uid="uid://nifofmv4xqni"]
 
 [ext_resource type="Script" path="res://UI/Map/power_pole_selection_map.gd" id="1_7xxns"]
 [ext_resource type="PackedScene" uid="uid://dqwwtsntni62j" path="res://Components/MapDisplay/map_display.tscn" id="1_j181k"]
+[ext_resource type="Script" path="res://GenericClasses/MapData/map_entity.gd" id="2_j7ojo"]
+[ext_resource type="PackedScene" uid="uid://sm5rnfdhpnwf" path="res://UI/Map/MapScenes/SelectablePowerPole/selectable_power_pole.tscn" id="3_eae6r"]
+[ext_resource type="Script" path="res://GenericClasses/MapData/map_data.gd" id="3_v31ju"]
+[ext_resource type="Script" path="res://GenericClasses/MapData/selectable_power_pole_map_entity.gd" id="4_psm4t"]
+
+[sub_resource type="Resource" id="Resource_3jtqu"]
+script = ExtResource("4_psm4t")
+initial_position = Vector2(100, 100)
+packed_scene = ExtResource("3_eae6r")
+
+[sub_resource type="Resource" id="Resource_v0bhd"]
+script = ExtResource("4_psm4t")
+initial_position = Vector2(-100, -100)
+packed_scene = ExtResource("3_eae6r")
+
+[sub_resource type="Resource" id="Resource_ku4rn"]
+script = ExtResource("3_v31ju")
+use_exported_initial_values = true
+initial_map_entities = Array[ExtResource("2_j7ojo")]([SubResource("Resource_3jtqu"), SubResource("Resource_v0bhd")])
+initial_solidity_polygons = Array[PackedVector2Array]([])
+initial_bounding_box = Rect2(0, 0, 0, 0)
 
 [node name="PowerPoleSelectionMap" type="Control"]
 layout_mode = 3
@@ -11,6 +32,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7xxns")
+map_data = SubResource("Resource_ku4rn")
 
 [node name="ContentDivider" type="VBoxContainer" parent="."]
 layout_mode = 1

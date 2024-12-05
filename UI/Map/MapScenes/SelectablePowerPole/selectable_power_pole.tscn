@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://sm5rnfdhpnwf"]
+[gd_scene load_steps=15 format=3 uid="uid://sm5rnfdhpnwf"]
 
 [ext_resource type="Script" path="res://UI/Map/MapScenes/SelectablePowerPole/selectable_power_pole.gd" id="1_as2jj"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_f5yvj"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vdh2h"]
 
@@ -24,6 +25,10 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0fo26"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_gdcdp"]
+atlas = ExtResource("2_f5yvj")
+region = Rect2(112, 96, 16, 16)
+
 [node name="SelectablePowerPoleMapScene" type="Node2D"]
 script = ExtResource("1_as2jj")
 
@@ -44,5 +49,8 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_j5kmf")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_tpw1m")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_dd5b6")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_0fo26")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_gdcdp")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
