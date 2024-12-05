@@ -5,6 +5,7 @@ extends Placeable
 @onready var connect_area: Area2D = $ConnectArea
 
 @export var start_placed := false
+@export var power_pole_selection_map_entity: SelectablePowerPoleMapEntity
 
 var _drawn_lines = []
 

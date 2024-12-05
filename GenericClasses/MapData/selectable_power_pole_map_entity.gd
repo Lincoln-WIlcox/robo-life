@@ -3,3 +3,4 @@ extends MapScene
 
 func setup_scene() -> void:
 	super()
+	assert(instance is SelectablePowerPole)

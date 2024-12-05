@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://sm5rnfdhpnwf"]
 
-[ext_resource type="Script" path="res://UI/Map/MapScenes/SelectablePowerPoleMapScene/selectable_power_pole_map_scene.gd" id="1_as2jj"]
+[ext_resource type="Script" path="res://UI/Map/MapScenes/SelectablePowerPole/selectable_power_pole.gd" id="1_as2jj"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vdh2h"]
 

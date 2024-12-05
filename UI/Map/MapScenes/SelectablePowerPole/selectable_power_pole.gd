@@ -1,3 +1,4 @@
+class_name SelectablePowerPole
 extends Node2D
 
 signal pressed
