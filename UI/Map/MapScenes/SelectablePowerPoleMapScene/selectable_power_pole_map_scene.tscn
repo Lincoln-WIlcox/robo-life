@@ -1,0 +1,48 @@
+[gd_scene load_steps=13 format=3 uid="uid://sm5rnfdhpnwf"]
+
+[ext_resource type="Script" path="res://UI/Map/MapScenes/SelectablePowerPoleMapScene/selectable_power_pole_map_scene.gd" id="1_as2jj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vdh2h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f3uv8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jyg1a"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3v0xm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iy8me"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5vcko"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3btre"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j5kmf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tpw1m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dd5b6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0fo26"]
+
+[node name="SelectablePowerPoleMapScene" type="Node2D"]
+script = ExtResource("1_as2jj")
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(25, 25)
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vdh2h")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_f3uv8")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_jyg1a")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_3v0xm")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_iy8me")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_5vcko")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_3btre")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_j5kmf")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_tpw1m")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_dd5b6")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0fo26")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
