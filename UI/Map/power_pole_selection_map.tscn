@@ -22,7 +22,7 @@ script = ExtResource("3_v31ju")
 use_exported_initial_values = true
 initial_map_entities = Array[ExtResource("2_j7ojo")]([SubResource("Resource_3jtqu"), SubResource("Resource_v0bhd")])
 initial_solidity_polygons = Array[PackedVector2Array]([])
-initial_bounding_box = Rect2(0, 0, 0, 0)
+initial_bounding_box = Rect2(0, 0, 80, 20)
 
 [node name="PowerPoleSelectionMap" type="Control"]
 layout_mode = 3
@@ -56,3 +56,5 @@ theme_override_constants/margin_bottom = 20
 [node name="ConfirmButton" type="Button" parent="ContentDivider/ConfirmMargin"]
 layout_mode = 2
 text = "Confirm"
+
+[connection signal="map_changed" from="ContentDivider/MapDisplay" to="." method="_on_map_display_map_changed"]

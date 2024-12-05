@@ -13,6 +13,9 @@ var map_box_center: Vector2:
 	get:
 		return map_control.global_position + (map_control.size / 2)
 
+func _ready():
+	map_control.resized.connect(clamp_scroll_to_markers)
+
 func _input(event):
 	if event is InputEventMouseMotion and map_control.has_focus() and Input.is_action_pressed("map_pan"):
 		pan_map(event.relative)
@@ -25,7 +28,7 @@ func _input(event):
 		scrollable_container.scale.y = scrollable_container.scale.x
 		pan_map(Vector2.ZERO)
 
-func pan_map(amount: Vector2):
+func pan_map(amount: Vector2) -> void:
 	var real_amount: Vector2 = amount
 	if upper_left_marker.global_position.x + amount.x > map_box_center.x:
 		real_amount.x = 0
@@ -41,3 +44,13 @@ func pan_map(amount: Vector2):
 		scrollable_container.global_position.y = map_box_center.y + (scrollable_container.global_position.y - lower_right_marker.global_position.y)
 	
 	scrollable_container.position += real_amount
+
+func clamp_scroll_to_markers() -> void:
+	if upper_left_marker.global_position.x > map_box_center.x:
+		scrollable_container.global_position.x = map_box_center.x  + (scrollable_container.global_position.x - upper_left_marker.global_position.x)
+	if upper_left_marker.global_position.y > map_box_center.y:
+		scrollable_container.global_position.y = map_box_center.y + (scrollable_container.global_position.y - upper_left_marker.global_position.y)
+	if lower_right_marker.global_position.x < map_box_center.x:
+		scrollable_container.global_position.x = map_box_center.x + (scrollable_container.global_position.x - lower_right_marker.global_position.x)
+	if lower_right_marker.global_position.y < map_box_center.y:
+		scrollable_container.global_position.y = map_box_center.y + (scrollable_container.global_position.y - lower_right_marker.global_position.y)
