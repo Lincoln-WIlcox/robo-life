@@ -9,5 +9,8 @@ extends MapEntity
 var instance: Node
 
 ##Called when the map is set up if instance is null. You can call it earlier to set up the scene.
-func setup_scene():
+func setup_scene() -> void:
 	instance = packed_scene.instantiate()
+
+func scene_is_setup() -> bool:
+	return instance != null
