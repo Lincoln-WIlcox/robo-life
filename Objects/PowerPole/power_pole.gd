@@ -10,11 +10,15 @@ extends Placeable
 var _drawn_lines = []
 
 func _ready():
+	power_pole_selection_map_entity.scene_setup.connect(_on_power_pole_selection_map_entity_setup)
 	if start_placed:
 		#for some reason you have to wait two physics frams
 		await Engine.get_main_loop().physics_frame
 		await Engine.get_main_loop().physics_frame
 		place()
+
+func _on_power_pole_selection_map_entity_setup() -> void:
+	power_pole_selection_map_entity.instance.position = global_position
 
 func _on_placed():
 	super()

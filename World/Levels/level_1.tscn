@@ -112,9 +112,9 @@ position = Vector2(208, 48)
 [node name="Spike10" parent="." index="19" instance=ExtResource("5_a1p1l")]
 position = Vector2(224, 48)
 
-[node name="Shelter" parent="." index="20" node_paths=PackedStringArray("level_map_map_entity_injector") instance=ExtResource("11_go86j")]
+[node name="Shelter" parent="." index="20" node_paths=PackedStringArray("level_map_map_entity_collection") instance=ExtResource("11_go86j")]
 position = Vector2(-48, -16)
-level_map_map_entity_injector = NodePath("../LevelMapMapEntityInjector")
+level_map_map_entity_collection = NodePath("../LevelMapMapEntityCollection")
 
 [node name="ItemPickup" parent="." index="21" instance=ExtResource("14_q1p5m")]
 position = Vector2(192, 0)
@@ -171,26 +171,26 @@ position = Vector2(-368, -80)
 position = Vector2(-320, -32)
 start_placed = true
 
-[node name="BasicEnemy" parent="." index="37" node_paths=PackedStringArray("target", "node_to_put_nodes_in", "level_map_injector") instance=ExtResource("19_q2u7d")]
+[node name="BasicEnemy" parent="." index="37" node_paths=PackedStringArray("target", "node_to_put_nodes_in", "level_map_entity_collection") instance=ExtResource("19_q2u7d")]
 position = Vector2(16, -16)
 map_entity = SubResource("Resource_boapi")
 target = NodePath("../PlayerTarget")
 node_to_put_nodes_in = NodePath("..")
-level_map_injector = NodePath("../LevelMapMapEntityInjector")
+level_map_entity_collection = NodePath("../LevelMapMapEntityCollection")
 
-[node name="BasicEnemy2" parent="." index="38" node_paths=PackedStringArray("target", "node_to_put_nodes_in", "level_map_injector") instance=ExtResource("19_q2u7d")]
+[node name="BasicEnemy2" parent="." index="38" node_paths=PackedStringArray("target", "node_to_put_nodes_in", "level_map_entity_collection") instance=ExtResource("19_q2u7d")]
 position = Vector2(-481, -12)
 map_entity = SubResource("Resource_oknhf")
 target = NodePath("../PlayerTarget")
 node_to_put_nodes_in = NodePath("..")
-level_map_injector = NodePath("../LevelMapMapEntityInjector")
+level_map_entity_collection = NodePath("../LevelMapMapEntityCollection")
 
-[node name="BasicEnemy3" parent="." index="39" node_paths=PackedStringArray("target", "node_to_put_nodes_in", "level_map_injector") instance=ExtResource("19_q2u7d")]
+[node name="BasicEnemy3" parent="." index="39" node_paths=PackedStringArray("target", "node_to_put_nodes_in", "level_map_entity_collection") instance=ExtResource("19_q2u7d")]
 position = Vector2(-710, -12)
 map_entity = SubResource("Resource_g5pyp")
 target = NodePath("../PlayerTarget")
 node_to_put_nodes_in = NodePath("..")
-level_map_injector = NodePath("../LevelMapMapEntityInjector")
+level_map_entity_collection = NodePath("../LevelMapMapEntityCollection")
 
 [node name="GravityWalkOverItemPickupFood" parent="." index="40" instance=ExtResource("20_gpwbd")]
 position = Vector2(-659, -20)

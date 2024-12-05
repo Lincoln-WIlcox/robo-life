@@ -1,4 +1,4 @@
-class_name MapEntityInjector
+class_name MapEntityCollection
 extends Node
 
 @export var _map_entities: Array[MapEntity]
