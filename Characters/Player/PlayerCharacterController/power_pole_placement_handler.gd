@@ -1,0 +1,7 @@
+extends Node
+
+var power_pole_selection_map_entity_collection: MapEntityCollection
+
+func _on_place_object_handler_placeable_placed(placeable):
+	if placeable is PowerPole:
+		placeable.add_to_map_entity_collection(power_pole_selection_map_entity_collection)

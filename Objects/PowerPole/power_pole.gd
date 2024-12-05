@@ -1,3 +1,4 @@
+class_name PowerPole
 extends Placeable
 
 @onready var node_to_put_lines_in := get_parent()
@@ -6,11 +7,13 @@ extends Placeable
 
 @export var start_placed := false
 @export var power_pole_selection_map_entity: SelectablePowerPoleMapEntity
+@export var power_pole_selection_map_entity_collection: MapEntityCollection
 
 var _drawn_lines = []
 
 func _ready():
 	power_pole_selection_map_entity.scene_setup.connect(_on_power_pole_selection_map_entity_setup)
+	
 	if start_placed:
 		#for some reason you have to wait two physics frams
 		await Engine.get_main_loop().physics_frame
@@ -26,6 +29,13 @@ func _on_placed():
 	
 	for power_connector_to_connect_to: PowerConnector in connections_to_connect_to:
 		power_connector.connect_to(power_connector_to_connect_to)
+	
+	if power_pole_selection_map_entity_collection:
+		power_pole_selection_map_entity_collection.add_map_entity(power_pole_selection_map_entity)
+
+func add_to_map_entity_collection(map_entity_collection: MapEntityCollection) -> void:
+	power_pole_selection_map_entity_collection = map_entity_collection
+	power_pole_selection_map_entity_collection.add_map_entity(power_pole_selection_map_entity)
 
 func _process(delta):
 	remove_lines()
