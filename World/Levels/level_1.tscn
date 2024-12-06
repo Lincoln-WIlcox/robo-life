@@ -163,10 +163,10 @@ position = Vector2(-437, 392)
 [node name="OverheatableWall3" parent="." index="35" instance=ExtResource("17_8n4om")]
 position = Vector2(-368, -80)
 
-[node name="PowerPole" parent="." index="36" node_paths=PackedStringArray("power_pole_selection_map_entity_collection") instance=ExtResource("19_fa7aj")]
+[node name="PowerPole" parent="." index="36" node_paths=PackedStringArray("enviornment_query_system") instance=ExtResource("19_fa7aj")]
 position = Vector2(-320, -32)
+enviornment_query_system = NodePath("../EnvironmentQuerySystem")
 start_placed = true
-power_pole_selection_map_entity_collection = NodePath("../PowerPoleSelectionMapEntityCollection")
 
 [node name="BasicEnemy" parent="." index="37" node_paths=PackedStringArray("target", "node_to_put_nodes_in", "level_map_entity_collection") instance=ExtResource("19_q2u7d")]
 position = Vector2(16, -16)

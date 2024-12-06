@@ -28,7 +28,6 @@ extends Node2D
 		crafting_state.shelter_inventory = shelter_inventory
 @export var environment_query_system: EnvironmentQuerySystem
 @export var level_map_map_entity_collection: MapEntityCollection
-@export var power_pole_selection_map_entity_collection: MapEntityCollection
 
 var inventory:
 	get:
@@ -111,7 +110,7 @@ func _ready():
 	player_shield_handler.shield_progress_bar = player_character.shield_progress_bar
 	none_state.toggle_map = func(): return Input.is_action_just_pressed("open_map")
 	level_map_state.toggle_map = func(): return Input.is_action_just_pressed("open_map")
-	power_pole_placement_handler.power_pole_selection_map_entity_collection = power_pole_selection_map_entity_collection
+	power_pole_placement_handler.enviornment_query_system = environment_query_system
 	
 	level_map_map_entity_collection.add_map_entity(map_texture)
 	level_map_state.environment_query_system = environment_query_system

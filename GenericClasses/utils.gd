@@ -1,5 +1,5 @@
 class_name Utils
-extends Object
+extends RefCounted
 
 const MINIMUM_SPEED = 0.2
 const TIME_PASSED_AT_NIGHT = 50

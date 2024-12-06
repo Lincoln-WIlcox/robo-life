@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cng4tm54hq536"]
+[gd_scene load_steps=14 format=3 uid="uid://cng4tm54hq536"]
 
 [ext_resource type="Script" path="res://Objects/PowerPole/power_pole.gd" id="1_kt56x"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_gq44m"]
@@ -6,12 +6,16 @@
 [ext_resource type="PackedScene" uid="uid://g1sd2n28vfvx" path="res://Components/PowerConnection/power_connection.tscn" id="3_1oihy"]
 [ext_resource type="Script" path="res://GenericClasses/MapData/selectable_power_pole_map_entity.gd" id="3_t3fk7"]
 [ext_resource type="PackedScene" uid="uid://gfntau5ijo5h" path="res://Components/MousePickupComponent/mouse_pickup_area.tscn" id="4_4q22u"]
+[ext_resource type="Script" path="res://GenericClasses/QueryableEntity/queryable_entity.gd" id="4_blenl"]
 [ext_resource type="Resource" uid="uid://b3au5vg63nxkc" path="res://Resources/Items/power_pole.tres" id="5_23ris"]
 
 [sub_resource type="Resource" id="Resource_a1sjy"]
 script = ExtResource("3_t3fk7")
 initial_position = Vector2(0, 0)
 packed_scene = ExtResource("2_wsl8g")
+
+[sub_resource type="Resource" id="Resource_heqyy"]
+script = ExtResource("4_blenl")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g345s"]
 atlas = ExtResource("2_gq44m")
@@ -26,6 +30,7 @@ size = Vector2(16, 16)
 [node name="PowerPole" type="Node2D"]
 script = ExtResource("1_kt56x")
 power_pole_selection_map_entity = SubResource("Resource_a1sjy")
+queryable = SubResource("Resource_heqyy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_g345s")

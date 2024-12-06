@@ -1,5 +1,5 @@
 class_name PowerConnectorConnection
-extends Object
+extends RefCounted
 
 var power_connector_a: PowerConnector
 var power_connector_b: PowerConnector
