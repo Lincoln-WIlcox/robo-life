@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://nifofmv4xqni"]
+[gd_scene load_steps=11 format=3 uid="uid://nifofmv4xqni"]
 
 [ext_resource type="Script" path="res://UI/Map/power_pole_selection_map.gd" id="1_7xxns"]
 [ext_resource type="PackedScene" uid="uid://dqwwtsntni62j" path="res://Components/MapDisplay/map_display.tscn" id="1_j181k"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://sm5rnfdhpnwf" path="res://UI/Map/MapScenes/SelectablePowerPole/selectable_power_pole.tscn" id="3_eae6r"]
 [ext_resource type="Script" path="res://GenericClasses/MapData/map_data.gd" id="3_v31ju"]
 [ext_resource type="Script" path="res://GenericClasses/MapData/selectable_power_pole_map_entity.gd" id="4_psm4t"]
+[ext_resource type="Script" path="res://Components/MapDisplay/power_pole_selection_map_display.gd" id="7_7xomh"]
 
 [sub_resource type="Resource" id="Resource_3jtqu"]
 script = ExtResource("4_psm4t")
@@ -42,9 +43,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MapDisplay" parent="ContentDivider" instance=ExtResource("1_j181k")]
+[node name="PowerPoleSelectionMapDisplay" parent="ContentDivider" instance=ExtResource("1_j181k")]
 layout_mode = 2
 size_flags_vertical = 3
+script = ExtResource("7_7xomh")
+solidity_color = Color(0, 0, 0, 1)
 
 [node name="ConfirmMargin" type="MarginContainer" parent="ContentDivider"]
 layout_mode = 2
@@ -58,5 +61,5 @@ layout_mode = 2
 disabled = true
 text = "Confirm"
 
-[connection signal="map_changed" from="ContentDivider/MapDisplay" to="." method="_on_map_display_map_changed"]
+[connection signal="power_pole_selected" from="ContentDivider/PowerPoleSelectionMapDisplay" to="." method="_on_power_pole_selection_map_display_power_pole_selected"]
 [connection signal="pressed" from="ContentDivider/ConfirmMargin/ConfirmButton" to="." method="_on_confirm_button_pressed"]

@@ -68,7 +68,7 @@ func _display_map_entity(map_entity: MapEntity) -> void:
 	elif map_entity is MapScene:
 		_display_map_scene(map_entity)
 
-func _display_map_texture(map_texture: MapTexture) -> void:
+func _display_map_texture(map_texture: MapTexture) -> Sprite2D:
 	var sprite: Sprite2D = Sprite2D.new()
 	_apply_map_texture_to_sprite(map_texture, sprite)
 	map_texture.update_sprite.connect(_apply_map_texture_to_sprite.bind(map_texture, sprite))
@@ -77,8 +77,10 @@ func _display_map_texture(map_texture: MapTexture) -> void:
 		if removed_map_entity == map_texture:
 			node_to_put_map_in.remove_child(sprite)
 		)
+	
+	return sprite
 
-func _display_map_scene(map_scene: MapScene) -> void:
+func _display_map_scene(map_scene: MapScene) -> Node:
 	if map_scene.instance == null:
 		map_scene.setup_scene()
 	node_to_put_map_in.add_child(map_scene.instance)
@@ -86,6 +88,8 @@ func _display_map_scene(map_scene: MapScene) -> void:
 		if removed_map_entity == map_scene:
 			node_to_put_map_in.remove_child(map_scene.instance)
 		)
+	
+	return map_scene.instance
 
 func _apply_map_texture_to_sprite(map_texture: MapTexture, sprite: Sprite2D) -> void:
 	sprite.texture = map_texture.display_texture
