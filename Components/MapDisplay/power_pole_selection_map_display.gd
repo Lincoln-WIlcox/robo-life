@@ -21,3 +21,8 @@ func _update_selected_power_pole(new_selectable_power_pole: SelectablePowerPole)
 		_selected_power_pole.deselect()
 	_selected_power_pole = new_selectable_power_pole
 	_selected_power_pole.select()
+
+func reset_selected_power_pole() -> void:
+	if _selected_power_pole:
+		_selected_power_pole.deselect()
+	_selected_power_pole = null

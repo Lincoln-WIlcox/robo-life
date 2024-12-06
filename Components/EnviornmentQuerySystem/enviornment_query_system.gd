@@ -18,6 +18,8 @@ var _tile_map_layers: Array[TileMapLayer]
 var _solid_entity_bodies: Array[PhysicsBody2D]
 var _queryable_entities: Array[QueryableEntity]
 
+signal queryable_added(queryable: QueryableEntity)
+
 func _ready():
 	for tile_map_layer: TileMapLayer in initial_tile_map_layers:
 		add_tile_map_layer(tile_map_layer)
@@ -41,6 +43,8 @@ func add_entity_queryable(queryable_entity: QueryableEntity, remove_on_queryable
 	if remove_on_queryable_source_disconnected:
 		queryable_entity.source_disconnected.connect(func(): _queryable_entities.erase(queryable_entity))
 	_queryable_entities.append(queryable_entity)
+	
+	queryable_added.emit(queryable_entity)
 
 # --- methods to get data
 
