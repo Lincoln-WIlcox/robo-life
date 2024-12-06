@@ -1,15 +1,18 @@
 class_name SelectablePowerPole
 extends Node2D
 
-signal pressed
+const SELECTED_MODULATE = Color(1.3,1.3,1.3,1)
+const DESELECTED_MODULATE = Color(.8,.8,.8,.5)
 
-var _selected := false
+@onready var sprite = $Sprite2D
+
+signal pressed
 
 func _on_button_pressed():
 	pressed.emit()
 
 func select() -> void:
-	_selected = true;
+	sprite.modulate = SELECTED_MODULATE
 
 func deselect() -> void:
-	_selected = false;
+	sprite.modulate = DESELECTED_MODULATE

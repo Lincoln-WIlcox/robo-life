@@ -48,7 +48,7 @@ func display_map_data(map_data: MapData) -> void:
 	map_changed.emit()
 
 func get_map_entity_representations() -> Array[Node]:
-	return get_children().filter(func(child: Node): return not child is Polygon2D)
+	return node_to_put_map_in.get_children().filter(func(child: Node): return not child is Polygon2D)
 
 func _display_polygons(packed_vectors: Array[PackedVector2Array]) -> void:
 	var polygons: Array[Polygon2D] = Utils.packed_vector_arrays_to_polygons(packed_vectors)
