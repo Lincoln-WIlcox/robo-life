@@ -18,6 +18,8 @@ var _tile_map_layers: Array[TileMapLayer]
 var _solid_entity_bodies: Array[PhysicsBody2D]
 var _queryable_entities: Array[QueryableEntity]
 
+signal queryable_added(queryable: QueryableEntity)
+
 func _ready():
 	for tile_map_layer: TileMapLayer in initial_tile_map_layers:
 		add_tile_map_layer(tile_map_layer)
@@ -37,10 +39,12 @@ func add_solid_entity_body(body: PhysicsBody2D, remove_on_tree_exiting = true) -
 	_solid_entity_bodies.append(body)
 
 ##Used to add a queryable. See [QueryableEntity]
-func add_entity_queryable(queryable_entity: QueryableEntity, remove_on_tree_exiting = true) -> void:
-	if remove_on_tree_exiting:
-		queryable_entity.tree_exiting.connect(func(): _queryable_entities.erase(queryable_entity))
+func add_entity_queryable(queryable_entity: QueryableEntity, remove_on_queryable_source_disconnected = true) -> void:
+	if remove_on_queryable_source_disconnected:
+		queryable_entity.source_disconnected.connect(func(): _queryable_entities.erase(queryable_entity))
 	_queryable_entities.append(queryable_entity)
+	
+	queryable_added.emit(queryable_entity)
 
 # --- methods to get data
 
@@ -90,6 +94,9 @@ func get_solidity_bounding_box() -> Rect2:
 			biggest_rect.end.y = used_rect.end.y
 	
 	return biggest_rect
+
+func get_queryables_by_class(class_name_string: String) -> Array[QueryableEntity]:
+	return _queryable_entities.filter(func(queryable: QueryableEntity): return queryable.is_class(class_name_string))
 
 # --- private methods
 

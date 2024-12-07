@@ -16,6 +16,8 @@ extends Node2D
 @onready var player_shield_handler = $PlayerShieldHandler
 @onready var level_map_state = $UIStateMachine/LevelMap
 @onready var map_texture_updater = $MapTextureUpdater
+@onready var power_pole_placement_handler = $PowerPolePlacementHandler
+@onready var power_pole_selection_map = $UIStateMachine/PowerPoleSelectionMap
 
 @export var map_texture: MapTexture
 @export var movement_disabled := false
@@ -26,7 +28,7 @@ extends Node2D
 		shelter_shelter_state.shelter_inventory = shelter_inventory
 		crafting_state.shelter_inventory = shelter_inventory
 @export var environment_query_system: EnvironmentQuerySystem
-@export var level_map_map_entity_injector: MapEntityInjector
+@export var level_map_map_entity_collection: MapEntityCollection
 
 var inventory:
 	get:
@@ -40,6 +42,7 @@ var show_ui: Callable:
 			shelter_shelter_state.show_ui = show_ui
 			crafting_state.show_ui = show_ui
 			level_map_state.show_ui = show_ui
+			power_pole_selection_map.show_ui = show_ui
 var hide_ui: Callable:
 	set(new_value):
 		hide_ui = new_value
@@ -48,11 +51,7 @@ var hide_ui: Callable:
 			shelter_shelter_state.hide_ui = hide_ui
 			crafting_state.hide_ui = hide_ui
 			level_map_state.hide_ui = hide_ui
-var get_map_data: Callable:
-	set(new_value):
-		get_map_data = new_value
-		if is_node_ready():
-			level_map_state.get_map_data = get_map_data
+			power_pole_selection_map.hide_ui = hide_ui
 
 signal item_dropped(drop: Object)
 signal died
@@ -73,7 +72,6 @@ func _ready():
 	player_character.just_climbed_callable = func(): return Input.is_action_just_pressed("player_climb") and not movement_disabled
 	player_character.item_dropped.connect(func(drop: Object): item_dropped.emit(drop))
 	player_character.died.connect(func(): died.emit())
-	none_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
 	pickup_stuff_handler.inventory = inventory
 	pickup_stuff_handler.mouse_detect_area = player_character.mouse_detect_area
 	inventory_state.active_player = player_character
@@ -87,35 +85,34 @@ func _ready():
 	place_object_handler.mouse_detect_area = player_character.mouse_detect_area
 	place_object_handler.node_to_spawn_placeables_in = node_to_spawn_placeables_in
 	laser_gun_handler.is_firing = func(): return Input.is_action_pressed("fire")
-	none_state.is_firing = func(): return Input.is_action_pressed("fire")
 	inventory_state.inventory_opened.connect(func(): inventory_opened.emit())
 	inventory_state.inventory_closed.connect(func(): inventory_closed.emit())
-	inventory_state.show_ui = show_ui
-	inventory_state.hide_ui = hide_ui
 	inventory_state.inventory = inventory
 	shelter_state.interaction_area = player_character.interaction_area
-	crafting_state.show_ui = show_ui
-	crafting_state.hide_ui = hide_ui
 	crafting_state.player_inventory = inventory
 	shelter_shelter_state.shelter_opened.connect(func(): shelter_opened.emit())
 	shelter_shelter_state.shelter_closed.connect(func(): shelter_closed.emit())
-	shelter_shelter_state.show_ui = show_ui
-	shelter_shelter_state.hide_ui = hide_ui
 	shelter_shelter_state.shelter_inventory = shelter_inventory
 	shelter_shelter_state.inventory = inventory
 	player_shield_handler.just_started_shielding = func(): return Input.is_action_just_pressed("shield")
 	player_shield_handler.just_stopped_shielding = func(): return Input.is_action_just_released("shield")
 	player_shield_handler.player_character = player_character.character
 	player_shield_handler.shield_progress_bar = player_character.shield_progress_bar
-	none_state.toggle_map = func(): return Input.is_action_just_pressed("open_map")
-	level_map_state.toggle_map = func(): return Input.is_action_just_pressed("open_map")
-	
-	level_map_map_entity_injector.add_map_entity(map_texture)
+	none_state.toggle_map = func(): return Input.is_action_just_pressed("toggle_map")
+	none_state.toggle_power_pole_selection_map = func(): return Input.is_action_just_pressed("test_input")
+	none_state.is_firing = func(): return Input.is_action_pressed("fire")
+	none_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
+	power_pole_placement_handler.enviornment_query_system = environment_query_system
+	power_pole_selection_map.toggle_map = func(): return Input.is_action_just_pressed("test_input")
+	power_pole_selection_map.environment_query_system = environment_query_system
+	power_pole_selection_map.setup_map()
+	level_map_map_entity_collection.add_map_entity(map_texture)
+	level_map_state.toggle_map = func(): return Input.is_action_just_pressed("toggle_map")
 	level_map_state.environment_query_system = environment_query_system
-	level_map_state.map_entity_injector = level_map_map_entity_injector
+	level_map_state.map_entity_collection = level_map_map_entity_collection
 	level_map_state.setup_map()
 	map_texture.get_position = func(): return player_character.character.global_position
-	map_texture.remove_on_node_freed = self
+	map_texture.source_node = self
 	
 	map_texture_updater.map_texture = map_texture
 	

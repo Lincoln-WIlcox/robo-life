@@ -5,6 +5,8 @@ var mouse_detect_area: MouseDetectArea
 var node_to_spawn_placeables_in: Node
 var _placing_placeable: Placeable
 
+signal placeable_placed(placeable: Placeable)
+
 func start_placing_placeable(placeable: Placeable) -> void:
 	_placing_placeable = placeable
 	node_to_spawn_placeables_in.add_child(_placing_placeable)
@@ -23,7 +25,7 @@ func update_placing() -> void:
 func attempt_place_object() -> bool:
 	if _placing_placeable.placement_valid and mouse_detect_area.mouse_over:
 		_placing_placeable.place()
+		placeable_placed.emit(_placing_placeable)
 		stop_placing()
 		return true
 	return false
-

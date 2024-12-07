@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="9_dna0g"]
 [ext_resource type="PackedScene" uid="uid://c4ikfoien6boi" path="res://Components/Target/target.tscn" id="10_7fjhp"]
 [ext_resource type="PackedScene" uid="uid://daw30mg70crel" path="res://Objects/OneWayPlatform/one_way_platform.tscn" id="10_kift4"]
-[ext_resource type="Script" path="res://GenericClasses/map_texture.gd" id="10_tgpag"]
+[ext_resource type="Script" path="res://GenericClasses/MapData/map_texture.gd" id="10_tgpag"]
 [ext_resource type="Script" path="res://World/player_target.gd" id="11_bifaf"]
 [ext_resource type="Script" path="res://Components/EnviornmentQuerySystem/enviornment_query_system.gd" id="13_0dgh0"]
 
@@ -46,7 +46,9 @@ script = ExtResource("1_fuqf5")
 active_player = NodePath("PlayerCharacterController")
 shelter_inventory = SubResource("Resource_ecwqp")
 
-[node name="LevelMapMapEntityInjector" parent="." instance=ExtResource("5_0ixtc")]
+[node name="LevelMapMapEntityCollection" parent="." instance=ExtResource("5_0ixtc")]
+
+[node name="PowerPoleSelectionMapEntityCollection" parent="." instance=ExtResource("5_0ixtc")]
 
 [node name="PowerLineConnector" parent="." instance=ExtResource("2_gho6m")]
 
@@ -63,11 +65,11 @@ one_shot = true
 script = ExtResource("13_0dgh0")
 initial_tile_map_layers = [NodePath("../Tiles")]
 
-[node name="PlayerCharacterController" parent="." node_paths=PackedStringArray("node_to_spawn_placeables_in", "environment_query_system", "level_map_map_entity_injector") instance=ExtResource("1_yr2t8")]
+[node name="PlayerCharacterController" parent="." node_paths=PackedStringArray("node_to_spawn_placeables_in", "environment_query_system", "level_map_map_entity_collection") instance=ExtResource("1_yr2t8")]
 map_texture = SubResource("Resource_xtc4p")
 node_to_spawn_placeables_in = NodePath("..")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
-level_map_map_entity_injector = NodePath("../LevelMapMapEntityInjector")
+level_map_map_entity_collection = NodePath("../LevelMapMapEntityCollection")
 
 [node name="Tiles" type="TileMapLayer" parent="." node_paths=PackedStringArray("environment_query_system")]
 script = ExtResource("6_7fj4g")

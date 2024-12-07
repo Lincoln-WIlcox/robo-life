@@ -1,7 +1,6 @@
-class_name MapEntityCollection
 extends Node
 
-@export var _map_entities: Array[MapEntity]
+@export var _power_poles: Array[PowerPole]
 
 signal map_entity_added(map_entity: MapEntity)
 signal map_entity_removed(map_entity: MapEntity)

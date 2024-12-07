@@ -1,19 +1,37 @@
+class_name PowerPole
 extends Placeable
 
 @onready var node_to_put_lines_in := get_parent()
 @onready var power_connector: PowerConnector = $PowerConnector
 @onready var connect_area: Area2D = $ConnectArea
 
+@export var enviornment_query_system: EnvironmentQuerySystem
 @export var start_placed := false
+@export var power_pole_selection_map_entity: SelectablePowerPoleMapEntity
+@export var queryable: QueryableEntity
 
 var _drawn_lines = []
 
 func _ready():
+	queryable.connect_source(self)
+	if enviornment_query_system:
+		enviornment_query_system.add_entity_queryable(queryable)
+	
+	power_pole_selection_map_entity.source_node = self
+	power_pole_selection_map_entity.scene_setup.connect(_on_power_pole_selection_map_entity_setup)
+	
 	if start_placed:
 		#for some reason you have to wait two physics frams
 		await Engine.get_main_loop().physics_frame
 		await Engine.get_main_loop().physics_frame
 		place()
+
+func add_to_enviornment_query_system(enviornment_query_system: EnvironmentQuerySystem) -> void:
+	enviornment_query_system = enviornment_query_system
+	enviornment_query_system.add_entity_queryable(queryable)
+
+func _on_power_pole_selection_map_entity_setup() -> void:
+	power_pole_selection_map_entity.instance.position = global_position
 
 func _on_placed():
 	super()

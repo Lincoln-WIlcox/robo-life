@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://nifofmv4xqni"]
+
+[ext_resource type="Script" path="res://UI/Map/power_pole_selection_map.gd" id="1_7xxns"]
+[ext_resource type="PackedScene" uid="uid://dqwwtsntni62j" path="res://Components/MapDisplay/map_display.tscn" id="1_j181k"]
+[ext_resource type="Script" path="res://Components/MapDisplay/power_pole_selection_map_display.gd" id="7_7xomh"]
+
+[node name="PowerPoleSelectionMap" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7xxns")
+
+[node name="ContentDivider" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PowerPoleSelectionMapDisplay" parent="ContentDivider" instance=ExtResource("1_j181k")]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("7_7xomh")
+
+[node name="ConfirmMargin" type="MarginContainer" parent="ContentDivider"]
+layout_mode = 2
+theme_override_constants/margin_left = 360
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 360
+theme_override_constants/margin_bottom = 20
+
+[node name="ConfirmButton" type="Button" parent="ContentDivider/ConfirmMargin"]
+layout_mode = 2
+disabled = true
+text = "Confirm"
+
+[connection signal="power_pole_selected" from="ContentDivider/PowerPoleSelectionMapDisplay" to="." method="_on_power_pole_selection_map_display_power_pole_selected"]
+[connection signal="pressed" from="ContentDivider/ConfirmMargin/ConfirmButton" to="." method="_on_confirm_button_pressed"]

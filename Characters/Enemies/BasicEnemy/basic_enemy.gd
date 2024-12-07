@@ -13,15 +13,16 @@ extends Node2D
 		if is_node_ready():
 			shoot_player_controller.node_to_put_bullets_in = node_to_put_nodes_in
 			pickup_spawner.node_to_spawn_pickup_in = node_to_put_nodes_in
-@export var level_map_injector: MapEntityInjector
+@export var level_map_entity_collection: MapEntityCollection
 
 func _ready():
 	map_entity.get_position = func(): return body.global_position
-	map_entity.remove_on_node_freed = self
+	map_entity.source_node = self
 	map_texture_updater.map_texture = map_entity
-	if level_map_injector:
+	if level_map_entity_collection:
+		level_map_entity_collection.add_map_entity(map_entity)
+	else:
 		push_warning("missing level map MapEntityInjector")
-		level_map_injector.add_map_entity(map_entity)
 	shoot_player_controller.node_to_put_bullets_in = node_to_put_nodes_in
 	pickup_spawner.node_to_spawn_pickup_in = node_to_put_nodes_in
 
