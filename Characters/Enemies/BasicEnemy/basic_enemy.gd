@@ -17,7 +17,7 @@ extends Node2D
 
 func _ready():
 	map_entity.get_position = func(): return body.global_position
-	map_entity.remove_on_node_freed = self
+	map_entity.source_node = self
 	map_texture_updater.map_texture = map_entity
 	if level_map_entity_collection:
 		level_map_entity_collection.add_map_entity(map_entity)

@@ -10,11 +10,12 @@
 [ext_resource type="Resource" uid="uid://b3au5vg63nxkc" path="res://Resources/Items/power_pole.tres" id="5_23ris"]
 
 [sub_resource type="Resource" id="Resource_a1sjy"]
+resource_local_to_scene = true
 script = ExtResource("3_t3fk7")
-initial_position = Vector2(0, 0)
 packed_scene = ExtResource("2_wsl8g")
 
 [sub_resource type="Resource" id="Resource_heqyy"]
+resource_local_to_scene = true
 script = ExtResource("4_blenl")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g345s"]

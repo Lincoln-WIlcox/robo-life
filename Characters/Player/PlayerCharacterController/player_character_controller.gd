@@ -112,7 +112,7 @@ func _ready():
 	level_map_state.map_entity_collection = level_map_map_entity_collection
 	level_map_state.setup_map()
 	map_texture.get_position = func(): return player_character.character.global_position
-	map_texture.remove_on_node_freed = self
+	map_texture.source_node = self
 	
 	map_texture_updater.map_texture = map_texture
 	

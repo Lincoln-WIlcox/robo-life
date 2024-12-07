@@ -117,7 +117,7 @@ func _clear_polygons() -> void:
 
 func _on_map_entity_added(map_entity: MapEntity) -> void:
 	_display_map_entity(map_entity)
-	map_entity.emit()
+	map_changed.emit()
 
 func _on_map_entity_removed(map_entity: MapEntity) -> void:
 	map_entity_removed.emit(map_entity)

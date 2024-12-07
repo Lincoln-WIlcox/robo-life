@@ -17,6 +17,7 @@ func _ready():
 	if enviornment_query_system:
 		enviornment_query_system.add_entity_queryable(queryable)
 	
+	power_pole_selection_map_entity.source_node = self
 	power_pole_selection_map_entity.scene_setup.connect(_on_power_pole_selection_map_entity_setup)
 	
 	if start_placed:

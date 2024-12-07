@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://4hdu5f7ikd0h"]
+[gd_scene load_steps=34 format=4 uid="uid://4hdu5f7ikd0h"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_s0fbl"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_52sld"]
@@ -22,6 +22,9 @@
 [ext_resource type="PackedScene" uid="uid://cng4tm54hq536" path="res://Objects/PowerPole/power_pole.tscn" id="19_fa7aj"]
 [ext_resource type="PackedScene" uid="uid://cunc28rnr20cj" path="res://Characters/Enemies/BasicEnemy/basic_enemy.tscn" id="19_q2u7d"]
 [ext_resource type="PackedScene" uid="uid://g1jj5acjo7c5" path="res://Objects/GravityWalkOverItemPickup/gravity_walk_over_item_pickup_food.tscn" id="20_gpwbd"]
+[ext_resource type="PackedScene" uid="uid://sm5rnfdhpnwf" path="res://UI/Map/MapScenes/SelectablePowerPole/selectable_power_pole.tscn" id="20_r4v6s"]
+[ext_resource type="Script" path="res://GenericClasses/MapData/selectable_power_pole_map_entity.gd" id="21_d0twq"]
+[ext_resource type="Script" path="res://GenericClasses/QueryableEntity/queryable_entity.gd" id="22_6khxj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_evjoi"]
 atlas = ExtResource("2_52sld")
@@ -33,6 +36,15 @@ script = ExtResource("3_67wrv")
 display_texture = SubResource("AtlasTexture_evjoi")
 z_index = 1
 scale = Vector2(2, 2)
+
+[sub_resource type="Resource" id="Resource_nyniv"]
+resource_local_to_scene = true
+script = ExtResource("21_d0twq")
+packed_scene = ExtResource("20_r4v6s")
+
+[sub_resource type="Resource" id="Resource_0jo1k"]
+resource_local_to_scene = true
+script = ExtResource("22_6khxj")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jxiwm"]
 atlas = ExtResource("2_52sld")
@@ -167,6 +179,8 @@ position = Vector2(-368, -80)
 position = Vector2(-320, -32)
 enviornment_query_system = NodePath("../EnvironmentQuerySystem")
 start_placed = true
+power_pole_selection_map_entity = SubResource("Resource_nyniv")
+queryable = SubResource("Resource_0jo1k")
 
 [node name="BasicEnemy" parent="." index="37" node_paths=PackedStringArray("target", "node_to_put_nodes_in", "level_map_entity_collection") instance=ExtResource("19_q2u7d")]
 position = Vector2(16, -16)
