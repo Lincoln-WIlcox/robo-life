@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://bem4gymr67uoh"]
+
+[ext_resource type="Script" path="res://Resources/item_data.gd" id="1_rvgwm"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_nuskp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47r70"]
+atlas = ExtResource("2_nuskp")
+region = Rect2(160, 176, 16, 8)
+
+[resource]
+script = ExtResource("1_rvgwm")
+texture = SubResource("AtlasTexture_47r70")
+name = "Transport Bucket"
+grid_size = Vector2i(2, 1)
+drop_scene = "res://Objects/TransportBucket/transport_bucket.tscn"
