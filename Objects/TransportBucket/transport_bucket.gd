@@ -1,5 +1,5 @@
 class_name TransportBucket
-extends Node2D
+extends Placeable
 
 @export var initial_inventory: Inventory
 

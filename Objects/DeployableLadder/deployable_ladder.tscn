@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dkqe6b0wvlfl2"]
+[gd_scene load_steps=17 format=3 uid="uid://dkqe6b0wvlfl2"]
 
 [ext_resource type="PackedScene" uid="uid://c2nwpx3t8tmc0" path="res://Components/StateMachine/state_machine.tscn" id="1_lmhk6"]
 [ext_resource type="Script" path="res://Objects/DeployableLadder/deployable_ladder.gd" id="1_uq3fh"]
@@ -9,7 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="3_rablb"]
 [ext_resource type="PackedScene" uid="uid://wnwdpxb3bxx4" path="res://Objects/Rope/rope.tscn" id="8_en3r5"]
 [ext_resource type="PackedScene" uid="uid://gfntau5ijo5h" path="res://Components/MousePickupComponent/mouse_pickup_area.tscn" id="9_ny7li"]
-[ext_resource type="Resource" uid="uid://di5ihtaupovf3" path="res://Resources/Items/deployable_ladder.tres" id="10_5egjk"]
+[ext_resource type="Script" path="res://Resources/item_data.gd" id="10_3crxs"]
+[ext_resource type="Resource" uid="uid://di5ihtaupovf3" path="res://Resources/Items/deployable_ladder.tres" id="11_staqh"]
+[ext_resource type="Script" path="res://Resources/inventory_addition.gd" id="12_fnctc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qtf72"]
 atlas = ExtResource("3_rablb")
@@ -17,6 +19,14 @@ region = Rect2(96, 160, 16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_orqst"]
 size = Vector2(16, 14)
+
+[sub_resource type="Resource" id="Resource_6qo0c"]
+resource_local_to_scene = true
+script = ExtResource("12_fnctc")
+gain_batteries = 0
+gain_steel = 0
+gain_food = 0
+initial_gain_items = Array[ExtResource("10_3crxs")]([ExtResource("11_staqh")])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4j3p7"]
 size = Vector2(16, 14)
@@ -68,7 +78,7 @@ tile_height = 0.0
 [node name="MousePickupArea" parent="CharacterBody2D" node_paths=PackedStringArray("progress_bar", "delete_node") instance=ExtResource("9_ny7li")]
 progress_bar = NodePath("../ProgressBar")
 delete_node = NodePath("../..")
-item = ExtResource("10_5egjk")
+inventory_addition = SubResource("Resource_6qo0c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/MousePickupArea"]
 position = Vector2(0, -1)

@@ -3,14 +3,14 @@ extends Area2D
 
 @export var progress_bar: ProgressBar
 @export var delete_node: Node
-@export var item: ItemData
+@export var inventory_addition: InventoryAddition
 @export var time := .25
 
 @onready var out_of_range_text_spawner: FloatAwayTextSpawner = $OutOfRangeTextSpawner
 @onready var no_inventory_space_text_spawner: FloatAwayTextSpawner = $NoInventorySpaceTextSpawner
 @onready var timer = $Timer
 
-signal picked_up(item: ItemData)
+signal picked_up(inventory_addition: InventoryAddition)
 signal pickup_timer_ended
 
 func _ready():
@@ -36,7 +36,7 @@ func _input(event):
 
 func on_pickup() -> void:
 	delete_node.queue_free()
-	picked_up.emit(item)
+	picked_up.emit(inventory_addition)
 
 func pickup_out_of_range() -> void:
 	out_of_range_text_spawner.spawn_text()

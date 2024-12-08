@@ -13,6 +13,7 @@ extends Placeable
 var _drawn_lines = []
 
 func _ready():
+	super()
 	queryable.connect_source(self)
 	if enviornment_query_system:
 		enviornment_query_system.add_entity_queryable(queryable)

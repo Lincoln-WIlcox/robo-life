@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://dpyu3hof4l6hb" path="res://Objects/OverheatingWall/overheatable_wall.tscn" id="17_8n4om"]
 [ext_resource type="PackedScene" uid="uid://brg4hptmtkbt2" path="res://Objects/PushableBlock/pushable_block.tscn" id="18_v7l3w"]
 [ext_resource type="PackedScene" uid="uid://7k2m5p3o1p4k" path="res://Objects/Laser/laser.tscn" id="18_vikjm"]
-[ext_resource type="PackedScene" uid="uid://cng4tm54hq536" path="res://power_pole.tscn" id="19_fa7aj"]
+[ext_resource type="PackedScene" uid="uid://cng4tm54hq536" path="res://Objects/PowerPole/power_pole.tscn" id="19_fa7aj"]
 [ext_resource type="PackedScene" uid="uid://cunc28rnr20cj" path="res://Characters/Enemies/BasicEnemy/basic_enemy.tscn" id="19_q2u7d"]
 [ext_resource type="PackedScene" uid="uid://g1jj5acjo7c5" path="res://Objects/GravityWalkOverItemPickup/gravity_walk_over_item_pickup_food.tscn" id="20_gpwbd"]
 [ext_resource type="PackedScene" uid="uid://sm5rnfdhpnwf" path="res://UI/Map/MapScenes/SelectablePowerPole/selectable_power_pole.tscn" id="20_r4v6s"]

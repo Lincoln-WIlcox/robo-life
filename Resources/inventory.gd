@@ -37,7 +37,7 @@ extends Resource
 			item_grid = new_value
 
 ##This inventory's associated [ItemGrid]
-var item_grid = null:
+var item_grid: ItemGrid = null:
 	set(new_value):
 		item_grid = new_value
 		item_grid.changed.connect(func(): emit_changed())
@@ -83,6 +83,15 @@ func add_addition(inventory_addition: InventoryAddition) -> void:
 	inventory_addition.gain_food -= gain_food
 	_food += gain_food
 	emit_changed()
+
+func can_add_addition(inventory_addition: InventoryAddition) -> bool:
+	var item_grid_copy: ItemGrid = item_grid.duplicate()
+	for item: ItemData in inventory_addition.get_gain_items():
+		if item_grid_copy.item_can_be_added(item):
+			item_grid_copy.add_item(item)
+		else:
+			return false
+	return true
 
 ##Returns the amount of food in the inventory
 func get_food() -> int:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dw2fqgynxjcit"]
+[gd_scene load_steps=43 format=3 uid="uid://dw2fqgynxjcit"]
 
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/player_character_controller.gd" id="1_bw5ol"]
 [ext_resource type="PackedScene" uid="uid://by3dehhgwxdqr" path="res://Objects/Shield/shield.tscn" id="2_ipind"]
@@ -22,7 +22,9 @@
 [ext_resource type="PackedScene" uid="uid://buke53aipiw0n" path="res://UI/PlayerInventoryUI/player_inventory_ui.tscn" id="9_1p1ww"]
 [ext_resource type="PackedScene" uid="uid://b0pmkjnlnl8p0" path="res://Objects/LaserGun/laser_gun.tscn" id="9_03qrv"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_state.gd" id="10_0syx4"]
+[ext_resource type="Resource" uid="uid://di5ihtaupovf3" path="res://Resources/Items/deployable_ladder.tres" id="12_ncip6"]
 [ext_resource type="PackedScene" uid="uid://v7qso20aqmk5" path="res://UI/ShelterUI/shelter_ui.tscn" id="12_vxdl5"]
+[ext_resource type="Resource" uid="uid://b3au5vg63nxkc" path="res://Resources/Items/power_pole.tres" id="13_hnuxl"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_none.gd" id="13_itu6i"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_ui.gd" id="13_v1eve"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_crafting.gd" id="15_0w8mt"]
@@ -43,10 +45,35 @@ display_texture = SubResource("AtlasTexture_evjoi")
 z_index = 1
 scale = Vector2(2, 2)
 
+[sub_resource type="Resource" id="Resource_islok"]
+script = ExtResource("7_45g5n")
+item_data = ExtResource("12_ncip6")
+position = Vector2i(0, 0)
+
+[sub_resource type="Resource" id="Resource_tuluj"]
+script = ExtResource("7_45g5n")
+item_data = ExtResource("12_ncip6")
+position = Vector2i(1, 0)
+
+[sub_resource type="Resource" id="Resource_2fffu"]
+script = ExtResource("7_45g5n")
+item_data = ExtResource("12_ncip6")
+position = Vector2i(2, 0)
+
+[sub_resource type="Resource" id="Resource_8livn"]
+script = ExtResource("7_45g5n")
+item_data = ExtResource("12_ncip6")
+position = Vector2i(3, 0)
+
+[sub_resource type="Resource" id="Resource_yfmyr"]
+script = ExtResource("7_45g5n")
+item_data = ExtResource("13_hnuxl")
+position = Vector2i(0, 2)
+
 [sub_resource type="Resource" id="Resource_6kkjt"]
 script = ExtResource("4_saie0")
 size = Vector2i(4, 3)
-initial_items = Array[ExtResource("7_45g5n")]([])
+initial_items = Array[ExtResource("7_45g5n")]([SubResource("Resource_islok"), SubResource("Resource_tuluj"), SubResource("Resource_2fffu"), SubResource("Resource_8livn"), SubResource("Resource_yfmyr")])
 
 [sub_resource type="Resource" id="Resource_yw67y"]
 script = ExtResource("4_d214o")
