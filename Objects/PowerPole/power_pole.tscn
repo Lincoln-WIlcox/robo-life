@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_gq44m"]
 [ext_resource type="PackedScene" uid="uid://sm5rnfdhpnwf" path="res://UI/Map/MapScenes/SelectablePowerPole/selectable_power_pole.tscn" id="2_wsl8g"]
 [ext_resource type="PackedScene" uid="uid://g1sd2n28vfvx" path="res://Components/PowerConnection/power_connection.tscn" id="3_1oihy"]
-[ext_resource type="Script" path="res://GenericClasses/MapData/selectable_power_pole_map_entity.gd" id="3_t3fk7"]
+[ext_resource type="Script" path="res://Resources/MapData/selectable_power_pole_map_entity.gd" id="3_t3fk7"]
 [ext_resource type="PackedScene" uid="uid://gfntau5ijo5h" path="res://Components/MousePickupComponent/mouse_pickup_area.tscn" id="4_4q22u"]
-[ext_resource type="Script" path="res://GenericClasses/QueryableEntity/queryable_entity.gd" id="4_blenl"]
+[ext_resource type="Script" path="res://Resources/QueryableEntity/queryable_entity.gd" id="4_blenl"]
 [ext_resource type="Resource" uid="uid://b3au5vg63nxkc" path="res://Resources/Items/power_pole.tres" id="5_23ris"]
 
 [sub_resource type="Resource" id="Resource_a1sjy"]
