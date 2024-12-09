@@ -12,4 +12,4 @@ script = ExtResource("1_rvgwm")
 texture = SubResource("AtlasTexture_47r70")
 name = "Transport Bucket"
 grid_size = Vector2i(2, 1)
-drop_scene = "res://Objects/TransportBucket/transport_bucket.tscn"
+drop_scene = "res://Objects/TransportBucket/TransportBucketPlaceable/transport_bucket_placeable.tscn"

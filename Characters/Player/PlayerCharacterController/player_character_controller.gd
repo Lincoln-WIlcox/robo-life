@@ -18,6 +18,7 @@ extends Node2D
 @onready var map_texture_updater = $MapTextureUpdater
 @onready var power_pole_placement_handler = $PowerPolePlacementHandler
 @onready var power_pole_selection_map = $UIStateMachine/PowerPoleSelectionMap
+@onready var transport_bucket_placement_handler = $TransportBucketPlacementHandler
 
 @export var map_texture: MapTexture
 @export var movement_disabled := false
@@ -113,6 +114,7 @@ func _ready():
 	level_map_state.setup_map()
 	map_texture.get_position = func(): return player_character.character.global_position
 	map_texture.source_node = self
+	transport_bucket_placement_handler.node_to_put_transport_buckets_in = node_to_spawn_placeables_in
 	
 	map_texture_updater.map_texture = map_texture
 	
