@@ -11,7 +11,7 @@
 atlas = ExtResource("2_cdfwf")
 region = Rect2(160, 176, 16, 8)
 
-[sub_resource type="Resource" id="Resource_jadpf"]
+[sub_resource type="Resource" id="Resource_lg7fr"]
 resource_local_to_scene = true
 script = ExtResource("6_o15mr")
 use_exported_properties = true
@@ -23,6 +23,7 @@ initial_gain_items = Array[ExtResource("4_3bam2")]([ExtResource("5_6rcnf")])
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hriww"]
 
 [node name="TransportBucket" type="Node2D"]
+z_index = 1
 script = ExtResource("1_7v0ta")
 transport_bucket_item = ExtResource("5_6rcnf")
 
@@ -32,7 +33,8 @@ texture = SubResource("AtlasTexture_xlxon")
 [node name="MousePickupArea" parent="." node_paths=PackedStringArray("progress_bar", "delete_node") instance=ExtResource("3_ixegf")]
 progress_bar = NodePath("../ProgressBar")
 delete_node = NodePath("..")
-inventory_addition = SubResource("Resource_jadpf")
+inventory_addition = SubResource("Resource_lg7fr")
+pickup_priority = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MousePickupArea"]
 shape = SubResource("RectangleShape2D_hriww")

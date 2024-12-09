@@ -5,6 +5,7 @@ extends Area2D
 @export var delete_node: Node
 @export var inventory_addition: InventoryAddition
 @export var time := .25
+@export var pickup_priority: int = 0
 
 @onready var out_of_range_text_spawner: FloatAwayTextSpawner = $OutOfRangeTextSpawner
 @onready var no_inventory_space_text_spawner: FloatAwayTextSpawner = $NoInventorySpaceTextSpawner
