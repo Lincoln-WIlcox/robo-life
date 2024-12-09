@@ -75,10 +75,13 @@ func add_addition(inventory_addition: InventoryAddition) -> void:
 	inventory_addition.gain_batteries = 0
 	steel += inventory_addition.gain_steel
 	inventory_addition.gain_steel = 0
+	var gaining_items: Array[ItemData]
 	for item: ItemData in inventory_addition.get_gain_items():
 		if item_grid.item_can_be_added(item):
-			item_grid.add_item(item)
-			inventory_addition.remove_item(item)
+			gaining_items.append(item)
+	for item: ItemData in gaining_items:
+		item_grid.add_item(item)
+		inventory_addition.remove_item(item)
 	var gain_food: int = inventory_addition.gain_food if _food + inventory_addition.gain_food <= max_food else max_food - _food
 	inventory_addition.gain_food -= gain_food
 	_food += gain_food
@@ -92,6 +95,13 @@ func can_add_addition(inventory_addition: InventoryAddition) -> bool:
 		else:
 			return false
 	return true
+
+func to_inventory_addition() -> InventoryAddition:
+	var items: Array[ItemData]
+	var items_assigner: Array = item_grid.get_items() if item_grid else []
+	items.assign(items_assigner)
+	var inventory_addition: InventoryAddition = InventoryAddition.new(batteries,steel,_food,items)
+	return inventory_addition
 
 ##Returns the amount of food in the inventory
 func get_food() -> int:
