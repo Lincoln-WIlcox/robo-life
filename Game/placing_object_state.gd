@@ -9,7 +9,6 @@ var cancel_placing_object: Callable
 var inventory: Inventory
 
 func enter():
-	print(placeable_item.item_data.drop_scene)
 	var placeable: Placeable = load(placeable_item.item_data.drop_scene).instantiate()
 	place_object_handler.start_placing_placeable(placeable)
 

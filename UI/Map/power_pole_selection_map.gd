@@ -13,7 +13,7 @@ func _on_power_pole_selection_map_display_power_pole_selected(selectable_power_p
 	confirm_button.disabled = not _selected_power_pole
 
 func _on_confirm_button_pressed():
-	power_pole_selected.emit(_selected_power_pole)
+	_selected_power_pole.selected.emit()
 
 func display_map_data(map_data: MapData) -> void:
 	if !is_node_ready():

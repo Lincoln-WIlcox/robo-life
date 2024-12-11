@@ -6,10 +6,12 @@ var node_to_spawn_placeables_in: Node
 var _placing_placeable: Placeable
 
 signal placeable_placed(placeable: Placeable)
+signal placing_placeable(placeable: Placeable)
 
 func start_placing_placeable(placeable: Placeable) -> void:
 	_placing_placeable = placeable
 	node_to_spawn_placeables_in.add_child(_placing_placeable)
+	placing_placeable.emit(_placing_placeable)
 
 func stop_placing() -> void:
 	_placing_placeable = null

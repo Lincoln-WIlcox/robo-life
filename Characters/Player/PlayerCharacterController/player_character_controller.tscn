@@ -176,3 +176,4 @@ heat_amount = 2
 [connection signal="day_ended" from="UIStateMachine/Shelter/ShelterStateMachine/Shelter" to="." method="_on_shelter_day_ended"]
 [connection signal="placeable_placed" from="PlaceObjectHandler" to="TransportBucketPlacementHandler" method="_on_place_object_handler_placeable_placed"]
 [connection signal="placeable_placed" from="PlaceObjectHandler" to="PowerPolePlacementHandler" method="_on_place_object_handler_placeable_placed"]
+[connection signal="placing_placeable" from="PlaceObjectHandler" to="TransportBucketPlacementHandler" method="_on_place_object_handler_placing_placeable"]

@@ -44,6 +44,7 @@ var show_ui: Callable:
 			crafting_state.show_ui = show_ui
 			level_map_state.show_ui = show_ui
 			power_pole_selection_map.show_ui = show_ui
+			transport_bucket_placement_handler.show_ui = show_ui
 var hide_ui: Callable:
 	set(new_value):
 		hide_ui = new_value
@@ -53,6 +54,7 @@ var hide_ui: Callable:
 			crafting_state.hide_ui = hide_ui
 			level_map_state.hide_ui = hide_ui
 			power_pole_selection_map.hide_ui = hide_ui
+			transport_bucket_placement_handler.hide_ui = hide_ui
 
 signal item_dropped(drop: Object)
 signal died
@@ -115,6 +117,9 @@ func _ready():
 	map_texture.get_position = func(): return player_character.character.global_position
 	map_texture.source_node = self
 	transport_bucket_placement_handler.node_to_put_transport_buckets_in = node_to_spawn_placeables_in
+	transport_bucket_placement_handler.show_ui = show_ui
+	transport_bucket_placement_handler.hide_ui = hide_ui
+	transport_bucket_placement_handler.environment_query_system = environment_query_system
 	
 	map_texture_updater.map_texture = map_texture
 	

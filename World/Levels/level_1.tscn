@@ -24,7 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://g1jj5acjo7c5" path="res://Objects/GravityWalkOverItemPickup/gravity_walk_over_item_pickup_food.tscn" id="20_gpwbd"]
 [ext_resource type="PackedScene" uid="uid://sm5rnfdhpnwf" path="res://UI/Map/MapScenes/SelectablePowerPole/selectable_power_pole.tscn" id="20_r4v6s"]
 [ext_resource type="Script" path="res://Resources/MapData/selectable_power_pole_map_entity.gd" id="21_d0twq"]
-[ext_resource type="Script" path="res://Resources/QueryableEntity/queryable_entity.gd" id="22_6khxj"]
+[ext_resource type="Script" path="res://Resources/QueryableEntity/queryable_entity.gd" id="22_gd8f5"]
 [ext_resource type="PackedScene" uid="uid://bgqgiy1o0dn8e" path="res://Objects/TransportBucket/transport_bucket.tscn" id="26_bh01c"]
 [ext_resource type="Script" path="res://Resources/item_grid_item.gd" id="27_5a316"]
 [ext_resource type="Script" path="res://Resources/item_grid.gd" id="28_7amgo"]
@@ -46,9 +46,9 @@ resource_local_to_scene = true
 script = ExtResource("21_d0twq")
 packed_scene = ExtResource("20_r4v6s")
 
-[sub_resource type="Resource" id="Resource_0jo1k"]
+[sub_resource type="Resource" id="Resource_28wye"]
 resource_local_to_scene = true
-script = ExtResource("22_6khxj")
+script = ExtResource("22_gd8f5")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jxiwm"]
 atlas = ExtResource("2_52sld")
@@ -202,7 +202,7 @@ position = Vector2(-320, -32)
 enviornment_query_system = NodePath("../EnvironmentQuerySystem")
 start_placed = true
 power_pole_selection_map_entity = SubResource("Resource_nyniv")
-queryable = SubResource("Resource_0jo1k")
+queryable = SubResource("Resource_28wye")
 
 [node name="BasicEnemy" parent="." index="37" node_paths=PackedStringArray("target", "node_to_put_nodes_in", "level_map_entity_collection") instance=ExtResource("19_q2u7d")]
 position = Vector2(16, -16)

@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://clxqks8tq3l2m"]
+[gd_scene load_steps=8 format=3 uid="uid://clxqks8tq3l2m"]
 
 [ext_resource type="Script" path="res://Objects/TransportBucket/TransportBucketPlaceable/transport_bucket_placeable.gd" id="1_lvkup"]
 [ext_resource type="PackedScene" uid="uid://bgqgiy1o0dn8e" path="res://Objects/TransportBucket/transport_bucket.tscn" id="2_mchnb"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_sbsxu"]
+[ext_resource type="Script" path="res://Objects/TransportBucket/TransportBucketPlaceable/power_pole_selection_manager.gd" id="4_1iskm"]
+[ext_resource type="PackedScene" uid="uid://nifofmv4xqni" path="res://UI/Map/power_pole_selection_map.tscn" id="5_82fta"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_02w2g"]
 atlas = ExtResource("2_sbsxu")
@@ -25,5 +27,10 @@ collision_mask = 1024
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PowerConnectorDetectionArea"]
 shape = SubResource("CircleShape2D_vuay4")
 
+[node name="PowerPoleSelectionManager" type="Node" parent="."]
+script = ExtResource("4_1iskm")
+map_ui_packed_scene = ExtResource("5_82fta")
+
 [connection signal="area_entered" from="PowerConnectorDetectionArea" to="." method="_on_power_connector_detection_area_area_entered"]
 [connection signal="area_exited" from="PowerConnectorDetectionArea" to="." method="_on_power_connector_detection_area_area_exited"]
+[connection signal="power_connector_selected" from="PowerPoleSelectionManager" to="." method="_on_power_pole_selection_manager_power_connector_selected"]
