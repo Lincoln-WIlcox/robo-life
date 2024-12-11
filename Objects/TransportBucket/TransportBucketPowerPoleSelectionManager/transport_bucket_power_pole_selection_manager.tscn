@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://blum4fqe6ct0a"]
+
+[ext_resource type="Script" path="res://Objects/TransportBucket/TransportBucketPlaceable/power_pole_selection_manager.gd" id="1_0yoyt"]
+[ext_resource type="Script" path="res://Objects/TransportBucket/TransportBucketPowerPoleSelectionManager/transport_bucket_power_pole_selection_manager.gd" id="1_xea4w"]
+[ext_resource type="PackedScene" uid="uid://bgqgiy1o0dn8e" path="res://Objects/TransportBucket/transport_bucket.tscn" id="2_4750m"]
+[ext_resource type="PackedScene" uid="uid://nifofmv4xqni" path="res://UI/Map/power_pole_selection_map.tscn" id="2_m7qfn"]
+
+[node name="TransportBucketPowerPoleSelectionManager" type="Node"]
+script = ExtResource("1_xea4w")
+
+[node name="TransportBucket" parent="." instance=ExtResource("2_4750m")]
+
+[node name="PowerPoleSelectionManager" type="Node" parent="."]
+script = ExtResource("1_0yoyt")
+map_ui_packed_scene = ExtResource("2_m7qfn")
+
+[connection signal="power_connector_selected" from="PowerPoleSelectionManager" to="." method="_on_power_pole_selection_manager_power_connector_selected"]
