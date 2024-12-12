@@ -6,14 +6,21 @@ extends Node
 
 @export var environment_query_system: EnvironmentQuerySystem
 @export var initial_power_connector: PowerConnector
+@export var transport_bucket_ui_packed_scene: PackedScene
+
 var show_ui: Callable
 var hide_ui: Callable
 
+var _ui: TransportBucketUI
+
 func setup() -> void:
-	power_pole_selection_manager.show_ui = show_ui
-	power_pole_selection_manager.hide_ui = hide_ui
+	_ui = transport_bucket_ui_packed_scene.instantiate()
+	_ui.player_inventory = Inventory.new()
+	_ui.transport_bucket_inventory = transport_bucket.get_inventory()
+	_ui.closed.connect(hide_ui.bind(false))
+	
 	power_pole_selection_manager.environment_query_system = environment_query_system
-	power_pole_selection_manager.setup_map()
+	power_pole_selection_manager.setup_map(_ui)
 	
 	transport_bucket.global_position = initial_power_connector.global_position
 
@@ -21,4 +28,7 @@ func _on_placed() -> void:
 	power_pole_selection_manager.show_power_pole_selection_map()
 
 func _on_power_pole_selection_manager_power_connector_selected(power_connector: PowerConnector):
-	pass # Replace with function body.
+	_ui.close()
+
+func _on_transport_bucket_interacted_with():
+	show_ui.call(_ui)

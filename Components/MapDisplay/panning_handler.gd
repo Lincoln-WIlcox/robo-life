@@ -46,6 +46,8 @@ func pan_map(amount: Vector2) -> void:
 	scrollable_container.position += real_amount
 
 func clamp_scroll_to_markers() -> void:
+	if not upper_left_marker or not lower_right_marker:
+		return
 	if upper_left_marker.global_position.x > map_box_center.x:
 		scrollable_container.global_position.x = map_box_center.x  + (scrollable_container.global_position.x - upper_left_marker.global_position.x)
 	if upper_left_marker.global_position.y > map_box_center.y:

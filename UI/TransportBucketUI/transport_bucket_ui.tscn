@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://mwe43y7dhjg"]
+
+[ext_resource type="PackedScene" uid="uid://nifofmv4xqni" path="res://UI/Map/power_pole_selection_map.tscn" id="1_0va26"]
+[ext_resource type="Script" path="res://UI/TransportBucketUI/transport_bucket_ui.gd" id="1_n5wvg"]
+[ext_resource type="PackedScene" uid="uid://eg4r6pex37fh" path="res://UI/TwoInventoryInterfaces/two_inventory_interfaces.tscn" id="2_mnctn"]
+
+[node name="TransportBucketUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n5wvg")
+
+[node name="PowerPoleSelectionMap" parent="." instance=ExtResource("1_0va26")]
+visible = false
+layout_mode = 1
+
+[node name="TransportBucketInventory" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ContentContainer" type="VBoxContainer" parent="TransportBucketInventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TwoInventoryInterfaces" parent="TransportBucketInventory/ContentContainer" instance=ExtResource("2_mnctn")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonsMargin" type="MarginContainer" parent="TransportBucketInventory/ContentContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 20
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="TransportBucketInventory/ContentContainer/ButtonsMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CloseButtonMargin" type="MarginContainer" parent="TransportBucketInventory/ContentContainer/ButtonsMargin/ButtonsContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 100
+
+[node name="CloseButton" type="Button" parent="TransportBucketInventory/ContentContainer/ButtonsMargin/ButtonsContainer/CloseButtonMargin"]
+layout_mode = 2
+text = "Close"
+
+[node name="ChooseDestinationButtonMargin" type="MarginContainer" parent="TransportBucketInventory/ContentContainer/ButtonsMargin/ButtonsContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+
+[node name="ChooseDestinationButton" type="Button" parent="TransportBucketInventory/ContentContainer/ButtonsMargin/ButtonsContainer/ChooseDestinationButtonMargin"]
+layout_mode = 2
+text = "Choose Destination
+"
+
+[connection signal="cancelled" from="PowerPoleSelectionMap" to="." method="_on_power_pole_selection_map_cancelled"]
+[connection signal="power_pole_selected" from="PowerPoleSelectionMap" to="." method="_on_power_pole_selection_map_power_pole_selected"]
+[connection signal="pressed" from="TransportBucketInventory/ContentContainer/ButtonsMargin/ButtonsContainer/CloseButtonMargin/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="TransportBucketInventory/ContentContainer/ButtonsMargin/ButtonsContainer/ChooseDestinationButtonMargin/ChooseDestinationButton" to="." method="_on_choose_destination_button_pressed"]
