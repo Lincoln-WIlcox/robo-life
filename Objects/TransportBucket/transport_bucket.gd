@@ -1,12 +1,19 @@
 class_name TransportBucket
 extends Node2D
 
-@onready var mouse_pickup_area = $MousePickupArea
+##contains an inventory and moves along a given path.
+
+@onready var mouse_pickup_area: MousePickupArea = $Path2D/PathFollow2D/MousePickupArea
+@onready var path_follow: PathFollow2D = $Path2D/PathFollow2D
 
 @export var initial_inventory: Inventory
 @export var transport_bucket_item: ItemData
+@export var speed: float = 1
 
 var _inventory: Inventory = Inventory.new()
+var _path: Path2D
+var _moving := true
+var _being_picked_up := false
 
 func _ready():
 	if initial_inventory:
@@ -20,3 +27,23 @@ func update_inventory_addition() -> void:
 		inventory_addition = _inventory.to_inventory_addition()
 	inventory_addition.add_item(transport_bucket_item)
 	mouse_pickup_area.inventory_addition = inventory_addition
+
+func _physics_process(delta: float):
+	if _can_move() and path_follow.progress_ratio < 1:
+		var move_per_time := Utils.float_per_frame_to_float_per_time(speed, delta)
+		path_follow.progress += move_per_time
+
+func start() -> void:
+	_moving = true
+
+func stop() -> void:
+	_moving = false
+
+func _can_move() -> bool:
+	return _moving and not _being_picked_up
+
+func _on_mouse_pickup_area_started_picking_up():
+	_being_picked_up = true
+
+func _on_mouse_pickup_area_cancelled_picking_up():
+	_being_picked_up = false

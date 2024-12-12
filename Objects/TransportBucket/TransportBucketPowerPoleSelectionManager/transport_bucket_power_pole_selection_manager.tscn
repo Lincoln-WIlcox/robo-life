@@ -14,4 +14,6 @@ script = ExtResource("1_xea4w")
 script = ExtResource("1_0yoyt")
 map_ui_packed_scene = ExtResource("2_m7qfn")
 
+[node name="PathMaker" type="Node" parent="."]
+
 [connection signal="power_connector_selected" from="PowerPoleSelectionManager" to="." method="_on_power_pole_selection_manager_power_connector_selected"]

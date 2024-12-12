@@ -296,37 +296,8 @@ static func add_children(adding_to_node: Node, nodes_to_add: Array[Node]) -> voi
 	for child: Node in nodes_to_add:
 		adding_to_node.add_child(child)
 
-##dope function i ripped from a guy online, i sure as hell wasn't gonna write all this
-#static func is_instance_of(obj:Object, given_class_name:String) -> bool:
-	#if ClassDB.class_exists(given_class_name):
-		## We have a build in class
-		#return obj.is_class(given_class_name)
-	#else:
-		## We don't have a built in class
-		## It must be a script class
-		#var class_script: Script
-		## Assume it is a script path and try to load it
-		#if ResourceLoader.exists(given_class_name):
-			#class_script = load(given_class_name) as Script
-		#
-		#if class_script == null:
-			## Assume it is a class name and try to find it
-			#for x in ProjectSettings.get_global_class_list():
-				#if str(x["class"]) == given_class_name:
-					#class_script = load(str(x["path"]))
-					#break
-		#
-		#if class_script == null:
-			## Unknown class
-			#return false
-		#
-		## Get the script of the object and try to match it
-		#var check_script: Variant = obj.get_script()
-		#while check_script != null:
-			#if check_script == class_script:
-				#return true
-			#
-			#check_script = check_script.get_base_script()
-	#
-	## Match not found
-	#return false
+static func get_normalized_delta_time() -> float:
+	return 1.0 / float(Engine.max_fps)
+
+static func float_per_frame_to_float_per_time(value: float, delta: float) -> float:
+	return value * delta / get_normalized_delta_time()

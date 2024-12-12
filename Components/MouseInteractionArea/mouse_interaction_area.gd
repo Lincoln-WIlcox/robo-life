@@ -1,4 +1,4 @@
-class_name MouseInteractionArea
+class_name MousePickupArea
 extends Area2D
 
 @export var progress_bar: ProgressBar
@@ -8,6 +8,7 @@ extends Area2D
 @export var pickup_priority: int = 0
 
 @onready var out_of_range_text_spawner: FloatAwayTextSpawner = $OutOfRangeTextSpawner
+@onready var no_inventory_space_text_spawner: FloatAwayTextSpawner = $NoInventorySpaceTextSpawner
 @onready var timer = $Timer
 
 signal started_picking_up
@@ -35,7 +36,7 @@ func _process(_delta):
 	progress_bar.value = timer.time_left
 
 func _input(event):
-	if event.is_action_released("cursor_interact"):
+	if event.is_action_released("pickup"):
 		cancel_pickup()
 
 func on_pickup() -> void:
@@ -44,6 +45,9 @@ func on_pickup() -> void:
 
 func pickup_out_of_range() -> void:
 	out_of_range_text_spawner.spawn_text()
+
+func no_space() -> void:
+	no_inventory_space_text_spawner.spawn_text()
 
 func _on_timer_timeout():
 	pickup_timer_ended.emit()
