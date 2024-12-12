@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://dw2fqgynxjcit"]
+[gd_scene load_steps=40 format=3 uid="uid://dw2fqgynxjcit"]
 
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/player_character_controller.gd" id="1_bw5ol"]
 [ext_resource type="PackedScene" uid="uid://by3dehhgwxdqr" path="res://Objects/Shield/shield.tscn" id="2_ipind"]
@@ -33,6 +33,7 @@
 [ext_resource type="PackedScene" uid="uid://cfhvw7mmxv7dy" path="res://UI/Map/map.tscn" id="22_hokhb"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/power_pole_selection_map_state.gd" id="27_e41dx"]
 [ext_resource type="PackedScene" uid="uid://nifofmv4xqni" path="res://UI/Map/power_pole_selection_map.tscn" id="28_waerg"]
+[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/cursor_interaction_handler.gd" id="32_emp26"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_evjoi"]
 atlas = ExtResource("3_wtset")
@@ -109,13 +110,14 @@ drag_right_margin = 0.01
 [node name="UIStateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("3_aoc7a")]
 initial_state = NodePath("None")
 
-[node name="None" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("inventory_state", "shelter_state", "map_state", "power_pole_selection_map", "pickup_stuff_handler", "laser_gun_handler", "laser_gun")]
+[node name="None" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("inventory_state", "shelter_state", "map_state", "power_pole_selection_map", "pickup_stuff_handler", "cursor_interaction_handler", "laser_gun_handler", "laser_gun")]
 script = ExtResource("4_7is3e")
 inventory_state = NodePath("../Inventory")
 shelter_state = NodePath("../Shelter")
 map_state = NodePath("../LevelMap")
 power_pole_selection_map = NodePath("../PowerPoleSelectionMap")
 pickup_stuff_handler = NodePath("../../PickupStuffHandler")
+cursor_interaction_handler = NodePath("../../CursorInteractionHandler")
 laser_gun_handler = NodePath("../../PlayerLaserGunHandler")
 laser_gun = NodePath("../../LaserGun")
 
@@ -163,6 +165,9 @@ none_state = NodePath("../None")
 
 [node name="PickupStuffHandler" type="Node" parent="."]
 script = ExtResource("7_bmrc0")
+
+[node name="CursorInteractionHandler" type="Node" parent="."]
+script = ExtResource("32_emp26")
 
 [node name="PlaceObjectHandler" type="Node2D" parent="."]
 script = ExtResource("8_4yuco")

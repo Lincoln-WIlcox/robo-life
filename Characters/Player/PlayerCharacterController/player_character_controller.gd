@@ -19,6 +19,7 @@ extends Node2D
 @onready var power_pole_placement_handler = $PowerPolePlacementHandler
 @onready var power_pole_selection_map = $UIStateMachine/PowerPoleSelectionMap
 @onready var transport_bucket_placement_handler = $TransportBucketPlacementHandler
+@onready var cursor_interaction_handler = $CursorInteractionHandler
 
 @export var map_texture: MapTexture
 @export var movement_disabled := false
@@ -120,6 +121,8 @@ func _ready():
 	transport_bucket_placement_handler.show_ui = show_ui
 	transport_bucket_placement_handler.hide_ui = hide_ui
 	transport_bucket_placement_handler.environment_query_system = environment_query_system
+	cursor_interaction_handler.mouse_detect_area = player_character.mouse_detect_area
+	cursor_interaction_handler.cursor_interacted = func(): return Input.is_action_just_pressed("cursor_interact")
 	
 	map_texture_updater.map_texture = map_texture
 	
