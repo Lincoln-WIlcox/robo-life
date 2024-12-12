@@ -17,7 +17,7 @@ func setup() -> void:
 	_ui = transport_bucket_ui_packed_scene.instantiate()
 	_ui.player_inventory = Inventory.new()
 	_ui.transport_bucket_inventory = transport_bucket.get_inventory()
-	_ui.closed.connect(hide_ui.bind(false))
+	_ui.closed.connect(_on_ui_closed)
 	
 	power_pole_selection_manager.environment_query_system = environment_query_system
 	power_pole_selection_manager.setup_map(_ui)
@@ -29,6 +29,12 @@ func _on_placed() -> void:
 
 func _on_power_pole_selection_manager_power_connector_selected(power_connector: PowerConnector):
 	_ui.close()
+	
 
 func _on_transport_bucket_interacted_with():
 	show_ui.call(_ui)
+	transport_bucket.stop()
+
+func _on_ui_closed() -> void:
+	transport_bucket.start()
+	hide_ui.call(false)
