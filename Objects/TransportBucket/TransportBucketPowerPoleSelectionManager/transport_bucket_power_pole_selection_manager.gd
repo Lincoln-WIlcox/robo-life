@@ -3,6 +3,7 @@ extends Node
 
 @onready var transport_bucket: TransportBucket = $TransportBucket
 @onready var power_pole_selection_manager: Node = $PowerPoleSelectionManager
+@onready var path_maker = $PathMaker
 
 @export var environment_query_system: EnvironmentQuerySystem
 @export var initial_power_connector: PowerConnector
@@ -29,7 +30,8 @@ func _on_placed() -> void:
 
 func _on_power_pole_selection_manager_power_connector_selected(power_connector: PowerConnector):
 	_ui.close()
-	
+	var points = path_maker.make_path_points(initial_power_connector, power_connector)
+	breakpoint
 
 func _on_transport_bucket_interacted_with():
 	show_ui.call(_ui)

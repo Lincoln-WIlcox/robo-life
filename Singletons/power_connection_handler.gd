@@ -92,6 +92,12 @@ func get_power_connectors_in_tree(power_connector: PowerConnector) -> Array[Powe
 	return_array.assign(Utils.make_array_unique(connectors))
 	return return_array
 
+func power_connections_share_tree(power_connector_a: PowerConnector, power_connector_b: PowerConnector) -> bool:
+	var power_connectors_tree: Array[PowerConnectorConnection] = PowerConnectionHandler.get_power_connections_in_tree(power_connector_a)
+	var power_connectors_in_tree: Array[PowerConnector] = _get_power_connectors_from_tree(power_connectors_tree)
+	
+	return power_connector_b in power_connectors_in_tree
+
 func _get_power_connectors_in_tree_with_excludes(power_connector: PowerConnector, exclude: Array[PowerConnectorConnection]) -> Dictionary:
 	#this is the full list of power connectors in the tree. the top level function returns this at the end of the recursive functions
 	var connectors: Array[PowerConnector] = []
@@ -129,3 +135,14 @@ func _connector_is_handled(connector: PowerConnector) -> bool:
 
 func _handle_connector_added(connector: PowerConnector) -> void:
 	connector.status_changed.connect(_update_power_consumers_in_tree.bind(connector))
+
+func _get_power_connectors_from_tree(power_connectors_tree: Array[PowerConnectorConnection]) -> Array[PowerConnector]:
+	var power_connectors_in_tree: Array[PowerConnector]
+	
+	for power_connection_in_tree: PowerConnectorConnection in power_connectors_tree:
+		power_connectors_in_tree.append(power_connection_in_tree.power_connector_a)
+		power_connectors_in_tree.append(power_connection_in_tree.power_connector_b)
+	
+	power_connectors_in_tree = Utils.make_array_unique(power_connectors_in_tree)
+	
+	return power_connectors_in_tree

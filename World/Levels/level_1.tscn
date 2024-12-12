@@ -250,7 +250,7 @@ power_pole_selection_map_entity = SubResource("Resource_nyniv")
 queryable = SubResource("Resource_28wye")
 
 [node name="PowerPole2" parent="." index="37" node_paths=PackedStringArray("enviornment_query_system") instance=ExtResource("19_fa7aj")]
-position = Vector2(-274, -151)
+position = Vector2(-156, -148)
 enviornment_query_system = NodePath("../EnvironmentQuerySystem")
 start_placed = true
 power_pole_selection_map_entity = SubResource("Resource_b0sbj")
@@ -264,21 +264,21 @@ power_pole_selection_map_entity = SubResource("Resource_vm8f2")
 queryable = SubResource("Resource_r6b50")
 
 [node name="PowerPole4" parent="." index="39" node_paths=PackedStringArray("enviornment_query_system") instance=ExtResource("19_fa7aj")]
-position = Vector2(-375, -186)
+position = Vector2(-355, -190)
 enviornment_query_system = NodePath("../EnvironmentQuerySystem")
 start_placed = true
 power_pole_selection_map_entity = SubResource("Resource_2oq6k")
 queryable = SubResource("Resource_75f3n")
 
 [node name="PowerPole5" parent="." index="40" node_paths=PackedStringArray("enviornment_query_system") instance=ExtResource("19_fa7aj")]
-position = Vector2(-309, -297)
+position = Vector2(-310, -266)
 enviornment_query_system = NodePath("../EnvironmentQuerySystem")
 start_placed = true
 power_pole_selection_map_entity = SubResource("Resource_u1all")
 queryable = SubResource("Resource_wdhb7")
 
 [node name="PowerPole6" parent="." index="41" node_paths=PackedStringArray("enviornment_query_system") instance=ExtResource("19_fa7aj")]
-position = Vector2(-200, -229)
+position = Vector2(-183, -270)
 enviornment_query_system = NodePath("../EnvironmentQuerySystem")
 start_placed = true
 power_pole_selection_map_entity = SubResource("Resource_6wkbq")
