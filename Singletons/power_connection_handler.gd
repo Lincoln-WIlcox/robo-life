@@ -31,12 +31,6 @@ func add_connection(connector_a: PowerConnector, connector_b: PowerConnector) ->
 	_update_power_consumers_in_tree(connector_a)
 	return true
 
-func _connector_is_handled(connector: PowerConnector) -> bool:
-	return connector.is_connected("status_changed", _update_power_consumers_in_tree)
-
-func _handle_connector_added(connector: PowerConnector) -> void:
-	connector.status_changed.connect(_update_power_consumers_in_tree.bind(connector))
-
 func remove_connections_to_connector(connector: PowerConnector) -> void:
 	for i: int in range(power_connector_connections.size()-1, -1, -1):
 		if power_connector_connections[i].power_connector_a == connector or power_connector_connections[i].power_connector_b == connector:
@@ -48,11 +42,42 @@ func remove_connections_to_connector(connector: PowerConnector) -> void:
 			_update_power_consumers_in_tree(other_connector)
 	connections_changed.emit()
 
+func get_connections_for_connector(power_connector: PowerConnector) -> Array[PowerConnectorConnection]:
+	return power_connector_connections.filter(func(pc: PowerConnectorConnection): return pc.power_connector_a == power_connector or pc.power_connector_b == power_connector)
+
+func get_power_connections_in_tree(power_connector: PowerConnector, exclude: Array[PowerConnectorConnection] = []) -> Array[PowerConnectorConnection]:
+	
+	#connections 
+	var connections_for_connector: Array[PowerConnectorConnection]
+	var connections_for_connector_assigner: Array = power_connector_connections.filter(
+		func(pc: PowerConnectorConnection): 
+			return (pc.power_connector_a == power_connector or pc.power_connector_b == power_connector) and not pc in exclude
+			)
+	connections_for_connector.assign(connections_for_connector_assigner)
+	
+	exclude.append_array(connections_for_connector)
+	
+	var new_power_connectors_in_connections: Array[PowerConnector]
+	for power_connection: PowerConnectorConnection in connections_for_connector:
+		#in each connection, either connector a or b has to be power_connector, and since each power connector is unique the other power connector will not be in two connections, so we can simply add the other power connector.
+		if not power_connection.power_connector_a == power_connector:
+			new_power_connectors_in_connections.append(power_connection.power_connector_a)
+		else:
+			new_power_connectors_in_connections.append(power_connection.power_connector_b)
+	
+	for check_connections_of_power_connector: PowerConnector in new_power_connectors_in_connections:
+		var new_power_connections: Array[PowerConnectorConnection] = get_power_connections_in_tree(check_connections_of_power_connector, exclude)
+		exclude.append_array(new_power_connections)
+	
+	var return_array: Array[PowerConnectorConnection] = []
+	return_array.assign(Utils.make_array_unique(exclude))
+	return return_array
+
 func get_power_connectors_in_tree(power_connector: PowerConnector) -> Array[PowerConnector]:
 	#this is the full list of power connectors in the tree. the top level function returns this at the end of the recursive functions
 	var connectors: Array[PowerConnector] = []
 	#this is the power connector connections that include this power connector and aren't in exclude
-	var connections: Array[PowerConnectorConnection] = power_connector_connections.filter(func(pc: PowerConnectorConnection): return pc.power_connector_a == power_connector or pc.power_connector_b == power_connector)
+	var connections: Array[PowerConnectorConnection] = get_connections_for_connector(power_connector)
 	
 	connectors.append(power_connector)
 	
@@ -98,3 +123,9 @@ func _update_power_consumers_in_tree(power_connector: PowerConnector) -> void:
 	for power_consumer: PowerConsumer in power_consumers:
 		power_consumer.enough_power_supplied = total_power_supplying >= consuming_power
 		power_consumer.extra_power = total_power_supplying - consuming_power / power_consumers.size() if total_power_supplying > consuming_power else 0
+
+func _connector_is_handled(connector: PowerConnector) -> bool:
+	return connector.is_connected("status_changed", _update_power_consumers_in_tree)
+
+func _handle_connector_added(connector: PowerConnector) -> void:
+	connector.status_changed.connect(_update_power_consumers_in_tree.bind(connector))

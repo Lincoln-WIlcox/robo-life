@@ -5,6 +5,9 @@ extends RefCounted
 
 var _data: Dictionary = {}
 
+func _init(element_priority_pairs: Dictionary = {}):
+	_data = element_priority_pairs
+
 ##Inserts an element into the queue.
 func insert(element: Variant, priority: float) -> void:
 	_data[element] = priority
@@ -20,6 +23,6 @@ func is_empty() -> bool:
 	return _data.is_empty()
 
 func _pop_front() -> Variant:
-	var highest_priority_key: Variant = _data.keys().reduce(func(key: Variant, highest_priority: Variant): return key if _data[key] < _data[highest_priority] else highest_priority, _data.values()[0])
+	var highest_priority_key: Variant = _data.keys().reduce(func(key: Variant, highest_priority: Variant): return key if _data[key] > _data[highest_priority] else highest_priority, _data.values()[0])
 	_data.erase(highest_priority_key)
 	return highest_priority_key
