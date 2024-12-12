@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Resources/inventory_addition.gd" id="2_i7fan"]
 [ext_resource type="Script" path="res://Resources/item_data.gd" id="3_285xo"]
 
-[sub_resource type="Resource" id="Resource_24ncd"]
+[sub_resource type="Resource" id="Resource_yj4f6"]
 resource_local_to_scene = true
 script = ExtResource("2_i7fan")
 use_exported_properties = true
@@ -27,7 +27,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 
 [node name="WalkOverItemPickupArea" parent="." instance=ExtResource("1_bswfy")]
-inventory_addition = SubResource("Resource_24ncd")
+inventory_addition = SubResource("Resource_yj4f6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WalkOverItemPickupArea"]
 shape = SubResource("RectangleShape2D_h6dp6")

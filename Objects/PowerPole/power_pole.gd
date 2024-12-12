@@ -64,3 +64,6 @@ func remove_lines():
 
 func get_connections_to_connect_to() -> Array[Area2D]:
 	return connect_area.get_overlapping_areas().filter(func(area: Area2D): return area is PowerConnector and area != power_connector)
+
+func make_selectable_power_pole_map_entity() -> SelectablePowerPoleMapEntity:
+	return power_pole_selection_map_entity.duplicate()

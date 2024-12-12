@@ -11,7 +11,7 @@
 atlas = ExtResource("2_cdfwf")
 region = Rect2(160, 176, 16, 8)
 
-[sub_resource type="Resource" id="Resource_jr56c"]
+[sub_resource type="Resource" id="Resource_tgxut"]
 resource_local_to_scene = true
 script = ExtResource("6_o15mr")
 use_exported_properties = true
@@ -33,7 +33,7 @@ texture = SubResource("AtlasTexture_xlxon")
 [node name="MousePickupArea" parent="." node_paths=PackedStringArray("progress_bar", "delete_node") instance=ExtResource("3_ixegf")]
 progress_bar = NodePath("../ProgressBar")
 delete_node = NodePath("..")
-inventory_addition = SubResource("Resource_jr56c")
+inventory_addition = SubResource("Resource_tgxut")
 pickup_priority = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MousePickupArea"]

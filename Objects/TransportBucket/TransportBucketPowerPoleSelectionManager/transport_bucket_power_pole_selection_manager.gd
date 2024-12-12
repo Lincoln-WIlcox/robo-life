@@ -20,5 +20,5 @@ func setup() -> void:
 func _on_placed() -> void:
 	power_pole_selection_manager.show_power_pole_selection_map()
 
-func _on_power_pole_selection_manager_power_connector_selected(power_connection):
+func _on_power_pole_selection_manager_power_connector_selected(power_connector: PowerConnector):
 	pass # Replace with function body.
