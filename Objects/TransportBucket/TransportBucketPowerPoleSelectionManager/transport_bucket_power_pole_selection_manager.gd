@@ -20,6 +20,7 @@ func setup() -> void:
 	_ui.transport_bucket_inventory = transport_bucket.get_inventory()
 	_ui.closed.connect(_on_ui_closed)
 	
+	power_pole_selection_manager.initial_power_connector = initial_power_connector
 	power_pole_selection_manager.environment_query_system = environment_query_system
 	power_pole_selection_manager.setup_map(_ui)
 	
@@ -31,7 +32,6 @@ func _on_placed() -> void:
 func _on_power_pole_selection_manager_power_connector_selected(power_connector: PowerConnector):
 	_ui.close()
 	var points = path_maker.make_path_points(initial_power_connector, power_connector)
-	breakpoint
 
 func _on_transport_bucket_interacted_with():
 	show_ui.call(_ui)
