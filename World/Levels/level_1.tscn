@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=4 uid="uid://4hdu5f7ikd0h"]
+[gd_scene load_steps=63 format=4 uid="uid://4hdu5f7ikd0h"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_s0fbl"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_52sld"]
@@ -56,6 +56,60 @@ script = ExtResource("21_d0twq")
 packed_scene = ExtResource("20_r4v6s")
 
 [sub_resource type="Resource" id="Resource_tdhcp"]
+resource_local_to_scene = true
+script = ExtResource("22_gd8f5")
+
+[sub_resource type="Resource" id="Resource_1fd5n"]
+resource_local_to_scene = true
+script = ExtResource("21_d0twq")
+packed_scene = ExtResource("20_r4v6s")
+
+[sub_resource type="Resource" id="Resource_l3wd7"]
+resource_local_to_scene = true
+script = ExtResource("22_gd8f5")
+
+[sub_resource type="Resource" id="Resource_py6ys"]
+resource_local_to_scene = true
+script = ExtResource("21_d0twq")
+packed_scene = ExtResource("20_r4v6s")
+
+[sub_resource type="Resource" id="Resource_ds1b4"]
+resource_local_to_scene = true
+script = ExtResource("22_gd8f5")
+
+[sub_resource type="Resource" id="Resource_6nfqw"]
+resource_local_to_scene = true
+script = ExtResource("21_d0twq")
+packed_scene = ExtResource("20_r4v6s")
+
+[sub_resource type="Resource" id="Resource_6asja"]
+resource_local_to_scene = true
+script = ExtResource("22_gd8f5")
+
+[sub_resource type="Resource" id="Resource_587ee"]
+resource_local_to_scene = true
+script = ExtResource("21_d0twq")
+packed_scene = ExtResource("20_r4v6s")
+
+[sub_resource type="Resource" id="Resource_auydo"]
+resource_local_to_scene = true
+script = ExtResource("22_gd8f5")
+
+[sub_resource type="Resource" id="Resource_4ml8i"]
+resource_local_to_scene = true
+script = ExtResource("21_d0twq")
+packed_scene = ExtResource("20_r4v6s")
+
+[sub_resource type="Resource" id="Resource_4r2fs"]
+resource_local_to_scene = true
+script = ExtResource("22_gd8f5")
+
+[sub_resource type="Resource" id="Resource_v2j0v"]
+resource_local_to_scene = true
+script = ExtResource("21_d0twq")
+packed_scene = ExtResource("20_r4v6s")
+
+[sub_resource type="Resource" id="Resource_rujps"]
 resource_local_to_scene = true
 script = ExtResource("22_gd8f5")
 
@@ -260,43 +314,43 @@ queryable = SubResource("Resource_tdhcp")
 position = Vector2(-531, 370)
 enviornment_query_system = NodePath("../EnvironmentQuerySystem")
 start_placed = true
-power_pole_selection_map_entity = SubResource("Resource_b0sbj")
-queryable = SubResource("Resource_tdhcp")
+power_pole_selection_map_entity = SubResource("Resource_1fd5n")
+queryable = SubResource("Resource_l3wd7")
 
 [node name="PowerPole8" parent="." index="39" node_paths=PackedStringArray("enviornment_query_system") instance=ExtResource("19_fa7aj")]
 position = Vector2(-468, 327)
 enviornment_query_system = NodePath("../EnvironmentQuerySystem")
 start_placed = true
-power_pole_selection_map_entity = SubResource("Resource_b0sbj")
-queryable = SubResource("Resource_tdhcp")
+power_pole_selection_map_entity = SubResource("Resource_py6ys")
+queryable = SubResource("Resource_ds1b4")
 
 [node name="PowerPole9" parent="." index="40" node_paths=PackedStringArray("enviornment_query_system") instance=ExtResource("19_fa7aj")]
 position = Vector2(-411, 373)
 enviornment_query_system = NodePath("../EnvironmentQuerySystem")
 start_placed = true
-power_pole_selection_map_entity = SubResource("Resource_b0sbj")
-queryable = SubResource("Resource_tdhcp")
+power_pole_selection_map_entity = SubResource("Resource_6nfqw")
+queryable = SubResource("Resource_6asja")
 
 [node name="PowerPole10" parent="." index="41" node_paths=PackedStringArray("enviornment_query_system") instance=ExtResource("19_fa7aj")]
 position = Vector2(-468, 265)
 enviornment_query_system = NodePath("../EnvironmentQuerySystem")
 start_placed = true
-power_pole_selection_map_entity = SubResource("Resource_b0sbj")
-queryable = SubResource("Resource_tdhcp")
+power_pole_selection_map_entity = SubResource("Resource_587ee")
+queryable = SubResource("Resource_auydo")
 
 [node name="PowerPole11" parent="." index="42" node_paths=PackedStringArray("enviornment_query_system") instance=ExtResource("19_fa7aj")]
 position = Vector2(-466, 205)
 enviornment_query_system = NodePath("../EnvironmentQuerySystem")
 start_placed = true
-power_pole_selection_map_entity = SubResource("Resource_b0sbj")
-queryable = SubResource("Resource_tdhcp")
+power_pole_selection_map_entity = SubResource("Resource_4ml8i")
+queryable = SubResource("Resource_4r2fs")
 
 [node name="PowerPole12" parent="." index="43" node_paths=PackedStringArray("enviornment_query_system") instance=ExtResource("19_fa7aj")]
 position = Vector2(-410, 159)
 enviornment_query_system = NodePath("../EnvironmentQuerySystem")
 start_placed = true
-power_pole_selection_map_entity = SubResource("Resource_b0sbj")
-queryable = SubResource("Resource_tdhcp")
+power_pole_selection_map_entity = SubResource("Resource_v2j0v")
+queryable = SubResource("Resource_rujps")
 
 [node name="PowerPole3" parent="." index="44" node_paths=PackedStringArray("enviornment_query_system") instance=ExtResource("19_fa7aj")]
 position = Vector2(-438, -105)

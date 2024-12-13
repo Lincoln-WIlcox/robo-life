@@ -4,11 +4,12 @@ extends Node2D
 ##contains an inventory and moves along a given path.
 
 @onready var mouse_pickup_area: MousePickupArea = $Path2D/PathFollow2D/MousePickupArea
+@onready var path: Path2D = $Path2D
 @onready var path_follow: PathFollow2D = $Path2D/PathFollow2D
 
 @export var initial_inventory: Inventory
 @export var transport_bucket_item: ItemData
-@export var speed: float = 1
+@export var speed: float = 1.3
 @export var item_grid_size := Vector2i(2,2)
 
 var _inventory: Inventory = Inventory.new()
@@ -30,6 +31,9 @@ func _ready():
 	update_inventory_addition()
 	_inventory.changed.connect(update_inventory_addition)
 
+func set_path_follow_position(new_position: Vector2) -> void:
+	path_follow.global_position = new_position
+
 func update_inventory_addition() -> void:
 	var inventory_addition: InventoryAddition = InventoryAddition.new()
 	if _inventory:
@@ -45,6 +49,10 @@ func stop() -> void:
 
 func get_inventory() -> Inventory:
 	return _inventory
+
+func use_curve(new_curve: Curve2D) -> void:
+	path.curve = new_curve
+	path_follow.progress = 0
 
 func _physics_process(delta: float):
 	if _can_move() and path_follow.progress_ratio < 1:

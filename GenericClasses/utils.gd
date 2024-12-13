@@ -301,3 +301,11 @@ static func get_normalized_delta_time() -> float:
 
 static func float_per_frame_to_float_per_time(value: float, delta: float) -> float:
 	return value * delta / get_normalized_delta_time()
+
+static func get_index_of_point_along_curve_before_offset(curve: Curve2D, offset: float) -> int:
+	var curve_copy: Curve2D = curve.duplicate()
+	
+	while curve_copy.get_baked_length() > offset:
+		curve_copy.remove_point(curve_copy.point_count - 1)
+	
+	return curve_copy.point_count - 1

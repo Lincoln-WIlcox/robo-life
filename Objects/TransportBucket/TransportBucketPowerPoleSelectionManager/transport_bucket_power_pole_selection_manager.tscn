@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bgqgiy1o0dn8e" path="res://Objects/TransportBucket/transport_bucket.tscn" id="2_4750m"]
 [ext_resource type="PackedScene" uid="uid://nifofmv4xqni" path="res://UI/Map/power_pole_selection_map.tscn" id="2_m7qfn"]
 [ext_resource type="PackedScene" uid="uid://mwe43y7dhjg" path="res://UI/TransportBucketUI/transport_bucket_ui.tscn" id="2_uaido"]
-[ext_resource type="Script" path="res://Objects/TransportBucket/TransportBucketPowerPoleSelectionManager/path_maker.gd" id="6_ystpc"]
+[ext_resource type="Script" path="res://Objects/TransportBucket/TransportBucketPowerPoleSelectionManager/path_handler.gd" id="6_ystpc"]
 
 [node name="TransportBucketPowerPoleSelectionManager" type="Node"]
 script = ExtResource("1_xea4w")
@@ -17,8 +17,9 @@ transport_bucket_ui_packed_scene = ExtResource("2_uaido")
 script = ExtResource("1_0yoyt")
 map_ui_packed_scene = ExtResource("2_m7qfn")
 
-[node name="PathMaker" type="Node" parent="."]
+[node name="PathHandler" type="Node" parent="." node_paths=PackedStringArray("transport_bucket")]
 script = ExtResource("6_ystpc")
+transport_bucket = NodePath("../TransportBucket")
 
 [connection signal="interacted_with" from="TransportBucket" to="." method="_on_transport_bucket_interacted_with"]
 [connection signal="power_connector_selected" from="PowerPoleSelectionManager" to="." method="_on_power_pole_selection_manager_power_connector_selected"]
