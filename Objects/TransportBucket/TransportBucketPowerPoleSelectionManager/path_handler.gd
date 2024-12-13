@@ -2,13 +2,31 @@ extends Node
 
 @export var transport_bucket: TransportBucket
 var _curve: Curve2D
-var _initial_power_connector: PowerConnector
+var _first_power_connector: PowerConnector
+var _last_power_connector: PowerConnector
+var _curve_power_connections: Array[PowerConnectorConnection]
 
+##Makes a new path from power_connector_a to power_connector_b.
 func make_new_path(power_connector_a: PowerConnector, power_connector_b: PowerConnector) -> void:
+	_first_power_connector = power_connector_a
+	_last_power_connector = power_connector_b
+	
 	var shortest_path_of_power_connections: Array[PowerConnectorConnection] = _get_shortest_path_power_connectors(power_connector_a, power_connector_b)
 	_curve = _make_curve_from_power_connection_path(shortest_path_of_power_connections, power_connector_a)
 	transport_bucket.use_curve(_curve)
-	print(Utils.get_index_of_point_along_curve_before_offset(_curve, 200))
+	
+	for power_connection: PowerConnectorConnection in _curve_power_connections:
+		power_connection.broken.disconnect(_on_path_connection_broken)
+	
+	for power_connection: PowerConnectorConnection in shortest_path_of_power_connections:
+		power_connection.broken.connect(_on_path_connection_broken.bind(power_connection))
+	
+	_curve_power_connections = shortest_path_of_power_connections
+
+##Reroutes the transport bucket from its current path to a new one to the power connector. 
+##Cannot be called before [method self.make_new_path], as information about the previous path is used in the calculation of the new route
+func reroute_to(power_connector: PowerConnector) -> void:
+	pass
 
 ##Uses Dijkstra's pathfinding algorithm to find the shortest path between the power connectors in the tree. Returns a PackedVector2Array of the points along the path.
 ##Assumes that power_connector_a and power_connector_b are in the same tree. If they aren't, the function returns null.
@@ -70,3 +88,13 @@ func _make_curve_from_power_connection_path(power_connection_path: Array[PowerCo
 		last_checked_power_connector = new_power_connector
 	
 	return curve
+
+func _on_path_connection_broken(connection: PowerConnectorConnection) -> void:
+	var point_before_connection_index: int = _curve_power_connections.find(connection)
+	
+	if Utils.get_offset_of_point_along_curve(_curve, point_before_connection_index) > transport_bucket.path_follow.progress:
+		pass #after bucket on path
+	elif Utils.get_offset_of_point_along_curve(_curve, point_before_connection_index + 1) > transport_bucket.path_follow.progress:
+		transport_bucket.disconnect_from_path()
+	#otherwise removal is before bucket, so it can be ignored.
+	

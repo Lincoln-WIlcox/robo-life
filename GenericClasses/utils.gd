@@ -309,3 +309,11 @@ static func get_index_of_point_along_curve_before_offset(curve: Curve2D, offset:
 		curve_copy.remove_point(curve_copy.point_count - 1)
 	
 	return curve_copy.point_count - 1
+
+static func get_offset_of_point_along_curve(curve: Curve2D, point_index: int) -> float:
+	var curve_copy: Curve2D = curve.duplicate()
+	
+	while curve_copy.point_count - 1 > point_index:
+		curve_copy.remove_point(curve_copy.point_count - 1)
+	
+	return curve_copy.get_baked_length()

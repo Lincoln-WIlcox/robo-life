@@ -12,6 +12,7 @@ script = ExtResource("1_xea4w")
 transport_bucket_ui_packed_scene = ExtResource("2_uaido")
 
 [node name="TransportBucket" parent="." instance=ExtResource("2_4750m")]
+speed = 0.6
 
 [node name="PowerPoleSelectionManager" type="Node" parent="."]
 script = ExtResource("1_0yoyt")
@@ -22,4 +23,5 @@ script = ExtResource("6_ystpc")
 transport_bucket = NodePath("../TransportBucket")
 
 [connection signal="interacted_with" from="TransportBucket" to="." method="_on_transport_bucket_interacted_with"]
+[connection signal="tree_exiting" from="TransportBucket" to="." method="_on_transport_bucket_tree_exiting"]
 [connection signal="power_connector_selected" from="PowerPoleSelectionManager" to="." method="_on_power_pole_selection_manager_power_connector_selected"]

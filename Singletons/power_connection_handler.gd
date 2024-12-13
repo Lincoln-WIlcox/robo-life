@@ -34,11 +34,12 @@ func add_connection(connector_a: PowerConnector, connector_b: PowerConnector) ->
 func remove_connections_to_connector(connector: PowerConnector) -> void:
 	for i: int in range(power_connector_connections.size()-1, -1, -1):
 		if power_connector_connections[i].power_connector_a == connector or power_connector_connections[i].power_connector_b == connector:
-			var other_connector = power_connector_connections[i].power_connector_a if power_connector_connections[i].power_connector_a != connector else power_connector_connections[i].power_connector_b
+			var other_connector: PowerConnector = power_connector_connections[i].power_connector_a if power_connector_connections[i].power_connector_a != connector else power_connector_connections[i].power_connector_b
 			#the only reason i need to store this is to i can emit it with connection removed after its been deleted
-			var power_connector_at_index = power_connector_connections[i]
+			var power_connection_at_index: PowerConnectorConnection = power_connector_connections[i]
 			power_connector_connections.remove_at(i)
-			connection_removed.emit(power_connector_at_index) 
+			connection_removed.emit(power_connection_at_index) 
+			power_connection_at_index.broken.emit()
 			_update_power_consumers_in_tree(other_connector)
 	connections_changed.emit()
 

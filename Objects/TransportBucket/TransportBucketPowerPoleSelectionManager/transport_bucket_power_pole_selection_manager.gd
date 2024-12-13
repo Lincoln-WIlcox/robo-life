@@ -40,3 +40,6 @@ func _on_transport_bucket_interacted_with():
 func _on_ui_closed() -> void:
 	transport_bucket.start()
 	hide_ui.call(false)
+
+func _on_transport_bucket_tree_exiting():
+	queue_free()

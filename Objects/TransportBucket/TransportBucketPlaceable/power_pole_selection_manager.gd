@@ -26,6 +26,7 @@ func _get_map_data() -> MapData:
 			var power_pole_map_entity: SelectablePowerPoleMapEntity = power_pole_queryable.source_node.make_selectable_power_pole_map_entity()
 			power_pole_map_entities.append(power_pole_map_entity)
 			power_pole_map_entity.selected.connect(_on_power_pole_map_entity_selected.bind(power_pole_queryable.source_node))
+			power_pole_map_entity.source_removed.connect(_on_power_pole_map_entity_source_removed)
 	
 	var map_data: MapData = MapData.new(power_pole_map_entities, solidity_polygons, bounding_box)
 	return map_data
@@ -44,3 +45,6 @@ func _on_power_pole_map_entity_selected(power_pole: PowerPole) -> void:
 
 func _on_map_ui_power_pole_selected(power_pole: SelectablePowerPoleMapEntity) -> void:
 	power_connector_selected.emit(power_pole.power_connector)
+
+func _on_power_pole_map_entity_source_removed() -> void:
+	pass

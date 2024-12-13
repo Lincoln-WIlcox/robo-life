@@ -3,9 +3,13 @@ extends Node2D
 
 ##contains an inventory and moves along a given path.
 
-@onready var mouse_pickup_area: MousePickupArea = $Path2D/PathFollow2D/MousePickupArea
+@onready var mouse_pickup_area: MousePickupArea = $Path2D/PathFollow2D/TransportBucketContent/MousePickupArea
+@onready var mouse_interaction_area: MouseInteractionArea = $Path2D/PathFollow2D/TransportBucketContent/MouseInteractionArea
+@onready var transport_bucket_content: Node2D = $Path2D/PathFollow2D/TransportBucketContent
+@onready var body = $CharacterBody2D
 @onready var path: Path2D = $Path2D
 @onready var path_follow: PathFollow2D = $Path2D/PathFollow2D
+@onready var gravity_component: GravityComponent = $GravityComponent
 
 @export var initial_inventory: Inventory
 @export var transport_bucket_item: ItemData
@@ -18,6 +22,7 @@ var _moving := true
 var _being_picked_up := false
 
 signal interacted_with
+signal disconnected_from_path
 
 func _ready():
 	if initial_inventory:
@@ -53,6 +58,15 @@ func get_inventory() -> Inventory:
 func use_curve(new_curve: Curve2D) -> void:
 	path.curve = new_curve
 	path_follow.progress = 0
+
+func disconnect_from_path() -> void:
+	path_follow.remove_child(transport_bucket_content)
+	body.add_child(transport_bucket_content)
+	body.global_position = path_follow.global_position
+	gravity_component.active = true
+	mouse_interaction_area.monitorable = false
+	mouse_interaction_area.monitoring = false
+	disconnected_from_path.emit()
 
 func _physics_process(delta: float):
 	if _can_move() and path_follow.progress_ratio < 1:
