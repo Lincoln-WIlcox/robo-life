@@ -66,6 +66,7 @@ func get_connections_to_connect_to() -> Array[Area2D]:
 	return connect_area.get_overlapping_areas().filter(func(area: Area2D): return area is PowerConnector and area != power_connector)
 
 func make_selectable_power_pole_map_entity() -> SelectablePowerPoleMapEntity:
-	var new_map_entity = power_pole_selection_map_entity.duplicate()
+	var new_map_entity: SelectablePowerPoleMapEntity = power_pole_selection_map_entity.duplicate()
+	new_map_entity.source_node = self
 	new_map_entity.scene_setup.connect(_on_power_pole_selection_map_entity_setup.bind(new_map_entity))
 	return new_map_entity

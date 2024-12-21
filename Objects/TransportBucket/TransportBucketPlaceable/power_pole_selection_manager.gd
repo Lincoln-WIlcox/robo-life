@@ -1,6 +1,7 @@
 extends Node
 
 @export var map_ui_packed_scene: PackedScene
+@export var path_handler: Node
 var environment_query_system: EnvironmentQuerySystem
 var initial_power_connector: PowerConnector
 
@@ -23,10 +24,11 @@ func _get_map_data() -> MapData:
 	
 	for power_pole_queryable: QueryableEntity in power_pole_queryables:
 		if power_pole_queryable.source_node.power_connector in power_connectors_in_tree:
+			#don't use _track_new_power_pole cause i have to append the map entity to local array instead of script array
 			var power_pole_map_entity: SelectablePowerPoleMapEntity = power_pole_queryable.source_node.make_selectable_power_pole_map_entity()
 			power_pole_map_entities.append(power_pole_map_entity)
 			power_pole_map_entity.selected.connect(_on_power_pole_map_entity_selected.bind(power_pole_queryable.source_node))
-			power_pole_map_entity.source_removed.connect(_on_power_pole_map_entity_source_removed)
+			power_pole_map_entity.source_removed.connect(_on_power_pole_map_entity_source_removed.bind(power_pole_map_entity))
 	
 	var map_data: MapData = MapData.new(power_pole_map_entities, solidity_polygons, bounding_box)
 	return map_data
@@ -39,6 +41,7 @@ func _track_new_power_pole(power_pole: PowerPole) -> void:
 	var power_pole_map_entity: SelectablePowerPoleMapEntity = power_pole.make_selectable_power_pole_map_entity()
 	_map_data.add_map_entity(power_pole_map_entity)
 	power_pole_map_entity.selected.connect(_on_power_pole_map_entity_selected.bind(power_pole))
+	power_pole_map_entity.source_removed.connect(_on_power_pole_map_entity_source_removed.bind(power_pole_map_entity))
 
 func _on_power_pole_map_entity_selected(power_pole: PowerPole) -> void:
 	power_connector_selected.emit(power_pole.power_connector)
@@ -46,5 +49,18 @@ func _on_power_pole_map_entity_selected(power_pole: PowerPole) -> void:
 func _on_map_ui_power_pole_selected(power_pole: SelectablePowerPoleMapEntity) -> void:
 	power_connector_selected.emit(power_pole.power_connector)
 
-func _on_power_pole_map_entity_source_removed() -> void:
-	pass
+func _on_power_pole_map_entity_source_removed(removed_map_entity: SelectablePowerPoleMapEntity) -> void:
+	var using_power_connector: PowerConnector
+	if path_handler.path_is_made():
+		using_power_connector = path_handler.get_last_power_connector()
+	else: 
+		using_power_connector = initial_power_connector
+	
+	PowerConnectionHandler.remove_connections_to_connector(removed_map_entity.source_node.power_connector)
+	var power_connectors_in_tree = PowerConnectionHandler.get_power_connectors_in_tree(using_power_connector)
+	
+	var iterating_map_entities: Array[MapEntity] = _map_data.get_map_entities().filter(func(map_entity: MapEntity): return map_entity is SelectablePowerPoleMapEntity).duplicate()
+	for map_entity: SelectablePowerPoleMapEntity in iterating_map_entities:
+		#excluding the removing map entity since it needs to remove itself
+		if not map_entity.source_node.power_connector in power_connectors_in_tree and map_entity != removed_map_entity:
+			_map_data.remove_map_entity(map_entity)
