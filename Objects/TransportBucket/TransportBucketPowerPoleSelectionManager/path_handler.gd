@@ -58,7 +58,10 @@ func reroute() -> void:
 	var shortest_connections_path: Array[PowerConnectorConnection]
 	var shortest_connector: PowerConnector
 	var longer_connector: PowerConnector
-	if curve_from_previous_connector.get_baked_length() < curve_from_next_connector.get_baked_length():
+	
+	var distance_from_previous: float = transport_bucket.path_follow.global_position.distance_to(previous_connector.global_position)
+	var distance_from_next: float = transport_bucket.path_follow.global_position.distance_to(next_connector.global_position)
+	if curve_from_previous_connector.get_baked_length() + distance_from_previous < curve_from_next_connector.get_baked_length() + distance_from_next:
 		shortest_path_curve = curve_from_previous_connector
 		shortest_connector = previous_connector
 		longer_connector = next_connector

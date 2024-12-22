@@ -16,7 +16,7 @@ func _ready():
 
 func _set_size():
 	$CollisionShape2D.shape.size = Vector2(Utils.ITEM_GRID_TILE_SIZE * size.x, Utils.ITEM_GRID_TILE_SIZE * size.y)
-	$CollisionShape2D.position = Vector2(Utils.ITEM_GRID_TILE_SIZE * size.x / 2, Utils.ITEM_GRID_TILE_SIZE * size.y / 2)
+	$CollisionShape2D.position = Vector2(Utils.ITEM_GRID_TILE_SIZE * size.x / 2.0, Utils.ITEM_GRID_TILE_SIZE * size.y / 2.0)
 
 func _make_unique():
 	$CollisionShape2D.shape = $CollisionShape2D.shape.duplicate()
