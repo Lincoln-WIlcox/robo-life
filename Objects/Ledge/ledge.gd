@@ -4,6 +4,7 @@ extends Area2D
 ##Used by the player to grab onto.
 
 ##The side of the platform this ledge is on.
+@warning_ignore("enum_variable_without_default")
 @export var grab_direction: Utils.GrabDirections
 
 var is_left_side:

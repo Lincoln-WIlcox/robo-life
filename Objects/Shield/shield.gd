@@ -22,7 +22,7 @@ func _ready():
 	else:
 		_on_un_deploy()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if _deployed:
 		energy = max(energy - decrease_rate, 0)
 	else:

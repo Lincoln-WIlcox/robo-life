@@ -130,3 +130,9 @@ func start_gassing() -> void:
 
 func stop_gassing() -> void:
 	gas_handler.stop_gassing()
+
+func emit_just_interacted() -> void:
+	just_interacted.emit()
+
+func emit_just_climbed() -> void:
+	just_climbed.emit()
