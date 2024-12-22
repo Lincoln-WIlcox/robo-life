@@ -99,6 +99,13 @@ func power_connections_share_tree(power_connector_a: PowerConnector, power_conne
 	
 	return power_connector_b in power_connectors_in_tree
 
+##Returns the connection connection power_connector_a and power_connector_b. Returns null if there is none.
+func get_connection_for_connectors(power_connector_a: PowerConnector, power_connector_b: PowerConnector) -> Variant:
+	for connection: PowerConnectorConnection in power_connector_connections:
+		if (connection.power_connector_a == power_connector_a or connection.power_connector_b == power_connector_a) and (connection.power_connector_a == power_connector_b or connection.power_connector_b == power_connector_b):
+			return connection
+	return null
+
 func _get_power_connectors_in_tree_with_excludes(power_connector: PowerConnector, exclude: Array[PowerConnectorConnection]) -> Dictionary:
 	#this is the full list of power connectors in the tree. the top level function returns this at the end of the recursive functions
 	var connectors: Array[PowerConnector] = []

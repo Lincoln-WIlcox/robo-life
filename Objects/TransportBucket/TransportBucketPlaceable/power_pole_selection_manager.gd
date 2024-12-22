@@ -1,6 +1,5 @@
 extends Node
 
-@export var map_ui_packed_scene: PackedScene
 @export var path_handler: Node
 var environment_query_system: EnvironmentQuerySystem
 var initial_power_connector: PowerConnector

@@ -15,8 +15,13 @@ var hide_ui: Callable
 var _ui: TransportBucketUI
 
 func setup() -> void:
+	var player_queryables: Array[PlayerQueryable]
+	var player_queryables_assigner: Array = environment_query_system.get_queryables_by_class(PlayerQueryable)
+	player_queryables.assign(player_queryables_assigner)
+	
 	_ui = transport_bucket_ui_packed_scene.instantiate()
-	_ui.player_inventory = Inventory.new()
+	#this should change later; the transport bucket will need to get an inventory from whatever interacted with it.
+	_ui.player_inventory = player_queryables[0].player_inventory
 	_ui.transport_bucket_inventory = transport_bucket.get_inventory()
 	_ui.closed.connect(_on_ui_closed)
 	
@@ -31,7 +36,10 @@ func _on_placed() -> void:
 
 func _on_power_pole_selection_manager_power_connector_selected(power_connector: PowerConnector):
 	_ui.close()
-	path_handler.make_new_path(initial_power_connector, power_connector)
+	if path_handler.path_is_made():
+		path_handler.reroute_to(power_connector)
+	else:
+		path_handler.make_new_path(initial_power_connector, power_connector)
 
 func _on_transport_bucket_interacted_with():
 	show_ui.call(_ui)

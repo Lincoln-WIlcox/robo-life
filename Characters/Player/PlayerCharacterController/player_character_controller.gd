@@ -32,6 +32,8 @@ extends Node2D
 @export var environment_query_system: EnvironmentQuerySystem
 @export var level_map_map_entity_collection: MapEntityCollection
 
+var _queryable: PlayerQueryable = PlayerQueryable.new()
+
 var inventory:
 	get:
 		return player_character.inventory
@@ -66,6 +68,10 @@ signal shelter_closed
 signal day_ended
 
 func _ready():
+	_queryable.connect_source(self)
+	_queryable.player_inventory = inventory
+	environment_query_system.add_entity_queryable(_queryable)
+	
 	player_character.is_jumping = func(): return Input.is_action_pressed("player_jump") and not movement_disabled
 	player_character.is_moving_left = func(): return Input.is_action_pressed("player_move_left") and not movement_disabled
 	player_character.is_moving_right = func(): return Input.is_action_pressed("player_move_right") and not movement_disabled

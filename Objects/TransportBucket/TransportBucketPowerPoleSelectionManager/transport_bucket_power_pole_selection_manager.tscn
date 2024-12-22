@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://blum4fqe6ct0a"]
+[gd_scene load_steps=6 format=3 uid="uid://blum4fqe6ct0a"]
 
 [ext_resource type="Script" path="res://Objects/TransportBucket/TransportBucketPlaceable/power_pole_selection_manager.gd" id="1_0yoyt"]
 [ext_resource type="Script" path="res://Objects/TransportBucket/TransportBucketPowerPoleSelectionManager/transport_bucket_power_pole_selection_manager.gd" id="1_xea4w"]
 [ext_resource type="PackedScene" uid="uid://bgqgiy1o0dn8e" path="res://Objects/TransportBucket/transport_bucket.tscn" id="2_4750m"]
-[ext_resource type="PackedScene" uid="uid://nifofmv4xqni" path="res://UI/Map/power_pole_selection_map.tscn" id="2_m7qfn"]
 [ext_resource type="PackedScene" uid="uid://mwe43y7dhjg" path="res://UI/TransportBucketUI/transport_bucket_ui.tscn" id="2_uaido"]
 [ext_resource type="Script" path="res://Objects/TransportBucket/TransportBucketPowerPoleSelectionManager/path_handler.gd" id="6_ystpc"]
 
@@ -12,11 +11,9 @@ script = ExtResource("1_xea4w")
 transport_bucket_ui_packed_scene = ExtResource("2_uaido")
 
 [node name="TransportBucket" parent="." instance=ExtResource("2_4750m")]
-speed = 0.6
 
 [node name="PowerPoleSelectionManager" type="Node" parent="." node_paths=PackedStringArray("path_handler")]
 script = ExtResource("1_0yoyt")
-map_ui_packed_scene = ExtResource("2_m7qfn")
 path_handler = NodePath("../PathHandler")
 
 [node name="PathHandler" type="Node" parent="." node_paths=PackedStringArray("transport_bucket")]
