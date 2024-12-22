@@ -17,7 +17,6 @@ extends Node2D
 @export var item_grid_size := Vector2i(2,2)
 
 var _inventory: Inventory = Inventory.new()
-var _path: Path2D
 var _moving := true
 var _being_picked_up := false
 

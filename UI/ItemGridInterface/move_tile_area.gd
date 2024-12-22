@@ -22,7 +22,7 @@ func on_placeable():
 func on_not_placeable():
 	color_rect.modulate = NOT_PLACEABLE_COLOR
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var new_placing_tile = Utils.get_placing_tile(self)
 	if new_placing_tile and _can_place_on_new_tile(new_placing_tile):
 		if new_placing_tile != _placing_tile:

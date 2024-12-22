@@ -55,7 +55,7 @@ func _ready():
 func close_gui() -> void:
 	dragging.gui_exited()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	_updating_grid = false
 
 func update_grid() -> void:
@@ -105,11 +105,11 @@ func make_empty_tile(grid_position: Vector2i) -> void:
 	#empty_tile.tile_area.area_entered.connect(dragging_tile_over_manager.on_tile_area_entered)
 	#empty_tile.tile_area.area_exited.connect(dragging_tile_over_manager.on_tile_area_exited)
 
-func make_item_tile(grid_item: ItemGridItem) -> void:
+func make_item_tile(new_tile_grid_item: ItemGridItem) -> void:
 	var item_grid_tile: ItemGridTile = item_grid_tile_packed_scene.instantiate()
-	item_grid_tile.texture = grid_item.item_data.texture
-	item_grid_tile.tile_size = grid_item.item_data.grid_size
-	item_grid_tile.item_grid_item = grid_item
+	item_grid_tile.texture = new_tile_grid_item.item_data.texture
+	item_grid_tile.tile_size = new_tile_grid_item.item_data.grid_size
+	item_grid_tile.item_grid_item = new_tile_grid_item
 	item_grid_tile.drop_pressed.connect(_on_item_tile_drop_pressed)
 	item_grid_tile.dragged.connect(func(grid_item: ItemGridItem): tile_dragged.emit(grid_item))
 	grid_container.add_child(item_grid_tile)

@@ -83,7 +83,7 @@ static func get_placing_tile(move_tile: MoveTileArea):
 
 ##Converts an angle in radians to an index in the DIRECTIONS enum.
 static func convert_angle_to_dir_index(angle: float, diagonal_offset = 0.1) -> int:
-	var using_angle = angle + (diagonal_offset if angle_is_diagonal(angle) else 0)
+	var using_angle = angle + (diagonal_offset if angle_is_diagonal(angle) else 0.0)
 	#gets how far around a circle the angle is from 0 to 1, multiplies by 4 and then rounds. then modulos to shrink high or low angles
 	var step_one = roundi(using_angle / TAU * DIRECTIONS.size()) % DIRECTIONS.size()
 	#adds the full amount and modulos again to make negative indexes positive

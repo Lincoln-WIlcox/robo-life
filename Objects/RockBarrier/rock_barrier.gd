@@ -49,7 +49,7 @@ func _on_item_pickup_collected(_item, _collector):
 	interaction_area.disabled = false
 	time_task_handler.pause_progress()
 
-func _on_inventory_requirement_interaction_area_requirements_met(interactor):
+func _on_inventory_requirement_interaction_area_requirements_met(_interactor):
 	interaction_area.disabled = true
 	_create_item_pickup()
 	time_task_handler.make_progress()

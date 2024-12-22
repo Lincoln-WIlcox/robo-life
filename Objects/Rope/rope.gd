@@ -14,7 +14,7 @@ extends Node2D
 
 @export var tile_height: float:
 	set(new_value):
-		height = new_value * 16
+		height = roundi(new_value * 16)
 	get:
 		return float(height) / 16
 

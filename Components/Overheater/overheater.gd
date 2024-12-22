@@ -23,7 +23,7 @@ func _ready():
 		remove_child(collision_shape)
 		heat_receiver.add_child(collision_shape)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	heat += heat_receiver.receiving_heat if heat_receiver.receiving_heat else -cooldown_rate
 	heat = max(heat, 0)
 	overheated = heat >= max_heat

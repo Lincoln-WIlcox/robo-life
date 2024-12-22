@@ -16,4 +16,4 @@ func _spawn_one():
 	var gravity_walk_over_pickup = gravity_walk_over_pickup_packed_scene.instantiate()
 	node_to_spawn_pickup_in.add_child(gravity_walk_over_pickup)
 	gravity_walk_over_pickup.global_position = global_position
-	gravity_walk_over_pickup.global_position.x += randi_range(-spawn_range_width/2, spawn_range_width/2)
+	gravity_walk_over_pickup.global_position.x += randf_range(-spawn_range_width/2.0, spawn_range_width/2.0)

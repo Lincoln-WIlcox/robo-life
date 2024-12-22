@@ -3,7 +3,7 @@ extends Area2D
 
 signal just_powered
 signal just_lost_power
-signal connections_changed
+#signal connections_changed
 signal status_changed
 
 func connect_to(connector: PowerConnector):
@@ -19,3 +19,6 @@ var powered := false:
 
 func _ready():
 	tree_exited.connect(PowerConnectionHandler.remove_connections_to_connector.bind(self))
+
+func emit_status_changed() -> void:
+	status_changed.emit()

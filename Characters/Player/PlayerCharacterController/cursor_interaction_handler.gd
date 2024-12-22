@@ -16,7 +16,11 @@ func update():
 		var areas_with_highest_priorty := interaction_areas.filter(func(area: MouseInteractionArea): return area.pickup_priority >= highest_priority)
 		var interaction_area: MouseInteractionArea = areas_with_highest_priorty[0]
 		
-		if mouse_detect_area.mouse_over:
-			interaction_area.interact()
-		else:
-			interaction_area.interaction_out_of_range()
+		_handle_interaction(interaction_area)
+
+func _handle_interaction(interaction_area: MouseInteractionArea) -> void:
+	if mouse_detect_area.mouse_over:
+		interaction_area.interact()
+		interacted.emit()
+	else:
+		interaction_area.interaction_out_of_range()

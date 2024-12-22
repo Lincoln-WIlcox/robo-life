@@ -14,10 +14,10 @@ extends Control
 
 var crafting_rows: Array[CraftingRow]:
 	get:
-		var crafting_rows: Array[Node] = crafting_rows_container.get_children()
-		var crafting_rows_typed: Array[CraftingRow]
-		crafting_rows_typed.assign(crafting_rows)
-		return crafting_rows_typed
+		var return_crafting_rows: Array[CraftingRow]
+		var return_crafting_rows_assigner: Array[Node] = crafting_rows_container.get_children()
+		return_crafting_rows.assign(return_crafting_rows_assigner)
+		return return_crafting_rows
 
 signal return_pressed
 

@@ -140,9 +140,9 @@ func drop_item(item: ItemData):
 
 func _input(event):
 	if event.is_action_pressed("player_interact") and not movement_disabled:
-		player_character.just_interacted.emit()
+		player_character.emit_just_interacted()
 	if event.is_action_pressed("player_climb") and not movement_disabled:
-		player_character.just_climbed.emit()
+		player_character.emit_just_climbed()
 	if event.is_action_pressed("toggle_inventory"):
 		shelter_state.on_shelter_closed()
 

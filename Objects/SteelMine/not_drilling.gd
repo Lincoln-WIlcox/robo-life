@@ -6,7 +6,7 @@ extends State
 
 var is_drill_on_mine: Callable = func(): return false
 
-func _on_inventory_requirement_interaction_area_requirements_met(interactor):
+func _on_inventory_requirement_interaction_area_requirements_met(_interactor):
 	if power_consumer.enough_power_supplied and drilling_state.steel_remaining > 0:
 		state_ended.emit(drilling_state)
 

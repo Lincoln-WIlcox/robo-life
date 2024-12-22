@@ -13,4 +13,5 @@ func _on_inventory_requirement_interaction_area_insufficient_requirements(_inter
 
 func _on_inventory_requirement_interaction_area_requirements_met(_interactor):
 	open()
+	door_opened.emit()
 	interaction_area.queue_free()

@@ -60,7 +60,7 @@ func _on_coyote_timer_timeout() -> void:
 	if !character.is_on_floor():
 		state_ended.emit(falling_state)
 
-func _on_climbing_rope_detector_climbable_climbed(climbable_area: ClimbableArea):
+func _on_climbing_rope_detector_climbable_climbed(_climbable_area):
 	
 	if is_current_state.call() and just_climbed.call(): 
 		state_ended.emit(climbing_state)

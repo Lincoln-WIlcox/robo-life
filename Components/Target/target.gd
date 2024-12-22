@@ -8,5 +8,5 @@ extends Marker2D
 			#ensures the node this is following gets its physics processed first
 			process_physics_priority = following.process_physics_priority - 1
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	global_position = following.global_position if following else global_position

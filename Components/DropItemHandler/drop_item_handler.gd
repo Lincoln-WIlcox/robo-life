@@ -5,7 +5,7 @@ extends Node
 
 signal drop_created(drop: Object)
 
-func drop_item(item: ItemData, position: Vector2):
+func drop_item(item: ItemData):
 	
 	var drop
 	if item.drop_scene:

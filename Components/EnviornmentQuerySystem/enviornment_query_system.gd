@@ -59,7 +59,7 @@ func get_tile_maps_solidity() -> Array[PackedVector2Array]:
 	return polygons
 
 func get_solidity_bounding_box() -> Rect2:
-	var half_tile_size: Vector2 = Vector2(_tile_map_layers[0].tile_set.tile_size.x / 2, _tile_map_layers[0].tile_set.tile_size.x / 2)
+	var half_tile_size: Vector2 = Vector2(_tile_map_layers[0].tile_set.tile_size.x / 2.0, _tile_map_layers[0].tile_set.tile_size.x / 2.0)
 	
 	var biggest_recti: Rect2i = _tile_map_layers[0].get_used_rect()
 	var biggest_rect: Rect2 = Rect2(

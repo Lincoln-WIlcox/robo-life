@@ -39,7 +39,7 @@ func remove_connections_to_connector(connector: PowerConnector) -> void:
 			var power_connection_at_index: PowerConnectorConnection = power_connector_connections[i]
 			power_connector_connections.remove_at(i)
 			connection_removed.emit(power_connection_at_index) 
-			power_connection_at_index.broken.emit()
+			power_connection_at_index.emit_broken()
 			_update_power_consumers_in_tree(other_connector)
 	connections_changed.emit()
 
@@ -136,10 +136,10 @@ func _update_power_consumers_in_tree(power_connector: PowerConnector) -> void:
 	
 	for power_consumer: PowerConsumer in power_consumers:
 		power_consumer.enough_power_supplied = total_power_supplying >= consuming_power
-		power_consumer.extra_power = total_power_supplying - consuming_power / power_consumers.size() if total_power_supplying > consuming_power else 0
+		power_consumer.extra_power = total_power_supplying - consuming_power / power_consumers.size() if total_power_supplying > consuming_power else 0.0
 
 func _connector_is_handled(connector: PowerConnector) -> bool:
-	return connector.is_connected("status_changed", _update_power_consumers_in_tree)
+	return connector.status_changed.is_connected(_update_power_consumers_in_tree)
 
 func _handle_connector_added(connector: PowerConnector) -> void:
 	connector.status_changed.connect(_update_power_consumers_in_tree.bind(connector))

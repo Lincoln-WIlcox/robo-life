@@ -24,6 +24,6 @@ func _update_sprite():
 	else:
 		sprite.texture = null
 
-func _on_item_collect_interaction_area_collected(item: ItemData, collected_by: Object):
-	collected.emit(item, collected_by)
+func _on_item_collect_interaction_area_collected(collected_item: ItemData, collected_by: Object):
+	collected.emit(collected_item, collected_by)
 	queue_free()

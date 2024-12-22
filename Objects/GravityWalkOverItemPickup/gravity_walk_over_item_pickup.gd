@@ -9,7 +9,7 @@ func _ready():
 	pickup_area.make_inventory_addition_unique()
 	pickup_area.inventory_addition.reached_zero.connect(_on_inventory_addition_reached_zero)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if not is_on_floor():
 		velocity_component.update()
 

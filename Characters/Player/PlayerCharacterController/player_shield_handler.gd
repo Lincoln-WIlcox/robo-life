@@ -11,7 +11,7 @@ var shield_progress_bar: ProgressBar:
 		shield_progress_bar = new_value
 		shield_progress_bar.max_value = shield.max_energy
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	shield_progress_bar.value = shield.energy
 	if shield.energy == shield.max_energy:
 		shield_progress_bar.hide()

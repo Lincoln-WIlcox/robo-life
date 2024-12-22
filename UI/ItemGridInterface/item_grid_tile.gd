@@ -23,7 +23,6 @@ var tile_area:
 
 signal dragged(grid_item: ItemGridItem)
 signal drop_pressed(item_data: ItemGridItem)
-signal move_tile_area_hovering(move_tile_area: MoveTileArea)
 
 func _on_button_pressed():
 	drop_pressed.emit(item_grid_item)
