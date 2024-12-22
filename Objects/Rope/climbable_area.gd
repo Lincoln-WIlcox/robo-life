@@ -16,7 +16,7 @@ const ROPE_WIDTH = 16
 @export var tile_height: float:
 	set(new_value):
 		tile_height = new_value
-		height = new_value * 16
+		height = new_value * 16.0
 	get:
 		return float(height) / 16
 
@@ -38,4 +38,4 @@ func _create_collision_shape() -> void:
 
 func _update_size_and_position() -> void:
 	collision_box.shape.size.y = height
-	position.y = height / 2
+	position.y = height / 2.0

@@ -53,6 +53,6 @@ func _on_player_ledge_grab_detector_ledge_grabbed(is_left_side: bool) -> void:
 	if is_current_state.call() and (is_left_side != horizontal_movement_component.facing_left):
 		state_ended.emit(ledge_grabbing_state)
 
-func _on_climbing_rope_detector_climbable_climbed(climbable_area: ClimbableArea):
+func _on_climbing_rope_detector_climbable_climbed(_climbable_area=):
 	if is_current_state.call():
 		state_ended.emit(climbing_state)
