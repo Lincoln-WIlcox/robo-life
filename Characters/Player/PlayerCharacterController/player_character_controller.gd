@@ -18,6 +18,8 @@ extends Node2D
 @onready var map_texture_updater = $MapTextureUpdater
 @onready var power_pole_placement_handler = $PowerPolePlacementHandler
 @onready var power_pole_selection_map = $UIStateMachine/PowerPoleSelectionMap
+@onready var transport_bucket_placement_handler = $TransportBucketPlacementHandler
+@onready var cursor_interaction_handler = $CursorInteractionHandler
 
 @export var map_texture: MapTexture
 @export var movement_disabled := false
@@ -29,6 +31,8 @@ extends Node2D
 		crafting_state.shelter_inventory = shelter_inventory
 @export var environment_query_system: EnvironmentQuerySystem
 @export var level_map_map_entity_collection: MapEntityCollection
+
+var _queryable: PlayerQueryable = PlayerQueryable.new()
 
 var inventory:
 	get:
@@ -43,6 +47,7 @@ var show_ui: Callable:
 			crafting_state.show_ui = show_ui
 			level_map_state.show_ui = show_ui
 			power_pole_selection_map.show_ui = show_ui
+			transport_bucket_placement_handler.show_ui = show_ui
 var hide_ui: Callable:
 	set(new_value):
 		hide_ui = new_value
@@ -52,6 +57,7 @@ var hide_ui: Callable:
 			crafting_state.hide_ui = hide_ui
 			level_map_state.hide_ui = hide_ui
 			power_pole_selection_map.hide_ui = hide_ui
+			transport_bucket_placement_handler.hide_ui = hide_ui
 
 signal item_dropped(drop: Object)
 signal died
@@ -62,6 +68,10 @@ signal shelter_closed
 signal day_ended
 
 func _ready():
+	_queryable.connect_source(self)
+	_queryable.player_inventory = inventory
+	environment_query_system.add_entity_queryable(_queryable)
+	
 	player_character.is_jumping = func(): return Input.is_action_pressed("player_jump") and not movement_disabled
 	player_character.is_moving_left = func(): return Input.is_action_pressed("player_move_left") and not movement_disabled
 	player_character.is_moving_right = func(): return Input.is_action_pressed("player_move_right") and not movement_disabled
@@ -113,6 +123,12 @@ func _ready():
 	level_map_state.setup_map()
 	map_texture.get_position = func(): return player_character.character.global_position
 	map_texture.source_node = self
+	transport_bucket_placement_handler.node_to_put_transport_buckets_in = node_to_spawn_placeables_in
+	transport_bucket_placement_handler.show_ui = show_ui
+	transport_bucket_placement_handler.hide_ui = hide_ui
+	transport_bucket_placement_handler.environment_query_system = environment_query_system
+	cursor_interaction_handler.mouse_detect_area = player_character.mouse_detect_area
+	cursor_interaction_handler.cursor_interacted = func(): return Input.is_action_just_pressed("cursor_interact")
 	
 	map_texture_updater.map_texture = map_texture
 	

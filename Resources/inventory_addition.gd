@@ -7,6 +7,7 @@ extends Resource
 signal reached_zero
 
 ##Number of batteries gained
+@export var use_exported_properties := false
 @export var gain_batteries := 0:
 	set(new_value):
 		gain_batteries = new_value
@@ -43,6 +44,13 @@ signal reached_zero
 #interface for private variable so you have to use the methods to interact with it so it can check if its reached zero whenever you interact with it.
 var _gain_items: Array[ItemData]
 
+func _init(init_gain_batteries: int = 0, init_gain_steel: int = 0, init_gain_food: int = 0, init_gain_items: Array[ItemData] = []):
+	if !use_exported_properties:
+		gain_batteries = init_gain_batteries
+		gain_steel = init_gain_steel
+		gain_food = init_gain_food
+		_gain_items = init_gain_items.duplicate()
+
 ##Returns true if all values are 0
 func check_reached_zero() -> bool:
 	return gain_batteries == 0 and gain_steel == 0 and gain_food == 0 and _gain_items.size() == 0
@@ -62,3 +70,6 @@ func remove_item(item: ItemData) -> void:
 ##Returns gain items.
 func get_gain_items() -> Array[ItemData]:
 	return _gain_items
+
+func add_item(item: ItemData) -> void:
+	_gain_items.append(item)

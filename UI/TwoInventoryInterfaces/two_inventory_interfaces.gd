@@ -1,3 +1,4 @@
+class_name TwoInventoryUI
 extends Control
 
 @onready var item_grid_interface_one: ItemGridInterface = $HBoxContainer/ItemGridInterface1

@@ -1,0 +1,113 @@
+[gd_scene load_steps=10 format=3 uid="uid://bgqgiy1o0dn8e"]
+
+[ext_resource type="Script" path="res://Objects/TransportBucket/transport_bucket.gd" id="1_7v0ta"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_cdfwf"]
+[ext_resource type="PackedScene" uid="uid://gfntau5ijo5h" path="res://Components/MousePickupComponent/mouse_pickup_area.tscn" id="3_ixegf"]
+[ext_resource type="Script" path="res://Resources/item_data.gd" id="4_m1fc1"]
+[ext_resource type="Resource" uid="uid://bem4gymr67uoh" path="res://Resources/Items/transport_bucket.tres" id="4_n6i3d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xlxon"]
+atlas = ExtResource("2_cdfwf")
+region = Rect2(160, 176, 16, 8)
+
+[sub_resource type="GDScript" id="GDScript_2av58"]
+resource_local_to_scene = true
+script/source = "class_name InventoryAddition
+extends Resource
+
+##Represents values to add to an inventory. Passed to [method Inventory.add_addition]. The variables are subtracted from the inventory addition as they are put into an inventory
+
+##Emitted when all values have reached zero
+signal reached_zero
+
+##Number of batteries gained
+@export var gain_batteries := 0:
+	set(new_value):
+		gain_batteries = new_value
+		assert(new_value >= 0, \"batteries gained can't be negative\")
+		if check_reached_zero():
+			reached_zero.emit()
+		emit_changed()
+##Number of steel gained
+@export var gain_steel := 0:
+	set(new_value):
+		gain_steel = new_value
+		assert(new_value >= 0, \"steel gained can't be negative\")
+		if check_reached_zero():
+			reached_zero.emit()
+		emit_changed()
+##Amount of food gained
+@export var gain_food := 0:
+	set(new_value):
+		gain_food = new_value
+		assert(new_value >= 0, \"food gained can't be negative\")
+		if check_reached_zero():
+			reached_zero.emit()
+		emit_changed()
+##Items gained
+@export var initial_gain_items: Array[ItemData]:
+	set(new_value):
+		if not _gain_items:
+			initial_gain_items = new_value
+			_gain_items = initial_gain_items
+			emit_changed()
+		else:
+			push_warning(\"changing initial_gain_items after initialization does nothing\")
+
+#interface for private variable so you have to use the methods to interact with it so it can check if its reached zero whenever you interact with it.
+var _gain_items: Array[ItemData]
+
+##Returns true if all values are 0
+func check_reached_zero() -> bool:
+	return gain_batteries == 0 and gain_steel == 0 and gain_food == 0 and _gain_items.size() == 0
+
+##Removes all items
+func remove_all_items() -> void:
+	_gain_items = []
+	if check_reached_zero():
+		reached_zero.emit()
+
+##Removes one item using [method Array.erase]
+func remove_item(item: ItemData) -> void:
+	_gain_items.erase(item)
+	if check_reached_zero():
+		reached_zero.emit()
+
+##Returns gain items.
+func get_gain_items() -> Array[ItemData]:
+	return _gain_items
+"
+
+[sub_resource type="Resource" id="Resource_ttl0b"]
+resource_local_to_scene = true
+script = SubResource("GDScript_2av58")
+gain_batteries = 0
+gain_steel = 0
+gain_food = 0
+initial_gain_items = Array[ExtResource("4_m1fc1")]([ExtResource("4_n6i3d")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hriww"]
+
+[node name="TransportBucket" type="Node2D"]
+script = ExtResource("1_7v0ta")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_xlxon")
+
+[node name="MousePickupArea" parent="." node_paths=PackedStringArray("progress_bar", "delete_node") instance=ExtResource("3_ixegf")]
+progress_bar = NodePath("../ProgressBar")
+delete_node = NodePath("..")
+inventory_addition = SubResource("Resource_ttl0b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MousePickupArea"]
+shape = SubResource("RectangleShape2D_hriww")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = -12.0
+scale = Vector2(0.5, 0.5)
+step = 0.0
+value = 10.0
+show_percentage = false

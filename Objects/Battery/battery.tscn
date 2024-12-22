@@ -1,15 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://csa7weg8wqsft"]
+[gd_scene load_steps=7 format=3 uid="uid://csa7weg8wqsft"]
 
 [ext_resource type="PackedScene" uid="uid://cqdyp438enf1x" path="res://Components/WalkOverItemPickupArea/walk_over_item_pickup_area.tscn" id="1_bswfy"]
 [ext_resource type="Script" path="res://Objects/Battery/battery.gd" id="1_rugf0"]
 [ext_resource type="Script" path="res://Resources/inventory_addition.gd" id="2_i7fan"]
+[ext_resource type="Script" path="res://Resources/item_data.gd" id="3_285xo"]
 
-[sub_resource type="Resource" id="Resource_risa3"]
+[sub_resource type="Resource" id="Resource_5b36d"]
+resource_local_to_scene = true
 script = ExtResource("2_i7fan")
+use_exported_properties = true
 gain_batteries = 1
 gain_steel = 0
 gain_food = 0
-initial_gain_items = Array[Resource("res://Resources/item_data.gd")]([])
+initial_gain_items = Array[ExtResource("3_285xo")]([])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h6dp6"]
 size = Vector2(40, 40)
@@ -24,7 +27,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 
 [node name="WalkOverItemPickupArea" parent="." instance=ExtResource("1_bswfy")]
-inventory_addition = SubResource("Resource_risa3")
+inventory_addition = SubResource("Resource_5b36d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WalkOverItemPickupArea"]
 shape = SubResource("RectangleShape2D_h6dp6")

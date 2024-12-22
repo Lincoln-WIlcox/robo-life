@@ -5,6 +5,7 @@ extends State
 @export var map_state: State
 @export var power_pole_selection_map: State
 @export var pickup_stuff_handler: PickupStuffHandler
+@export var cursor_interaction_handler: MouseInteractionHandler
 @export var laser_gun_handler: Node2D
 @export var laser_gun: LaserGun
 
@@ -22,6 +23,7 @@ func run():
 	elif toggle_power_pole_selection_map.call():
 		state_ended.emit(power_pole_selection_map)
 	pickup_stuff_handler.update()
+	cursor_interaction_handler.update()
 	if not just_placed_object:
 		laser_gun_handler.update_firing()
 	if not is_firing.call():

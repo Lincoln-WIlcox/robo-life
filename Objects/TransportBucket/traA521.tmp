@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://bgqgiy1o0dn8e"]
+
+[ext_resource type="Script" path="res://Objects/TransportBucket/transport_bucket.gd" id="1_7v0ta"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_cdfwf"]
+[ext_resource type="PackedScene" uid="uid://gfntau5ijo5h" path="res://Components/MousePickupComponent/mouse_pickup_area.tscn" id="3_ixegf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xlxon"]
+atlas = ExtResource("2_cdfwf")
+region = Rect2(160, 176, 16, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hriww"]
+
+[node name="TransportBucket" type="Node2D"]
+script = ExtResource("1_7v0ta")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_xlxon")
+
+[node name="MousePickupArea" parent="." node_paths=PackedStringArray("progress_bar", "delete_node") instance=ExtResource("3_ixegf")]
+progress_bar = NodePath("../ProgressBar")
+delete_node = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MousePickupArea"]
+shape = SubResource("RectangleShape2D_hriww")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = -12.0
+scale = Vector2(0.5, 0.5)
+step = 0.0
+value = 10.0
+show_percentage = false

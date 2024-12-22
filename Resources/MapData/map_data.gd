@@ -66,4 +66,5 @@ func remove_map_entity(map_entity: MapEntity) -> void:
 	var index: int = _map_entities.find(map_entity)
 	assert(index != -1, "map entity not in map data")
 	_map_entities.remove_at(index)
+	map_entity.source_removed.disconnect(remove_map_entity)
 	map_entity_removed.emit(map_entity)

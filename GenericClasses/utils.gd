@@ -295,3 +295,25 @@ static func packed_vector_arrays_to_polygons(packed_vector_arrays: Array[PackedV
 static func add_children(adding_to_node: Node, nodes_to_add: Array[Node]) -> void:
 	for child: Node in nodes_to_add:
 		adding_to_node.add_child(child)
+
+static func get_normalized_delta_time() -> float:
+	return 1.0 / float(Engine.max_fps)
+
+static func float_per_frame_to_float_per_time(value: float, delta: float) -> float:
+	return value * delta / get_normalized_delta_time()
+
+static func get_index_of_point_along_curve_before_offset(curve: Curve2D, offset: float) -> int:
+	var curve_copy: Curve2D = curve.duplicate()
+	
+	while curve_copy.get_baked_length() > offset:
+		curve_copy.remove_point(curve_copy.point_count - 1)
+	
+	return curve_copy.point_count - 1
+
+static func get_offset_of_point_along_curve(curve: Curve2D, point_index: int) -> float:
+	var curve_copy: Curve2D = curve.duplicate()
+	
+	while curve_copy.point_count - 1 > point_index:
+		curve_copy.remove_point(curve_copy.point_count - 1)
+	
+	return curve_copy.get_baked_length()

@@ -13,12 +13,13 @@ extends Placeable
 var _drawn_lines = []
 
 func _ready():
+	super()
 	queryable.connect_source(self)
 	if enviornment_query_system:
 		enviornment_query_system.add_entity_queryable(queryable)
 	
 	power_pole_selection_map_entity.source_node = self
-	power_pole_selection_map_entity.scene_setup.connect(_on_power_pole_selection_map_entity_setup)
+	power_pole_selection_map_entity.scene_setup.connect(_on_power_pole_selection_map_entity_setup.bind(power_pole_selection_map_entity))
 	
 	if start_placed:
 		#for some reason you have to wait two physics frams
@@ -30,8 +31,8 @@ func add_to_enviornment_query_system(enviornment_query_system: EnvironmentQueryS
 	enviornment_query_system = enviornment_query_system
 	enviornment_query_system.add_entity_queryable(queryable)
 
-func _on_power_pole_selection_map_entity_setup() -> void:
-	power_pole_selection_map_entity.instance.position = global_position
+func _on_power_pole_selection_map_entity_setup(map_entity: SelectablePowerPoleMapEntity) -> void:
+	map_entity.instance.position = global_position
 
 func _on_placed():
 	super()
@@ -63,3 +64,9 @@ func remove_lines():
 
 func get_connections_to_connect_to() -> Array[Area2D]:
 	return connect_area.get_overlapping_areas().filter(func(area: Area2D): return area is PowerConnector and area != power_connector)
+
+func make_selectable_power_pole_map_entity() -> SelectablePowerPoleMapEntity:
+	var new_map_entity: SelectablePowerPoleMapEntity = power_pole_selection_map_entity.duplicate()
+	new_map_entity.source_node = self
+	new_map_entity.scene_setup.connect(_on_power_pole_selection_map_entity_setup.bind(new_map_entity))
+	return new_map_entity

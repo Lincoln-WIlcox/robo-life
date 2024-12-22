@@ -1,0 +1,141 @@
+[gd_scene load_steps=17 format=3 uid="uid://cng4tm54hq536"]
+
+[ext_resource type="Script" path="res://Objects/PowerPole/power_pole.gd" id="1_kt56x"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_gq44m"]
+[ext_resource type="PackedScene" uid="uid://sm5rnfdhpnwf" path="res://UI/Map/MapScenes/SelectablePowerPole/selectable_power_pole.tscn" id="2_wsl8g"]
+[ext_resource type="PackedScene" uid="uid://g1sd2n28vfvx" path="res://Components/PowerConnection/power_connection.tscn" id="3_1oihy"]
+[ext_resource type="Script" path="res://Resources/MapData/selectable_power_pole_map_entity.gd" id="3_t3fk7"]
+[ext_resource type="PackedScene" uid="uid://gfntau5ijo5h" path="res://Components/MousePickupComponent/mouse_pickup_area.tscn" id="4_4q22u"]
+[ext_resource type="Script" path="res://Resources/QueryableEntity/queryable_entity.gd" id="4_blenl"]
+[ext_resource type="Resource" uid="uid://b3au5vg63nxkc" path="res://Resources/Items/power_pole.tres" id="5_23ris"]
+[ext_resource type="Script" path="res://Resources/item_data.gd" id="8_8lk3y"]
+
+[sub_resource type="Resource" id="Resource_a1sjy"]
+resource_local_to_scene = true
+script = ExtResource("3_t3fk7")
+packed_scene = ExtResource("2_wsl8g")
+
+[sub_resource type="Resource" id="Resource_heqyy"]
+resource_local_to_scene = true
+script = ExtResource("4_blenl")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g345s"]
+atlas = ExtResource("2_gq44m")
+region = Rect2(112, 96, 16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_agpx2"]
+radius = 128.0
+
+[sub_resource type="GDScript" id="GDScript_0ctps"]
+resource_local_to_scene = true
+script/source = "class_name InventoryAddition
+extends Resource
+
+##Represents values to add to an inventory. Passed to [method Inventory.add_addition]. The variables are subtracted from the inventory addition as they are put into an inventory
+
+##Emitted when all values have reached zero
+signal reached_zero
+
+##Number of batteries gained
+@export var gain_batteries := 0:
+	set(new_value):
+		gain_batteries = new_value
+		assert(new_value >= 0, \"batteries gained can't be negative\")
+		if check_reached_zero():
+			reached_zero.emit()
+		emit_changed()
+##Number of steel gained
+@export var gain_steel := 0:
+	set(new_value):
+		gain_steel = new_value
+		assert(new_value >= 0, \"steel gained can't be negative\")
+		if check_reached_zero():
+			reached_zero.emit()
+		emit_changed()
+##Amount of food gained
+@export var gain_food := 0:
+	set(new_value):
+		gain_food = new_value
+		assert(new_value >= 0, \"food gained can't be negative\")
+		if check_reached_zero():
+			reached_zero.emit()
+		emit_changed()
+##Items gained
+@export var initial_gain_items: Array[ItemData]:
+	set(new_value):
+		if not _gain_items:
+			initial_gain_items = new_value
+			_gain_items = initial_gain_items
+			emit_changed()
+		else:
+			push_warning(\"changing initial_gain_items after initialization does nothing\")
+
+#interface for private variable so you have to use the methods to interact with it so it can check if its reached zero whenever you interact with it.
+var _gain_items: Array[ItemData]
+
+##Returns true if all values are 0
+func check_reached_zero() -> bool:
+	return gain_batteries == 0 and gain_steel == 0 and gain_food == 0 and _gain_items.size() == 0
+
+##Removes all items
+func remove_all_items() -> void:
+	_gain_items = []
+	if check_reached_zero():
+		reached_zero.emit()
+
+##Removes one item using [method Array.erase]
+func remove_item(item: ItemData) -> void:
+	_gain_items.erase(item)
+	if check_reached_zero():
+		reached_zero.emit()
+
+##Returns gain items.
+func get_gain_items() -> Array[ItemData]:
+	return _gain_items
+"
+
+[sub_resource type="Resource" id="Resource_t2d8v"]
+resource_local_to_scene = true
+script = SubResource("GDScript_0ctps")
+gain_batteries = 0
+gain_steel = 0
+gain_food = 0
+initial_gain_items = Array[ExtResource("8_8lk3y")]([ExtResource("5_23ris")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q0fjy"]
+size = Vector2(16, 16)
+
+[node name="PowerPole" type="Node2D"]
+script = ExtResource("1_kt56x")
+power_pole_selection_map_entity = SubResource("Resource_a1sjy")
+queryable = SubResource("Resource_heqyy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_g345s")
+
+[node name="PowerConnector" parent="." instance=ExtResource("3_1oihy")]
+
+[node name="ConnectArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1024
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ConnectArea"]
+shape = SubResource("CircleShape2D_agpx2")
+
+[node name="MousePickupArea" parent="." node_paths=PackedStringArray("progress_bar", "delete_node") instance=ExtResource("4_4q22u")]
+progress_bar = NodePath("../ProgressBar")
+delete_node = NodePath("..")
+inventory_addition = SubResource("Resource_t2d8v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MousePickupArea"]
+shape = SubResource("RectangleShape2D_q0fjy")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = -12.0
+scale = Vector2(0.5, 0.5)
+step = 0.0
+value = 10.0
+show_percentage = false

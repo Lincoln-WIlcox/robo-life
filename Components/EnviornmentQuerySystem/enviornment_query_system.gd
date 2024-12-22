@@ -95,8 +95,11 @@ func get_solidity_bounding_box() -> Rect2:
 	
 	return biggest_rect
 
-func get_queryables_by_class(class_name_string: String) -> Array[QueryableEntity]:
-	return _queryable_entities.filter(func(queryable: QueryableEntity): return queryable.is_class(class_name_string))
+func get_queryables_by_class(type: Variant) -> Array[QueryableEntity]:
+	return _queryable_entities.filter(func(queryable: QueryableEntity): return is_instance_of(queryable, type))
+
+func get_queryables_by_source_class(type: Variant) -> Array[QueryableEntity]:
+	return _queryable_entities.filter(func(queryable: QueryableEntity): return is_instance_of(queryable.source_node, type))
 
 # --- private methods
 

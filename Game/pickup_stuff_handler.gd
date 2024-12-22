@@ -9,13 +9,17 @@ var just_started_picking_up := false
 
 func update():
 	just_started_picking_up = false
-	var pickup_areas: Array[Area2D] = MouseArea.get_overlapping_areas().filter(func(a: Area2D): return a is MousePickupArea)
+	var pickup_areas: Array[MousePickupArea]
+	var pickup_areas_assigner: Array[Area2D] = MouseArea.get_overlapping_areas().filter(func(a: Area2D): return a is MousePickupArea)
+	pickup_areas.assign(pickup_areas_assigner)
 	
 	if pickup.call() and pickup_areas.size() > 0:
 		just_started_picking_up = true
-		var pickup_area: MousePickupArea = pickup_areas[0]
+		var highest_priority: int = pickup_areas.reduce(func(agg: int, area: MousePickupArea): return max(agg, area.pickup_priority), -INF)
+		var areas_with_highest_priorty = pickup_areas.filter(func(area: MousePickupArea): return area.pickup_priority >= highest_priority)
+		var pickup_area: MousePickupArea = areas_with_highest_priorty[0]
 		
-		if not inventory.item_grid.item_can_be_added(pickup_area.item):
+		if not inventory.can_add_addition(pickup_area.inventory_addition):
 			pickup_area.no_space()
 		else:
 			if mouse_detect_area.mouse_over:
@@ -27,7 +31,8 @@ func update():
 				pickup_area.pickup_out_of_range()
 
 func _on_pickup_timer_ended(pickup_area: MousePickupArea):
-	if inventory.add_item(pickup_area.item):
+	if inventory.can_add_addition(pickup_area.inventory_addition):
+		inventory.add_addition(pickup_area.inventory_addition)
 		pickup_area.on_pickup()
 	else:
 		pickup_area.no_space()

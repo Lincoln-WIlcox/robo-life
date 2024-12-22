@@ -1,0 +1,86 @@
+[gd_scene load_steps=14 format=3 uid="uid://bgqgiy1o0dn8e"]
+
+[ext_resource type="Script" path="res://Objects/TransportBucket/transport_bucket.gd" id="1_7v0ta"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_cdfwf"]
+[ext_resource type="PackedScene" uid="uid://lxxl844xt4sk" path="res://Components/VelocityComponent/velocity_component.tscn" id="3_3rux8"]
+[ext_resource type="PackedScene" uid="uid://gfntau5ijo5h" path="res://Components/MousePickupComponent/mouse_pickup_area.tscn" id="3_ixegf"]
+[ext_resource type="Script" path="res://Resources/item_data.gd" id="4_3bam2"]
+[ext_resource type="PackedScene" uid="uid://56x88ls7d0gr" path="res://Components/MouseInteractionArea/mouse_interaction_area.tscn" id="4_4oqso"]
+[ext_resource type="PackedScene" uid="uid://02awkvcr8831" path="res://Components/CharacterGravityComponent/gravity_component.tscn" id="4_poia0"]
+[ext_resource type="Resource" uid="uid://bem4gymr67uoh" path="res://Resources/Items/transport_bucket.tres" id="5_6rcnf"]
+[ext_resource type="Script" path="res://Resources/inventory_addition.gd" id="6_o15mr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xlxon"]
+atlas = ExtResource("2_cdfwf")
+region = Rect2(160, 176, 16, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hriww"]
+
+[sub_resource type="Resource" id="Resource_e1ntg"]
+script = ExtResource("6_o15mr")
+use_exported_properties = false
+gain_batteries = 0
+gain_steel = 0
+gain_food = 0
+initial_gain_items = Array[ExtResource("4_3bam2")]([ExtResource("5_6rcnf")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_51rb4"]
+size = Vector2(16, 8)
+
+[node name="TransportBucket" type="Node2D"]
+z_index = 1
+script = ExtResource("1_7v0ta")
+transport_bucket_item = ExtResource("5_6rcnf")
+
+[node name="VelocityComponent" parent="." node_paths=PackedStringArray("affecting_node") instance=ExtResource("3_3rux8")]
+affecting_node = NodePath("../CharacterBody2D")
+
+[node name="GravityComponent" parent="." node_paths=PackedStringArray("velocity_component", "character") instance=ExtResource("4_poia0")]
+velocity_component = NodePath("../VelocityComponent")
+character = NodePath("../CharacterBody2D")
+active = false
+
+[node name="Path2D" type="Path2D" parent="."]
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+rotates = false
+loop = false
+
+[node name="TransportBucketContent" type="Node2D" parent="Path2D/PathFollow2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Path2D/PathFollow2D/TransportBucketContent"]
+texture = SubResource("AtlasTexture_xlxon")
+
+[node name="MouseInteractionArea" parent="Path2D/PathFollow2D/TransportBucketContent" instance=ExtResource("4_4oqso")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/TransportBucketContent/MouseInteractionArea"]
+shape = SubResource("RectangleShape2D_hriww")
+
+[node name="MousePickupArea" parent="Path2D/PathFollow2D/TransportBucketContent" node_paths=PackedStringArray("progress_bar", "delete_node") instance=ExtResource("3_ixegf")]
+progress_bar = NodePath("../ProgressBar")
+delete_node = NodePath("../../../..")
+inventory_addition = SubResource("Resource_e1ntg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/TransportBucketContent/MousePickupArea"]
+shape = SubResource("RectangleShape2D_hriww")
+
+[node name="ProgressBar" type="ProgressBar" parent="Path2D/PathFollow2D/TransportBucketContent"]
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = -12.0
+scale = Vector2(0.5, 0.5)
+step = 0.0
+value = 10.0
+show_percentage = false
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+collision_layer = 8
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_51rb4")
+
+[connection signal="interacted_with" from="Path2D/PathFollow2D/TransportBucketContent/MouseInteractionArea" to="." method="_on_mouse_interaction_area_interacted_with"]
+[connection signal="cancelled_picking_up" from="Path2D/PathFollow2D/TransportBucketContent/MousePickupArea" to="." method="_on_mouse_pickup_area_cancelled_picking_up"]
+[connection signal="started_picking_up" from="Path2D/PathFollow2D/TransportBucketContent/MousePickupArea" to="." method="_on_mouse_pickup_area_started_picking_up"]
