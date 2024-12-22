@@ -13,8 +13,6 @@ extends Node2D
 @export var steel_amount := 20
 @export var progress_bar: ProgressBar
 
-signal item_spent(item_pickup: ItemPickup)
-
 var _drill_on_mine := false:
 	set(new_value):
 		_drill_on_mine = new_value

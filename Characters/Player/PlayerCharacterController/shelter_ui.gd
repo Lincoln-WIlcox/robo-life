@@ -12,7 +12,6 @@ var inventory: Inventory
 signal shelter_opened
 signal shelter_closed
 signal day_ended
-signal transfer_food_pressed
 
 func enter():
 	var shelter_ui: ShelterUI = shelter_ui_packed_scene.instantiate()

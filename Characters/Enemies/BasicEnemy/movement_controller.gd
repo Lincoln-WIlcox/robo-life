@@ -15,7 +15,7 @@ const MAXIMUM_TIME = 1.5
 var _is_moving_right = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
+func _physics_process(_delta):
 	velocity_component.accelerate_x_to_velocity(SPEED if _is_moving_right else -SPEED)
 	
 	if not floor_checker_left.is_colliding():

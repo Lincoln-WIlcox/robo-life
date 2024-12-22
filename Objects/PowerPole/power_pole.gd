@@ -27,8 +27,8 @@ func _ready():
 		await Engine.get_main_loop().physics_frame
 		place()
 
-func add_to_enviornment_query_system(enviornment_query_system: EnvironmentQuerySystem) -> void:
-	enviornment_query_system = enviornment_query_system
+func add_to_enviornment_query_system(new_enviornment_query_system: EnvironmentQuerySystem) -> void:
+	enviornment_query_system = new_enviornment_query_system
 	enviornment_query_system.add_entity_queryable(queryable)
 
 func _on_power_pole_selection_map_entity_setup(map_entity: SelectablePowerPoleMapEntity) -> void:
@@ -41,7 +41,7 @@ func _on_placed():
 	for power_connector_to_connect_to: PowerConnector in connections_to_connect_to:
 		power_connector.connect_to(power_connector_to_connect_to)
 
-func _process(delta):
+func _process(_delta):
 	remove_lines()
 	if not _placed:
 		var connections_to_connect_to := get_connections_to_connect_to()

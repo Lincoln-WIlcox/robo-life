@@ -34,7 +34,7 @@ func _on_enviornment_query_system_queryable_added(added_queryable: QueryableEnti
 		_map_data.add_map_entity(added_queryable.source_node.power_pole_selection_map_entity)
 
 #when is this getting called?
-func _on_map_ui_power_pole_selected(power_pole: SelectablePowerPoleMapEntity) -> void:
+func _on_map_ui_power_pole_selected(_power_pole) -> void:
 	state_ended.emit(none_state)
 	_map_ui.reset_selected_power_pole()
 

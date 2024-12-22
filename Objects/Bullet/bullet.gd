@@ -5,7 +5,7 @@ extends Node2D
 @onready var visible_on_screen_notifier = $Marker2D/VisibleOnScreenNotifier2D
 
 @export var speed := 5
-@export var direction := 0:
+@export var direction: float = 0:
 	set(new_value):
 		rotation_degrees = new_value
 	get:
@@ -17,7 +17,7 @@ extends Node2D
 	#if not visible_on_screen_notifier.is_on_screen():
 		#destroy()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	marker.position.x += speed
 
 func _on_hitbox_body_entered(body):

@@ -8,8 +8,6 @@ extends State
 var is_drill_on_mine: Callable = func(): return true
 var steel_remaining := 0
 
-signal drill_hit_steel
-
 func enter():
 	spawn_steel_timer.start()
 

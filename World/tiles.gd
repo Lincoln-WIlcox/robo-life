@@ -4,8 +4,6 @@ extends TileMapLayer
 @export var one_way_platform_packed_scene: PackedScene
 @export var environment_query_system: EnvironmentQuerySystem
 
-signal battery_used
-
 func _ready():
 	for tile_position: Vector2 in get_used_cells():
 		var tile: TileData = get_cell_tile_data(tile_position)
@@ -42,6 +40,3 @@ func _apply_one_way(tile_position):
 	one_way_platform.position = local_position
 	environment_query_system.add_solid_entity_body(one_way_platform)
 	add_child(one_way_platform)
-
-func _on_changed():
-	pass # Replace with function body.

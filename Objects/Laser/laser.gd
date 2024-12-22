@@ -23,12 +23,12 @@ func _ready():
 	raycast.target_position.x = maximum_length
 	heat_area.heat_amount = heat_amount
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var laser_end_position: Vector2 = raycast.get_collision_point() if raycast.is_colliding() else (raycast.target_position.rotated(raycast.global_rotation)) + raycast.global_position
 	collision_shape.global_position = laser_end_position
 	collision_shape.position.x -= SHAPE_OFFSET
 
-func _process(delta):
+func _process(_delta):
 	var laser_end_position: Vector2 = raycast.get_collision_point() if raycast.is_colliding() else (raycast.target_position.rotated(raycast.global_rotation)) + raycast.global_position
 	line.set_point_position(1, laser_end_position - line.global_position)
 	line.global_rotation = 0

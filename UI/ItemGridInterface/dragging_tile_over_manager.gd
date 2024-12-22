@@ -4,7 +4,7 @@ var tiles: Callable = func(): return []
 var empty_tiles: Callable = func(): return []
 var item_grid: Callable = func(): return ItemGrid.new()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	_remove_highlights()
 	for empty_tile: ItemGridEmptyTile in empty_tiles.call():
 		if empty_tile.targeted_by_grid_item:

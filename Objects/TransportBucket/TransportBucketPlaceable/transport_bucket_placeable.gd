@@ -40,7 +40,6 @@ func _on_power_connector_detection_area_area_exited(area: Area2D):
 		_update_nearby_power_connector()
 
 func _update_nearby_power_connector() -> void:
-	var overlapping_areas: Array[Area2D] = power_connector_detection_area.get_overlapping_areas()
 	_nearby_power_connector = null
 	for overlapping_area: Area2D in power_connector_detection_area.get_overlapping_areas():
 		_compare_and_update_nearby_power_connector(overlapping_area)

@@ -26,7 +26,7 @@ func _ready():
 	shoot_player_controller.node_to_put_bullets_in = node_to_put_nodes_in
 	pickup_spawner.node_to_spawn_pickup_in = node_to_put_nodes_in
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	shoot_player_controller.target = target.global_position
 
 func _on_overheater_max_heat_reached():

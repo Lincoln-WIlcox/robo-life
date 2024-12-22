@@ -42,7 +42,7 @@ func _ready():
 	else:
 		make_progress()
 
-func _process(delta):
+func _process(_delta):
 	progress_bar.value = timer.time_left
 
 func make_progress() -> void:
