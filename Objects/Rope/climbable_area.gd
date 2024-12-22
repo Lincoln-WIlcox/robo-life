@@ -16,7 +16,7 @@ const ROPE_WIDTH = 16
 @export var tile_height: float:
 	set(new_value):
 		tile_height = new_value
-		height = new_value * 16.0
+		height = roundi(new_value * 16.0)
 	get:
 		return float(height) / 16
 
