@@ -24,22 +24,11 @@ func load_level(_level: PackedScene) -> void:
 		world.queue_free()
 	world = current_level_packed_scene.instantiate()
 	add_child(world)
-	world.player_died.connect(_on_world_day_ended)
 	world.active_player_changed.connect(_on_active_player_changed)
 	_on_active_player_changed(world.active_player)
-	#shelter_ui.item_grid_one = world.shelter_item_grid
 	hud.time_left = func(): return round(world.day_night_cycle.get_time_left())
 	world.show_ui = UILayer.show_ui
 	world.hide_ui = UILayer.hide_ui
-	#place_object_handler.placing_item.connect(world.add_child)
-
-#func _open_inventory_gui() -> void:
-	#inventory_gui.open_gui()
-	#world.active_player.movement_disabled = true
-#
-#func _close_inventory_gui() -> void:
-	#inventory_gui.close_gui()
-	#world.active_player.movement_disabled = false
 
 func _on_world_day_ended():
 	world.call_deferred("set_process_mode", Node.PROCESS_MODE_DISABLED)
@@ -50,30 +39,7 @@ func _on_game_over_menu_play_again_pressed():
 	load_level(current_level_packed_scene)
 
 func _on_active_player_changed(active_player: PlayerCharacterController):
-	#inventory_state.get_active_player = func(): return active_player
-	active_player.died.connect(
-		func(): 
-			world.call_deferred("set_process_mode", Node.PROCESS_MODE_DISABLED)
-			game_over_menu.show_menu_with_death_message(DEATH_MESSAGE)
-	)
-	#if not active_player.inventory_opened.is_connected(inventory_gui.open_gui):
-		#active_player.inventory_opened.connect(inventory_gui.open_gui)
-	#if not active_player.inventory_closed.is_connected(inventory_gui.close_gui):
-		#active_player.inventory_closed.connect(inventory_gui.close_gui)
-	#if not inventory_gui.item_dropped.is_connected(active_player.handle_drop_item):
-		#inventory_gui.item_dropped.connect(active_player.handle_drop_item)
-	#if not active_player.shelter_opened.is_connected(shelter_ui.open_gui):
-		#active_player.shelter_opened.connect(shelter_ui.open_gui)
-	#if not active_player.shelter_closed.is_connected(shelter_ui.close_gui):
-		#active_player.shelter_closed.connect(shelter_ui.close_gui)
-	#inventory_gui.item_grid = active_player.inventory.item_grid
-	#shelter_ui.item_grid_two = active_player.inventory.item_grid
-	
-	#placing_object_state.item_placed.connect(active_player.inventory.remove_item)
-	#place_object_handler.mouse_detect_area = active_player.mouse_detect_area
-	#pickup_stuff_handler.mouse_detect_area = active_player.mouse_detect_area
-	#pickup_stuff_handler.inventory = active_player.inventory
+	active_player.died.connect(_on_world_day_ended)
 
 func _on_active_player_inventory_changed(inventory: Inventory):
 	hud.battery_quantity = inventory.batteries
-	#inventory_gui.update_grid()

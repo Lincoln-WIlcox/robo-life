@@ -11,7 +11,6 @@ extends Node2D
 		active_player_changed.emit(active_player)
 @export var shelter_inventory: Inventory
 
-#signal player_died
 signal active_player_changed(active_player: PlayerCharacterController)
 
 var show_ui: Callable:
