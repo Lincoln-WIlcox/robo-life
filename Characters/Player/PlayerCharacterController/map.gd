@@ -36,4 +36,4 @@ func run():
 		state_ended.emit(none_state)
 
 func exit():
-	hide_ui.call(false)
+	hide_ui.call()

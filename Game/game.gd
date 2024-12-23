@@ -29,6 +29,7 @@ func load_level(_level: PackedScene) -> void:
 	hud.time_left = func(): return round(world.day_night_cycle.get_time_left())
 	world.show_ui = UILayer.show_ui
 	world.hide_ui = UILayer.hide_ui
+	world.get_current_ui = UILayer.get_current_ui
 
 func _on_world_day_ended():
 	world.call_deferred("set_process_mode", Node.PROCESS_MODE_DISABLED)

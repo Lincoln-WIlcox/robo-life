@@ -13,13 +13,17 @@ signal shelter_opened
 signal shelter_closed
 signal day_ended
 
-func enter():
-	var shelter_ui: ShelterUI = shelter_ui_packed_scene.instantiate()
+var shelter_ui: ShelterUI
+
+func setup_ui() -> void:
+	shelter_ui = shelter_ui_packed_scene.instantiate()
 	shelter_ui.shelter_inventory = shelter_inventory
 	shelter_ui.player_inventory = inventory
 	shelter_ui.end_day_pressed.connect(_on_end_day_pressed)
 	shelter_ui.transfer_food_pressed.connect(_transfer_food)
 	shelter_ui.crafting_pressed.connect(_on_crafting_pressed)
+
+func enter():
 	show_ui.call(shelter_ui)
 	shelter_opened.emit()
 

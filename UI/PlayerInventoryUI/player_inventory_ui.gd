@@ -22,5 +22,9 @@ func update_children() -> void:
 	item_grid_interface.item_grid = player_inventory.item_grid
 	label.text = FOOD_LABEL_TEXT + str(player_inventory.get_food()) + "/" + str(player_inventory.max_food)
 
-func close_gui() -> void:
+func on_gui_closed() -> void:
 	item_grid_interface.close_gui()
+
+func _on_tree_entered() -> void:
+	if is_node_ready():
+		item_grid_interface.update_grid()

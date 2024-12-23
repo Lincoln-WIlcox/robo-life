@@ -38,3 +38,5 @@ text = "food:"
 [node name="BottomMargin" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]

@@ -48,10 +48,6 @@ func _ready():
 	dragging_tile_over_manager.empty_tiles = func(): return empty_tiles
 	dragging_tile_over_manager.item_grid = func(): return item_grid
 
-#func open_gui() -> void:
-	#show()
-	#update_grid()
-
 func close_gui() -> void:
 	dragging.gui_exited()
 
@@ -62,6 +58,9 @@ func update_grid() -> void:
 	if _updating_grid == false:
 		_updating_grid = true
 		remove_tiles()
+		
+		if not is_inside_tree():
+			await tree_entered
 		
 		if grid_container.get_children().size() > 0:
 			await grid_container.get_children()[grid_container.get_children().size() - 1].tree_exited
@@ -87,10 +86,10 @@ func update_grid() -> void:
 				
 				if not found_overlapping_grid_item:
 					make_empty_tile(grid_position)
-		
 
 func remove_tiles() -> void:
 	for child: Node in grid_container.get_children():
+		grid_container.remove_child(child)
 		child.queue_free()
 
 func make_margin() -> void:
