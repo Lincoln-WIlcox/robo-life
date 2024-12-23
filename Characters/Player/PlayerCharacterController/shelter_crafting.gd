@@ -7,13 +7,17 @@ var show_ui: Callable
 var hide_ui: Callable
 var player_inventory: Inventory
 var shelter_inventory: Inventory
+var crafting_ui
 
-func enter():
-	var crafting_ui = crafting_ui_packed_scene.instantiate()
+func setup_ui() -> void:
+	crafting_ui = crafting_ui_packed_scene.instantiate()
 	crafting_ui.player_inventory = player_inventory
 	crafting_ui.shelter_inventory = shelter_inventory
 	crafting_ui.return_pressed.connect(_on_return_pressed)
+
+func enter():
 	show_ui.call(crafting_ui)
+	crafting_ui.update_nodes()
 
 func exit():
 	hide_ui.call()

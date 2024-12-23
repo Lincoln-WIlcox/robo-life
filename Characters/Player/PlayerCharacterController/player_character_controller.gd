@@ -30,6 +30,7 @@ extends Node2D
 		shelter_inventory = new_value
 		shelter_shelter_state.shelter_inventory = shelter_inventory
 		crafting_state.shelter_inventory = shelter_inventory
+		shelter_shelter_state.setup_ui()
 @export var environment_query_system: EnvironmentQuerySystem
 @export var level_map_map_entity_collection: MapEntityCollection
 
@@ -107,6 +108,7 @@ func _ready():
 	inventory_state.setup_ui(inventory)
 	shelter_state.interaction_area = player_character.interaction_area
 	crafting_state.player_inventory = inventory
+	crafting_state.setup_ui()
 	shelter_shelter_state.shelter_opened.connect(func(): shelter_opened.emit())
 	shelter_shelter_state.shelter_closed.connect(func(): shelter_closed.emit())
 	shelter_shelter_state.shelter_inventory = shelter_inventory

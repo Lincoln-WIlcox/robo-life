@@ -123,8 +123,9 @@ cursor_interaction_handler = NodePath("../../CursorInteractionHandler")
 laser_gun_handler = NodePath("../../PlayerLaserGunHandler")
 laser_gun = NodePath("../../LaserGun")
 
-[node name="Other" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("inventory_state", "map_state", "power_pole_selection_state")]
+[node name="Other" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("none_state", "inventory_state", "map_state", "power_pole_selection_state")]
 script = ExtResource("18_ysl17")
+none_state = NodePath("../None")
 inventory_state = NodePath("../Inventory")
 map_state = NodePath("../LevelMap")
 power_pole_selection_state = NodePath("../PowerPoleSelection")
