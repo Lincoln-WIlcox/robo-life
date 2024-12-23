@@ -23,7 +23,7 @@ extends Node2D
 @onready var animated_sprite: AnimatedSprite2D = $PlayerCharacterBody/AnimatedSprite2D
 @onready var inventory_interaction_handler = $InventoryInteractionHandler
 @onready var drop_item_handler = $DropItemHandler
-@onready var mouse_detect_area = $PlayerCharacterBody/MouseDetectArea
+@onready var cursor_detect_area = $PlayerCharacterBody/CursorDetectArea
 @onready var interaction_area = $PlayerCharacterBody/InteractArea
 @onready var shield_progress_bar = $PlayerCharacterBody/ShieldProgressBar
 @onready var gas_handler = $GasHandler

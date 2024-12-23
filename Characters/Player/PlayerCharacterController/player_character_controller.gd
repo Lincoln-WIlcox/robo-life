@@ -83,16 +83,16 @@ func _ready():
 	player_character.item_dropped.connect(func(drop: Object): item_dropped.emit(drop))
 	player_character.died.connect(func(): died.emit())
 	pickup_stuff_handler.inventory = inventory
-	pickup_stuff_handler.mouse_detect_area = player_character.mouse_detect_area
+	pickup_stuff_handler.cursor_detect_area = player_character.cursor_detect_area
 	inventory_state.active_player = player_character
 	inventory_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
 	placing_object_state.place_object = func(): return Input.is_action_just_pressed("place_object")
 	placing_object_state.cancel_placing_object = func(): return Input.is_action_just_pressed("cancel_placing_object")
 	placing_object_state.inventory = inventory
 	pickup_stuff_handler.pickup = func(): return Input.is_action_just_pressed("pickup")
-	pickup_stuff_handler.mouse_detect_area = player_character.mouse_detect_area
+	pickup_stuff_handler.cursor_detect_area = player_character.cursor_detect_area
 	pickup_stuff_handler.inventory = inventory
-	place_object_handler.mouse_detect_area = player_character.mouse_detect_area
+	place_object_handler.cursor_detect_area = player_character.cursor_detect_area
 	place_object_handler.node_to_spawn_placeables_in = node_to_spawn_placeables_in
 	laser_gun_handler.is_firing = func(): return Input.is_action_pressed("fire")
 	inventory_state.inventory_opened.connect(func(): inventory_opened.emit())
@@ -127,7 +127,7 @@ func _ready():
 	transport_bucket_placement_handler.show_ui = show_ui
 	transport_bucket_placement_handler.hide_ui = hide_ui
 	transport_bucket_placement_handler.environment_query_system = environment_query_system
-	cursor_interaction_handler.mouse_detect_area = player_character.mouse_detect_area
+	cursor_interaction_handler.cursor_detect_area = player_character.cursor_detect_area
 	cursor_interaction_handler.cursor_interacted = func(): return Input.is_action_just_pressed("cursor_interact")
 	
 	map_texture_updater.map_texture = map_texture

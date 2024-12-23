@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dgsqt81g28ys"]
-
-[ext_resource type="Script" path="res://Components/MouseDetectArea/mouse_detect_area.gd" id="1_tiomo"]
-
-[node name="MouseDetectArea" type="Area2D"]
-collision_mask = 16
-script = ExtResource("1_tiomo")
