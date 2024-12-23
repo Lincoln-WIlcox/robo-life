@@ -14,13 +14,13 @@ func update():
 	if cursor_interacted.call() and interaction_areas.size() > 0:
 		var highest_priority: int = interaction_areas.reduce(func(agg: int, area: MouseInteractionArea): return max(agg, area.pickup_priority), -INF)
 		var areas_with_highest_priorty := interaction_areas.filter(func(area: MouseInteractionArea): return area.pickup_priority >= highest_priority)
-		var interaction_area: MouseInteractionArea = areas_with_highest_priorty[0]
+		var mouse_interaction_area: MouseInteractionArea = areas_with_highest_priorty[0]
 		
-		_handle_interaction(interaction_area)
+		_handle_interaction(mouse_interaction_area)
 
-func _handle_interaction(interaction_area: MouseInteractionArea) -> void:
+func _handle_interaction(mouse_interaction_area: MouseInteractionArea) -> void:
 	if mouse_detect_area.mouse_over:
-		interaction_area.interact()
-		interacted.emit()
+		mouse_interaction_area.interact()
+		interacted.emit(mouse_interaction_area)
 	else:
-		interaction_area.interaction_out_of_range()
+		mouse_interaction_area.interaction_out_of_range()

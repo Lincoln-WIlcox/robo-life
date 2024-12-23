@@ -179,6 +179,6 @@ heat_amount = 2
 [connection signal="shelter_interacted_with" from="PlayerCharacter" to="UIStateMachine/None" method="_on_player_character_shelter_interacted_with"]
 [connection signal="item_dropped" from="UIStateMachine/Inventory" to="." method="handle_drop_item"]
 [connection signal="day_ended" from="UIStateMachine/Shelter/ShelterStateMachine/Shelter" to="." method="_on_shelter_day_ended"]
-[connection signal="placeable_placed" from="PlaceObjectHandler" to="TransportBucketPlacementHandler" method="_on_place_object_handler_placeable_placed"]
+[connection signal="interacted" from="CursorInteractionHandler" to="UIStateMachine/None" method="_on_cursor_interaction_handler_interacted"]
 [connection signal="placeable_placed" from="PlaceObjectHandler" to="PowerPolePlacementHandler" method="_on_place_object_handler_placeable_placed"]
 [connection signal="placing_placeable" from="PlaceObjectHandler" to="TransportBucketPlacementHandler" method="_on_place_object_handler_placing_placeable"]

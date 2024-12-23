@@ -13,6 +13,7 @@ var toggle_inventory: Callable
 var toggle_map: Callable
 var toggle_power_pole_selection_map: Callable
 var just_placed_object := false
+var just_interacted_with_object := false
 var is_firing: Callable
 
 func run():
@@ -24,10 +25,11 @@ func run():
 		state_ended.emit(power_pole_selection_map)
 	pickup_stuff_handler.update()
 	cursor_interaction_handler.update()
-	if not just_placed_object:
+	if not just_placed_object and not just_interacted_with_object:
 		laser_gun_handler.update_firing()
 	if not is_firing.call():
 		just_placed_object = false
+		just_interacted_with_object = false
 
 func exit():
 	laser_gun.firing = false
@@ -36,3 +38,6 @@ func _on_player_character_shelter_interacted_with(shelter_area: ShelterInteracti
 	if is_current_state.call():
 		shelter_state.shelter_area = shelter_area
 		state_ended.emit(shelter_state)
+
+func _on_cursor_interaction_handler_interacted(_mouse_interaction_area):
+	just_interacted_with_object = true
