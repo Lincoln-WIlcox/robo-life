@@ -6,7 +6,6 @@ extends State
 
 var active_player: PlayerCharacter
 var toggle_inventory: Callable
-var inventory: Inventory
 
 var show_ui: Callable
 var hide_ui: Callable
@@ -17,10 +16,12 @@ signal item_dropped
 
 var _inventory_ui
 
-func enter():
+func setup_ui(player_inventory: Inventory):
 	_inventory_ui = inventory_ui_packed_scene.instantiate()
-	_inventory_ui.player_inventory = inventory
+	_inventory_ui.player_inventory = player_inventory
 	_inventory_ui.item_dropped.connect(func(grid_item: ItemGridItem): item_dropped.emit(grid_item))
+
+func enter():
 	show_ui.call(_inventory_ui)
 	inventory_opened.emit()
 
@@ -30,7 +31,7 @@ func run():
 
 func exit():
 	hide_ui.call()
-	_inventory_ui.close_gui()
+	_inventory_ui.on_gui_closed()
 	inventory_closed.emit()
 
 func on_placeable_item_dropped(grid_item: ItemGridItem):

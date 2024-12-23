@@ -4,6 +4,7 @@ extends Node2D
 @onready var player_character = $PlayerCharacter
 @onready var camera = $Camera2D
 @onready var none_state: State = $UIStateMachine/None
+@onready var other_state: State = $UIStateMachine/Other
 @onready var pickup_stuff_handler: PickupStuffHandler = $PickupStuffHandler
 @onready var inventory_state: State = $UIStateMachine/Inventory
 @onready var placing_object_state: State = $UIStateMachine/PlacingObject
@@ -17,7 +18,7 @@ extends Node2D
 @onready var level_map_state = $UIStateMachine/LevelMap
 @onready var map_texture_updater = $MapTextureUpdater
 @onready var power_pole_placement_handler = $PowerPolePlacementHandler
-@onready var power_pole_selection_map = $UIStateMachine/PowerPoleSelectionMap
+@onready var power_pole_selection_state = $UIStateMachine/PowerPoleSelection
 @onready var transport_bucket_placement_handler = $TransportBucketPlacementHandler
 @onready var cursor_interaction_handler = $CursorInteractionHandler
 
@@ -46,7 +47,7 @@ var show_ui: Callable:
 			shelter_shelter_state.show_ui = show_ui
 			crafting_state.show_ui = show_ui
 			level_map_state.show_ui = show_ui
-			power_pole_selection_map.show_ui = show_ui
+			power_pole_selection_state.show_ui = show_ui
 			transport_bucket_placement_handler.show_ui = show_ui
 var hide_ui: Callable:
 	set(new_value):
@@ -56,8 +57,14 @@ var hide_ui: Callable:
 			shelter_shelter_state.hide_ui = hide_ui
 			crafting_state.hide_ui = hide_ui
 			level_map_state.hide_ui = hide_ui
-			power_pole_selection_map.hide_ui = hide_ui
+			power_pole_selection_state.hide_ui = hide_ui
 			transport_bucket_placement_handler.hide_ui = hide_ui
+var get_current_ui: Callable:
+	set(new_value):
+		get_current_ui = new_value
+		if is_node_ready():
+			none_state.get_current_ui = get_current_ui
+			other_state.get_current_ui = get_current_ui
 
 signal item_dropped(drop: Object)
 signal died
@@ -97,7 +104,7 @@ func _ready():
 	laser_gun_handler.is_firing = func(): return Input.is_action_pressed("fire")
 	inventory_state.inventory_opened.connect(func(): inventory_opened.emit())
 	inventory_state.inventory_closed.connect(func(): inventory_closed.emit())
-	inventory_state.inventory = inventory
+	inventory_state.setup_ui(inventory)
 	shelter_state.interaction_area = player_character.interaction_area
 	crafting_state.player_inventory = inventory
 	shelter_shelter_state.shelter_opened.connect(func(): shelter_opened.emit())
@@ -109,13 +116,13 @@ func _ready():
 	player_shield_handler.player_character = player_character.character
 	player_shield_handler.shield_progress_bar = player_character.shield_progress_bar
 	none_state.toggle_map = func(): return Input.is_action_just_pressed("toggle_map")
-	none_state.toggle_power_pole_selection_map = func(): return Input.is_action_just_pressed("test_input")
+	none_state.toggle_power_pole_selection = func(): return Input.is_action_just_pressed("test_input")
 	none_state.is_firing = func(): return Input.is_action_pressed("fire")
 	none_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
 	power_pole_placement_handler.enviornment_query_system = environment_query_system
-	power_pole_selection_map.toggle_map = func(): return Input.is_action_just_pressed("test_input")
-	power_pole_selection_map.environment_query_system = environment_query_system
-	power_pole_selection_map.setup_map()
+	power_pole_selection_state.toggle_map = func(): return Input.is_action_just_pressed("test_input")
+	power_pole_selection_state.environment_query_system = environment_query_system
+	power_pole_selection_state.setup_map()
 	level_map_map_entity_collection.add_map_entity(map_texture)
 	level_map_state.toggle_map = func(): return Input.is_action_just_pressed("toggle_map")
 	level_map_state.environment_query_system = environment_query_system
@@ -129,6 +136,9 @@ func _ready():
 	transport_bucket_placement_handler.environment_query_system = environment_query_system
 	cursor_interaction_handler.cursor_detect_area = player_character.cursor_detect_area
 	cursor_interaction_handler.cursor_interacted = func(): return Input.is_action_just_pressed("cursor_interact")
+	other_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
+	other_state.toggle_map = func(): return Input.is_action_just_pressed("toggle_map")
+	other_state.toggle_power_pole_selection = func(): return Input.is_action_just_pressed("test_input")
 	
 	map_texture_updater.map_texture = map_texture
 	
