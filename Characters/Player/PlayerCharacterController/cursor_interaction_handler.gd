@@ -1,7 +1,7 @@
 class_name MouseInteractionHandler
 extends Node
 
-var mouse_detect_area: MouseDetectArea
+var cursor_detect_area: CursorDetectArea
 var cursor_interacted: Callable
 
 signal interacted(mouse_interaction_area: MouseInteractionArea)
@@ -19,7 +19,7 @@ func update():
 		_handle_interaction(mouse_interaction_area)
 
 func _handle_interaction(mouse_interaction_area: MouseInteractionArea) -> void:
-	if mouse_detect_area.mouse_over:
+	if cursor_detect_area.mouse_over:
 		mouse_interaction_area.interact()
 		interacted.emit(mouse_interaction_area)
 	else:

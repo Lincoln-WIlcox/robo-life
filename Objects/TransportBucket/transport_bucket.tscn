@@ -31,6 +31,8 @@ size = Vector2(16, 8)
 z_index = 1
 script = ExtResource("1_7v0ta")
 transport_bucket_item = ExtResource("5_6rcnf")
+speed = null
+item_grid_size = null
 
 [node name="VelocityComponent" parent="." node_paths=PackedStringArray("affecting_node") instance=ExtResource("3_3rux8")]
 affecting_node = NodePath("../CharacterBody2D")
@@ -56,12 +58,12 @@ texture = SubResource("AtlasTexture_xlxon")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/TransportBucketContent/MouseInteractionArea"]
 shape = SubResource("RectangleShape2D_hriww")
 
-[node name="MousePickupArea" parent="Path2D/PathFollow2D/TransportBucketContent" node_paths=PackedStringArray("progress_bar", "delete_node") instance=ExtResource("3_ixegf")]
+[node name="CursorPickupArea" parent="Path2D/PathFollow2D/TransportBucketContent" node_paths=PackedStringArray("progress_bar", "delete_node") instance=ExtResource("3_ixegf")]
 progress_bar = NodePath("../ProgressBar")
 delete_node = NodePath("../../../..")
 inventory_addition = SubResource("Resource_e1ntg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/TransportBucketContent/MousePickupArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/TransportBucketContent/CursorPickupArea"]
 shape = SubResource("RectangleShape2D_hriww")
 
 [node name="ProgressBar" type="ProgressBar" parent="Path2D/PathFollow2D/TransportBucketContent"]
@@ -82,5 +84,5 @@ collision_mask = 3
 shape = SubResource("RectangleShape2D_51rb4")
 
 [connection signal="interacted_with" from="Path2D/PathFollow2D/TransportBucketContent/MouseInteractionArea" to="." method="_on_mouse_interaction_area_interacted_with"]
-[connection signal="cancelled_picking_up" from="Path2D/PathFollow2D/TransportBucketContent/MousePickupArea" to="." method="_on_mouse_pickup_area_cancelled_picking_up"]
-[connection signal="started_picking_up" from="Path2D/PathFollow2D/TransportBucketContent/MousePickupArea" to="." method="_on_mouse_pickup_area_started_picking_up"]
+[connection signal="cancelled_picking_up" from="Path2D/PathFollow2D/TransportBucketContent/CursorPickupArea" to="." method="_on_mouse_pickup_area_cancelled_picking_up"]
+[connection signal="started_picking_up" from="Path2D/PathFollow2D/TransportBucketContent/CursorPickupArea" to="." method="_on_mouse_pickup_area_started_picking_up"]

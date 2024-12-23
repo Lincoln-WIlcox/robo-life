@@ -3,7 +3,7 @@ extends Node2D
 
 ##contains an inventory and moves along a given path.
 
-@onready var mouse_pickup_area: MousePickupArea = $Path2D/PathFollow2D/TransportBucketContent/MousePickupArea
+@onready var mouse_pickup_area: CursorPickupArea = $Path2D/PathFollow2D/TransportBucketContent/CursorPickupArea
 @onready var mouse_interaction_area: MouseInteractionArea = $Path2D/PathFollow2D/TransportBucketContent/MouseInteractionArea
 @onready var transport_bucket_content: Node2D = $Path2D/PathFollow2D/TransportBucketContent
 @onready var body = $CharacterBody2D

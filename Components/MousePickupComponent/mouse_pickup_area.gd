@@ -1,4 +1,4 @@
-class_name MousePickupArea
+class_name CursorPickupArea
 extends Area2D
 
 @export var progress_bar: ProgressBar

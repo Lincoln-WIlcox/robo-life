@@ -1,4 +1,4 @@
-class_name MouseDetectArea
+class_name CursorDetectArea
 extends Area2D
 
 var mouse_over:

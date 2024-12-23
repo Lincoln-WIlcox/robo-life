@@ -1,7 +1,7 @@
 class_name PlaceObjectHandler
 extends Node2D
 
-var mouse_detect_area: MouseDetectArea
+var cursor_detect_area: CursorDetectArea
 var node_to_spawn_placeables_in: Node
 var _placing_placeable: Placeable
 
@@ -22,10 +22,10 @@ func cancel_placing() -> void:
 
 func update_placing() -> void:
 	_placing_placeable.global_position = get_global_mouse_position()
-	_placing_placeable.in_range = mouse_detect_area.mouse_over
+	_placing_placeable.in_range = cursor_detect_area.mouse_over
 
 func attempt_place_object() -> bool:
-	if _placing_placeable.placement_valid and mouse_detect_area.mouse_over:
+	if _placing_placeable.placement_valid and cursor_detect_area.mouse_over:
 		_placing_placeable.place()
 		placeable_placed.emit(_placing_placeable)
 		stop_placing()
