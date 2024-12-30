@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://mwe43y7dhjg"]
+[gd_scene load_steps=5 format=3 uid="uid://mwe43y7dhjg"]
 
 [ext_resource type="PackedScene" uid="uid://nifofmv4xqni" path="res://UI/Map/power_pole_selection_map.tscn" id="1_0va26"]
 [ext_resource type="Script" path="res://UI/TransportBucketUI/transport_bucket_ui.gd" id="1_n5wvg"]
+[ext_resource type="Script" path="res://UI/TransportBucketUI/food_transfer_handler.gd" id="2_7q70e"]
 [ext_resource type="PackedScene" uid="uid://eg4r6pex37fh" path="res://UI/TwoInventoryInterfaces/two_inventory_interfaces.tscn" id="2_mnctn"]
 
 [node name="TransportBucketUI" type="Control"]
@@ -12,6 +13,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_n5wvg")
+
+[node name="FoodTransferHandler" type="Node" parent="." node_paths=PackedStringArray("transport_bucket_food_label", "player_food_label", "transfer_to_transport_bucket_button", "transfer_to_player_button")]
+script = ExtResource("2_7q70e")
+transport_bucket_food_label = NodePath("../TransportBucketInventory/ContentContainer/FoodTransferCenterContainer/FoodTransferMargin/FoodTransferHBox/TransportBucketFood")
+player_food_label = NodePath("../TransportBucketInventory/ContentContainer/FoodTransferCenterContainer/FoodTransferMargin/FoodTransferHBox/PlayerBucketFood")
+transfer_to_transport_bucket_button = NodePath("../TransportBucketInventory/ContentContainer/FoodTransferCenterContainer/FoodTransferMargin/FoodTransferHBox/FoodTransferButtonsMargin/FoodTransferButtonsContainer/TransferToBucket")
+transfer_to_player_button = NodePath("../TransportBucketInventory/ContentContainer/FoodTransferCenterContainer/FoodTransferMargin/FoodTransferHBox/FoodTransferButtonsMargin/FoodTransferButtonsContainer/TransferToPlayer")
 
 [node name="PowerPoleSelectionMap" parent="." instance=ExtResource("1_0va26")]
 visible = false
@@ -36,6 +44,43 @@ grow_vertical = 2
 [node name="TwoInventoryInterfaces" parent="TransportBucketInventory/ContentContainer" instance=ExtResource("2_mnctn")]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="FoodTransferCenterContainer" type="CenterContainer" parent="TransportBucketInventory/ContentContainer"]
+layout_mode = 2
+
+[node name="FoodTransferMargin" type="MarginContainer" parent="TransportBucketInventory/ContentContainer/FoodTransferCenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="FoodTransferHBox" type="HBoxContainer" parent="TransportBucketInventory/ContentContainer/FoodTransferCenterContainer/FoodTransferMargin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TransportBucketFood" type="Label" parent="TransportBucketInventory/ContentContainer/FoodTransferCenterContainer/FoodTransferMargin/FoodTransferHBox"]
+layout_mode = 2
+text = "0"
+
+[node name="FoodTransferButtonsMargin" type="MarginContainer" parent="TransportBucketInventory/ContentContainer/FoodTransferCenterContainer/FoodTransferMargin/FoodTransferHBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="FoodTransferButtonsContainer" type="HBoxContainer" parent="TransportBucketInventory/ContentContainer/FoodTransferCenterContainer/FoodTransferMargin/FoodTransferHBox/FoodTransferButtonsMargin"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="TransferToBucket" type="Button" parent="TransportBucketInventory/ContentContainer/FoodTransferCenterContainer/FoodTransferMargin/FoodTransferHBox/FoodTransferButtonsMargin/FoodTransferButtonsContainer"]
+layout_mode = 2
+text = "<"
+
+[node name="TransferToPlayer" type="Button" parent="TransportBucketInventory/ContentContainer/FoodTransferCenterContainer/FoodTransferMargin/FoodTransferHBox/FoodTransferButtonsMargin/FoodTransferButtonsContainer"]
+layout_mode = 2
+text = ">"
+
+[node name="PlayerBucketFood" type="Label" parent="TransportBucketInventory/ContentContainer/FoodTransferCenterContainer/FoodTransferMargin/FoodTransferHBox"]
+layout_mode = 2
+text = "0"
 
 [node name="ButtonsMargin" type="MarginContainer" parent="TransportBucketInventory/ContentContainer"]
 layout_mode = 2
@@ -64,5 +109,7 @@ text = "Choose Destination
 
 [connection signal="cancelled" from="PowerPoleSelectionMap" to="." method="_on_power_pole_selection_map_cancelled"]
 [connection signal="power_pole_selected" from="PowerPoleSelectionMap" to="." method="_on_power_pole_selection_map_power_pole_selected"]
+[connection signal="pressed" from="TransportBucketInventory/ContentContainer/FoodTransferCenterContainer/FoodTransferMargin/FoodTransferHBox/FoodTransferButtonsMargin/FoodTransferButtonsContainer/TransferToBucket" to="FoodTransferHandler" method="_on_transfer_to_bucket_pressed"]
+[connection signal="pressed" from="TransportBucketInventory/ContentContainer/FoodTransferCenterContainer/FoodTransferMargin/FoodTransferHBox/FoodTransferButtonsMargin/FoodTransferButtonsContainer/TransferToPlayer" to="FoodTransferHandler" method="_on_transfer_to_player_pressed"]
 [connection signal="pressed" from="TransportBucketInventory/ContentContainer/ButtonsMargin/ButtonsContainer/CloseButtonMargin/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="TransportBucketInventory/ContentContainer/ButtonsMargin/ButtonsContainer/ChooseDestinationButtonMargin/ChooseDestinationButton" to="." method="_on_choose_destination_button_pressed"]

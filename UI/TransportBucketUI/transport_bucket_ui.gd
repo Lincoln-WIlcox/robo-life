@@ -4,6 +4,7 @@ extends Control
 @onready var power_pole_selection_map: PowerPoleSelectionMap = $PowerPoleSelectionMap
 @onready var transport_bucket_inventory_ui: Control = $TransportBucketInventory
 @onready var two_inventory_interface: TwoInventoryUI = $TransportBucketInventory/ContentContainer/TwoInventoryInterfaces
+@onready var food_transfer_handler = $FoodTransferHandler
 
 var player_inventory: Inventory
 var transport_bucket_inventory: Inventory
@@ -14,9 +15,14 @@ signal closed
 func setup(map_data: MapData) -> void:
 	if not is_node_ready():
 		await ready
+	
 	two_inventory_interface.item_grid_one = transport_bucket_inventory.item_grid
 	two_inventory_interface.item_grid_two = player_inventory.item_grid
+	
 	power_pole_selection_map.display_map_data(map_data)
+	
+	food_transfer_handler.player_inventory = player_inventory
+	food_transfer_handler.transport_bucket_inventory = transport_bucket_inventory
 
 func close() -> void:
 	_go_to_inventory()

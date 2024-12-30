@@ -88,6 +88,9 @@ func add_addition(inventory_addition: InventoryAddition) -> void:
 	emit_changed()
 
 func can_add_addition(inventory_addition: InventoryAddition) -> bool:
+	if inventory_addition.gain_food + _food > max_food:
+		return false
+	
 	var item_grid_copy: ItemGrid = item_grid.duplicate()
 	for item: ItemData in inventory_addition.get_gain_items():
 		if item_grid_copy.item_can_be_added(item):
@@ -107,9 +110,21 @@ func to_inventory_addition() -> InventoryAddition:
 func get_food() -> int:
 	return _food
 
+##Returns true if inventory has food.
+func has_food() -> bool:
+	return _food > 0
+
 ##Changes the amount of food in the inventory. Will not set food above [member Inventory.max_food] or below 0
 func change_food(change: int) -> void:
 	set_food(_food + change)
+
+##Adds food. See [method Inventory.set_food]
+func add_food(amount: int = 1) -> void:
+	set_food(_food + amount)
+
+##Removes food. See [method Inventory.set_food]
+func remove_food(amount: int = 1) -> void:
+	set_food(_food - amount)
 
 ##Sets the amount of food in the inventory.  Will not set food above [member Inventory.max_food] or below 0
 func set_food(new_food: int) -> void:
