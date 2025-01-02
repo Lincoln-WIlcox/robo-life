@@ -5,6 +5,7 @@ extends Control
 @onready var transport_bucket_inventory_ui: Control = $TransportBucketInventory
 @onready var two_inventory_interface: TwoInventoryUI = $TransportBucketInventory/ContentContainer/TwoInventoryInterfaces
 @onready var food_transfer_handler = $FoodTransferHandler
+@onready var steel_transfer_handler = $SteelTransferHandler
 
 var player_inventory: Inventory
 var transport_bucket_inventory: Inventory
@@ -21,8 +22,26 @@ func setup(map_data: MapData) -> void:
 	
 	power_pole_selection_map.display_map_data(map_data)
 	
-	food_transfer_handler.player_inventory = player_inventory
-	food_transfer_handler.transport_bucket_inventory = transport_bucket_inventory
+	player_inventory.changed.connect(_on_player_inventory_changed)
+	transport_bucket_inventory.changed.connect(_on_transport_bucket_inventory_changed)
+	
+	food_transfer_handler.get_player_counter_value = func() -> int: return player_inventory.get_food()
+	food_transfer_handler.set_player_counter_value = func(new_value) -> void: player_inventory.set_food(new_value)
+	food_transfer_handler.get_transport_bucket_counter_value = func() -> int: return transport_bucket_inventory.get_food()
+	food_transfer_handler.set_transport_bucket_counter_value = func(new_value) -> void: transport_bucket_inventory.set_food(new_value)
+	
+	steel_transfer_handler.get_player_counter_value = func() -> int: return player_inventory.steel
+	steel_transfer_handler.set_player_counter_value = func(new_value) -> void: player_inventory.steel = new_value
+	steel_transfer_handler.get_transport_bucket_counter_value = func() -> int: return transport_bucket_inventory.steel
+	steel_transfer_handler.set_transport_bucket_counter_value = func(new_value) -> void: transport_bucket_inventory.steel = new_value
+
+func _on_player_inventory_changed() -> void:
+	food_transfer_handler.on_player_inventory_changed()
+	steel_transfer_handler.on_player_inventory_changed()
+
+func _on_transport_bucket_inventory_changed() -> void:
+	food_transfer_handler.on_transport_bucket_inventory_changed()
+	steel_transfer_handler.on_transport_bucket_inventory_changed()
 
 func close() -> void:
 	_go_to_inventory()

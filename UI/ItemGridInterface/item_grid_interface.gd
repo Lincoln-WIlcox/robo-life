@@ -57,46 +57,49 @@ func _physics_process(_delta):
 func update_grid() -> void:
 	if _updating_grid == false:
 		_updating_grid = true
-		remove_tiles()
+		_remove_tiles()
 		
-		if not is_inside_tree():
-			await tree_entered
-		
-		if grid_container.get_children().size() > 0:
-			await grid_container.get_children()[grid_container.get_children().size() - 1].tree_exited
-		
-		for y: int in range(0, item_grid.size.y):
-			for x: int in range(0, item_grid.size.x):
-				var grid_position = Vector2i(x,y)
-				
-				var found_overlapping_grid_item := false
-				
-				for tile: ItemGridTile in tiles:
-					if tile.item_grid_item.rect.has_point(grid_position):
-						make_margin()
+		#if not is_inside_tree():
+			#await tree_entered
+		#
+		#if grid_container.get_children().size() > 0:
+			#await grid_container.get_children()[grid_container.get_children().size() - 1].tree_exited
+		#
+		_make_tiles.call_deferred()
+
+func _make_tiles() -> void:
+	for y: int in range(0, item_grid.size.y):
+		for x: int in range(0, item_grid.size.x):
+			var grid_position = Vector2i(x,y)
+			
+			var found_overlapping_grid_item := false
+			
+			for tile: ItemGridTile in tiles:
+				if tile.item_grid_item.rect.has_point(grid_position):
+					_make_margin()
+					found_overlapping_grid_item = true
+					break
+			
+			if not found_overlapping_grid_item:
+				for grid_item: ItemGridItem in item_grid.get_grid_items():
+					if grid_item.position == grid_position:
+						_make_item_tile(grid_item)
 						found_overlapping_grid_item = true
 						break
-				
-				if not found_overlapping_grid_item:
-					for grid_item: ItemGridItem in item_grid.get_grid_items():
-						if grid_item.position == grid_position:
-							make_item_tile(grid_item)
-							found_overlapping_grid_item = true
-							break
-				
-				if not found_overlapping_grid_item:
-					make_empty_tile(grid_position)
+			
+			if not found_overlapping_grid_item:
+				_make_empty_tile(grid_position)
 
-func remove_tiles() -> void:
+func _remove_tiles() -> void:
 	for child: Node in grid_container.get_children():
 		grid_container.remove_child(child)
 		child.queue_free()
 
-func make_margin() -> void:
+func _make_margin() -> void:
 	var margin: MarginTile = margin_tile_packed_scene.instantiate()
 	grid_container.add_child(margin)
 
-func make_empty_tile(grid_position: Vector2i) -> void:
+func _make_empty_tile(grid_position: Vector2i) -> void:
 	var empty_tile = empty_tile_packed_scene.instantiate()
 	empty_tile.grid_position = grid_position
 	empty_tile.associated_item_grid = item_grid
@@ -104,7 +107,7 @@ func make_empty_tile(grid_position: Vector2i) -> void:
 	#empty_tile.tile_area.area_entered.connect(dragging_tile_over_manager.on_tile_area_entered)
 	#empty_tile.tile_area.area_exited.connect(dragging_tile_over_manager.on_tile_area_exited)
 
-func make_item_tile(new_tile_grid_item: ItemGridItem) -> void:
+func _make_item_tile(new_tile_grid_item: ItemGridItem) -> void:
 	var item_grid_tile: ItemGridTile = item_grid_tile_packed_scene.instantiate()
 	item_grid_tile.texture = new_tile_grid_item.item_data.texture
 	item_grid_tile.tile_size = new_tile_grid_item.item_data.grid_size
