@@ -8,7 +8,7 @@ extends State
 	set(new_value):
 		max_rope_length = new_value * 16
 	get:
-		return max_rope_length / 16.0
+		return int(max_rope_length / 16.0)
 
 func run():
 	if rope.height < max_rope_length:
