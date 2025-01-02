@@ -80,7 +80,7 @@ func get_connectors_to_connect_to() -> Array[PowerConnector]:
 		
 		var other_connections: Array[PowerConnector] = connections_to_connect_to.duplicate()
 		var three_closest_connections: Array[PowerConnector] = []
-		for i: int in range(MAX_CONNECTIONS_ON_PLACE + 1):
+		for i: int in range(MAX_CONNECTIONS_ON_PLACE):
 			three_closest_connections.append(connections_to_connect_to[i])
 			other_connections.erase(connections_to_connect_to[i])
 		
