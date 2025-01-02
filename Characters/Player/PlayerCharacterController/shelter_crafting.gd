@@ -6,7 +6,11 @@ extends State
 var show_ui: Callable
 var hide_ui: Callable
 var player_inventory: Inventory
-var shelter_inventory: Inventory
+var shelter_inventory: Inventory:
+	set(new_value):
+		shelter_inventory = new_value
+		if crafting_ui:
+			crafting_ui.shelter_inventory = shelter_inventory
 var crafting_ui
 
 func setup_ui() -> void:

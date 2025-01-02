@@ -6,7 +6,11 @@ extends State
 
 var show_ui: Callable
 var hide_ui: Callable
-var shelter_inventory: Inventory
+var shelter_inventory: Inventory:
+	set(new_value):
+		shelter_inventory = new_value
+		if shelter_ui:
+			shelter_ui.shelter_inventory = shelter_inventory
 var inventory: Inventory
 
 signal shelter_opened
