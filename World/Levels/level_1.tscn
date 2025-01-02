@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=4 uid="uid://4hdu5f7ikd0h"]
+[gd_scene load_steps=60 format=4 uid="uid://4hdu5f7ikd0h"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_s0fbl"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_52sld"]
@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://bgqgiy1o0dn8e" path="res://Objects/TransportBucket/transport_bucket.tscn" id="26_bh01c"]
 [ext_resource type="Script" path="res://Resources/item_grid_item.gd" id="27_5a316"]
 [ext_resource type="Script" path="res://Resources/item_grid.gd" id="28_7amgo"]
+[ext_resource type="Resource" uid="uid://b3au5vg63nxkc" path="res://Resources/Items/power_pole.tres" id="28_kmwnn"]
 [ext_resource type="Script" path="res://Resources/inventory.gd" id="29_6vhaj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_evjoi"]
@@ -158,13 +159,13 @@ scale = Vector2(1, 1)
 
 [sub_resource type="Resource" id="Resource_o0nwn"]
 script = ExtResource("27_5a316")
-item_data = ExtResource("10_q43bl")
-position = Vector2i(1, 1)
+item_data = ExtResource("28_kmwnn")
+position = Vector2i(2, 1)
 
 [sub_resource type="Resource" id="Resource_k53ns"]
 script = ExtResource("28_7amgo")
 size = Vector2i(3, 3)
-initial_items = Array[ExtResource("27_5a316")]([SubResource("Resource_o0nwn")])
+initial_items = Array[ExtResource("27_5a316")]([SubResource("Resource_o0nwn"), SubResource("Resource_o0nwn")])
 
 [sub_resource type="Resource" id="Resource_dyyfr"]
 script = ExtResource("29_6vhaj")

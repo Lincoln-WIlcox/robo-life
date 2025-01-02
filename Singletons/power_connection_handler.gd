@@ -46,6 +46,19 @@ func remove_connections_to_connector(connector: PowerConnector) -> void:
 func get_connections_for_connector(power_connector: PowerConnector) -> Array[PowerConnectorConnection]:
 	return power_connector_connections.filter(func(pc: PowerConnectorConnection): return pc.power_connector_a == power_connector or pc.power_connector_b == power_connector)
 
+func get_connected_connectors_for_connector(power_connector: PowerConnector) -> Array[PowerConnector]:
+	var connected_power_connections: Array[PowerConnectorConnection] = get_connections_for_connector(power_connector)
+	var connected_power_connectors: Array[PowerConnector]
+	
+	for connected_power_connection: PowerConnectorConnection in connected_power_connections:
+		var other_power_connector: PowerConnector = connected_power_connection.power_connector_a if connected_power_connection.power_connector_a != power_connector else connected_power_connection.power_connector_b
+		connected_power_connectors.append(other_power_connector)
+	
+	return connected_power_connectors
+
+func get_connection_count_for_power_connector(power_connector: PowerConnector) -> int:
+	return power_connector_connections.reduce(func(count: int, pc: PowerConnectorConnection) -> int: return count + 1 if pc.power_connector_a == power_connector or pc.power_connector_b == power_connector else count, 0)
+
 func get_power_connections_in_tree(power_connector: PowerConnector, exclude: Array[PowerConnectorConnection] = []) -> Array[PowerConnectorConnection]:
 	
 	#connections 
