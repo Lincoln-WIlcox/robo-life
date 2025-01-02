@@ -1,6 +1,7 @@
 class_name PowerPole
 extends Placeable
 
+const MAX_CONNECTIONS_ON_PLACE = 3
 const MAX_CONNECTIONS = 4
 
 @onready var node_to_put_lines_in := get_parent()
@@ -43,6 +44,7 @@ func _on_placed():
 	for power_connector_to_connect_to: PowerConnector in connections_to_connect_to:
 		power_connector.connect_to(power_connector_to_connect_to)
 
+#TODO: optimize line drawing
 func _process(_delta):
 	remove_lines()
 	if not _placed:
@@ -74,14 +76,16 @@ func get_connectors_to_connect_to() -> Array[PowerConnector]:
 		if PowerConnectionHandler.get_connection_count_for_power_connector(connector_to_connect_to) >= MAX_CONNECTIONS:
 			connections_to_connect_to.erase(connector_to_connect_to)
 	
-	if connections_to_connect_to.size() > MAX_CONNECTIONS:
+	if connections_to_connect_to.size() > MAX_CONNECTIONS_ON_PLACE:
 		
+		var other_connections: Array[PowerConnector] = connections_to_connect_to.duplicate()
 		var three_closest_connections: Array[PowerConnector] = []
-		for i: int in range(MAX_CONNECTIONS + 1):
+		for i: int in range(MAX_CONNECTIONS_ON_PLACE + 1):
 			three_closest_connections.append(connections_to_connect_to[i])
+			other_connections.erase(connections_to_connect_to[i])
 		
 		#if a connector is closer than any connector in three_closest_connections, it replaces that connector with the closer one
-		for connector: PowerConnector in connections_to_connect_to:
+		for connector: PowerConnector in other_connections:
 			for i: int in range(three_closest_connections.size()):
 				if global_position.distance_to(connector.global_position) < global_position.distance_to(three_closest_connections[i].global_position):
 					three_closest_connections[i] = connector
