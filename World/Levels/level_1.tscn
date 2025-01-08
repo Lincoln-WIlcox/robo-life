@@ -216,22 +216,25 @@ position = Vector2(-437, 392)
 [node name="OverheatableWall3" parent="." index="35" instance=ExtResource("17_8n4om")]
 position = Vector2(-368, -80)
 
-[node name="PowerPole" parent="." index="36" node_paths=PackedStringArray("enviornment_query_system") instance=ExtResource("19_fa7aj")]
+[node name="PowerPole" parent="." index="36" node_paths=PackedStringArray("node_to_put_lines_in", "enviornment_query_system") instance=ExtResource("19_fa7aj")]
 position = Vector2(-462, -220)
+node_to_put_lines_in = NodePath("..")
 enviornment_query_system = NodePath("../EnvironmentQuerySystem")
 start_placed = true
 power_pole_selection_map_entity = SubResource("Resource_nyniv")
 queryable = SubResource("Resource_28wye")
 
-[node name="PowerPole3" parent="." index="37" node_paths=PackedStringArray("enviornment_query_system") instance=ExtResource("19_fa7aj")]
+[node name="PowerPole3" parent="." index="37" node_paths=PackedStringArray("node_to_put_lines_in", "enviornment_query_system") instance=ExtResource("19_fa7aj")]
 position = Vector2(-438, -105)
+node_to_put_lines_in = NodePath("..")
 enviornment_query_system = NodePath("../EnvironmentQuerySystem")
 start_placed = true
 power_pole_selection_map_entity = SubResource("Resource_vm8f2")
 queryable = SubResource("Resource_r6b50")
 
-[node name="PowerPole4" parent="." index="38" node_paths=PackedStringArray("enviornment_query_system") instance=ExtResource("19_fa7aj")]
+[node name="PowerPole4" parent="." index="38" node_paths=PackedStringArray("node_to_put_lines_in", "enviornment_query_system") instance=ExtResource("19_fa7aj")]
 position = Vector2(-355, -190)
+node_to_put_lines_in = NodePath("..")
 enviornment_query_system = NodePath("../EnvironmentQuerySystem")
 start_placed = true
 power_pole_selection_map_entity = SubResource("Resource_2oq6k")

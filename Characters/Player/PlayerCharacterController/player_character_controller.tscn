@@ -191,3 +191,4 @@ heat_amount = 2
 [connection signal="interacted" from="CursorInteractionHandler" to="UIStateMachine/None" method="_on_cursor_interaction_handler_interacted"]
 [connection signal="placeable_placed" from="PlaceObjectHandler" to="PowerPolePlacementHandler" method="_on_place_object_handler_placeable_placed"]
 [connection signal="placing_placeable" from="PlaceObjectHandler" to="TransportBucketPlacementHandler" method="_on_place_object_handler_placing_placeable"]
+[connection signal="placing_placeable" from="PlaceObjectHandler" to="PowerPolePlacementHandler" method="_on_place_object_handler_placing_placeable"]

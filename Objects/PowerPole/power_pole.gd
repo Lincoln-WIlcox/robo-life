@@ -4,10 +4,10 @@ extends Placeable
 const MAX_CONNECTIONS_ON_PLACE = 4
 const MAX_CONNECTIONS = 6
 
-@onready var node_to_put_lines_in := get_parent()
 @onready var power_connector: PowerConnector = $PowerConnector
 @onready var connect_area: Area2D = $ConnectArea
 
+@export var node_to_put_lines_in: Node
 @export var enviornment_query_system: EnvironmentQuerySystem
 @export var start_placed := false
 @export var power_pole_selection_map_entity: SelectablePowerPoleMapEntity
