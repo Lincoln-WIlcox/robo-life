@@ -286,5 +286,6 @@ tile_set = ExtResource("6_3k4c5")
 [node name="TransportBucket" parent="." index="50" instance=ExtResource("26_bh01c")]
 position = Vector2(-96, -45)
 initial_inventory = SubResource("Resource_dyyfr")
+speed = 1.3
 
 [connection signal="item_spent" from="RockBarrier" to="Tiles" method="add_child"]

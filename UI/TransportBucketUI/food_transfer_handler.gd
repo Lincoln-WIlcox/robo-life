@@ -12,6 +12,8 @@ var get_player_counter_value: Callable:
 		_update_player_label()
 		_update_buttons_disabled()
 var set_player_counter_value: Callable
+var can_transfer_to_player: Callable
+var can_transfer_to_transport_bucket: Callable
 var get_transport_bucket_counter_value: Callable:
 	set(new_value):
 		get_transport_bucket_counter_value = new_value
@@ -45,10 +47,14 @@ func _update_transport_bucket_label() -> void:
 	transport_bucket_label.text = str(transport_bucket_counter)
 
 func _transfer_to_transport_bucket() -> void:
+	if can_transfer_to_transport_bucket and not can_transfer_to_transport_bucket.call():
+		return
 	transport_bucket_counter += 1
 	player_counter -= 1
 
 func _transfer_to_player() -> void:
+	if can_transfer_to_player and not can_transfer_to_player.call():
+		return
 	player_counter += 1
 	transport_bucket_counter -= 1
 

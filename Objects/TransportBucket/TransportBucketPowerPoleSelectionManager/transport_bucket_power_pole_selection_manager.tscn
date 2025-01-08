@@ -11,6 +11,7 @@ script = ExtResource("1_xea4w")
 transport_bucket_ui_packed_scene = ExtResource("2_uaido")
 
 [node name="TransportBucket" parent="." instance=ExtResource("2_4750m")]
+speed = 1.3
 
 [node name="PowerPoleSelectionManager" type="Node" parent="." node_paths=PackedStringArray("path_handler")]
 script = ExtResource("1_0yoyt")
