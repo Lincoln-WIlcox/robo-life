@@ -87,27 +87,35 @@ func get_power_connections_in_tree(power_connector: PowerConnector, exclude: Arr
 	return_array.assign(Utils.make_array_unique(exclude))
 	return return_array
 
-func get_power_connectors_in_tree(power_connector: PowerConnector) -> Array[PowerConnector]:
-	#this is the full list of power connectors in the tree. the top level function returns this at the end of the recursive functions
+func get_other_connector_in_connection(power_connector: PowerConnector, power_connection: PowerConnectorConnection) -> PowerConnector:
+	if power_connection.power_connector_a == power_connector:
+		return power_connection.power_connector_b
+	elif power_connection.power_connector_b == power_connector:
+		return power_connection.power_connector_a
+	else:
+		push_error("power_connector not in power_connection")
+		return null
+
+func get_power_connectors_in_tree(power_connector: PowerConnector, exclude: Array[PowerConnector] = []) -> Array[PowerConnector]:
 	var connectors: Array[PowerConnector] = []
-	#this is the power connector connections that include this power connector and aren't in exclude
 	var connections: Array[PowerConnectorConnection] = get_connections_for_connector(power_connector)
 	
 	connectors.append(power_connector)
+	exclude.append(power_connector)
 	
-	var exclude: Array[PowerConnectorConnection] = connections.duplicate()
+	for connection in connections:
+		var other_connector: PowerConnector = get_other_connector_in_connection(power_connector, connection)
+		
+		if other_connector in exclude:
+			continue
+		
+		var connected_connectors: Array[PowerConnector] = get_power_connectors_in_tree(other_connector, exclude)
+		connectors.append_array(connected_connectors)
 	
-	for connection: PowerConnectorConnection in connections:
-		var child_connectors_with_exclude = _get_power_connectors_in_tree_with_excludes(connection.power_connector_a if connection.power_connector_a != power_connector else connection.power_connector_b, exclude)
-		exclude.append_array(child_connectors_with_exclude["exclude"])
-		connectors.append_array(child_connectors_with_exclude["connectors"])
-	
-	var return_array: Array[PowerConnector] = []
-	return_array.assign(Utils.make_array_unique(connectors))
-	return return_array
+	return connectors
 
 func power_connections_share_tree(power_connector_a: PowerConnector, power_connector_b: PowerConnector) -> bool:
-	var power_connectors_tree: Array[PowerConnectorConnection] = PowerConnectionHandler.get_power_connections_in_tree(power_connector_a)
+	var power_connectors_tree: Array[PowerConnectorConnection] = get_power_connections_in_tree(power_connector_a)
 	var power_connectors_in_tree: Array[PowerConnector] = _get_power_connectors_from_tree(power_connectors_tree)
 	
 	return power_connector_b in power_connectors_in_tree
@@ -119,26 +127,53 @@ func get_connection_for_connectors(power_connector_a: PowerConnector, power_conn
 			return connection
 	return null
 
-func _get_power_connectors_in_tree_with_excludes(power_connector: PowerConnector, exclude: Array[PowerConnectorConnection]) -> Dictionary:
-	#this is the full list of power connectors in the tree. the top level function returns this at the end of the recursive functions
-	var connectors: Array[PowerConnector] = []
-	#this is the power connector connections that include this power connector and aren't in exclude
-	var connections: Array[PowerConnectorConnection] = power_connector_connections.filter(
-		func(pc: PowerConnectorConnection): 
-			return (pc.power_connector_a == power_connector or pc.power_connector_b == power_connector) and not pc in exclude
-			)
+##Uses Dijkstra's pathfinding algorithm to find the shortest path between the power connectors in the tree. Returns a PackedVector2Array of the points along the path.
+##If power_connector_a and power_connector_b are not in the same tree, the function returns null.
+func get_shortest_path_power_connectors(power_connector_a: PowerConnector, power_connector_b: PowerConnector) -> Variant:
+	var priority_queue: PriorityQueue = PriorityQueue.new()
+	priority_queue.insert(power_connector_a, -INF)
 	
-	connectors.append(power_connector)
+	#key is a power connector, and value is the connection to its predecessor
+	var predecessors: Dictionary = {}
+	#key is power connector, value is total distance from source
+	var power_connectors_total_distance: Dictionary = {power_connector_a : 0}
 	
-	var new_exclude = exclude.duplicate()
-	new_exclude.append_array(connections)
+	while not priority_queue.is_empty():
+		var checking_power_connector: PowerConnector = priority_queue.extract()
+		
+		var connections_for_checking_connector: Array[PowerConnectorConnection] = get_connections_for_connector(checking_power_connector)
+		for power_connection: PowerConnectorConnection in connections_for_checking_connector:
+			#in each connection, either connector a or b has to be power_connector, and since each power connector is unique the other power connector will not be in two connections, so we can simply add the other power connector.
+			var new_power_connector: PowerConnector = power_connection.power_connector_a if power_connection.power_connector_a != checking_power_connector else power_connection.power_connector_b
+			
+			var distance_from_checking_node: float = checking_power_connector.global_position.distance_to(new_power_connector.global_position)
+			
+			if new_power_connector == power_connector_b:
+				predecessors[power_connector_b] = power_connection
+				var shortest_path_of_power_connections: Array[PowerConnectorConnection] = _get_shortest_path_from_predecessors(power_connector_a, power_connector_b, predecessors)
+				shortest_path_of_power_connections.reverse()
+				return shortest_path_of_power_connections
+			
+			var total_distance_from_checking_power_connector = power_connectors_total_distance[checking_power_connector] + distance_from_checking_node
+			#if we've not relaxed new connector or the total distance from the checking power connector to this one is less than the existing distance, update
+			if not power_connectors_total_distance.has(new_power_connector) or total_distance_from_checking_power_connector < power_connectors_total_distance[new_power_connector]:
+				power_connectors_total_distance[new_power_connector] = total_distance_from_checking_power_connector
+				#priority is negative because priority queue checks highest priority first, but we want to check in order of smallest distance
+				priority_queue.insert(new_power_connector, -power_connectors_total_distance[new_power_connector])
+				predecessors[new_power_connector] = power_connection
 	
-	for connection: PowerConnectorConnection in connections:
-		var child_connectors_with_exclude = _get_power_connectors_in_tree_with_excludes(connection.power_connector_a if connection.power_connector_a != power_connector else connection.power_connector_b, new_exclude)
-		new_exclude.append_array(child_connectors_with_exclude["exclude"])
-		connectors.append_array(child_connectors_with_exclude["connectors"])
+	return null
+
+func _get_shortest_path_from_predecessors(power_connector_a: PowerConnector, power_connector_b: PowerConnector, predecessors: Dictionary) -> Array[PowerConnectorConnection]:
+	if power_connector_a == power_connector_b:
+		return []
 	
-	return {"connectors": connectors, "exclude": new_exclude}
+	var power_connection: PowerConnectorConnection = predecessors[power_connector_b]
+	var shortest_power_connectors: Array[PowerConnectorConnection] = [power_connection]
+	
+	var other_power_connector: PowerConnector = power_connection.power_connector_a if power_connection.power_connector_a != power_connector_b else power_connection.power_connector_b
+	shortest_power_connectors.append_array(_get_shortest_path_from_predecessors(power_connector_a, other_power_connector, predecessors))
+	return shortest_power_connectors
 
 func _update_power_consumers_in_tree(power_connector: PowerConnector) -> void:
 	var connectors: Array[PowerConnector] = get_power_connectors_in_tree(power_connector)
