@@ -1,8 +1,8 @@
 class_name PowerPole
 extends Placeable
 
-const MAX_CONNECTIONS_ON_PLACE = 3
-const MAX_CONNECTIONS = 4
+const MAX_CONNECTIONS_ON_PLACE = 4
+const MAX_CONNECTIONS = 6
 
 @onready var node_to_put_lines_in := get_parent()
 @onready var power_connector: PowerConnector = $PowerConnector
