@@ -33,7 +33,7 @@ extends Resource
 ##The initial value for the item grid. The item grid itself is private. To interact with it, use the functions provided
 @export var initial_item_grid: ItemGrid:
 	set(new_value):
-		if item_grid == null:
+		if item_grid == null and new_value != null:
 			item_grid = new_value
 
 ##This inventory's associated [ItemGrid]

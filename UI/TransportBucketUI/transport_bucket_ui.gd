@@ -29,6 +29,8 @@ func setup(map_data: MapData) -> void:
 	food_transfer_handler.set_player_counter_value = func(new_value) -> void: player_inventory.set_food(new_value)
 	food_transfer_handler.get_transport_bucket_counter_value = func() -> int: return transport_bucket_inventory.get_food()
 	food_transfer_handler.set_transport_bucket_counter_value = func(new_value) -> void: transport_bucket_inventory.set_food(new_value)
+	food_transfer_handler.can_transfer_to_player = func() -> bool: return player_inventory.get_food() < player_inventory.max_food
+	food_transfer_handler.can_transfer_to_transport_bucket = func() -> bool: return transport_bucket_inventory.get_food() < transport_bucket_inventory.max_food
 	
 	steel_transfer_handler.get_player_counter_value = func() -> int: return player_inventory.steel
 	steel_transfer_handler.set_player_counter_value = func(new_value) -> void: player_inventory.steel = new_value

@@ -142,7 +142,7 @@ func _ready():
 	other_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
 	other_state.toggle_map = func(): return Input.is_action_just_pressed("toggle_map")
 	other_state.toggle_power_pole_selection = func(): return Input.is_action_just_pressed("test_input")
-	
+	power_pole_placement_handler.node_to_put_lines_in = node_to_spawn_placeables_in
 	map_texture_updater.map_texture = map_texture
 	
 	remove_child(laser_gun)

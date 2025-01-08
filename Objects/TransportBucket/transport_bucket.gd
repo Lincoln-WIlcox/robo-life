@@ -14,7 +14,6 @@ extends Node2D
 @export var initial_inventory: Inventory
 @export var transport_bucket_item: ItemData
 @export var speed: float = 1.3
-@export var item_grid_size := Vector2i(2,2)
 
 var _inventory: Inventory = Inventory.new()
 var _moving := true
@@ -26,11 +25,6 @@ signal disconnected_from_path
 func _ready():
 	if initial_inventory:
 		_inventory = initial_inventory
-	
-	if not _inventory.item_grid:
-		var item_grid: ItemGrid = ItemGrid.new()
-		item_grid.size = item_grid_size
-		_inventory.item_grid = item_grid
 	
 	update_inventory_addition()
 	_inventory.changed.connect(update_inventory_addition)
