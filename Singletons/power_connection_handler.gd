@@ -8,7 +8,7 @@ signal connection_added(power_connection: PowerConnectorConnection)
 signal connection_removed
 signal connections_changed
 
-func add_connection(connector_a: PowerConnector, connector_b: PowerConnector) -> bool:
+func add_connection(connector_a: PowerConnector, connector_b: PowerConnector) -> PowerConnectorConnection:
 	assert(connector_a != connector_b, "connector_a and connector_b cannot be the same power connector")
 	
 	for power_connector_connection: PowerConnectorConnection in power_connector_connections:
@@ -16,7 +16,7 @@ func add_connection(connector_a: PowerConnector, connector_b: PowerConnector) ->
 		and power_connector_connection.power_connector_b == connector_b) or 
 		(power_connector_connection.power_connector_a == connector_b
 		and power_connector_connection.power_connector_b == connector_a)):
-			return false
+			return null
 	
 	var power_connector_connection: PowerConnectorConnection = PowerConnectorConnection.new(connector_a, connector_b)
 	power_connector_connections.append(power_connector_connection)
@@ -29,12 +29,12 @@ func add_connection(connector_a: PowerConnector, connector_b: PowerConnector) ->
 		_handle_connector_added(connector_b)
 	
 	_update_power_consumers_in_tree(connector_a)
-	return true
+	return power_connector_connection
 
 func remove_connections_to_connector(connector: PowerConnector) -> void:
 	for i: int in range(power_connector_connections.size()-1, -1, -1):
 		if power_connector_connections[i].power_connector_a == connector or power_connector_connections[i].power_connector_b == connector:
-			var other_connector: PowerConnector = power_connector_connections[i].power_connector_a if power_connector_connections[i].power_connector_a != connector else power_connector_connections[i].power_connector_b
+			var other_connector: PowerConnector = get_other_connector_in_connection(connector, power_connector_connections[i])
 			#the only reason i need to store this is to i can emit it with connection removed after its been deleted
 			var power_connection_at_index: PowerConnectorConnection = power_connector_connections[i]
 			power_connector_connections.remove_at(i)
@@ -42,6 +42,13 @@ func remove_connections_to_connector(connector: PowerConnector) -> void:
 			power_connection_at_index.emit_broken()
 			_update_power_consumers_in_tree(other_connector)
 	connections_changed.emit()
+
+func remove_connection(connection: PowerConnectorConnection) -> void:
+	power_connector_connections.erase(connection)
+	connection_removed.emit(connection) 
+	connection.emit_broken()
+	_update_power_consumers_in_tree(connection.power_connector_a)
+	_update_power_consumers_in_tree(connection.power_connector_b)
 
 func get_connections_for_connector(power_connector: PowerConnector) -> Array[PowerConnectorConnection]:
 	return power_connector_connections.filter(func(pc: PowerConnectorConnection): return pc.power_connector_a == power_connector or pc.power_connector_b == power_connector)
