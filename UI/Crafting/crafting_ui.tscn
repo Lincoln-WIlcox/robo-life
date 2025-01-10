@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://wgwi4qdwfkaq"]
+[gd_scene load_steps=8 format=3 uid="uid://wgwi4qdwfkaq"]
 
 [ext_resource type="Script" path="res://UI/Crafting/crafting_ui.gd" id="1_ab6bm"]
 [ext_resource type="Resource" uid="uid://d2daim5btky2m" path="res://Resources/CraftingRecipes/power_pole_recipe.tres" id="2_23ils"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://i18bwfti3ecg" path="res://UI/Crafting/crafting_row.tscn" id="2_ibjwy"]
 [ext_resource type="Resource" uid="uid://rrx5jsdom0ee" path="res://Resources/CraftingRecipes/drill_recipe.tres" id="3_r8meb"]
 [ext_resource type="Resource" uid="uid://dnsrdyywy76m" path="res://Resources/CraftingRecipes/deployable_ladder_recipe.tres" id="4_lmltp"]
+[ext_resource type="Resource" uid="uid://cw61mu46u3hqk" path="res://Resources/CraftingRecipes/transport_bucket_recipe.tres" id="6_jcjas"]
 
 [node name="CraftingUI" type="Control"]
 layout_mode = 3
@@ -15,7 +16,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ab6bm")
-crafting_recipes = Array[ExtResource("2_gssuj")]([ExtResource("2_23ils"), ExtResource("3_r8meb"), ExtResource("4_lmltp")])
+crafting_recipes = Array[ExtResource("2_gssuj")]([ExtResource("2_23ils"), ExtResource("3_r8meb"), ExtResource("4_lmltp"), ExtResource("6_jcjas")])
 crafting_row_packed_scene = ExtResource("2_ibjwy")
 
 [node name="CraftingUIContentVbox" type="VBoxContainer" parent="."]
