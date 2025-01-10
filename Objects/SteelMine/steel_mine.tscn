@@ -56,6 +56,7 @@ progress_bar = NodePath("../../CharacterBody2D/ProgressBar")
 wait_time = 1.5
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+collision_layer = 4
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]

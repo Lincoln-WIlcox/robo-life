@@ -1,3 +1,4 @@
+class_name SteelMine
 extends Node2D
 
 @onready var item_pickup_position = $CharacterBody2D/ItemPickupPosition

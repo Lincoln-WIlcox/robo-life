@@ -154,14 +154,14 @@ cursor_interact={
 [layer_names]
 
 2d_physics/layer_1="Ground"
-2d_physics/layer_2="OneWayPlatforms"
-2d_physics/layer_3="Entities"
-2d_physics/layer_4="WalkThroughEntities"
-2d_physics/layer_5="MouseDetector"
+2d_physics/layer_2="One Way Platforms"
+2d_physics/layer_3="Solid Entities"
+2d_physics/layer_4="Walk Through Entities"
+2d_physics/layer_5="Mouse Detector"
 2d_physics/layer_6="Damage"
 2d_physics/layer_7="Heat"
-2d_physics/layer_8="IntangibleEnviornmentObjects"
-2d_physics/layer_9="ItemGridTiles"
+2d_physics/layer_8="Intangible Enviornment Objects"
+2d_physics/layer_9="Item Grid Tiles"
 2d_physics/layer_10="Player"
 2d_physics/layer_11="Power"
 

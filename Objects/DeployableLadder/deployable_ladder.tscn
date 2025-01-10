@@ -20,7 +20,7 @@ region = Rect2(96, 160, 16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_orqst"]
 size = Vector2(16, 14)
 
-[sub_resource type="Resource" id="Resource_s2w6i"]
+[sub_resource type="Resource" id="Resource_cofj6"]
 resource_local_to_scene = true
 script = ExtResource("12_fnctc")
 use_exported_properties = true
@@ -59,7 +59,7 @@ max_speed = 900
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 collision_layer = 8
-collision_mask = 3
+collision_mask = 7
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 rotation = 3.14159
@@ -79,7 +79,7 @@ tile_height = 0.0
 [node name="MousePickupArea" parent="CharacterBody2D" node_paths=PackedStringArray("progress_bar", "delete_node") instance=ExtResource("9_ny7li")]
 progress_bar = NodePath("../ProgressBar")
 delete_node = NodePath("../..")
-inventory_addition = SubResource("Resource_s2w6i")
+inventory_addition = SubResource("Resource_cofj6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/MousePickupArea"]
 position = Vector2(0, -1)

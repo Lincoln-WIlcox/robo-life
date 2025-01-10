@@ -24,9 +24,9 @@
 [ext_resource type="PackedScene" uid="uid://b0pmkjnlnl8p0" path="res://Objects/LaserGun/laser_gun.tscn" id="9_03qrv"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_state.gd" id="10_0syx4"]
 [ext_resource type="PackedScene" uid="uid://v7qso20aqmk5" path="res://UI/ShelterUI/shelter_ui.tscn" id="12_vxdl5"]
+[ext_resource type="Resource" uid="uid://bckiex7mctva7" path="res://Resources/Items/drill.tres" id="13_geyg5"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_none.gd" id="13_itu6i"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_ui.gd" id="13_v1eve"]
-[ext_resource type="Resource" uid="uid://b3au5vg63nxkc" path="res://Resources/Items/power_pole.tres" id="13_ykw17"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_crafting.gd" id="15_0w8mt"]
 [ext_resource type="PackedScene" uid="uid://wgwi4qdwfkaq" path="res://UI/Crafting/crafting_ui.tscn" id="16_yn3tl"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/other.gd" id="18_ysl17"]
@@ -49,7 +49,7 @@ scale = Vector2(2, 2)
 
 [sub_resource type="Resource" id="Resource_fd7bh"]
 script = ExtResource("7_45g5n")
-item_data = ExtResource("13_ykw17")
+item_data = ExtResource("13_geyg5")
 position = Vector2i(0, 0)
 
 [sub_resource type="Resource" id="Resource_aurhu"]
