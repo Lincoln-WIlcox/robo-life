@@ -27,7 +27,7 @@ region = Rect2(112, 96, 16, 16)
 [sub_resource type="CircleShape2D" id="CircleShape2D_agpx2"]
 radius = 128.0
 
-[sub_resource type="Resource" id="Resource_pmoce"]
+[sub_resource type="Resource" id="Resource_ah67h"]
 resource_local_to_scene = true
 script = ExtResource("10_8fu3s")
 use_exported_properties = true
@@ -59,7 +59,7 @@ shape = SubResource("CircleShape2D_agpx2")
 [node name="MousePickupArea" parent="." node_paths=PackedStringArray("progress_bar", "delete_node") instance=ExtResource("4_4q22u")]
 progress_bar = NodePath("../ProgressBar")
 delete_node = NodePath("..")
-inventory_addition = SubResource("Resource_pmoce")
+inventory_addition = SubResource("Resource_ah67h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MousePickupArea"]
 shape = SubResource("RectangleShape2D_q0fjy")
