@@ -42,7 +42,8 @@ func _on_placed():
 	var connections_to_connect_to: Array[PowerConnector] = get_connectors_to_connect_to()
 	
 	for power_connector_to_connect_to: PowerConnector in connections_to_connect_to:
-		power_connector.connect_to(power_connector_to_connect_to)
+		if _connection_unobstructed(power_connector_to_connect_to):
+			power_connector.connect_to(power_connector_to_connect_to)
 
 #TODO: optimize line drawing
 func _process(_delta):
@@ -100,3 +101,16 @@ func make_selectable_power_pole_map_entity() -> SelectablePowerPoleMapEntity:
 	new_map_entity.source_node = self
 	new_map_entity.scene_setup.connect(_on_power_pole_selection_map_entity_setup.bind(new_map_entity))
 	return new_map_entity
+
+func _connection_unobstructed(power_connector_to_connect_to: PowerConnector) -> bool:
+	var check_for_walls_raycast: RayCast2D = RayCast2D.new()
+	node_to_put_lines_in.add_child(check_for_walls_raycast)
+	
+	check_for_walls_raycast.global_position = global_position
+	check_for_walls_raycast.target_position = power_connector_to_connect_to.global_position - global_position
+	
+	check_for_walls_raycast.collision_mask = 0
+	check_for_walls_raycast.set_collision_mask_value(1, true)
+	
+	check_for_walls_raycast.force_raycast_update()
+	return not check_for_walls_raycast.is_colliding()
