@@ -1,14 +1,14 @@
 [gd_scene load_steps=6 format=3 uid="uid://bvpfxo05k5nyo"]
 
 [ext_resource type="Script" path="res://Game/game.gd" id="1_p5sec"]
-[ext_resource type="PackedScene" uid="uid://4hdu5f7ikd0h" path="res://World/Levels/level_1.tscn" id="1_qsx06"]
 [ext_resource type="PackedScene" uid="uid://cstcp7nfordr7" path="res://UI/HUD/hud.tscn" id="2_0xbcc"]
+[ext_resource type="PackedScene" uid="uid://cldkgwqny8lwy" path="res://World/Levels/level_2.tscn" id="2_tac4n"]
 [ext_resource type="Script" path="res://Game/UILayer.gd" id="3_6x136"]
 [ext_resource type="PackedScene" uid="uid://bkc6nabwtybq4" path="res://UI/GameOverMenu/game_over_menu.tscn" id="5_8hpvy"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_p5sec")
-current_level_packed_scene = ExtResource("1_qsx06")
+current_level_packed_scene = ExtResource("2_tac4n")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 script = ExtResource("3_6x136")
