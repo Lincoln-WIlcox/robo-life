@@ -51,21 +51,17 @@ func _ready():
 func close_gui() -> void:
 	dragging.gui_exited()
 
-func _physics_process(_delta):
-	_updating_grid = false
-
 func update_grid() -> void:
 	if _updating_grid == false:
 		_updating_grid = true
 		_remove_tiles()
 		
-		#if not is_inside_tree():
-			#await tree_entered
-		#
-		#if grid_container.get_children().size() > 0:
-			#await grid_container.get_children()[grid_container.get_children().size() - 1].tree_exited
-		#
 		_make_tiles.call_deferred()
+
+func _enter_tree():
+	if not is_node_ready():
+		await ready
+	update_grid()
 
 func _make_tiles() -> void:
 	for y: int in range(0, item_grid.size.y):
@@ -89,6 +85,7 @@ func _make_tiles() -> void:
 			
 			if not found_overlapping_grid_item:
 				_make_empty_tile(grid_position)
+	_updating_grid = false
 
 func _remove_tiles() -> void:
 	for child: Node in grid_container.get_children():
