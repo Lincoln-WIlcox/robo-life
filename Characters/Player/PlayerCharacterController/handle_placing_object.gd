@@ -3,6 +3,8 @@ extends Node2D
 
 var cursor_detect_area: CursorDetectArea
 var node_to_spawn_placeables_in: Node
+var can_place_items: Callable
+
 var _placing_placeable: Placeable
 
 signal placeable_placed(placeable: Placeable)
@@ -23,9 +25,10 @@ func cancel_placing() -> void:
 func update_placing() -> void:
 	_placing_placeable.global_position = get_global_mouse_position()
 	_placing_placeable.in_range = cursor_detect_area.mouse_over
+	_placing_placeable.can_be_placed = can_place_items.call()
 
 func attempt_place_object() -> bool:
-	if _placing_placeable.placement_valid and cursor_detect_area.mouse_over:
+	if _placing_placeable.placement_valid and cursor_detect_area.mouse_over and can_place_items.call():
 		_placing_placeable.place()
 		placeable_placed.emit(_placing_placeable)
 		stop_placing()

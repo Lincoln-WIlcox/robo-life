@@ -116,15 +116,6 @@ func drop_item(grid_item: ItemGridItem) -> void:
 	inventory.remove_grid_item(grid_item)
 	drop_item_handler.drop_item(grid_item.item_data)
 
-func _on_drop_item_handler_drop_created(drop):
-	item_dropped.emit(drop)
-
-func _on_walk_over_item_pickup_collector_walk_over_item_collected(inventory_addition: InventoryAddition):
-	inventory.add_addition(inventory_addition)
-
-func _on_shelter_interaction_area_interaction_handler_shelter_interacted_with(shelter_area: ShelterInteractionArea):
-	shelter_interacted_with.emit(shelter_area)
-
 func start_gassing() -> void:
 	gas_handler.start_gassing()
 
@@ -136,3 +127,15 @@ func emit_just_interacted() -> void:
 
 func emit_just_climbed() -> void:
 	just_climbed.emit()
+
+func is_airborne() -> bool:
+	return falling_state.is_current_state.call() or jumping_state.is_current_state.call()
+
+func _on_drop_item_handler_drop_created(drop):
+	item_dropped.emit(drop)
+
+func _on_walk_over_item_pickup_collector_walk_over_item_collected(inventory_addition: InventoryAddition):
+	inventory.add_addition(inventory_addition)
+
+func _on_shelter_interaction_area_interaction_handler_shelter_interacted_with(shelter_area: ShelterInteractionArea):
+	shelter_interacted_with.emit(shelter_area)
