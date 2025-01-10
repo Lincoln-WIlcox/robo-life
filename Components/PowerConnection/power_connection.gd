@@ -6,8 +6,8 @@ signal just_lost_power
 #signal connections_changed
 signal status_changed
 
-func connect_to(connector: PowerConnector):
-	PowerConnectionHandler.add_connection(self, connector)
+func connect_to(connector: PowerConnector) -> PowerConnectorConnection:
+	return PowerConnectionHandler.add_connection(self, connector)
 
 var powered := false:
 	set(new_value):
