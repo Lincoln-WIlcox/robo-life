@@ -1,13 +1,11 @@
-[gd_scene load_steps=11 format=4 uid="uid://cldkgwqny8lwy"]
+[gd_scene load_steps=9 format=4 uid="uid://cldkgwqny8lwy"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_m8bdm"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_vjuht"]
 [ext_resource type="Script" path="res://Resources/MapData/map_texture.gd" id="3_3lujh"]
 [ext_resource type="TileSet" uid="uid://b2ajxli8pwv36" path="res://Resources/TileSets/level_1.tres" id="4_mkss6"]
 [ext_resource type="PackedScene" uid="uid://wnwdpxb3bxx4" path="res://Objects/Rope/rope.tscn" id="5_nbgxy"]
-[ext_resource type="PackedScene" uid="uid://cmog2buogarup" path="res://Objects/ItemPickup/item_pickup.tscn" id="6_jjluv"]
-[ext_resource type="Resource" uid="uid://di5ihtaupovf3" path="res://Resources/Items/deployable_ladder.tres" id="7_6urlq"]
-[ext_resource type="Resource" uid="uid://b3au5vg63nxkc" path="res://Resources/Items/power_pole.tres" id="8_ajqlx"]
+[ext_resource type="PackedScene" uid="uid://bofsie7wntey3" path="res://Objects/Shelter/shelter.tscn" id="6_raav1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_evjoi"]
 atlas = ExtResource("2_vjuht")
@@ -34,22 +32,6 @@ position = Vector2(128, -32)
 height = 192
 tile_height = 12.0
 
-[node name="ItemPickup" parent="." index="10" instance=ExtResource("6_jjluv")]
-position = Vector2(80, 144)
-item = ExtResource("7_6urlq")
-
-[node name="ItemPickup2" parent="." index="11" instance=ExtResource("6_jjluv")]
-position = Vector2(48, 144)
-item = ExtResource("8_ajqlx")
-
-[node name="ItemPickup3" parent="." index="12" instance=ExtResource("6_jjluv")]
-position = Vector2(16, 144)
-item = ExtResource("8_ajqlx")
-
-[node name="ItemPickup4" parent="." index="13" instance=ExtResource("6_jjluv")]
-position = Vector2(-16, 144)
-item = ExtResource("8_ajqlx")
-
-[node name="ItemPickup5" parent="." index="14" instance=ExtResource("6_jjluv")]
-position = Vector2(-48, 144)
-item = ExtResource("8_ajqlx")
+[node name="Shelter" parent="." index="10" node_paths=PackedStringArray("level_map_map_entity_collection") instance=ExtResource("6_raav1")]
+position = Vector2(0, 144)
+level_map_map_entity_collection = NodePath("../LevelMapMapEntityCollection")
