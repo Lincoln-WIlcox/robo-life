@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://UI/Crafting/costs_item.gd" id="1_3txis"]
 
-[node name="CostsItemMargin" type="MarginContainer"]
+[node name="CraftingRowItem" type="MarginContainer"]
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_right = 8
 script = ExtResource("1_3txis")

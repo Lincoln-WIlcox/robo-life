@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://UI/Crafting/crafting_row.gd" id="1_ncldr"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_pu1rd"]
-[ext_resource type="PackedScene" uid="uid://lteqvs7mwld4" path="res://UI/Crafting/costs_item.tscn" id="2_q3w1n"]
+[ext_resource type="PackedScene" uid="uid://lteqvs7mwld4" path="res://UI/Crafting/crafting_row_item.tscn" id="3_c7tgv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1dm2y"]
 atlas = ExtResource("2_pu1rd")
@@ -19,7 +19,7 @@ anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 script = ExtResource("1_ncldr")
-costs_item_packed_scene = ExtResource("2_q3w1n")
+crafting_row_item_packed_scene = ExtResource("3_c7tgv")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -48,21 +48,21 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Craft"
 
-[node name="CraftItemMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+[node name="CraftingItemsMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_right = 8
 
-[node name="CraftItemHbox" type="HBoxContainer" parent="MarginContainer/HBoxContainer/CraftItemMargin"]
+[node name="CraftItemHbox" type="HBoxContainer" parent="MarginContainer/HBoxContainer/CraftingItemsMargin"]
 layout_mode = 2
 
-[node name="CraftItemTexture" type="TextureRect" parent="MarginContainer/HBoxContainer/CraftItemMargin/CraftItemHbox"]
+[node name="CraftItemTexture" type="TextureRect" parent="MarginContainer/HBoxContainer/CraftingItemsMargin/CraftItemHbox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 stretch_mode = 5
 
-[node name="CraftItemLabel" type="Label" parent="MarginContainer/HBoxContainer/CraftItemMargin/CraftItemHbox"]
+[node name="CraftItemLabel" type="Label" parent="MarginContainer/HBoxContainer/CraftingItemsMargin/CraftItemHbox"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "???"

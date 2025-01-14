@@ -21,6 +21,7 @@ extends Node2D
 @onready var power_pole_selection_state = $UIStateMachine/PowerPoleSelection
 @onready var transport_bucket_placement_handler = $TransportBucketPlacementHandler
 @onready var cursor_interaction_handler = $CursorInteractionHandler
+@onready var shield = $ShieldRotationPivot/Shield
 
 @export var map_texture: MapTexture
 @export var movement_disabled := false
@@ -148,6 +149,8 @@ func _ready():
 	
 	remove_child(laser_gun)
 	player_character.character.add_child(laser_gun)
+	laser_gun.laser.raycast.add_exception(player_character.character)
+	laser_gun.laser.raycast.add_exception(shield.area)
 
 func drop_item(item: ItemData):
 	player_character.drop_item(item)

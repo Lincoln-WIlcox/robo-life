@@ -13,10 +13,10 @@ const STEEL_TEXT = "steel: "
 @onready var steel_margin = %SteelMargin
 @onready var battery_margin = %BatteryMargin
 
-var _costs_items: Array[CostsItem]:
+var _costs_items: Array[CraftingRowItem]:
 	get:
-		var costs_items: Array[Node] = costs_items_hbox.get_children().filter(func(c: Node): return c is CostsItem)
-		var costs_items_typed: Array[CostsItem]
+		var costs_items: Array[Node] = costs_items_hbox.get_children().filter(func(c: Node): return c is CraftingRowItem)
+		var costs_items_typed: Array[CraftingRowItem]
 		costs_items_typed.assign(costs_items)
 		return costs_items_typed
 
@@ -25,7 +25,7 @@ var _costs_items: Array[CostsItem]:
 		crafting_recipe = new_value
 		if is_node_ready():
 			update_nodes()
-@export var costs_item_packed_scene: PackedScene
+@export var crafting_row_item_packed_scene: PackedScene
 @export var disabled := false:
 	set(new_value):
 		disabled = new_value
@@ -40,16 +40,17 @@ func _ready():
 func update_nodes() -> void:
 	craft_button.disabled = disabled
 	
-	for costs_item: CostsItem in _costs_items:
+	for costs_item: CraftingRowItem in _costs_items:
 		costs_item.queue_free()
 	
 	if crafting_recipe:
-		craft_item_texture.texture = crafting_recipe.crafting_item.texture
-		craft_item_label.text = crafting_recipe.crafting_item.name
-		steel_label.text = str(crafting_recipe.requirement.steel_cost)
-		battery_label.text = str(crafting_recipe.requirement.batteries_cost)
-		steel_margin.visible = crafting_recipe.requirement.steel_cost > 0
-		battery_margin.visible = crafting_recipe.requirement.batteries_cost > 0
+		if Engine.is_editor_hint():
+			craft_item_texture.texture = crafting_recipe.inventory_addition.initial_gain_items[0].texture
+			craft_item_label.text = crafting_recipe.inventory_addition.initial_gain_items[0].name
+			steel_label.text = str(crafting_recipe.requirement.steel_cost)
+			battery_label.text = str(crafting_recipe.requirement.batteries_cost)
+			steel_margin.visible = crafting_recipe.requirement.steel_cost > 0
+			battery_margin.visible = crafting_recipe.requirement.batteries_cost > 0
 		
 		costs_items_hbox.visible = crafting_recipe.requirement.costs_items.size() > 0
 		create_cost_items(crafting_recipe.requirement.costs_items)
@@ -75,7 +76,7 @@ func create_cost_items(cost_items: Array[ItemData]) -> void:
 		create_costs_item_row(item, amount)
 
 func create_costs_item_row(item: ItemData, amount) -> void:
-	var costs_item_scene: CostsItem = costs_item_packed_scene.instantiate()
+	var costs_item_scene: CraftingRowItem = crafting_row_item_packed_scene.instantiate()
 	costs_item_scene.item_data = item
 	costs_item_scene.amount = amount
 	

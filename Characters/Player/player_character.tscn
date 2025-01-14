@@ -500,6 +500,7 @@ shape = SubResource("RectangleShape2D_6ufrv")
 metadata/_edit_lock_ = true
 
 [node name="InteractArea" type="Area2D" parent="PlayerCharacterBody"]
+collision_layer = 0
 collision_mask = 141
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/InteractArea"]

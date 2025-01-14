@@ -1,5 +1,5 @@
 @tool
-class_name CostsItem
+class_name CraftingRowItem
 extends MarginContainer
 
 const AMOUNT_LABEL_TEXT = "Amount: "

@@ -34,18 +34,18 @@ func update_nodes() -> void:
 func creating_crafting_row(crafting_recipe: CraftingRecipe) -> void:
 	var crafting_row: CraftingRow = crafting_row_packed_scene.instantiate()
 	crafting_row.crafting_recipe = crafting_recipe
-	crafting_row.disabled = not player_inventory.meets_requirements(crafting_recipe.requirement) and (player_inventory.item_grid.item_can_be_added(crafting_recipe.crafting_item) or shelter_inventory.item_grid.item_can_be_added(crafting_recipe.crafting_item))
+	crafting_row.disabled = not player_inventory.meets_requirements(crafting_recipe.requirement) and (player_inventory.can_add_addition(crafting_recipe.inventory_addition) or shelter_inventory.can_add_addition(crafting_recipe.inventory_addition))
 	crafting_row.craft_pressed.connect(_on_crafting_row_craft_pressed)
 	crafting_rows_container.add_child(crafting_row)
 
 func _on_crafting_row_craft_pressed(crafting_recipe: CraftingRecipe):
 	if player_inventory.meets_requirements(crafting_recipe.requirement):
-		if player_inventory.item_grid.item_can_be_added(crafting_recipe.crafting_item):
+		if player_inventory.can_add_addition(crafting_recipe.inventory_addition):
 			player_inventory.spend_requirement(crafting_recipe.requirement)
-			player_inventory.add_item(crafting_recipe.crafting_item)
-		elif shelter_inventory.item_grid.item_can_be_added(crafting_recipe.crafting_item):
+			player_inventory.add_addition(crafting_recipe.inventory_addition)
+		elif shelter_inventory.can_add_addition(crafting_recipe.inventory_addition):
 			player_inventory.spend_requirement(crafting_recipe.requirement)
-			shelter_inventory.add_item(crafting_recipe.crafting_item)
+			shelter_inventory.add_addition(crafting_recipe.inventory_addition)
 	update_nodes()
 
 func _on_return_button_pressed():

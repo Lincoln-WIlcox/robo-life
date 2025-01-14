@@ -1,9 +1,18 @@
-[gd_resource type="Resource" script_class="CraftingRecipe" load_steps=6 format=3 uid="uid://rrx5jsdom0ee"]
+[gd_resource type="Resource" script_class="CraftingRecipe" load_steps=8 format=3 uid="uid://rrx5jsdom0ee"]
 
 [ext_resource type="Resource" uid="uid://bckiex7mctva7" path="res://Resources/Items/drill.tres" id="1_nsw5j"]
 [ext_resource type="Script" path="res://Resources/inventory_requirement.gd" id="2_r0x5e"]
 [ext_resource type="Script" path="res://Resources/item_data.gd" id="2_xsax3"]
+[ext_resource type="Script" path="res://Resources/inventory_addition.gd" id="3_76fio"]
 [ext_resource type="Script" path="res://Resources/crafting_recipe.gd" id="3_jbfrh"]
+
+[sub_resource type="Resource" id="Resource_x2eyn"]
+script = ExtResource("3_76fio")
+use_exported_properties = false
+gain_batteries = 0
+gain_steel = 0
+gain_food = 0
+initial_gain_items = Array[ExtResource("2_xsax3")]([ExtResource("1_nsw5j")])
 
 [sub_resource type="Resource" id="Resource_ycb3u"]
 script = ExtResource("2_r0x5e")
@@ -15,4 +24,4 @@ requires_items = Array[ExtResource("2_xsax3")]([])
 [resource]
 script = ExtResource("3_jbfrh")
 requirement = SubResource("Resource_ycb3u")
-crafting_item = ExtResource("1_nsw5j")
+inventory_addition = SubResource("Resource_x2eyn")
