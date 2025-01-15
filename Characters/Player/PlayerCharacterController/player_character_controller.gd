@@ -29,8 +29,9 @@ extends Node2D
 @export var shelter_inventory: Inventory:
 	set(new_value):
 		shelter_inventory = new_value
-		shelter_shelter_state.shelter_inventory = shelter_inventory
-		crafting_state.shelter_inventory = shelter_inventory
+		if is_node_ready():
+			shelter_shelter_state.shelter_inventory = shelter_inventory
+			crafting_state.shelter_inventory = shelter_inventory
 @export var environment_query_system: EnvironmentQuerySystem
 @export var level_map_map_entity_collection: MapEntityCollection
 

@@ -48,81 +48,75 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Craft"
 
+[node name="CraftsItemsLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Crafts: "
+
 [node name="CraftingItemsMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_right = 8
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 4
 
-[node name="CraftItemHbox" type="HBoxContainer" parent="MarginContainer/HBoxContainer/CraftingItemsMargin"]
-layout_mode = 2
-
-[node name="CraftItemTexture" type="TextureRect" parent="MarginContainer/HBoxContainer/CraftingItemsMargin/CraftItemHbox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-stretch_mode = 5
-
-[node name="CraftItemLabel" type="Label" parent="MarginContainer/HBoxContainer/CraftingItemsMargin/CraftItemHbox"]
+[node name="CraftingItemsHbox" type="HBoxContainer" parent="MarginContainer/HBoxContainer/CraftingItemsMargin"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "???"
 
-[node name="SteelMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+[node name="CostsLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Costs:"
+
+[node name="CostsSteelMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_right = 8
 
-[node name="SteelHbox" type="HBoxContainer" parent="MarginContainer/HBoxContainer/SteelMargin"]
+[node name="CostsSteelHbox" type="HBoxContainer" parent="MarginContainer/HBoxContainer/CostsSteelMargin"]
 layout_mode = 2
 
-[node name="SteelIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/SteelMargin/SteelHbox"]
+[node name="CostsSteelIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/CostsSteelMargin/CostsSteelHbox"]
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 texture = SubResource("AtlasTexture_1dm2y")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="SteelLabel" type="Label" parent="MarginContainer/HBoxContainer/SteelMargin/SteelHbox"]
+[node name="CostsSteelLabel" type="Label" parent="MarginContainer/HBoxContainer/CostsSteelMargin/CostsSteelHbox"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "0"
+text = "3"
 
-[node name="BatteryMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+[node name="CostsBatteriesMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_right = 8
 
-[node name="BatteryHbox" type="HBoxContainer" parent="MarginContainer/HBoxContainer/BatteryMargin"]
+[node name="CostsBatteriesHbox" type="HBoxContainer" parent="MarginContainer/HBoxContainer/CostsBatteriesMargin"]
 layout_mode = 2
 
-[node name="BatteryIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/BatteryMargin/BatteryHbox"]
+[node name="CostsBatteriesIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/CostsBatteriesMargin/CostsBatteriesHbox"]
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 texture = SubResource("AtlasTexture_cwtle")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="BatteryLabel" type="Label" parent="MarginContainer/HBoxContainer/BatteryMargin/BatteryHbox"]
+[node name="CostsBatteriesLabel" type="Label" parent="MarginContainer/HBoxContainer/CostsBatteriesMargin/CostsBatteriesHbox"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "0"
+text = "1"
 
 [node name="CostsItemsMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_right = 8
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 4
 
 [node name="CostItemsHbox" type="HBoxContainer" parent="MarginContainer/HBoxContainer/CostsItemsMargin"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-
-[node name="CostsItemsLabel" type="Label" parent="MarginContainer/HBoxContainer/CostsItemsMargin/CostItemsHbox"]
-layout_mode = 2
-text = "Costs Items:"
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/CraftButtonMargin/CraftButton" to="." method="_on_craft_button_pressed"]

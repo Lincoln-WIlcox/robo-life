@@ -15,34 +15,23 @@ extends Resource
 		steel = new_value
 		
 		emit_changed()
-##The initial amount of food
-@export var initial_food := 0:
+##The amount of food
+@export var food := 0:
 	set(new_value):
-		if not _food:
-			initial_food = new_value
-			_food = initial_food
-			emit_changed()
-		else:
-			push_warning("changing initial_food after creation of resource does nothing")
+		food = new_value
+		emit_changed()
 ##The maximum amount of food this inventory can hold. Using [method change_food] will not allow food to go above this value
 @export var max_food := 50:
 	set(new_value):
 		max_food = new_value
-		
 		emit_changed()
 ##The initial value for the item grid. The item grid itself is private. To interact with it, use the functions provided
-@export var initial_item_grid: ItemGrid:
-	set(new_value):
-		if item_grid == null and new_value != null:
-			item_grid = new_value
-
-##This inventory's associated [ItemGrid]
-var item_grid: ItemGrid = null:
+@export var item_grid: ItemGrid:
 	set(new_value):
 		item_grid = new_value
-		item_grid.changed.connect(func(): emit_changed())
+		if item_grid != null:
+			item_grid.changed.connect(func(): emit_changed())
 		emit_changed()
-var _food := initial_food
 
 ##Adds an item to the item grid
 func add_item(item: ItemData) -> bool:
@@ -82,13 +71,13 @@ func add_addition(inventory_addition: InventoryAddition) -> void:
 	for item: ItemData in gaining_items:
 		item_grid.add_item(item)
 		inventory_addition.remove_item(item)
-	var gain_food: int = inventory_addition.gain_food if _food + inventory_addition.gain_food <= max_food else max_food - _food
+	var gain_food: int = inventory_addition.gain_food if food + inventory_addition.gain_food <= max_food else max_food - food
 	inventory_addition.gain_food -= gain_food
-	_food += gain_food
+	food += gain_food
 	emit_changed()
 
 func can_add_addition(inventory_addition: InventoryAddition) -> bool:
-	if inventory_addition.gain_food + _food > max_food:
+	if inventory_addition.gain_food + food > max_food:
 		return false
 	
 	var item_grid_copy: ItemGrid = item_grid.duplicate()
@@ -103,34 +92,34 @@ func to_inventory_addition() -> InventoryAddition:
 	var items: Array[ItemData]
 	var items_assigner: Array = item_grid.get_items() if item_grid else []
 	items.assign(items_assigner)
-	var inventory_addition: InventoryAddition = InventoryAddition.new(batteries,steel,_food,items)
+	var inventory_addition: InventoryAddition = InventoryAddition.new(batteries,steel,food,items)
 	return inventory_addition
 
 ##Returns the amount of food in the inventory
 func get_food() -> int:
-	return _food
+	return food
 
 ##Returns true if inventory has food.
 func has_food() -> bool:
-	return _food > 0
+	return food > 0
 
 ##Changes the amount of food in the inventory. Will not set food above [member Inventory.max_food] or below 0
 func change_food(change: int) -> void:
-	set_food(_food + change)
+	set_food(food + change)
 
 ##Adds food. See [method Inventory.set_food]
 func add_food(amount: int = 1) -> void:
-	set_food(_food + amount)
+	set_food(food + amount)
 
 ##Removes food. See [method Inventory.set_food]
 func remove_food(amount: int = 1) -> void:
-	set_food(_food - amount)
+	set_food(food - amount)
 
 ##Sets the amount of food in the inventory.  Will not set food above [member Inventory.max_food] or below 0
 func set_food(new_food: int) -> void:
-	_food = new_food
-	_food = min(_food, max_food)
-	_food = max(0, _food)
+	food = new_food
+	food = min(food, max_food)
+	food = max(0, food)
 	emit_changed()
 
 ##Returns true if this inventory can spend [param inventory_requirement].

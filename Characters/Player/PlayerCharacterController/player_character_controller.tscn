@@ -47,23 +47,25 @@ display_texture = SubResource("AtlasTexture_evjoi")
 z_index = 1
 scale = Vector2(2, 2)
 
-[sub_resource type="Resource" id="Resource_fd7bh"]
+[sub_resource type="Resource" id="Resource_7o84n"]
 script = ExtResource("7_45g5n")
 item_data = ExtResource("13_geyg5")
 position = Vector2i(0, 0)
 
-[sub_resource type="Resource" id="Resource_aurhu"]
+[sub_resource type="Resource" id="Resource_wg53l"]
+resource_local_to_scene = true
 script = ExtResource("4_saie0")
 size = Vector2i(3, 3)
-initial_items = Array[ExtResource("7_45g5n")]([SubResource("Resource_fd7bh")])
+initial_items = Array[ExtResource("7_45g5n")]([SubResource("Resource_7o84n")])
 
-[sub_resource type="Resource" id="Resource_crkq6"]
+[sub_resource type="Resource" id="Resource_qf54e"]
+resource_local_to_scene = true
 script = ExtResource("4_d214o")
 batteries = 0
 steel = 0
-initial_food = 0
+food = 0
 max_food = 5
-initial_item_grid = SubResource("Resource_aurhu")
+item_grid = SubResource("Resource_wg53l")
 
 [node name="PlayerCharacterController" type="Node2D"]
 script = ExtResource("1_bw5ol")
@@ -96,7 +98,7 @@ player_character = NodePath("../PlayerCharacter")
 laser_gun = NodePath("../LaserGun")
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("2_u8dgg")]
-inventory = SubResource("Resource_crkq6")
+inventory = SubResource("Resource_qf54e")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_callback = 0

@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Resources/crafting_recipe.gd" id="3_jbfrh"]
 
 [sub_resource type="Resource" id="Resource_x2eyn"]
+resource_local_to_scene = true
 script = ExtResource("3_76fio")
 use_exported_properties = false
 gain_batteries = 0
@@ -15,6 +16,7 @@ gain_food = 0
 initial_gain_items = Array[ExtResource("2_xsax3")]([ExtResource("1_nsw5j")])
 
 [sub_resource type="Resource" id="Resource_ycb3u"]
+resource_local_to_scene = true
 script = ExtResource("2_r0x5e")
 batteries_cost = 1
 steel_cost = 3
@@ -22,6 +24,7 @@ costs_items = Array[ExtResource("2_xsax3")]([])
 requires_items = Array[ExtResource("2_xsax3")]([])
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("3_jbfrh")
 requirement = SubResource("Resource_ycb3u")
 inventory_addition = SubResource("Resource_x2eyn")

@@ -39,7 +39,7 @@
 script = ExtResource("2_f2ewa")
 batteries = 0
 steel = 0
-initial_food = 0
+food = 0
 max_food = 50
 
 [sub_resource type="GDScript" id="GDScript_h7t3e"]
@@ -429,7 +429,7 @@ health_component = NodePath("../HealthComponent")
 wait_time = 3.0
 
 [node name="PlayerCharacterBody" type="CharacterBody2D" parent="."]
-collision_layer = 516
+collision_layer = 520
 collision_mask = 5
 slide_on_ceiling = false
 floor_constant_speed = true

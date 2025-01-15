@@ -41,11 +41,11 @@ func creating_crafting_row(crafting_recipe: CraftingRecipe) -> void:
 func _on_crafting_row_craft_pressed(crafting_recipe: CraftingRecipe):
 	if player_inventory.meets_requirements(crafting_recipe.requirement):
 		if player_inventory.can_add_addition(crafting_recipe.inventory_addition):
-			player_inventory.spend_requirement(crafting_recipe.requirement)
-			player_inventory.add_addition(crafting_recipe.inventory_addition)
+			player_inventory.spend_requirement(crafting_recipe.requirement.duplicate())
+			player_inventory.add_addition(crafting_recipe.inventory_addition.duplicate())
 		elif shelter_inventory.can_add_addition(crafting_recipe.inventory_addition):
-			player_inventory.spend_requirement(crafting_recipe.requirement)
-			shelter_inventory.add_addition(crafting_recipe.inventory_addition)
+			player_inventory.spend_requirement(crafting_recipe.requirement.duplicate())
+			shelter_inventory.add_addition(crafting_recipe.inventory_addition.duplicate())
 	update_nodes()
 
 func _on_return_button_pressed():

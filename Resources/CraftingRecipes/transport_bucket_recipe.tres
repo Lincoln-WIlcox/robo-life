@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Resources/inventory_requirement.gd" id="4_q51gu"]
 
 [sub_resource type="Resource" id="Resource_ogljs"]
+resource_local_to_scene = true
 script = ExtResource("3_2288u")
 use_exported_properties = false
 gain_batteries = 0
@@ -16,6 +17,7 @@ gain_food = 0
 initial_gain_items = Array[ExtResource("2_hl5gb")]([ExtResource("1_xlqgs")])
 
 [sub_resource type="Resource" id="Resource_6r5k5"]
+resource_local_to_scene = true
 script = ExtResource("4_q51gu")
 batteries_cost = 0
 steel_cost = 5
@@ -23,6 +25,7 @@ costs_items = Array[ExtResource("2_hl5gb")]([ExtResource("3_a0prs")])
 requires_items = Array[ExtResource("2_hl5gb")]([])
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_xhcwj")
 requirement = SubResource("Resource_6r5k5")
 inventory_addition = SubResource("Resource_ogljs")
