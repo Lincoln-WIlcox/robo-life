@@ -1,9 +1,9 @@
 class_name World
 extends Node2D
 
-@onready var day_night_cycle = $DayNightCycle
-@onready var player_character_controller = $PlayerCharacterController
-@onready var tiles = $Tiles
+@onready var day_night_cycle: DayNightCycle = $DayNightCycle
+@onready var player_character_controller: PlayerCharacterController = $PlayerCharacterController
+@onready var tiles: TileMapLayer = $Tiles
 
 @export var active_player: PlayerCharacterController:
 	set(new_value):
