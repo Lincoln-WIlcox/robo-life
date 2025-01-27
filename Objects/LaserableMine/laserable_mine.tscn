@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://com8xhpp4yaj4"]
+
+[ext_resource type="Script" path="res://Objects/LaserableMine/laserable_mine.gd" id="1_uhnbc"]
+[ext_resource type="PackedScene" uid="uid://cqnd47al60df" path="res://Objects/GravityWalkOverPickupSpawner/gravity_walk_over_pickup_spawner.tscn" id="2_cmmbm"]
+[ext_resource type="Script" path="res://Objects/LaserableMine/spawing_handler.gd" id="2_ep4xe"]
+[ext_resource type="PackedScene" uid="uid://e2r1erqmej6l" path="res://Objects/GravityWalkOverItemPickup/gravity_walk_over_item_pickup_steel.tscn" id="3_yvuup"]
+[ext_resource type="PackedScene" uid="uid://cqgdaw3uhpn" path="res://Components/HeatReceiver/heat_receiver.tscn" id="4_ne4k3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dj306"]
+size = Vector2(64, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x34wg"]
+size = Vector2(64, 32)
+
+[node name="LaserableMine" type="Node2D"]
+script = ExtResource("1_uhnbc")
+
+[node name="SpawingHandler" type="Node" parent="." node_paths=PackedStringArray("steel_spawner")]
+script = ExtResource("2_ep4xe")
+steel_spawner = NodePath("../StaticBody2D/SteelSpawner")
+
+[node name="Timer" type="Timer" parent="SpawingHandler"]
+wait_time = 1.4
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="SteelSpawner" parent="StaticBody2D" instance=ExtResource("2_cmmbm")]
+gravity_walk_over_pickup_packed_scene = ExtResource("3_yvuup")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+offset_left = -32.0
+offset_top = -16.0
+offset_right = 32.0
+offset_bottom = 16.0
+color = Color(0.4736, 0.6512, 0.74, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_dj306")
+
+[node name="HeatReceiver" parent="StaticBody2D" instance=ExtResource("4_ne4k3")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/HeatReceiver"]
+shape = SubResource("RectangleShape2D_x34wg")
+
+[connection signal="timeout" from="SpawingHandler/Timer" to="SpawingHandler" method="_on_timer_timeout"]
+[connection signal="started_heating" from="StaticBody2D/HeatReceiver" to="SpawingHandler" method="_on_heat_receiver_started_heating"]
+[connection signal="stopped_heating" from="StaticBody2D/HeatReceiver" to="SpawingHandler" method="_on_heat_receiver_stopped_heating"]
