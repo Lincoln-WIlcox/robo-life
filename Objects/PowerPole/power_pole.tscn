@@ -1,20 +1,24 @@
-[gd_scene load_steps=17 format=3 uid="uid://cng4tm54hq536"]
+[gd_scene load_steps=18 format=3 uid="uid://cng4tm54hq536"]
 
 [ext_resource type="Script" path="res://Objects/PowerPole/power_pole.gd" id="1_kt56x"]
+[ext_resource type="Script" path="res://Resources/MapData/selectable_map_entity.gd" id="2_2oagv"]
+[ext_resource type="PackedScene" uid="uid://cihd7i38vg5st" path="res://UI/Map/MapScenes/SelectableMapScene/selectable_map_scene.tscn" id="2_gapn7"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_gq44m"]
-[ext_resource type="PackedScene" uid="uid://sm5rnfdhpnwf" path="res://UI/Map/MapScenes/SelectablePowerPole/selectable_power_pole.tscn" id="2_wsl8g"]
 [ext_resource type="PackedScene" uid="uid://g1sd2n28vfvx" path="res://Components/PowerConnection/power_connection.tscn" id="3_1oihy"]
-[ext_resource type="Script" path="res://Resources/MapData/selectable_power_pole_map_entity.gd" id="3_t3fk7"]
 [ext_resource type="PackedScene" uid="uid://gfntau5ijo5h" path="res://Components/MousePickupComponent/mouse_pickup_area.tscn" id="4_4q22u"]
 [ext_resource type="Script" path="res://Resources/QueryableEntity/queryable_entity.gd" id="4_blenl"]
 [ext_resource type="Script" path="res://Resources/item_data.gd" id="8_12f52"]
 [ext_resource type="Resource" uid="uid://b3au5vg63nxkc" path="res://Resources/Items/power_pole.tres" id="9_nx5ab"]
 [ext_resource type="Script" path="res://Resources/inventory_addition.gd" id="10_8fu3s"]
 
-[sub_resource type="Resource" id="Resource_a1sjy"]
+[sub_resource type="Resource" id="Resource_pnucw"]
 resource_local_to_scene = true
-script = ExtResource("3_t3fk7")
-packed_scene = ExtResource("2_wsl8g")
+script = ExtResource("2_2oagv")
+packed_scene = ExtResource("2_gapn7")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2dsd"]
+atlas = ExtResource("2_gq44m")
+region = Rect2(112, 96, 16, 16)
 
 [sub_resource type="Resource" id="Resource_dfqfl"]
 resource_local_to_scene = true
@@ -27,7 +31,7 @@ region = Rect2(112, 96, 16, 16)
 [sub_resource type="CircleShape2D" id="CircleShape2D_agpx2"]
 radius = 176.0
 
-[sub_resource type="Resource" id="Resource_h06cu"]
+[sub_resource type="Resource" id="Resource_mnf6f"]
 resource_local_to_scene = true
 script = ExtResource("10_8fu3s")
 use_exported_properties = true
@@ -41,7 +45,8 @@ size = Vector2(16, 16)
 
 [node name="PowerPole" type="Node2D"]
 script = ExtResource("1_kt56x")
-power_pole_selection_map_entity = SubResource("Resource_a1sjy")
+power_pole_selection_map_entity = SubResource("Resource_pnucw")
+power_pole_selection_texture = SubResource("AtlasTexture_t2dsd")
 queryable = SubResource("Resource_dfqfl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -59,7 +64,7 @@ shape = SubResource("CircleShape2D_agpx2")
 [node name="MousePickupArea" parent="." node_paths=PackedStringArray("progress_bar", "delete_node") instance=ExtResource("4_4q22u")]
 progress_bar = NodePath("../ProgressBar")
 delete_node = NodePath("..")
-inventory_addition = SubResource("Resource_h06cu")
+inventory_addition = SubResource("Resource_mnf6f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MousePickupArea"]
 shape = SubResource("RectangleShape2D_q0fjy")

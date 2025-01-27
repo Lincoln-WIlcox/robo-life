@@ -1,0 +1,44 @@
+[gd_scene load_steps=11 format=3 uid="uid://blum4fqe6ct0a"]
+
+[ext_resource type="Script" path="res://Objects/TransportBucket/TransportBucketPlaceable/power_pole_selection_manager.gd" id="1_0yoyt"]
+[ext_resource type="Script" path="res://Objects/TransportBucket/TransportBucketPowerPoleSelectionManager/transport_bucket_power_pole_selection_manager.gd" id="1_xea4w"]
+[ext_resource type="PackedScene" uid="uid://bgqgiy1o0dn8e" path="res://Objects/TransportBucket/transport_bucket.tscn" id="2_4750m"]
+[ext_resource type="PackedScene" uid="uid://mwe43y7dhjg" path="res://UI/TransportBucketUI/transport_bucket_ui.tscn" id="2_uaido"]
+[ext_resource type="Script" path="res://Resources/item_grid_item.gd" id="4_3hx7g"]
+[ext_resource type="Script" path="res://Resources/item_grid.gd" id="5_gyjnq"]
+[ext_resource type="Script" path="res://Resources/inventory.gd" id="6_rch3e"]
+[ext_resource type="Script" path="res://Objects/TransportBucket/TransportBucketPowerPoleSelectionManager/path_handler.gd" id="6_ystpc"]
+
+[sub_resource type="Resource" id="Resource_ibgew"]
+resource_local_to_scene = true
+script = ExtResource("5_gyjnq")
+size = Vector2i(2, 2)
+initial_items = Array[ExtResource("4_3hx7g")]([])
+
+[sub_resource type="Resource" id="Resource_5vjpj"]
+resource_local_to_scene = true
+script = ExtResource("6_rch3e")
+batteries = 0
+steel = 0
+food = 0
+max_food = 50
+item_grid = SubResource("Resource_ibgew")
+
+[node name="TransportBucketPowerPoleSelectionManager" type="Node"]
+script = ExtResource("1_xea4w")
+transport_bucket_ui_packed_scene = ExtResource("2_uaido")
+
+[node name="TransportBucket" parent="." instance=ExtResource("2_4750m")]
+initial_inventory = SubResource("Resource_5vjpj")
+
+[node name="PowerPoleSelectionManager" type="Node" parent="." node_paths=PackedStringArray("path_handler")]
+script = ExtResource("1_0yoyt")
+path_handler = NodePath("../PathHandler")
+
+[node name="PathHandler" type="Node" parent="." node_paths=PackedStringArray("transport_bucket")]
+script = ExtResource("6_ystpc")
+transport_bucket = NodePath("../TransportBucket")
+
+[connection signal="interacted_with" from="TransportBucket" to="." method="_on_transport_bucket_interacted_with"]
+[connection signal="tree_exiting" from="TransportBucket" to="." method="_on_transport_bucket_tree_exiting"]
+[connection signal="power_connector_selected" from="PowerPoleSelectionManager" to="." method="_on_power_pole_selection_manager_power_connector_selected"]

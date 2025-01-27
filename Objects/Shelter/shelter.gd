@@ -2,9 +2,11 @@ extends Node2D
 
 @export var level_map_map_entity_collection: MapEntityCollection
 @export var map_scene: MapScene
+@export var shelter_selection_map_scene: MapScene
 
 func _ready():
-	level_map_map_entity_collection.add_map_entity(map_scene)
+	if level_map_map_entity_collection:
+		level_map_map_entity_collection.add_map_entity(map_scene)
 	map_scene.scene_setup.connect(_set_map_entity_position)
 
 func _set_map_entity_position() -> void:

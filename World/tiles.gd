@@ -38,5 +38,6 @@ func _apply_one_way(tile_position):
 	var local_position: Vector2 = map_to_local(tile_position)
 	var one_way_platform: StaticBody2D = one_way_platform_packed_scene.instantiate()
 	one_way_platform.position = local_position
-	environment_query_system.add_solid_entity_body(one_way_platform)
+	if environment_query_system:
+		environment_query_system.add_solid_entity_body(one_way_platform)
 	add_child(one_way_platform)

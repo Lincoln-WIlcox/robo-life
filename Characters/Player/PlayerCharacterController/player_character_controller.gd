@@ -33,7 +33,7 @@ extends Node2D
 			shelter_shelter_state.shelter_inventory = shelter_inventory
 			crafting_state.shelter_inventory = shelter_inventory
 @export var environment_query_system: EnvironmentQuerySystem
-@export var level_map_map_entity_collection: MapEntityCollection
+@export var level_map_map_entity_collection: MapEntityCollection = MapEntityCollection.new()
 
 var _queryable: PlayerQueryable = PlayerQueryable.new()
 
@@ -75,6 +75,8 @@ signal inventory_closed
 signal shelter_opened(shelter_ui: Control)
 signal shelter_closed
 signal day_ended
+
+var shelter_map_scenes_interacted_with: Array[ShelterInteractionArea]
 
 func _ready():
 	_queryable.connect_source(self)

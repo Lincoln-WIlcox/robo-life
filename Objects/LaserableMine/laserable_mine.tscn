@@ -44,6 +44,7 @@ shape = SubResource("RectangleShape2D_dj306")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/HeatReceiver"]
 shape = SubResource("RectangleShape2D_x34wg")
 
+[connection signal="out_of_steel" from="SpawingHandler" to="." method="_on_spawing_handler_out_of_steel"]
 [connection signal="timeout" from="SpawingHandler/Timer" to="SpawingHandler" method="_on_timer_timeout"]
 [connection signal="started_heating" from="StaticBody2D/HeatReceiver" to="SpawingHandler" method="_on_heat_receiver_started_heating"]
 [connection signal="stopped_heating" from="StaticBody2D/HeatReceiver" to="SpawingHandler" method="_on_heat_receiver_stopped_heating"]
