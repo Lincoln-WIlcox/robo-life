@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bofsie7wntey3"]
+[gd_scene load_steps=14 format=3 uid="uid://bofsie7wntey3"]
 
 [ext_resource type="Script" path="res://Objects/Shelter/shelter.gd" id="1_x4fh4"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_2wgjq"]
@@ -6,10 +6,20 @@
 [ext_resource type="PackedScene" uid="uid://diqjv4565hiir" path="res://UI/Map/MapScenes/ShelterMapScene/shelter_map_scene.tscn" id="2_dwgqv"]
 [ext_resource type="Script" path="res://Objects/Shelter/shelter_interaction_area.gd" id="3_bk1c3"]
 [ext_resource type="PackedScene" uid="uid://d3disugmcknvo" path="res://Components/InteractionArea/interaction_area.tscn" id="3_lf5i5"]
+[ext_resource type="PackedScene" uid="uid://cihd7i38vg5st" path="res://UI/Map/MapScenes/SelectableMapScene/selectable_map_scene.tscn" id="4_2e1st"]
+[ext_resource type="Script" path="res://Resources/MapData/selectable_map_entity.gd" id="5_mgx7h"]
 
 [sub_resource type="Resource" id="Resource_il2jg"]
 script = ExtResource("2_a5pnm")
 packed_scene = ExtResource("2_dwgqv")
+
+[sub_resource type="Resource" id="Resource_5gqqe"]
+script = ExtResource("5_mgx7h")
+packed_scene = ExtResource("4_2e1st")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2wxb3"]
+atlas = ExtResource("2_2wgjq")
+region = Rect2(112, 120, 48, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8gy5f"]
 atlas = ExtResource("2_2wgjq")
@@ -21,6 +31,8 @@ size = Vector2(46, 80)
 [node name="Shelter" type="Node2D"]
 script = ExtResource("1_x4fh4")
 map_scene = SubResource("Resource_il2jg")
+selectable_map_entity = SubResource("Resource_5gqqe")
+shelter_selection_texture = SubResource("AtlasTexture_2wxb3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_8gy5f")

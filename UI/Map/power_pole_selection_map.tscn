@@ -32,27 +32,23 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="ContentDivider/ConfirmMargin/ButtonsContainer"]
+[node name="ConfirmButton" type="Button" parent="ContentDivider/ConfirmMargin/ButtonsContainer"]
+layout_mode = 2
+disabled = true
+text = "Confirm"
+
+[node name="ConfirmCancelGapMargin" type="MarginContainer" parent="ContentDivider/ConfirmMargin/ButtonsContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 0
 
-[node name="ConfirmButton" type="Button" parent="ContentDivider/ConfirmMargin/ButtonsContainer/MarginContainer"]
-layout_mode = 2
-disabled = true
-text = "Confirm"
-
-[node name="MarginContainer2" type="MarginContainer" parent="ContentDivider/ConfirmMargin/ButtonsContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 100
-
-[node name="CancelButton" type="Button" parent="ContentDivider/ConfirmMargin/ButtonsContainer/MarginContainer2"]
+[node name="CancelButton" type="Button" parent="ContentDivider/ConfirmMargin/ButtonsContainer"]
 layout_mode = 2
 text = "Return
 "
 
 [connection signal="entity_selected" from="ContentDivider/SelectableMapDisplay" to="." method="_on_selectable_map_display_entity_selected"]
-[connection signal="pressed" from="ContentDivider/ConfirmMargin/ButtonsContainer/MarginContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]
-[connection signal="pressed" from="ContentDivider/ConfirmMargin/ButtonsContainer/MarginContainer2/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="ContentDivider/ConfirmMargin/ButtonsContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]
+[connection signal="pressed" from="ContentDivider/ConfirmMargin/ButtonsContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

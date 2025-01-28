@@ -2,7 +2,7 @@ class_name PowerPoleSelectionMap
 extends Control
 
 @onready var map_display: EntitySelectionMapDisplay = $ContentDivider/SelectableMapDisplay
-@onready var confirm_button: Button = $ContentDivider/ConfirmMargin/ButtonsContainer/MarginContainer/ConfirmButton
+@onready var confirm_button: Button = $ContentDivider/ConfirmMargin/ButtonsContainer/ConfirmButton
 
 var _selected_power_pole: SelectableMapEntity
 
