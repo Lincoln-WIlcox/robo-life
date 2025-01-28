@@ -1,3 +1,4 @@
+class_name ShelterWarpUI 
 extends Control
 
 @onready var warp_button := $MapButtonsVbox/ButtonsContainer/ButtonsHbox/WarpButton
@@ -17,4 +18,4 @@ func _on_warp_button_pressed():
 	pass # Replace with function body.
 
 func _on_return_button_pressed():
-	pass # Replace with function body.
+	cancelled.emit()

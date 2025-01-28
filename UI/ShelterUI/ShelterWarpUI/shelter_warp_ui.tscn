@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://UI/ShelterUI/ShelterWarpUI/shelter_warp_ui.gd" id="1_mi10e"]
 [ext_resource type="PackedScene" uid="uid://ct3tyjhca48wr" path="res://Components/MapDisplay/EntityMapDisplay/entity_selection_map_display.tscn" id="2_7bqxp"]
 
-[node name="ShelterWarpUi" type="Control"]
+[node name="ShelterWarpUI" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

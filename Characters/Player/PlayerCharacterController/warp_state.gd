@@ -1,23 +1,31 @@
 extends State
 
-@export var map_ui_packed_scene: PackedScene
+@export var shelter_warp_ui_packed_scene: PackedScene
 @export var none_state: State
-var toggle_map: Callable
+@export var shelter_state: State
+
+var environment_query_system: EnvironmentQuerySystem
 var show_ui: Callable
 var hide_ui: Callable
-var environment_query_system: EnvironmentQuerySystem
 
-var _map_ui: PowerPoleSelectionMap
+var _shelter_warp_ui: ShelterWarpUI
 var _map_data: MapData
 
 func _ready():
-	_map_ui = map_ui_packed_scene.instantiate()
-	_map_ui.power_pole_selected.connect(_on_map_ui_power_pole_selected)
+	_shelter_warp_ui = shelter_warp_ui_packed_scene.instantiate()
+	_shelter_warp_ui.shelter_selected.connect(_on_shelter_warp_ui_shelter_selected)
+	_shelter_warp_ui.cancelled.connect(_on_return_pressed)
 
 func setup_map() -> void:
 	_map_data = _get_map_data()
 	environment_query_system.queryable_added.connect(_on_enviornment_query_system_queryable_added)
-	_map_ui.display_map_data(_map_data)
+	_shelter_warp_ui.display_map_data(_map_data)
+
+func enter():
+	show_ui.call(_shelter_warp_ui)
+
+func exit():
+	hide_ui.call()
 
 func _get_map_data() -> MapData:
 	var solidity_polygons: Array[PackedVector2Array] = environment_query_system.get_tile_maps_solidity()
@@ -29,20 +37,15 @@ func _get_map_data() -> MapData:
 	var map_data: MapData = MapData.new(power_pole_map_entities, solidity_polygons, bounding_box)
 	return map_data
 
+func _on_shelter_warp_ui_shelter_selected(_shelter) -> void:
+	if is_current_state.call():
+		state_ended.emit(none_state)
+		_shelter_warp_ui.reset_selected_shelter()
+
 func _on_enviornment_query_system_queryable_added(added_queryable: QueryableEntity) -> void:
 	if added_queryable.source_node is PowerPole:
 		_map_data.add_map_entity(added_queryable.source_node.power_pole_selection_map_entity)
 
-func _on_map_ui_power_pole_selected(_power_pole) -> void:
-	state_ended.emit(none_state)
-	_map_ui.reset_selected_power_pole()
-
-func enter():
-	show_ui.call(_map_ui)
-
-func run():
-	if toggle_map.call():
-		state_ended.emit(none_state)
-
-func exit():
-	hide_ui.call(false)
+func _on_return_pressed() -> void:
+	if is_current_state.call():
+		state_ended.emit(shelter_state)
