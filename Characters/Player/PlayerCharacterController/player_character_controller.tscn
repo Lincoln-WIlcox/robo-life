@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dw2fqgynxjcit"]
+[gd_scene load_steps=44 format=3 uid="uid://dw2fqgynxjcit"]
 
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/player_character_controller.gd" id="1_bw5ol"]
 [ext_resource type="PackedScene" uid="uid://by3dehhgwxdqr" path="res://Objects/Shield/shield.tscn" id="2_ipind"]
@@ -24,17 +24,20 @@
 [ext_resource type="PackedScene" uid="uid://b0pmkjnlnl8p0" path="res://Objects/LaserGun/laser_gun.tscn" id="9_03qrv"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_state.gd" id="10_0syx4"]
 [ext_resource type="PackedScene" uid="uid://v7qso20aqmk5" path="res://UI/ShelterUI/shelter_ui.tscn" id="12_vxdl5"]
+[ext_resource type="Resource" uid="uid://bckiex7mctva7" path="res://Resources/Items/drill.tres" id="13_geyg5"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_none.gd" id="13_itu6i"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_ui.gd" id="13_v1eve"]
-[ext_resource type="Resource" uid="uid://b3au5vg63nxkc" path="res://Resources/Items/power_pole.tres" id="13_ykw17"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_crafting.gd" id="15_0w8mt"]
 [ext_resource type="PackedScene" uid="uid://wgwi4qdwfkaq" path="res://UI/Crafting/crafting_ui.tscn" id="16_yn3tl"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/other.gd" id="18_ysl17"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/map.gd" id="21_hxwre"]
 [ext_resource type="PackedScene" uid="uid://cfhvw7mmxv7dy" path="res://UI/Map/map.tscn" id="22_hokhb"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/power_pole_selection_map_state.gd" id="27_e41dx"]
+[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/warp_state.gd" id="28_q4vny"]
 [ext_resource type="PackedScene" uid="uid://nifofmv4xqni" path="res://UI/Map/power_pole_selection_map.tscn" id="28_waerg"]
+[ext_resource type="PackedScene" uid="uid://cv7qwkdsdis5l" path="res://UI/ShelterUI/ShelterWarpUI/shelter_warp_ui.tscn" id="29_sis4p"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/cursor_interaction_handler.gd" id="32_emp26"]
+[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/warp_handler.gd" id="38_fnqtp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_evjoi"]
 atlas = ExtResource("3_wtset")
@@ -47,23 +50,25 @@ display_texture = SubResource("AtlasTexture_evjoi")
 z_index = 1
 scale = Vector2(2, 2)
 
-[sub_resource type="Resource" id="Resource_fd7bh"]
+[sub_resource type="Resource" id="Resource_7o84n"]
 script = ExtResource("7_45g5n")
-item_data = ExtResource("13_ykw17")
+item_data = ExtResource("13_geyg5")
 position = Vector2i(0, 0)
 
-[sub_resource type="Resource" id="Resource_aurhu"]
+[sub_resource type="Resource" id="Resource_a2wq6"]
+resource_local_to_scene = true
 script = ExtResource("4_saie0")
 size = Vector2i(3, 3)
-initial_items = Array[ExtResource("7_45g5n")]([SubResource("Resource_fd7bh")])
+initial_items = Array[ExtResource("7_45g5n")]([SubResource("Resource_7o84n")])
 
-[sub_resource type="Resource" id="Resource_crkq6"]
+[sub_resource type="Resource" id="Resource_xpdtm"]
+resource_local_to_scene = true
 script = ExtResource("4_d214o")
 batteries = 0
 steel = 0
-initial_food = 0
+food = 0
 max_food = 5
-initial_item_grid = SubResource("Resource_aurhu")
+item_grid = SubResource("Resource_a2wq6")
 
 [node name="PlayerCharacterController" type="Node2D"]
 script = ExtResource("1_bw5ol")
@@ -96,7 +101,7 @@ player_character = NodePath("../PlayerCharacter")
 laser_gun = NodePath("../LaserGun")
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("2_u8dgg")]
-inventory = SubResource("Resource_crkq6")
+inventory = SubResource("Resource_xpdtm")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_callback = 0
@@ -151,15 +156,22 @@ initial_state = NodePath("None")
 [node name="None" type="Node" parent="UIStateMachine/Shelter/ShelterStateMachine"]
 script = ExtResource("13_itu6i")
 
-[node name="Shelter" type="Node" parent="UIStateMachine/Shelter/ShelterStateMachine" node_paths=PackedStringArray("none_state", "crafting_state")]
+[node name="Shelter" type="Node" parent="UIStateMachine/Shelter/ShelterStateMachine" node_paths=PackedStringArray("none_state", "crafting_state", "warp_state")]
 script = ExtResource("13_v1eve")
 none_state = NodePath("../None")
 crafting_state = NodePath("../Crafting")
+warp_state = NodePath("../Warp")
 shelter_ui_packed_scene = ExtResource("12_vxdl5")
 
 [node name="Crafting" type="Node" parent="UIStateMachine/Shelter/ShelterStateMachine" node_paths=PackedStringArray("shelter_state")]
 script = ExtResource("15_0w8mt")
 crafting_ui_packed_scene = ExtResource("16_yn3tl")
+shelter_state = NodePath("../Shelter")
+
+[node name="Warp" type="Node" parent="UIStateMachine/Shelter/ShelterStateMachine" node_paths=PackedStringArray("none_state", "shelter_state")]
+script = ExtResource("28_q4vny")
+shelter_warp_ui_packed_scene = ExtResource("29_sis4p")
+none_state = NodePath("../None")
 shelter_state = NodePath("../Shelter")
 
 [node name="LevelMap" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("none_state")]
@@ -185,9 +197,14 @@ script = ExtResource("8_4yuco")
 firing = false
 heat_amount = 2
 
+[node name="ShelterWarpHandler" type="Node" parent="."]
+script = ExtResource("38_fnqtp")
+
 [connection signal="shelter_interacted_with" from="PlayerCharacter" to="UIStateMachine/None" method="_on_player_character_shelter_interacted_with"]
+[connection signal="shelter_interacted_with" from="PlayerCharacter" to="UIStateMachine/Shelter/ShelterStateMachine/Warp" method="_on_player_character_shelter_interacted_with"]
 [connection signal="item_dropped" from="UIStateMachine/Inventory" to="." method="handle_drop_item"]
 [connection signal="day_ended" from="UIStateMachine/Shelter/ShelterStateMachine/Shelter" to="." method="_on_shelter_day_ended"]
+[connection signal="shelter_selected" from="UIStateMachine/Shelter/ShelterStateMachine/Warp" to="ShelterWarpHandler" method="_on_warp_shelter_selected"]
 [connection signal="interacted" from="CursorInteractionHandler" to="UIStateMachine/None" method="_on_cursor_interaction_handler_interacted"]
 [connection signal="placeable_placed" from="PlaceObjectHandler" to="PowerPolePlacementHandler" method="_on_place_object_handler_placeable_placed"]
 [connection signal="placing_placeable" from="PlaceObjectHandler" to="TransportBucketPlacementHandler" method="_on_place_object_handler_placing_placeable"]

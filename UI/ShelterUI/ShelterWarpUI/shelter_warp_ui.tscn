@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv7qwkdsdis5l"]
+
+[ext_resource type="Script" path="res://UI/ShelterUI/ShelterWarpUI/shelter_warp_ui.gd" id="1_mi10e"]
+[ext_resource type="PackedScene" uid="uid://ct3tyjhca48wr" path="res://Components/MapDisplay/EntityMapDisplay/entity_selection_map_display.tscn" id="2_7bqxp"]
+
+[node name="ShelterWarpUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mi10e")
+
+[node name="MapButtonsVbox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ShelterSelectionMap" parent="MapButtonsVbox" instance=ExtResource("2_7bqxp")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonsContainer" type="MarginContainer" parent="MapButtonsVbox"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 20
+
+[node name="ButtonsHbox" type="HBoxContainer" parent="MapButtonsVbox/ButtonsContainer"]
+layout_mode = 2
+
+[node name="LeftMargin" type="MarginContainer" parent="MapButtonsVbox/ButtonsContainer/ButtonsHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_right = 2
+
+[node name="ReturnButton" type="Button" parent="MapButtonsVbox/ButtonsContainer/ButtonsHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+text = "Return"
+
+[node name="BetweenReturnWarpMargin" type="MarginContainer" parent="MapButtonsVbox/ButtonsContainer/ButtonsHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_right = 2
+
+[node name="WarpButton" type="Button" parent="MapButtonsVbox/ButtonsContainer/ButtonsHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+text = "Warp"
+
+[node name="RightMargin" type="MarginContainer" parent="MapButtonsVbox/ButtonsContainer/ButtonsHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_right = 2
+
+[connection signal="entity_selected" from="MapButtonsVbox/ShelterSelectionMap" to="." method="_on_shelter_selection_map_entity_selected"]
+[connection signal="pressed" from="MapButtonsVbox/ButtonsContainer/ButtonsHbox/ReturnButton" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="MapButtonsVbox/ButtonsContainer/ButtonsHbox/WarpButton" to="." method="_on_warp_button_pressed"]

@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dlsesjelytao"]
+[gd_scene load_steps=5 format=3 uid="uid://dlsesjelytao"]
 
+[ext_resource type="Script" path="res://Objects/PowerSupply/power_supply.gd" id="1_te0kv"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="1_w6qoy"]
 [ext_resource type="PackedScene" uid="uid://cus11t0ei6g1g" path="res://Components/PowerConnection/PowerSupplier/power_supplier.tscn" id="2_5prhe"]
 
@@ -8,12 +9,11 @@ atlas = ExtResource("1_w6qoy")
 region = Rect2(176, 160, 16, 24)
 
 [node name="PowerSupply" type="Node2D"]
+script = ExtResource("1_te0kv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -4)
 texture = SubResource("AtlasTexture_b71ma")
 
 [node name="PowerSupplier" parent="." instance=ExtResource("2_5prhe")]
-collision_layer = 1024
-collision_mask = 0
 supplies_power = 1

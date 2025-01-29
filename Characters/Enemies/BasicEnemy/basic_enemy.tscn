@@ -33,7 +33,7 @@ region = Rect2(208, 152, 16, 24)
 size = Vector2(16, 23)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rx58i"]
-size = Vector2(18, 25)
+size = Vector2(16, 23)
 
 [node name="BasicEnemy" type="Node2D"]
 script = ExtResource("1_ms7aa")
@@ -74,7 +74,8 @@ overheater = NodePath("../CharacterBody2D/Overheater")
 progress_bar = NodePath("../CharacterBody2D/ProgressBar")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-collision_layer = 4
+collision_layer = 8
+collision_mask = 3
 
 [node name="ProgressBar" type="ProgressBar" parent="CharacterBody2D"]
 offset_left = -9.0

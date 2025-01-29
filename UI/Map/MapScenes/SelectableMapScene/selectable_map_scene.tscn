@@ -1,0 +1,53 @@
+[gd_scene load_steps=13 format=3 uid="uid://cihd7i38vg5st"]
+
+[ext_resource type="Script" path="res://UI/Map/MapScenes/SelectableMapScene/selectable_map_scene.gd" id="1_ox2cq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0gyer"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jxifi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ntgho"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vn153"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oe42m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5qf27"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qgeml"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_obi22"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k6c1u"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mpftt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2alni"]
+
+[node name="SelectableMapScene" type="Node2D"]
+script = ExtResource("1_ox2cq")
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(20, 20)
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 15.0
+offset_bottom = 15.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0gyer")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jxifi")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ntgho")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_vn153")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_oe42m")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_5qf27")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qgeml")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_obi22")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_k6c1u")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_mpftt")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2alni")
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.6, 0.6, 0.6, 0.8)
+scale = Vector2(1.6, 1.6)
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

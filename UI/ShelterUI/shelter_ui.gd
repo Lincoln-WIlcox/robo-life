@@ -29,6 +29,7 @@ const END_DAY_BUTTON_TEXT = "end day "
 signal end_day_pressed
 signal transfer_food_pressed
 signal crafting_pressed
+signal warp_pressed
 
 func _ready():
 	$ShelterContentVbox/ItemGridHbox/Interface1Vbox/ItemGridInterface1.item_grid = shelter_inventory.item_grid
@@ -62,3 +63,6 @@ func update_labels() -> void:
 
 func update_end_day_disabled() -> void:
 	$ShelterContentVbox/EndDayButtonMargin/EndDayHbox/EndDayButton.disabled = not shelter_inventory.get_food() + player_inventory.get_food() >= Utils.AMOUNT_OF_FOOD_TO_CONSUME
+
+func _on_warp_button_pressed():
+	warp_pressed.emit()

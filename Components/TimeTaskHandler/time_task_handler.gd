@@ -19,10 +19,6 @@ extends Node
 
 var completed := false
 
-var paused: bool:
-	get:
-		return _paused
-
 var _paused:
 	set(new_value):
 		timer.paused = new_value
@@ -41,6 +37,9 @@ func _ready():
 		pause_progress()
 	else:
 		make_progress()
+
+func get_paused() -> bool:
+	return _paused
 
 func _process(_delta):
 	progress_bar.value = timer.time_left
@@ -61,7 +60,7 @@ func _set_up_progress_bar() -> void:
 	progress_bar.value = progress_bar.max_value
 
 func _on_day_started(_day):
-	if !paused:
+	if !_paused:
 		var new_start_time = timer.time_left - Utils.TIME_PASSED_AT_NIGHT
 		if new_start_time > 0:
 			timer.start(new_start_time)

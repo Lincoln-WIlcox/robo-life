@@ -7,21 +7,24 @@
 radius = 4.0
 
 [node name="Laser" type="Node2D"]
+process_physics_priority = -1
 script = ExtResource("1_uqeng")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(750, 0)
-collision_mask = 7
+collision_mask = 71
+collide_with_areas = true
 
 [node name="HeatArea" type="Area2D" parent="."]
 collision_layer = 64
 collision_mask = 64
+collision_priority = 2.0
 script = ExtResource("2_eseey")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HeatArea"]
-position = Vector2(748, 0)
+position = Vector2(749, 0)
 shape = SubResource("CircleShape2D_8tynd")
 
 [node name="Line2D" type="Line2D" parent="."]

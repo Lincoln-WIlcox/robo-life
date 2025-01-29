@@ -1,7 +1,8 @@
 @tool
+class_name Laser
 extends Node2D
 
-const SHAPE_OFFSET = 2
+const SHAPE_OFFSET = 1
 
 @onready var raycast: RayCast2D = $RayCast2D
 @onready var collision_shape: CollisionShape2D = $HeatArea/CollisionShape2D
@@ -22,6 +23,7 @@ const SHAPE_OFFSET = 2
 func _ready():
 	raycast.target_position.x = maximum_length
 	heat_area.heat_amount = heat_amount
+	raycast.add_exception(heat_area)
 
 func _physics_process(_delta):
 	var laser_end_position: Vector2 = raycast.get_collision_point() if raycast.is_colliding() else (raycast.target_position.rotated(raycast.global_rotation)) + raycast.global_position

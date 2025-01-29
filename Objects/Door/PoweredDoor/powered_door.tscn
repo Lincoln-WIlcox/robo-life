@@ -7,11 +7,14 @@
 [node name="PoweredDoor" instance=ExtResource("1_dt1mj")]
 script = ExtResource("2_mgmdi")
 
-[node name="PowerConsumer" parent="." index="2" instance=ExtResource("2_ufmqk")]
-position = Vector2(8, 0)
-collision_layer = 1024
+[node name="StaticBody2D" parent="." index="1"]
+collision_layer = 4
 collision_mask = 0
+
+[node name="PowerConsumer" parent="." index="2" instance=ExtResource("2_ufmqk")]
+position = Vector2(8, 8)
 consumes_power = 1
+active = true
 
 [connection signal="power_requirement_lost" from="PowerConsumer" to="." method="_on_power_consumer_power_requirement_lost"]
 [connection signal="power_requirement_met" from="PowerConsumer" to="." method="_on_power_consumer_power_requirement_met"]

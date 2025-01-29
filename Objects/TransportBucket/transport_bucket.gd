@@ -15,7 +15,7 @@ extends Node2D
 @export var transport_bucket_item: ItemData
 @export var speed: float = 1.3
 
-var _inventory: Inventory = Inventory.new()
+var _inventory: Inventory
 var _moving := true
 var _being_picked_up := false
 
@@ -23,8 +23,7 @@ signal interacted_with
 signal disconnected_from_path
 
 func _ready():
-	if initial_inventory:
-		_inventory = initial_inventory
+	_inventory = initial_inventory.duplicate()
 	
 	update_inventory_addition()
 	_inventory.changed.connect(update_inventory_addition)

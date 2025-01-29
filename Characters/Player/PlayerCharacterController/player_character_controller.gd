@@ -21,6 +21,9 @@ extends Node2D
 @onready var power_pole_selection_state = $UIStateMachine/PowerPoleSelection
 @onready var transport_bucket_placement_handler = $TransportBucketPlacementHandler
 @onready var cursor_interaction_handler = $CursorInteractionHandler
+@onready var shield = $ShieldRotationPivot/Shield
+@onready var warp_state = $UIStateMachine/Shelter/ShelterStateMachine/Warp
+@onready var shelter_warp_handler = $ShelterWarpHandler
 
 @export var map_texture: MapTexture
 @export var movement_disabled := false
@@ -28,10 +31,11 @@ extends Node2D
 @export var shelter_inventory: Inventory:
 	set(new_value):
 		shelter_inventory = new_value
-		shelter_shelter_state.shelter_inventory = shelter_inventory
-		crafting_state.shelter_inventory = shelter_inventory
+		if is_node_ready():
+			shelter_shelter_state.shelter_inventory = shelter_inventory
+			crafting_state.shelter_inventory = shelter_inventory
 @export var environment_query_system: EnvironmentQuerySystem
-@export var level_map_map_entity_collection: MapEntityCollection
+@export var level_map_map_entity_collection: MapEntityCollection = MapEntityCollection.new()
 
 var _queryable: PlayerQueryable = PlayerQueryable.new()
 
@@ -49,6 +53,7 @@ var show_ui: Callable:
 			level_map_state.show_ui = show_ui
 			power_pole_selection_state.show_ui = show_ui
 			transport_bucket_placement_handler.show_ui = show_ui
+			warp_state.show_ui = show_ui
 var hide_ui: Callable:
 	set(new_value):
 		hide_ui = new_value
@@ -59,6 +64,7 @@ var hide_ui: Callable:
 			level_map_state.hide_ui = hide_ui
 			power_pole_selection_state.hide_ui = hide_ui
 			transport_bucket_placement_handler.hide_ui = hide_ui
+			warp_state.hide_ui = hide_ui
 var get_current_ui: Callable:
 	set(new_value):
 		get_current_ui = new_value
@@ -73,6 +79,8 @@ signal inventory_closed
 signal shelter_opened(shelter_ui: Control)
 signal shelter_closed
 signal day_ended
+
+var shelter_map_scenes_interacted_with: Array[ShelterInteractionArea]
 
 func _ready():
 	_queryable.connect_source(self)
@@ -145,9 +153,14 @@ func _ready():
 	other_state.toggle_power_pole_selection = func(): return Input.is_action_just_pressed("test_input")
 	power_pole_placement_handler.node_to_put_lines_in = node_to_spawn_placeables_in
 	map_texture_updater.map_texture = map_texture
+	warp_state.environment_query_system = environment_query_system
+	warp_state.setup_map()
+	shelter_warp_handler.player_character = player_character.character
 	
 	remove_child(laser_gun)
 	player_character.character.add_child(laser_gun)
+	laser_gun.laser.raycast.add_exception(player_character.character)
+	laser_gun.laser.raycast.add_exception(shield.area)
 
 func drop_item(item: ItemData):
 	player_character.drop_item(item)

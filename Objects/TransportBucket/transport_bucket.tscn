@@ -13,20 +13,20 @@
 [ext_resource type="Resource" uid="uid://bem4gymr67uoh" path="res://Resources/Items/transport_bucket.tres" id="5_6rcnf"]
 [ext_resource type="Script" path="res://Resources/inventory_addition.gd" id="6_o15mr"]
 
-[sub_resource type="Resource" id="Resource_1vw4b"]
+[sub_resource type="Resource" id="Resource_f08sj"]
 resource_local_to_scene = true
 script = ExtResource("3_c1ati")
 size = Vector2i(2, 2)
 initial_items = Array[ExtResource("2_tapvu")]([])
 
-[sub_resource type="Resource" id="Resource_3nei2"]
+[sub_resource type="Resource" id="Resource_kaggv"]
 resource_local_to_scene = true
 script = ExtResource("2_a183c")
 batteries = 0
 steel = 0
-initial_food = 0
-max_food = 5
-initial_item_grid = SubResource("Resource_1vw4b")
+food = 0
+max_food = 50
+item_grid = SubResource("Resource_f08sj")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xlxon"]
 atlas = ExtResource("2_cdfwf")
@@ -48,7 +48,7 @@ size = Vector2(16, 8)
 [node name="TransportBucket" type="Node2D"]
 z_index = 1
 script = ExtResource("1_7v0ta")
-initial_inventory = SubResource("Resource_3nei2")
+initial_inventory = SubResource("Resource_kaggv")
 transport_bucket_item = ExtResource("5_6rcnf")
 
 [node name="VelocityComponent" parent="." node_paths=PackedStringArray("affecting_node") instance=ExtResource("3_3rux8")]
@@ -95,7 +95,7 @@ show_percentage = false
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 collision_layer = 8
-collision_mask = 3
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("RectangleShape2D_51rb4")

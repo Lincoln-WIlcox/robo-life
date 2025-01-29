@@ -29,7 +29,7 @@ func _on_placed() -> void:
 	transport_bucket.show_ui = show_ui
 	transport_bucket.hide_ui = hide_ui
 	transport_bucket.environment_query_system = environment_query_system
-	transport_bucket.setup()
+	transport_bucket.setup.call_deferred()
 	queue_free()
 
 func _on_power_connector_detection_area_area_entered(area: Area2D):

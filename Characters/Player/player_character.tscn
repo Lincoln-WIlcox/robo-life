@@ -39,7 +39,7 @@
 script = ExtResource("2_f2ewa")
 batteries = 0
 steel = 0
-initial_food = 0
+food = 0
 max_food = 50
 
 [sub_resource type="GDScript" id="GDScript_h7t3e"]
@@ -280,8 +280,8 @@ max_speed = 1200
 [node name="HorizontalMovementComponent" type="Node" parent="." node_paths=PackedStringArray("velocity_component")]
 script = ExtResource("4_17a06")
 velocity_component = NodePath("../VelocityComponent")
-movement_speed = 220
-default_accel_rate = 18
+movement_speed = 200
+default_accel_rate = 16
 active = false
 
 [node name="MovementStates" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("4_umnbn")]
@@ -340,7 +340,7 @@ character = NodePath("../../PlayerCharacterBody")
 horizontal_movement_component = NodePath("../../HorizontalMovementComponent")
 dust_spawner = NodePath("../../DustSpawner")
 jump_buffer_timer = NodePath("../JumpBufferTimer")
-standing_horizontal_accel_rate = 20
+standing_horizontal_accel_rate = 18
 
 [node name="CoyoteTimer" type="Timer" parent="MovementStates/Standing"]
 wait_time = 0.06
@@ -429,7 +429,8 @@ health_component = NodePath("../HealthComponent")
 wait_time = 3.0
 
 [node name="PlayerCharacterBody" type="CharacterBody2D" parent="."]
-collision_layer = 516
+collision_layer = 520
+collision_mask = 5
 slide_on_ceiling = false
 floor_constant_speed = true
 floor_snap_length = 15.0
@@ -499,6 +500,7 @@ shape = SubResource("RectangleShape2D_6ufrv")
 metadata/_edit_lock_ = true
 
 [node name="InteractArea" type="Area2D" parent="PlayerCharacterBody"]
+collision_layer = 0
 collision_mask = 141
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/InteractArea"]

@@ -1,12 +1,23 @@
-[gd_resource type="Resource" script_class="CraftingRecipe" load_steps=7 format=3 uid="uid://cw61mu46u3hqk"]
+[gd_resource type="Resource" script_class="CraftingRecipe" load_steps=9 format=3 uid="uid://cw61mu46u3hqk"]
 
 [ext_resource type="Script" path="res://Resources/crafting_recipe.gd" id="1_xhcwj"]
 [ext_resource type="Resource" uid="uid://bem4gymr67uoh" path="res://Resources/Items/transport_bucket.tres" id="1_xlqgs"]
 [ext_resource type="Script" path="res://Resources/item_data.gd" id="2_hl5gb"]
+[ext_resource type="Script" path="res://Resources/inventory_addition.gd" id="3_2288u"]
 [ext_resource type="Resource" uid="uid://b3au5vg63nxkc" path="res://Resources/Items/power_pole.tres" id="3_a0prs"]
 [ext_resource type="Script" path="res://Resources/inventory_requirement.gd" id="4_q51gu"]
 
+[sub_resource type="Resource" id="Resource_ogljs"]
+resource_local_to_scene = true
+script = ExtResource("3_2288u")
+use_exported_properties = false
+gain_batteries = 0
+gain_steel = 0
+gain_food = 0
+initial_gain_items = Array[ExtResource("2_hl5gb")]([ExtResource("1_xlqgs")])
+
 [sub_resource type="Resource" id="Resource_6r5k5"]
+resource_local_to_scene = true
 script = ExtResource("4_q51gu")
 batteries_cost = 0
 steel_cost = 5
@@ -14,6 +25,7 @@ costs_items = Array[ExtResource("2_hl5gb")]([ExtResource("3_a0prs")])
 requires_items = Array[ExtResource("2_hl5gb")]([])
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_xhcwj")
 requirement = SubResource("Resource_6r5k5")
-crafting_item = ExtResource("1_xlqgs")
+inventory_addition = SubResource("Resource_ogljs")

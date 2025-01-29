@@ -119,7 +119,20 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Crafting"
 
-[node name="EndDayButtonRightMargin2" type="MarginContainer" parent="ShelterContentVbox/EndDayButtonMargin/EndDayHbox"]
+[node name="EndDayWarpMargin" type="MarginContainer" parent="ShelterContentVbox/EndDayButtonMargin/EndDayHbox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="WarpButton" type="Button" parent="ShelterContentVbox/EndDayButtonMargin/EndDayHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Warp"
+
+[node name="WarpButtonRightMargin" type="MarginContainer" parent="ShelterContentVbox/EndDayButtonMargin/EndDayHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="pressed" from="ShelterContentVbox/EndDayButtonMargin/EndDayHbox/WarpButton" to="." method="_on_warp_button_pressed"]
