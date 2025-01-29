@@ -30,7 +30,7 @@ func run():
 	_frames_since_started_falling += 1
 	
 	if _frames_since_started_falling > FRAMES_TO_ENABLE_MASK:
-		character.set_collision_mask_value(Utils.CollisionLayers.OneWayPlatforms, true)
+		character.set_collision_mask_value(Utils.COLLISION_LAYERS.OneWayPlatforms, true)
 	
 	if velocity_component.velocity.y < FALLING_THRESHOLD:
 		velocity_component.accelerate_y_in_direction_at_full_speed_at_rate(1, SWITCH_TO_FALLING_RATE)

@@ -31,7 +31,7 @@ enum GrabDirections
 	RIGHT
 }
 
-enum CollisionLayers
+enum COLLISION_LAYERS
 {
 	Ground = 1,
 	OneWayPlatforms,
