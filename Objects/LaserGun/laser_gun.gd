@@ -30,5 +30,4 @@ func _stop_firing_laser():
 
 func _start_firing_laser():
 	add_child(laser)
-	laser.update()
 	move_child(laser, 0)
