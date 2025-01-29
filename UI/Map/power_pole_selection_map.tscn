@@ -23,6 +23,7 @@ grow_vertical = 2
 [node name="SelectableMapDisplay" parent="ContentDivider" instance=ExtResource("2_a2b8i")]
 layout_mode = 2
 size_flags_vertical = 3
+solidity_color = Color(0.494118, 0.498039, 0.584314, 1)
 
 [node name="ConfirmMargin" type="MarginContainer" parent="ContentDivider"]
 layout_mode = 2

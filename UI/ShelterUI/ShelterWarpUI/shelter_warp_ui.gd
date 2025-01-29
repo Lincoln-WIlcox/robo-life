@@ -14,6 +14,11 @@ func reset_selected_shelter() -> void:
 	warp_button.disabled = true
 	map_display.reset_selected_entity()
 
+func display_map_data(map_data: MapData) -> void:
+	if !is_node_ready():
+		await ready
+	map_display.display_map_data(map_data)
+
 func _on_warp_button_pressed():
 	pass # Replace with function body.
 

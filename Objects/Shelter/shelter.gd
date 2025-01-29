@@ -1,4 +1,4 @@
-extends Node2D
+class_name Shelter extends Node2D
 
 @export var level_map_map_entity_collection: MapEntityCollection
 @export var map_scene: MapScene

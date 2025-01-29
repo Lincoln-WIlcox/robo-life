@@ -37,9 +37,10 @@ shelter_selection_texture = SubResource("AtlasTexture_2wxb3")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_8gy5f")
 
-[node name="ShelterInteractionArea" parent="." instance=ExtResource("3_lf5i5")]
+[node name="ShelterInteractionArea" parent="." node_paths=PackedStringArray("shelter") instance=ExtResource("3_lf5i5")]
 collision_mask = 512
 script = ExtResource("3_bk1c3")
+shelter = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ShelterInteractionArea"]
 position = Vector2(0, -8)

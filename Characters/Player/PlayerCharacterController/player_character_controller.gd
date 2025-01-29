@@ -153,6 +153,7 @@ func _ready():
 	power_pole_placement_handler.node_to_put_lines_in = node_to_spawn_placeables_in
 	map_texture_updater.map_texture = map_texture
 	warp_state.environment_query_system = environment_query_system
+	warp_state.setup_map()
 	
 	remove_child(laser_gun)
 	player_character.character.add_child(laser_gun)
