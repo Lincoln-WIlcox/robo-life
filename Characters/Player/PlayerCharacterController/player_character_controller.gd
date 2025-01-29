@@ -23,6 +23,7 @@ extends Node2D
 @onready var cursor_interaction_handler = $CursorInteractionHandler
 @onready var shield = $ShieldRotationPivot/Shield
 @onready var warp_state = $UIStateMachine/Shelter/ShelterStateMachine/Warp
+@onready var shelter_warp_handler = $ShelterWarpHandler
 
 @export var map_texture: MapTexture
 @export var movement_disabled := false
@@ -154,6 +155,7 @@ func _ready():
 	map_texture_updater.map_texture = map_texture
 	warp_state.environment_query_system = environment_query_system
 	warp_state.setup_map()
+	shelter_warp_handler.player_character = player_character.character
 	
 	remove_child(laser_gun)
 	player_character.character.add_child(laser_gun)

@@ -2,7 +2,6 @@ class_name Shelter extends Node2D
 
 @export var level_map_map_entity_collection: MapEntityCollection
 @export var map_scene: MapScene
-@export var shelter_selection_map_scene: MapScene
 @export var selectable_map_entity: SelectableMapEntity
 @export var shelter_selection_texture: Texture
 

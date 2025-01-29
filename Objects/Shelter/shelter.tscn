@@ -10,10 +10,12 @@
 [ext_resource type="Script" path="res://Resources/MapData/selectable_map_entity.gd" id="5_mgx7h"]
 
 [sub_resource type="Resource" id="Resource_il2jg"]
+resource_local_to_scene = true
 script = ExtResource("2_a5pnm")
 packed_scene = ExtResource("2_dwgqv")
 
 [sub_resource type="Resource" id="Resource_5gqqe"]
+resource_local_to_scene = true
 script = ExtResource("5_mgx7h")
 packed_scene = ExtResource("4_2e1st")
 

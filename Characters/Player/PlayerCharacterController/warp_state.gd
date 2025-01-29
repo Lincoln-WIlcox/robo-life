@@ -13,9 +13,10 @@ var _map_data: MapData
 
 var _shelters_interacted_with: Array[Shelter]
 
+signal shelter_selected(shelter: Shelter)
+
 func _ready():
 	_shelter_warp_ui = shelter_warp_ui_packed_scene.instantiate()
-	_shelter_warp_ui.shelter_selected.connect(_on_shelter_warp_ui_shelter_selected)
 	_shelter_warp_ui.cancelled.connect(_on_return_pressed)
 
 func setup_map() -> void:
@@ -44,9 +45,14 @@ func _on_return_pressed() -> void:
 	if is_current_state.call():
 		state_ended.emit(shelter_state)
 
+func _on_shelter_selectable_selected(shelter: Shelter) -> void:
+	shelter_selected.emit(shelter)
+	state_ended.emit(none_state)
+
 func _on_player_character_shelter_interacted_with(shelter_area: ShelterInteractionArea) -> void:
 	var shelter: Shelter = shelter_area.shelter
 	if not _shelters_interacted_with.has(shelter):
 		_shelters_interacted_with.append(shelter)
 		var selectable_map_entity: SelectableMapEntity = shelter.make_selectable_map_entity()
 		_map_data.add_map_entity(selectable_map_entity)
+		selectable_map_entity.selected.connect(_on_shelter_selectable_selected.bind(shelter))

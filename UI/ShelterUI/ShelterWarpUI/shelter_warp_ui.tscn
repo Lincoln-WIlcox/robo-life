@@ -62,5 +62,6 @@ size_flags_horizontal = 3
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_right = 2
 
+[connection signal="entity_selected" from="MapButtonsVbox/ShelterSelectionMap" to="." method="_on_shelter_selection_map_entity_selected"]
 [connection signal="pressed" from="MapButtonsVbox/ButtonsContainer/ButtonsHbox/ReturnButton" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="MapButtonsVbox/ButtonsContainer/ButtonsHbox/WarpButton" to="." method="_on_warp_button_pressed"]

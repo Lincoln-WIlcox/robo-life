@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://dw2fqgynxjcit"]
+[gd_scene load_steps=44 format=3 uid="uid://dw2fqgynxjcit"]
 
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/player_character_controller.gd" id="1_bw5ol"]
 [ext_resource type="PackedScene" uid="uid://by3dehhgwxdqr" path="res://Objects/Shield/shield.tscn" id="2_ipind"]
@@ -37,6 +37,7 @@
 [ext_resource type="PackedScene" uid="uid://nifofmv4xqni" path="res://UI/Map/power_pole_selection_map.tscn" id="28_waerg"]
 [ext_resource type="PackedScene" uid="uid://cv7qwkdsdis5l" path="res://UI/ShelterUI/ShelterWarpUI/shelter_warp_ui.tscn" id="29_sis4p"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/cursor_interaction_handler.gd" id="32_emp26"]
+[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/warp_handler.gd" id="38_fnqtp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_evjoi"]
 atlas = ExtResource("3_wtset")
@@ -196,10 +197,14 @@ script = ExtResource("8_4yuco")
 firing = false
 heat_amount = 2
 
+[node name="ShelterWarpHandler" type="Node" parent="."]
+script = ExtResource("38_fnqtp")
+
 [connection signal="shelter_interacted_with" from="PlayerCharacter" to="UIStateMachine/None" method="_on_player_character_shelter_interacted_with"]
 [connection signal="shelter_interacted_with" from="PlayerCharacter" to="UIStateMachine/Shelter/ShelterStateMachine/Warp" method="_on_player_character_shelter_interacted_with"]
 [connection signal="item_dropped" from="UIStateMachine/Inventory" to="." method="handle_drop_item"]
 [connection signal="day_ended" from="UIStateMachine/Shelter/ShelterStateMachine/Shelter" to="." method="_on_shelter_day_ended"]
+[connection signal="shelter_selected" from="UIStateMachine/Shelter/ShelterStateMachine/Warp" to="ShelterWarpHandler" method="_on_warp_shelter_selected"]
 [connection signal="interacted" from="CursorInteractionHandler" to="UIStateMachine/None" method="_on_cursor_interaction_handler_interacted"]
 [connection signal="placeable_placed" from="PlaceObjectHandler" to="PowerPolePlacementHandler" method="_on_place_object_handler_placeable_placed"]
 [connection signal="placing_placeable" from="PlaceObjectHandler" to="TransportBucketPlacementHandler" method="_on_place_object_handler_placing_placeable"]

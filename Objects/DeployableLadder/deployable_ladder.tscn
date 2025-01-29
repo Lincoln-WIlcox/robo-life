@@ -1,17 +1,21 @@
-[gd_scene load_steps=17 format=3 uid="uid://dkqe6b0wvlfl2"]
+[gd_scene load_steps=21 format=3 uid="uid://dkqe6b0wvlfl2"]
 
 [ext_resource type="PackedScene" uid="uid://c2nwpx3t8tmc0" path="res://Components/StateMachine/state_machine.tscn" id="1_lmhk6"]
 [ext_resource type="Script" path="res://Objects/DeployableLadder/deployable_ladder.gd" id="1_uq3fh"]
 [ext_resource type="PackedScene" uid="uid://02awkvcr8831" path="res://Components/CharacterGravityComponent/gravity_component.tscn" id="1_ym780"]
 [ext_resource type="Script" path="res://Objects/DeployableLadder/falling_state.gd" id="2_3f32i"]
 [ext_resource type="PackedScene" uid="uid://lxxl844xt4sk" path="res://Components/VelocityComponent/velocity_component.tscn" id="2_qg0hh"]
+[ext_resource type="Script" path="res://Objects/DeployableLadder/idle_state.gd" id="3_jo0ig"]
 [ext_resource type="Script" path="res://Objects/DeployableLadder/deploying_state.gd" id="3_lj3cy"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="3_rablb"]
+[ext_resource type="Script" path="res://Objects/DeployableLadder/deployed_state.gd" id="6_srdq0"]
+[ext_resource type="Script" path="res://Objects/DeployableLadder/retracting_state.gd" id="7_jy88c"]
 [ext_resource type="PackedScene" uid="uid://wnwdpxb3bxx4" path="res://Objects/Rope/rope.tscn" id="8_en3r5"]
 [ext_resource type="PackedScene" uid="uid://gfntau5ijo5h" path="res://Components/MousePickupComponent/mouse_pickup_area.tscn" id="9_ny7li"]
 [ext_resource type="Script" path="res://Resources/item_data.gd" id="10_3crxs"]
 [ext_resource type="Resource" uid="uid://di5ihtaupovf3" path="res://Resources/Items/deployable_ladder.tres" id="11_staqh"]
 [ext_resource type="Script" path="res://Resources/inventory_addition.gd" id="12_fnctc"]
+[ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Components/PowerConnection/PowerConsumer/power_consumer.tscn" id="14_flo30"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qtf72"]
 atlas = ExtResource("3_rablb")
@@ -20,7 +24,7 @@ region = Rect2(96, 160, 16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_orqst"]
 size = Vector2(16, 14)
 
-[sub_resource type="Resource" id="Resource_0n6kp"]
+[sub_resource type="Resource" id="Resource_ucs8n"]
 resource_local_to_scene = true
 script = ExtResource("12_fnctc")
 use_exported_properties = true
@@ -36,17 +40,36 @@ size = Vector2(16, 14)
 script = ExtResource("1_uq3fh")
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("1_lmhk6")]
-initial_state = NodePath("FallingState")
+initial_state = NodePath("Falling")
 
-[node name="FallingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("character", "deploying_state")]
+[node name="Falling" type="Node" parent="StateMachine" node_paths=PackedStringArray("character", "retracted_state")]
 script = ExtResource("2_3f32i")
 character = NodePath("../../CharacterBody2D")
-deploying_state = NodePath("../DeployingState")
+retracted_state = NodePath("../Retracted")
 
-[node name="DeployingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("rope")]
+[node name="Retracted" type="Node" parent="StateMachine" node_paths=PackedStringArray("deploying_state", "power_consumer")]
+script = ExtResource("3_jo0ig")
+deploying_state = NodePath("../Deploying")
+power_consumer = NodePath("../../CharacterBody2D/PowerConsumer")
+
+[node name="Deploying" type="Node" parent="StateMachine" node_paths=PackedStringArray("deployed_state", "retracting_state", "rope")]
 script = ExtResource("3_lj3cy")
+deployed_state = NodePath("../Deployed")
+retracting_state = NodePath("../Retracting")
 rope = NodePath("../../CharacterBody2D/RopePosition/Rope")
 rope_growth_rate = 1
+
+[node name="Deployed" type="Node" parent="StateMachine" node_paths=PackedStringArray("retracting_state", "power_consumer")]
+script = ExtResource("6_srdq0")
+retracting_state = NodePath("../Retracting")
+power_consumer = NodePath("../../CharacterBody2D/PowerConsumer")
+
+[node name="Retracting" type="Node" parent="StateMachine" node_paths=PackedStringArray("retracted_state", "deploying_state", "rope")]
+script = ExtResource("7_jy88c")
+retracted_state = NodePath("../Retracted")
+deploying_state = NodePath("../Deploying")
+rope = NodePath("../../CharacterBody2D/RopePosition/Rope")
+rope_shrink_rate = 2.2
 
 [node name="GravityComponent" parent="." node_paths=PackedStringArray("velocity_component", "character") instance=ExtResource("1_ym780")]
 velocity_component = NodePath("../VelocityComponent")
@@ -79,7 +102,7 @@ tile_height = 0.0
 [node name="MousePickupArea" parent="CharacterBody2D" node_paths=PackedStringArray("progress_bar", "delete_node") instance=ExtResource("9_ny7li")]
 progress_bar = NodePath("../ProgressBar")
 delete_node = NodePath("../..")
-inventory_addition = SubResource("Resource_0n6kp")
+inventory_addition = SubResource("Resource_ucs8n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/MousePickupArea"]
 position = Vector2(0, -1)
@@ -92,3 +115,12 @@ offset_right = 18.0
 offset_bottom = -8.0
 scale = Vector2(0.5, 0.5)
 show_percentage = false
+
+[node name="PowerConsumer" parent="CharacterBody2D" instance=ExtResource("14_flo30")]
+consumes_power = 1
+active = true
+
+[connection signal="power_requirement_lost" from="CharacterBody2D/PowerConsumer" to="StateMachine/Deploying" method="_on_power_consumer_power_requirement_lost"]
+[connection signal="power_requirement_lost" from="CharacterBody2D/PowerConsumer" to="StateMachine/Deployed" method="_on_power_consumer_power_requirement_lost"]
+[connection signal="power_requirement_met" from="CharacterBody2D/PowerConsumer" to="StateMachine/Retracted" method="_on_power_consumer_power_requirement_met"]
+[connection signal="power_requirement_met" from="CharacterBody2D/PowerConsumer" to="StateMachine/Retracting" method="_on_power_consumer_power_requirement_met"]
