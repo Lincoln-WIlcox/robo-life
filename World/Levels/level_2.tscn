@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://cldkgwqny8lwy"]
+[gd_scene load_steps=33 format=4 uid="uid://cldkgwqny8lwy"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_m8bdm"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_vjuht"]
@@ -83,6 +83,9 @@ script = ExtResource("3_3lujh")
 display_texture = SubResource("AtlasTexture_jxiwm")
 z_index = 0
 scale = Vector2(0.8, 0.8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5pm5j"]
+size = Vector2(32, 32)
 
 [node name="Level" instance=ExtResource("1_m8bdm")]
 
@@ -216,3 +219,15 @@ position = Vector2(-160, 112)
 node_to_put_item_pickup_in = NodePath("..")
 drill_time = 15
 day_night_cycle = NodePath("../DayNightCycle")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." index="35"]
+position = Vector2(96, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="0"]
+shape = SubResource("RectangleShape2D_5pm5j")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D" index="1"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0

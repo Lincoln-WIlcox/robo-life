@@ -31,7 +31,7 @@ func enter():
 	
 	velocity_component.velocity.x = 0
 	
-	character.set_collision_mask_value(Utils.CollisionLayers.OneWayPlatforms, false)
+	character.set_collision_mask_value(Utils.COLLISION_LAYERS.OneWayPlatforms, false)
 	character.global_position.x = _climbable.global_position.x
 	
 	_just_climbed = true
@@ -66,7 +66,7 @@ func run():
 
 func exit():
 	gravity_component.active = true
-	character.set_collision_mask_value(Utils.CollisionLayers.OneWayPlatforms, true)
+	character.set_collision_mask_value(Utils.COLLISION_LAYERS.OneWayPlatforms, true)
 
 func _on_climbing_rope_detector_climbable_left(area: ClimbableArea):
 	if is_current_state.call() and area == _climbable:

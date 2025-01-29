@@ -33,10 +33,10 @@ func enter():
 func run():
 	horizontal_movement_component.handle_movement()
 	
-	character.set_collision_mask_value(Utils.CollisionLayers.OneWayPlatforms, true)
+	character.set_collision_mask_value(Utils.COLLISION_LAYERS.OneWayPlatforms, true)
 	if just_jumped.call():
 		if is_moving_down.call():
-			character.set_collision_mask_value(Utils.CollisionLayers.OneWayPlatforms, false)
+			character.set_collision_mask_value(Utils.COLLISION_LAYERS.OneWayPlatforms, false)
 			state_ended.emit(falling_state)
 		else:
 			dust_spawner.create_dust(Vector2(character.position.x, character.position.y + DUST_Y_OFFSET))
