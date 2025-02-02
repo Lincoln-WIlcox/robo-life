@@ -31,20 +31,18 @@ func _enter_tree():
 	
 	#for two frames after entering tree the raycast does not collide, even if you call raycast.force_raycast_update(). we can do a manual query for the second frame, but not the first.
 	line.hide()
-	heat_area.monitorable = false
+	heat_area.set_collision_layer_value(Utils.COLLISION_LAYERS.Heat, false)
 	await Engine.get_main_loop().physics_frame
 	if is_inside_tree():
 		line.show()
-		heat_area.monitorable = true
 		_do_manual_update()
+		heat_area.set_collision_layer_value(Utils.COLLISION_LAYERS.Heat, true)
 		await Engine.get_main_loop().physics_frame
 
 func _do_manual_update() -> void:
 	var result = _raycast_query()
 	
 	if result:
-		print("colliding")
-		
 		var laser_end_position: Vector2 = result.position
 		
 		_set_collision_end(laser_end_position)

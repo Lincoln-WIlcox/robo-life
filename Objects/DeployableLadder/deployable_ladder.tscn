@@ -24,7 +24,7 @@ region = Rect2(96, 160, 16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_orqst"]
 size = Vector2(16, 14)
 
-[sub_resource type="Resource" id="Resource_sskq1"]
+[sub_resource type="Resource" id="Resource_c8h6w"]
 resource_local_to_scene = true
 script = ExtResource("12_fnctc")
 use_exported_properties = true
@@ -102,7 +102,7 @@ tile_height = 0.0
 [node name="MousePickupArea" parent="CharacterBody2D" node_paths=PackedStringArray("progress_bar", "delete_node") instance=ExtResource("9_ny7li")]
 progress_bar = NodePath("../ProgressBar")
 delete_node = NodePath("../..")
-inventory_addition = SubResource("Resource_sskq1")
+inventory_addition = SubResource("Resource_c8h6w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/MousePickupArea"]
 position = Vector2(0, -1)

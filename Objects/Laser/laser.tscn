@@ -16,7 +16,7 @@ collision_mask = 71
 collide_with_areas = true
 
 [node name="HeatArea" type="Area2D" parent="."]
-collision_layer = 64
+collision_layer = 0
 collision_mask = 64
 collision_priority = 2.0
 script = ExtResource("2_eseey")
@@ -26,6 +26,7 @@ position = Vector2(749, 0)
 shape = SubResource("CircleShape2D_8tynd")
 
 [node name="Line2D" type="Line2D" parent="."]
+visible = false
 points = PackedVector2Array(0, 0, 750, 0)
 width = 5.0
 default_color = Color(1, 0, 0, 1)
