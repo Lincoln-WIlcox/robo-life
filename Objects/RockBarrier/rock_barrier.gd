@@ -24,8 +24,6 @@ extends Node2D
 @export var drill_item: ItemData
 @export var day_night_cycle: DayNightCycle
 
-signal item_spent(item_pickup: ItemPickup)
-
 var drill_placed := false
 
 func _ready():

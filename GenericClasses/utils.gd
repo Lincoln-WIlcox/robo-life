@@ -35,7 +35,15 @@ enum COLLISION_LAYERS
 {
 	Ground = 1,
 	OneWayPlatforms,
-	Entities
+	Entities,
+	WalkThroughEntities,
+	MouseDetector,
+	Damage,
+	Heat,
+	IntangibleEnvironmentObjects,
+	ItemGridTiles,
+	Player,
+	Power
 }
 
 #used for the return of get_point_along_polygon_and_vertex_closest_to_point
