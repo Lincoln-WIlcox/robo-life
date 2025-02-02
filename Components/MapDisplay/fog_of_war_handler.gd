@@ -1,6 +1,6 @@
-extends Node2D
+extends Node
 
-const GRID_SIZE = 2
+const GRID_SIZE = 4
 
 const FOG_COLOR = Color.BLACK
 
@@ -20,7 +20,7 @@ func _ready():
 	
 	fog_sprite.scale = Vector2.ONE * GRID_SIZE
 	
-	create_fog_image(get_viewport_rect().size)
+	create_fog_image(fog_sprite.get_viewport_rect().size)
 
 func create_fog_image(size: Vector2) -> void:
 	var fog_image_width = size.x/GRID_SIZE
@@ -41,4 +41,4 @@ func _update_fog_image_texture() -> void:
 	fog_sprite.texture = fog_texture
 
 func _input(event):
-	update_fog(fog_sprite.to_local(get_local_mouse_position()))
+	update_fog(fog_sprite.get_local_mouse_position())
