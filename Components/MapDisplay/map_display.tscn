@@ -1,7 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqwwtsntni62j"]
+[gd_scene load_steps=9 format=3 uid="uid://dqwwtsntni62j"]
 
 [ext_resource type="Script" path="res://Components/MapDisplay/map_display.gd" id="1_82s18"]
+[ext_resource type="Script" path="res://Resources/MapData/map_entity.gd" id="2_1i5ew"]
 [ext_resource type="Script" path="res://Components/MapDisplay/panning_handler.gd" id="2_qn6yq"]
+[ext_resource type="Script" path="res://Components/MapDisplay/fog_of_war_handler.gd" id="4_mbbb0"]
+[ext_resource type="Script" path="res://Resources/MapData/map_data.gd" id="5_2orjr"]
+[ext_resource type="Texture2D" uid="uid://303ekrlmm1jq" path="res://Assets/Light.png" id="5_6s3eo"]
+
+[sub_resource type="Resource" id="Resource_wjqeh"]
+script = ExtResource("5_2orjr")
+use_exported_initial_values = true
+initial_map_entities = Array[ExtResource("2_1i5ew")]([])
+initial_solidity_polygons = Array[PackedVector2Array]([PackedVector2Array(0, 0, 30, 0, 60, 30, 30, 30), PackedVector2Array(100, 100, 100, 200, 150, 150, 150, 50), PackedVector2Array(800, 800, 400, 800, 400, 400), PackedVector2Array(900, 10, 850, 20, 800, 50)])
+initial_bounding_box = Rect2(0, 0, 1000, 1000)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3y8dm"]
+blend_mode = 3
 
 [node name="MapDisplay" type="Control"]
 layout_mode = 3
@@ -14,6 +28,13 @@ focus_mode = 2
 mouse_filter = 2
 script = ExtResource("1_82s18")
 solidity_color = Color(0.4466, 0.45327, 0.58, 1)
+test_map_data = SubResource("Resource_wjqeh")
+
+[node name="FogOfWarHandler" type="Node2D" parent="." node_paths=PackedStringArray("scrollable_container", "fog_sprite")]
+script = ExtResource("4_mbbb0")
+scrollable_container = NodePath("../MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer")
+light_texture = ExtResource("5_6s3eo")
+fog_sprite = NodePath("../MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer/FogSprite")
 
 [node name="MapViewHandler" type="Node" parent="." node_paths=PackedStringArray("scrollable_container", "map_control")]
 script = ExtResource("2_qn6yq")
@@ -58,3 +79,9 @@ focus_mode = 2
 
 [node name="ScrollableContainer" type="Node2D" parent="MapMargin/MapPanel/MapPadding/MapContainer"]
 scale = Vector2(0.4, 0.4)
+
+[node name="FogSprite" type="Sprite2D" parent="MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer"]
+z_index = 1
+material = SubResource("CanvasItemMaterial_3y8dm")
+scale = Vector2(2.5, 2.5)
+centered = false

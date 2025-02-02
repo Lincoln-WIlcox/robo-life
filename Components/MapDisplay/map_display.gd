@@ -4,18 +4,26 @@ extends Control
 const MAP_BOX_OFFSET = Vector2(10, 10)
 
 @export var solidity_color: Color
+@export var test_map_data: MapData
 
 @onready var map_view_handler: Node = $MapViewHandler
 @onready var node_to_put_map_in: Node2D = $MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer
+@onready var fog_sprite: Sprite2D = $MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer/FogSprite
+@onready var fog_of_war_handler = $FogOfWarHandler
 
 var _representing_map_data: MapData
 
 signal map_entity_removed(removed_map_entity: MapEntity)
 signal map_changed
 
+func _ready():
+	if test_map_data:
+		display_map_data(test_map_data)
+
 func clear_map() -> void:
 	for node in node_to_put_map_in.get_children():
-		node.queue_free()
+		if node != fog_sprite:
+			node.queue_free()
 	map_changed.emit()
 
 func disconnect_map_data() -> void:
@@ -44,6 +52,8 @@ func display_map_data(map_data: MapData) -> void:
 	_display_polygons(map_data.get_solidity_polygons())
 	_display_map_entities(map_data.get_map_entities())
 	_add_corner_markers(map_data.get_bounding_box())
+	
+	fog_of_war_handler.create_fog_image(map_data.get_bounding_box().size)
 	
 	map_changed.emit()
 
