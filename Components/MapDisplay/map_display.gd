@@ -8,8 +8,8 @@ const MAP_BOX_OFFSET = Vector2(10, 10)
 
 @onready var map_view_handler: Node = $MapViewHandler
 @onready var node_to_put_map_in: Node2D = $MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer
-@onready var fog_sprite: Sprite2D = $MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer/FogSprite
-@onready var fog_of_war_handler = $FogOfWarHandler
+@onready var fog: TileMapLayer = $MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer/Fog
+@onready var fog_handler: Node = $FogOfWarHandler
 
 var _representing_map_data: MapData
 
@@ -22,7 +22,7 @@ func _ready():
 
 func clear_map() -> void:
 	for node in node_to_put_map_in.get_children():
-		if node != fog_sprite:
+		if node != fog:
 			node.queue_free()
 	map_changed.emit()
 
@@ -53,7 +53,7 @@ func display_map_data(map_data: MapData) -> void:
 	_display_map_entities(map_data.get_map_entities())
 	_add_corner_markers(map_data.get_bounding_box())
 	
-	fog_of_war_handler.create_fog_image(map_data.get_bounding_box().size)
+	fog_handler.create_fog(map_data.get_bounding_box().size)
 	
 	map_changed.emit()
 

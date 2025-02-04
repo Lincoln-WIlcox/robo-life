@@ -5,19 +5,23 @@
 [ext_resource type="Script" path="res://Components/MapDisplay/panning_handler.gd" id="2_qn6yq"]
 [ext_resource type="Script" path="res://Components/MapDisplay/fog_of_war_handler.gd" id="4_mbbb0"]
 [ext_resource type="Script" path="res://Resources/MapData/map_data.gd" id="5_2orjr"]
-[ext_resource type="Texture2D" uid="uid://303ekrlmm1jq" path="res://Assets/Light.png" id="5_6s3eo"]
-[ext_resource type="Shader" path="res://Components/MapDisplay/fog_of_war.gdshader" id="7_cvdvs"]
+[ext_resource type="Texture2D" uid="uid://48vj7npce78t" path="res://Assets/Fog.png" id="7_j1rc0"]
 
 [sub_resource type="Resource" id="Resource_wjqeh"]
 script = ExtResource("5_2orjr")
 use_exported_initial_values = true
 initial_map_entities = Array[ExtResource("2_1i5ew")]([])
-initial_solidity_polygons = Array[PackedVector2Array]([PackedVector2Array(0, 0, 30, 0, 60, 30, 30, 30), PackedVector2Array(100, 100, 100, 200, 150, 150, 150, 50), PackedVector2Array(800, 800, 400, 800, 400, 400), PackedVector2Array(900, 10, 850, 20, 800, 50)])
+initial_solidity_polygons = Array[PackedVector2Array]([PackedVector2Array(0, 0, 30, 0, 60, 30, 30, 30), PackedVector2Array(100, 100, 100, 200, 150, 150, 150, 50), PackedVector2Array(800, 800, 400, 800, 400, 400), PackedVector2Array(900, 10, 850, 20, 800, 50), PackedVector2Array(200, 100, 216, 100, 216, 116, 200, 116)])
 initial_bounding_box = Rect2(0, 0, 1000, 1000)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wqt1v"]
-shader = ExtResource("7_cvdvs")
-shader_parameter/fog_color = Color(0.0598, 0.07982, 0.26, 0)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_66nex"]
+texture = ExtResource("7_j1rc0")
+texture_region_size = Vector2i(512, 512)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_r7aiw"]
+tile_size = Vector2i(512, 512)
+sources/0 = SubResource("TileSetAtlasSource_66nex")
 
 [node name="MapDisplay" type="Control"]
 layout_mode = 3
@@ -32,11 +36,10 @@ script = ExtResource("1_82s18")
 solidity_color = Color(0.4466, 0.45327, 0.58, 1)
 test_map_data = SubResource("Resource_wjqeh")
 
-[node name="FogOfWarHandler" type="Node" parent="." node_paths=PackedStringArray("scrollable_container", "fog_sprite")]
+[node name="FogOfWarHandler" type="Node" parent="." node_paths=PackedStringArray("scrollable_container", "fog")]
 script = ExtResource("4_mbbb0")
 scrollable_container = NodePath("../MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer")
-light_texture = ExtResource("5_6s3eo")
-fog_sprite = NodePath("../MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer/FogSprite")
+fog = NodePath("../MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer/Fog")
 
 [node name="MapViewHandler" type="Node" parent="." node_paths=PackedStringArray("scrollable_container", "map_control")]
 script = ExtResource("2_qn6yq")
@@ -82,8 +85,6 @@ focus_mode = 2
 [node name="ScrollableContainer" type="Node2D" parent="MapMargin/MapPanel/MapPadding/MapContainer"]
 scale = Vector2(0.4, 0.4)
 
-[node name="FogSprite" type="Sprite2D" parent="MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer"]
+[node name="Fog" type="TileMapLayer" parent="MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer"]
 z_index = 1
-material = SubResource("ShaderMaterial_wqt1v")
-scale = Vector2(2.5, 2.5)
-centered = false
+tile_set = SubResource("TileSet_r7aiw")
