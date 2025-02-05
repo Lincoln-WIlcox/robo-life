@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dw2fqgynxjcit"]
+[gd_scene load_steps=45 format=3 uid="uid://dw2fqgynxjcit"]
 
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/player_character_controller.gd" id="1_bw5ol"]
 [ext_resource type="PackedScene" uid="uid://by3dehhgwxdqr" path="res://Objects/Shield/shield.tscn" id="2_ipind"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/player_shield_handler.gd" id="4_j00oc"]
 [ext_resource type="Script" path="res://Resources/item_grid.gd" id="4_saie0"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/transport_bucket_placement_handler.gd" id="4_u31iq"]
+[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/sector_handler.gd" id="4_vjnlu"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/power_pole_placement_handler.gd" id="4_x3qr7"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/inventory_state.gd" id="5_fsdf8"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/placing_object_state.gd" id="6_1j2hy"]
@@ -55,24 +56,27 @@ script = ExtResource("7_45g5n")
 item_data = ExtResource("13_geyg5")
 position = Vector2i(0, 0)
 
-[sub_resource type="Resource" id="Resource_geoj6"]
+[sub_resource type="Resource" id="Resource_mwvnx"]
 resource_local_to_scene = true
 script = ExtResource("4_saie0")
 size = Vector2i(3, 3)
 initial_items = Array[ExtResource("7_45g5n")]([SubResource("Resource_7o84n")])
 
-[sub_resource type="Resource" id="Resource_h44lp"]
+[sub_resource type="Resource" id="Resource_2g467"]
 resource_local_to_scene = true
 script = ExtResource("4_d214o")
 batteries = 0
 steel = 0
 food = 0
 max_food = 5
-item_grid = SubResource("Resource_geoj6")
+item_grid = SubResource("Resource_mwvnx")
 
 [node name="PlayerCharacterController" type="Node2D"]
 script = ExtResource("1_bw5ol")
 map_texture = SubResource("Resource_d6xii")
+
+[node name="SectorHandler" type="Node" parent="."]
+script = ExtResource("4_vjnlu")
 
 [node name="TransportBucketPlacementHandler" type="Node" parent="."]
 script = ExtResource("4_u31iq")
@@ -101,7 +105,7 @@ player_character = NodePath("../PlayerCharacter")
 laser_gun = NodePath("../LaserGun")
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("2_u8dgg")]
-inventory = SubResource("Resource_h44lp")
+inventory = SubResource("Resource_2g467")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_callback = 0
@@ -200,6 +204,10 @@ heat_amount = 2
 [node name="ShelterWarpHandler" type="Node" parent="."]
 script = ExtResource("38_fnqtp")
 
+[connection signal="sector_revealed" from="SectorHandler" to="TransportBucketPlacementHandler" method="_on_sector_handler_sector_revealed"]
+[connection signal="sector_revealed" from="SectorHandler" to="UIStateMachine/Shelter/ShelterStateMachine/Warp" method="_on_sector_handler_sector_revealed"]
+[connection signal="sector_revealed" from="SectorHandler" to="UIStateMachine/LevelMap" method="_on_sector_handler_sector_revealed"]
+[connection signal="sector_revealed" from="SectorHandler" to="UIStateMachine/PowerPoleSelection" method="_on_sector_handler_sector_revealed"]
 [connection signal="shelter_interacted_with" from="PlayerCharacter" to="UIStateMachine/None" method="_on_player_character_shelter_interacted_with"]
 [connection signal="shelter_interacted_with" from="PlayerCharacter" to="UIStateMachine/Shelter/ShelterStateMachine/Warp" method="_on_player_character_shelter_interacted_with"]
 [connection signal="item_dropped" from="UIStateMachine/Inventory" to="." method="handle_drop_item"]

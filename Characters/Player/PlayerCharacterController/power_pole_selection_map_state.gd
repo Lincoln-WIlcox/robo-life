@@ -6,6 +6,7 @@ var toggle_map: Callable
 var show_ui: Callable
 var hide_ui: Callable
 var environment_query_system: EnvironmentQuerySystem
+var get_revealed_sectors: Callable
 
 var _map_ui: PowerPoleSelectionMap
 var _map_data: MapData
@@ -26,7 +27,7 @@ func _get_map_data() -> MapData:
 	var power_pole_map_entities_assigner: Array = power_pole_queryables.map(func(power_pole_queryable: QueryableEntity): return power_pole_queryable.source_node.power_pole_selection_map_entity)
 	var power_pole_map_entities: Array[MapEntity]
 	power_pole_map_entities.assign(power_pole_map_entities_assigner)
-	var map_data: MapData = MapData.new(power_pole_map_entities, solidity_polygons, bounding_box)
+	var map_data: MapData = MapData.new(power_pole_map_entities, solidity_polygons, bounding_box, get_revealed_sectors.call())
 	return map_data
 
 func _on_enviornment_query_system_queryable_added(added_queryable: QueryableEntity) -> void:
@@ -46,3 +47,6 @@ func run():
 
 func exit():
 	hide_ui.call(false)
+
+func _on_sector_handler_sector_revealed(sector_coords: Vector2i):
+	_map_data.reveal_sector(sector_coords)

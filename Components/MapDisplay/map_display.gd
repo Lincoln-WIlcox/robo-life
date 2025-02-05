@@ -4,18 +4,26 @@ extends Control
 const MAP_BOX_OFFSET = Vector2(10, 10)
 
 @export var solidity_color: Color
+@export var test_map_data: MapData
 
 @onready var map_view_handler: Node = $MapViewHandler
 @onready var node_to_put_map_in: Node2D = $MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer
+@onready var fog: TileMapLayer = $MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer/Fog
+@onready var fog_handler: Node = $FogOfWarHandler
 
 var _representing_map_data: MapData
 
 signal map_entity_removed(removed_map_entity: MapEntity)
 signal map_changed
 
+func _ready():
+	if test_map_data:
+		display_map_data(test_map_data)
+
 func clear_map() -> void:
 	for node in node_to_put_map_in.get_children():
-		node.queue_free()
+		if node != fog:
+			node.queue_free()
 	map_changed.emit()
 
 func disconnect_map_data() -> void:
@@ -38,6 +46,7 @@ func display_map_data(map_data: MapData) -> void:
 	map_data.solidity_changed.connect(redraw_polygons.bind(map_data.get_solidity_polygons()))
 	map_data.map_entity_added.connect(_on_map_entity_added)
 	map_data.map_entity_removed.connect(_on_map_entity_removed)
+	map_data.sector_revealed.connect(_on_sector_revealed)
 	
 	_representing_map_data = map_data
 	
@@ -45,10 +54,24 @@ func display_map_data(map_data: MapData) -> void:
 	_display_map_entities(map_data.get_map_entities())
 	_add_corner_markers(map_data.get_bounding_box())
 	
+	fog_handler.create_fog(map_data.get_bounding_box())
+	reveal_sectors(map_data.get_revealed_sectors())
+	
 	map_changed.emit()
+
+func reveal_sectors(sectors: Array[Vector2i]) -> void:
+	for sector_coords: Vector2i in sectors:
+		fog_handler.reveal_fog(sector_coords)
 
 func get_map_entity_representations() -> Array[Node]:
 	return node_to_put_map_in.get_children().filter(func(child: Node): return not child is Polygon2D)
+
+func reveal_fog_tile(tile_position: Vector2i) -> void:
+	fog_handler.reveal_fog(tile_position)
+
+func reveal_fog_at_global_position(reveal_at: Vector2) -> void:
+	var tile_position: Vector2i = fog.local_to_map(fog.to_local(reveal_at))
+	fog_handler.reveal_fog(tile_position)
 
 func _display_polygons(packed_vectors: Array[PackedVector2Array]) -> void:
 	var polygons: Array[Polygon2D] = Utils.packed_vector_arrays_to_polygons(packed_vectors)
@@ -122,3 +145,6 @@ func _on_map_entity_added(map_entity: MapEntity) -> void:
 func _on_map_entity_removed(map_entity: MapEntity) -> void:
 	map_entity_removed.emit(map_entity)
 	map_changed.emit()
+
+func _on_sector_revealed(sector_coords: Vector2i) -> void:
+	fog_handler.reveal_fog(sector_coords)

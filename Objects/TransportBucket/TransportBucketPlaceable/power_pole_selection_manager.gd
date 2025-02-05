@@ -3,6 +3,7 @@ extends Node
 @export var path_handler: Node
 var environment_query_system: EnvironmentQuerySystem
 var initial_power_connector: PowerConnector
+var get_revealed_sectors: Callable
 
 var _map_data: MapData
 
@@ -12,6 +13,9 @@ func setup_map(map: TransportBucketUI) -> void:
 	_map_data = _get_map_data()
 	environment_query_system.queryable_added.connect(_on_enviornment_query_system_queryable_added)
 	map.setup(_map_data)
+
+func reveal_sector(sector_coords: Vector2i) -> void:
+	_map_data.reveal_sector(sector_coords)
 
 func _get_map_data() -> MapData:
 	var solidity_polygons: Array[PackedVector2Array] = environment_query_system.get_tile_maps_solidity()
@@ -29,7 +33,7 @@ func _get_map_data() -> MapData:
 			power_pole_map_entity.selected.connect(_on_power_pole_map_entity_selected.bind(power_pole_queryable.source_node))
 			power_pole_map_entity.source_removed.connect(_on_power_pole_map_entity_source_removed.bind(power_pole_map_entity))
 	
-	var map_data: MapData = MapData.new(power_pole_map_entities, solidity_polygons, bounding_box)
+	var map_data: MapData = MapData.new(power_pole_map_entities, solidity_polygons, bounding_box, get_revealed_sectors.call())
 	return map_data
 
 func _on_enviornment_query_system_queryable_added(added_queryable: QueryableEntity) -> void:

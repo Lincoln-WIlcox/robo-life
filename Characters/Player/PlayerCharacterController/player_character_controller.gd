@@ -24,6 +24,7 @@ extends Node2D
 @onready var shield = $ShieldRotationPivot/Shield
 @onready var warp_state = $UIStateMachine/Shelter/ShelterStateMachine/Warp
 @onready var shelter_warp_handler = $ShelterWarpHandler
+@onready var sector_handler = $SectorHandler
 
 @export var map_texture: MapTexture
 @export var movement_disabled := false
@@ -71,6 +72,20 @@ var get_current_ui: Callable:
 		if is_node_ready():
 			none_state.get_current_ui = get_current_ui
 			other_state.get_current_ui = get_current_ui
+var get_revealed_sectors: Callable:
+	set(new_value):
+		get_revealed_sectors = new_value
+		if is_node_ready():
+			sector_handler.get_revealed_sectors = get_revealed_sectors
+			level_map_state.get_revealed_sectors = get_revealed_sectors
+			warp_state.get_revealed_sectors = get_revealed_sectors
+			power_pole_selection_state.get_revealed_sectors = get_revealed_sectors
+			transport_bucket_placement_handler.get_revealed_sectors = get_revealed_sectors
+var reveal_sector: Callable:
+	set(new_value):
+		reveal_sector = new_value
+		if is_node_ready():
+			sector_handler.reveal_sector = reveal_sector
 
 signal item_dropped(drop: Object)
 signal died
@@ -134,18 +149,19 @@ func _ready():
 	power_pole_placement_handler.enviornment_query_system = environment_query_system
 	power_pole_selection_state.toggle_map = func(): return Input.is_action_just_pressed("test_input")
 	power_pole_selection_state.environment_query_system = environment_query_system
-	power_pole_selection_state.setup_map()
+	power_pole_selection_state.get_revealed_sectors = get_revealed_sectors
 	level_map_map_entity_collection.add_map_entity(map_texture)
 	level_map_state.toggle_map = func(): return Input.is_action_just_pressed("toggle_map")
 	level_map_state.environment_query_system = environment_query_system
 	level_map_state.map_entity_collection = level_map_map_entity_collection
-	level_map_state.setup_map()
+	level_map_state.get_revealed_sectors = get_revealed_sectors
 	map_texture.get_position = func(): return player_character.character.global_position
 	map_texture.source_node = self
 	transport_bucket_placement_handler.node_to_put_transport_buckets_in = node_to_spawn_placeables_in
 	transport_bucket_placement_handler.show_ui = show_ui
 	transport_bucket_placement_handler.hide_ui = hide_ui
 	transport_bucket_placement_handler.environment_query_system = environment_query_system
+	transport_bucket_placement_handler.get_revealed_sectors = get_revealed_sectors
 	cursor_interaction_handler.cursor_detect_area = player_character.cursor_detect_area
 	cursor_interaction_handler.cursor_interacted = func(): return Input.is_action_just_pressed("cursor_interact")
 	other_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
@@ -154,13 +170,21 @@ func _ready():
 	power_pole_placement_handler.node_to_put_lines_in = node_to_spawn_placeables_in
 	map_texture_updater.map_texture = map_texture
 	warp_state.environment_query_system = environment_query_system
-	warp_state.setup_map()
+	warp_state.get_revealed_sectors = get_revealed_sectors
 	shelter_warp_handler.player_character = player_character.character
+	sector_handler.player_body = player_character.character
+	sector_handler.get_revealed_sectors = get_revealed_sectors
+	sector_handler.reveal_sector = reveal_sector
 	
 	remove_child(laser_gun)
 	player_character.character.add_child(laser_gun)
 	laser_gun.laser.raycast.add_exception(player_character.character)
 	laser_gun.laser.raycast.add_exception(shield.area)
+
+func setup_sectors() -> void:
+	level_map_state.setup_map()
+	warp_state.setup_map()
+	power_pole_selection_state.setup_map()
 
 func drop_item(item: ItemData):
 	player_character.drop_item(item)

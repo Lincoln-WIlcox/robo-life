@@ -7,6 +7,7 @@ extends State
 var environment_query_system: EnvironmentQuerySystem
 var show_ui: Callable
 var hide_ui: Callable
+var get_revealed_sectors: Callable
 
 var _shelter_warp_ui: ShelterWarpUI
 var _map_data: MapData
@@ -33,7 +34,7 @@ func exit():
 func _get_map_data() -> MapData:
 	var solidity_polygons: Array[PackedVector2Array] = environment_query_system.get_tile_maps_solidity()
 	var bounding_box: Rect2 = environment_query_system.get_solidity_bounding_box()
-	var map_data: MapData = MapData.new([], solidity_polygons, bounding_box)
+	var map_data: MapData = MapData.new([], solidity_polygons, bounding_box, get_revealed_sectors.call())
 	return map_data
 
 func _on_shelter_warp_ui_shelter_selected(_shelter) -> void:
@@ -56,3 +57,6 @@ func _on_player_character_shelter_interacted_with(shelter_area: ShelterInteracti
 		var selectable_map_entity: SelectableMapEntity = shelter.make_selectable_map_entity()
 		_map_data.add_map_entity(selectable_map_entity)
 		selectable_map_entity.selected.connect(_on_shelter_selectable_selected.bind(shelter))
+
+func _on_sector_handler_sector_revealed(sector_coords: Vector2i):
+	_map_data.reveal_sector(sector_coords)
