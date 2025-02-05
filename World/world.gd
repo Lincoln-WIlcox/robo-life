@@ -37,3 +37,4 @@ func _ready():
 	player_character_controller.shelter_inventory = shelter_inventory
 	player_character_controller.get_revealed_sectors = func() -> Array[Vector2i]: return sector_handler.revealed_sectors
 	player_character_controller.reveal_sector = sector_handler.reveal_sector
+	player_character_controller.setup_sectors()

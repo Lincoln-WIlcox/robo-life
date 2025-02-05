@@ -77,6 +77,7 @@ var get_revealed_sectors: Callable:
 		get_revealed_sectors = new_value
 		if is_node_ready():
 			sector_handler.get_revealed_sectors = get_revealed_sectors
+			level_map_state.get_revealed_sectors = get_revealed_sectors
 var reveal_sector: Callable:
 	set(new_value):
 		reveal_sector = new_value
@@ -150,7 +151,7 @@ func _ready():
 	level_map_state.toggle_map = func(): return Input.is_action_just_pressed("toggle_map")
 	level_map_state.environment_query_system = environment_query_system
 	level_map_state.map_entity_collection = level_map_map_entity_collection
-	level_map_state.setup_map()
+	level_map_state.get_revealed_sectors = get_revealed_sectors
 	map_texture.get_position = func(): return player_character.character.global_position
 	map_texture.source_node = self
 	transport_bucket_placement_handler.node_to_put_transport_buckets_in = node_to_spawn_placeables_in
@@ -175,6 +176,9 @@ func _ready():
 	player_character.character.add_child(laser_gun)
 	laser_gun.laser.raycast.add_exception(player_character.character)
 	laser_gun.laser.raycast.add_exception(shield.area)
+
+func setup_sectors() -> void:
+	level_map_state.setup_map()
 
 func drop_item(item: ItemData):
 	player_character.drop_item(item)

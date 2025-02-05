@@ -46,6 +46,7 @@ func display_map_data(map_data: MapData) -> void:
 	map_data.solidity_changed.connect(redraw_polygons.bind(map_data.get_solidity_polygons()))
 	map_data.map_entity_added.connect(_on_map_entity_added)
 	map_data.map_entity_removed.connect(_on_map_entity_removed)
+	map_data.sector_revealed.connect(_on_sector_revealed)
 	
 	_representing_map_data = map_data
 	
@@ -54,8 +55,13 @@ func display_map_data(map_data: MapData) -> void:
 	_add_corner_markers(map_data.get_bounding_box())
 	
 	fog_handler.create_fog(map_data.get_bounding_box())
+	reveal_sectors(map_data.get_revealed_sectors())
 	
 	map_changed.emit()
+
+func reveal_sectors(sectors: Array[Vector2i]) -> void:
+	for sector_coords: Vector2i in sectors:
+		fog_handler.reveal_fog(sector_coords)
 
 func get_map_entity_representations() -> Array[Node]:
 	return node_to_put_map_in.get_children().filter(func(child: Node): return not child is Polygon2D)
@@ -139,3 +145,6 @@ func _on_map_entity_added(map_entity: MapEntity) -> void:
 func _on_map_entity_removed(map_entity: MapEntity) -> void:
 	map_entity_removed.emit(map_entity)
 	map_changed.emit()
+
+func _on_sector_revealed(sector_coords: Vector2i) -> void:
+	fog_handler.reveal_fog(sector_coords)

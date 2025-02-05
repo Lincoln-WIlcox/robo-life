@@ -34,6 +34,7 @@ signal solidity_changed
 signal map_entity_added(added_entity: MapEntity)
 ##Emitted when a map entity is removed.
 signal map_entity_removed(removed_entity: MapEntity)
+signal sector_revealed(sector_coords: Vector2i)
 
 func _init(map_entities: Array[MapEntity] = [], solidity_polygons: Array[PackedVector2Array] = [], bounding_box: Rect2 = Rect2(), revealed_sectors: Array[Vector2i] = []):
 	if !use_exported_initial_values:
@@ -53,6 +54,9 @@ func get_map_entities() -> Array[MapEntity]:
 func get_bounding_box() -> Rect2:
 	return _bounding_box
 
+func get_revealed_sectors() -> Array[Vector2i]:
+	return _revealed_sectors
+
 func add_solidity_polygon(polygon: PackedVector2Array) -> void:
 	_solidity_polygons.append(polygon)
 	solidity_changed.emit()
@@ -61,6 +65,10 @@ func add_map_entity(map_entity: MapEntity) -> void:
 	_map_entities.append(map_entity)
 	map_entity_added.emit(map_entity)
 	map_entity.source_removed.connect(remove_map_entity.bind(map_entity))
+
+func reveal_sector(sector_coords: Vector2i) -> void:
+	_revealed_sectors.append(sector_coords)
+	sector_revealed.emit(sector_coords)
 
 func map_entity_in_data(map_entity: MapEntity) -> bool:
 	return _map_entities.find(map_entity) != -1
