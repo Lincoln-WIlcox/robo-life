@@ -329,7 +329,7 @@ static func get_offset_of_point_along_curve(curve: Curve2D, point_index: int) ->
 
 #sector coords is the coords of the sector on the sector grid where one unit is one sector.
 static func get_global_sector_bounds(sector_coords: Vector2i) -> Rect2:
-	return Rect2(Vector2(sector_coords) * SECTOR_SIZE, Vector2(sector_coords) * SECTOR_SIZE + SECTOR_SIZE)
+	return Rect2(Vector2(sector_coords) * SECTOR_SIZE, SECTOR_SIZE)
 
 static func get_sector_coords_at(at_position: Vector2) -> Vector2i:
 	return Vector2i(floori(at_position.x / SECTOR_SIZE.x), floori(at_position.y / SECTOR_SIZE.y))
