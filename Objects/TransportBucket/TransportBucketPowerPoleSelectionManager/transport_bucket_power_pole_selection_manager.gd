@@ -11,6 +11,7 @@ extends Node
 
 var show_ui: Callable
 var hide_ui: Callable
+var get_revealed_sectors: Callable
 
 var _ui: TransportBucketUI
 
@@ -27,6 +28,7 @@ func setup() -> void:
 	
 	power_pole_selection_manager.initial_power_connector = initial_power_connector
 	power_pole_selection_manager.environment_query_system = environment_query_system
+	power_pole_selection_manager.get_revealed_sectors = get_revealed_sectors
 	power_pole_selection_manager.setup_map(_ui)
 	
 	transport_bucket.set_path_follow_position(initial_power_connector.global_position)
@@ -51,3 +53,6 @@ func _on_ui_closed() -> void:
 
 func _on_transport_bucket_tree_exiting():
 	queue_free()
+
+func on_sector_revealed(sector_coords: Vector2i) -> void:
+	power_pole_selection_manager.reveal_sector(sector_coords)

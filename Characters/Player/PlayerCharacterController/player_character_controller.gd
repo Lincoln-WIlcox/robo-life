@@ -78,6 +78,9 @@ var get_revealed_sectors: Callable:
 		if is_node_ready():
 			sector_handler.get_revealed_sectors = get_revealed_sectors
 			level_map_state.get_revealed_sectors = get_revealed_sectors
+			warp_state.get_revealed_sectors = get_revealed_sectors
+			power_pole_selection_state.get_revealed_sectors = get_revealed_sectors
+			transport_bucket_placement_handler.get_revealed_sectors = get_revealed_sectors
 var reveal_sector: Callable:
 	set(new_value):
 		reveal_sector = new_value
@@ -146,7 +149,7 @@ func _ready():
 	power_pole_placement_handler.enviornment_query_system = environment_query_system
 	power_pole_selection_state.toggle_map = func(): return Input.is_action_just_pressed("test_input")
 	power_pole_selection_state.environment_query_system = environment_query_system
-	power_pole_selection_state.setup_map()
+	power_pole_selection_state.get_revealed_sectors = get_revealed_sectors
 	level_map_map_entity_collection.add_map_entity(map_texture)
 	level_map_state.toggle_map = func(): return Input.is_action_just_pressed("toggle_map")
 	level_map_state.environment_query_system = environment_query_system
@@ -158,6 +161,7 @@ func _ready():
 	transport_bucket_placement_handler.show_ui = show_ui
 	transport_bucket_placement_handler.hide_ui = hide_ui
 	transport_bucket_placement_handler.environment_query_system = environment_query_system
+	transport_bucket_placement_handler.get_revealed_sectors = get_revealed_sectors
 	cursor_interaction_handler.cursor_detect_area = player_character.cursor_detect_area
 	cursor_interaction_handler.cursor_interacted = func(): return Input.is_action_just_pressed("cursor_interact")
 	other_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
@@ -166,7 +170,7 @@ func _ready():
 	power_pole_placement_handler.node_to_put_lines_in = node_to_spawn_placeables_in
 	map_texture_updater.map_texture = map_texture
 	warp_state.environment_query_system = environment_query_system
-	warp_state.setup_map()
+	warp_state.get_revealed_sectors = get_revealed_sectors
 	shelter_warp_handler.player_character = player_character.character
 	sector_handler.player_body = player_character.character
 	sector_handler.get_revealed_sectors = get_revealed_sectors
@@ -179,6 +183,8 @@ func _ready():
 
 func setup_sectors() -> void:
 	level_map_state.setup_map()
+	warp_state.setup_map()
+	power_pole_selection_state.setup_map()
 
 func drop_item(item: ItemData):
 	player_character.drop_item(item)

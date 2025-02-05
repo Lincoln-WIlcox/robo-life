@@ -204,7 +204,10 @@ heat_amount = 2
 [node name="ShelterWarpHandler" type="Node" parent="."]
 script = ExtResource("38_fnqtp")
 
+[connection signal="sector_revealed" from="SectorHandler" to="TransportBucketPlacementHandler" method="_on_sector_handler_sector_revealed"]
+[connection signal="sector_revealed" from="SectorHandler" to="UIStateMachine/Shelter/ShelterStateMachine/Warp" method="_on_sector_handler_sector_revealed"]
 [connection signal="sector_revealed" from="SectorHandler" to="UIStateMachine/LevelMap" method="_on_sector_handler_sector_revealed"]
+[connection signal="sector_revealed" from="SectorHandler" to="UIStateMachine/PowerPoleSelection" method="_on_sector_handler_sector_revealed"]
 [connection signal="shelter_interacted_with" from="PlayerCharacter" to="UIStateMachine/None" method="_on_player_character_shelter_interacted_with"]
 [connection signal="shelter_interacted_with" from="PlayerCharacter" to="UIStateMachine/Shelter/ShelterStateMachine/Warp" method="_on_player_character_shelter_interacted_with"]
 [connection signal="item_dropped" from="UIStateMachine/Inventory" to="." method="handle_drop_item"]

@@ -9,6 +9,8 @@ extends Placeable
 
 var show_ui: Callable
 var hide_ui: Callable
+var get_revealed_sectors: Callable
+var sector_revealed_signal: Signal
 
 var _nearby_power_connector: PowerConnector:
 	set(new_value):
@@ -29,6 +31,8 @@ func _on_placed() -> void:
 	transport_bucket.show_ui = show_ui
 	transport_bucket.hide_ui = hide_ui
 	transport_bucket.environment_query_system = environment_query_system
+	transport_bucket.get_revealed_sectors = get_revealed_sectors
+	sector_revealed_signal.connect(transport_bucket.on_sector_revealed)
 	transport_bucket.setup.call_deferred()
 	queue_free()
 
