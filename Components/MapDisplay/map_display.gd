@@ -53,12 +53,19 @@ func display_map_data(map_data: MapData) -> void:
 	_display_map_entities(map_data.get_map_entities())
 	_add_corner_markers(map_data.get_bounding_box())
 	
-	fog_handler.create_fog(map_data.get_bounding_box().size)
+	fog_handler.create_fog(map_data.get_bounding_box())
 	
 	map_changed.emit()
 
 func get_map_entity_representations() -> Array[Node]:
 	return node_to_put_map_in.get_children().filter(func(child: Node): return not child is Polygon2D)
+
+func reveal_fog_tile(tile_position: Vector2i) -> void:
+	fog_handler.reveal_fog(tile_position)
+
+func reveal_fog_at_global_position(reveal_at: Vector2) -> void:
+	var tile_position: Vector2i = fog.local_to_map(fog.to_local(reveal_at))
+	fog_handler.reveal_fog(tile_position)
 
 func _display_polygons(packed_vectors: Array[PackedVector2Array]) -> void:
 	var polygons: Array[Polygon2D] = Utils.packed_vector_arrays_to_polygons(packed_vectors)

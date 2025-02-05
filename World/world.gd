@@ -4,6 +4,7 @@ extends Node2D
 @onready var day_night_cycle: DayNightCycle = $DayNightCycle
 @onready var player_character_controller: PlayerCharacterController = $PlayerCharacterController
 @onready var tiles: TileMapLayer = $Tiles
+@onready var sector_handler = $SectorHandler
 
 @export var active_player: PlayerCharacterController:
 	set(new_value):
@@ -34,3 +35,5 @@ func _ready():
 	player_character_controller.show_ui = show_ui
 	player_character_controller.hide_ui = hide_ui
 	player_character_controller.shelter_inventory = shelter_inventory
+	player_character_controller.get_revealed_sectors = func() -> Array[Vector2i]: return sector_handler.revealed_sectors
+	player_character_controller.reveal_sector = sector_handler.reveal_sector

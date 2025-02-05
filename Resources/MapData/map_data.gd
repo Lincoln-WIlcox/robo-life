@@ -21,10 +21,12 @@ extends Resource
 		initial_bounding_box = new_value
 		if new_value:
 			_bounding_box = new_value
+@export var initial_revealed_sectors: Array[Vector2i]
 
 var _map_entities: Array[MapEntity]
 var _solidity_polygons: Array[PackedVector2Array]
 var _bounding_box: Rect2
+var _revealed_sectors: Array[Vector2i]
 
 ##Emitted when the map should redraw the solidity.
 signal solidity_changed
@@ -33,13 +35,14 @@ signal map_entity_added(added_entity: MapEntity)
 ##Emitted when a map entity is removed.
 signal map_entity_removed(removed_entity: MapEntity)
 
-func _init(map_entities: Array[MapEntity] = [], solidity_polygons: Array[PackedVector2Array] = [], bounding_box: Rect2 = Rect2()):
+func _init(map_entities: Array[MapEntity] = [], solidity_polygons: Array[PackedVector2Array] = [], bounding_box: Rect2 = Rect2(), revealed_sectors: Array[Vector2i] = []):
 	if !use_exported_initial_values:
 		_map_entities = map_entities.duplicate()
 		for map_entity: MapEntity in map_entities:
 			map_entity.source_removed.connect(remove_map_entity.bind(map_entity))
 		_solidity_polygons = solidity_polygons.duplicate()
 		_bounding_box = bounding_box
+		_revealed_sectors = revealed_sectors
 
 func get_solidity_polygons() -> Array[PackedVector2Array]:
 	return _solidity_polygons

@@ -24,6 +24,7 @@ extends Node2D
 @onready var shield = $ShieldRotationPivot/Shield
 @onready var warp_state = $UIStateMachine/Shelter/ShelterStateMachine/Warp
 @onready var shelter_warp_handler = $ShelterWarpHandler
+@onready var sector_handler = $SectorHandler
 
 @export var map_texture: MapTexture
 @export var movement_disabled := false
@@ -71,6 +72,16 @@ var get_current_ui: Callable:
 		if is_node_ready():
 			none_state.get_current_ui = get_current_ui
 			other_state.get_current_ui = get_current_ui
+var get_revealed_sectors: Callable:
+	set(new_value):
+		get_revealed_sectors = new_value
+		if is_node_ready():
+			sector_handler.get_revealed_sectors = get_revealed_sectors
+var reveal_sector: Callable:
+	set(new_value):
+		reveal_sector = new_value
+		if is_node_ready():
+			sector_handler.reveal_sector = reveal_sector
 
 signal item_dropped(drop: Object)
 signal died
@@ -156,6 +167,9 @@ func _ready():
 	warp_state.environment_query_system = environment_query_system
 	warp_state.setup_map()
 	shelter_warp_handler.player_character = player_character.character
+	sector_handler.player_body = player_character.character
+	sector_handler.get_revealed_sectors = get_revealed_sectors
+	sector_handler.reveal_sector = reveal_sector
 	
 	remove_child(laser_gun)
 	player_character.character.add_child(laser_gun)

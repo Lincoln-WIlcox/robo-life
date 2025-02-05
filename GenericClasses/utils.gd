@@ -7,6 +7,7 @@ const HIGHEST_LADDER_OFFSET = 5
 const ITEM_GRID_TILE_SIZE = 48
 const AMOUNT_OF_FOOD_TO_CONSUME = 10
 const POINTS_SIMILAR_MARGIN = 0.05
+const SECTOR_SIZE = Vector2(512, 512)
 
 #ordered such that it's easy to work with angle math.
 enum DIRECTIONS
@@ -325,3 +326,10 @@ static func get_offset_of_point_along_curve(curve: Curve2D, point_index: int) ->
 		curve_copy.remove_point(curve_copy.point_count - 1)
 	
 	return curve_copy.get_baked_length()
+
+#sector coords is the coords of the sector on the sector grid where one unit is one sector.
+static func get_global_sector_bounds(sector_coords: Vector2i) -> Rect2:
+	return Rect2(Vector2(sector_coords) * SECTOR_SIZE, Vector2(sector_coords) * SECTOR_SIZE + SECTOR_SIZE)
+
+static func get_sector_coords_at(at_position: Vector2) -> Vector2i:
+	return Vector2i(floori(at_position.x / SECTOR_SIZE.x), floori(at_position.y / SECTOR_SIZE.y))
