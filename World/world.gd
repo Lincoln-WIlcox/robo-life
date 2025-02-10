@@ -29,6 +29,11 @@ var get_current_ui: Callable:
 		get_current_ui = new_value
 		if is_node_ready():
 			player_character_controller.get_current_ui = get_current_ui
+var win: Callable:
+	set(new_value):
+		win = new_value
+		if is_node_ready():
+			pass
 
 func _ready():
 	day_night_cycle.start_first_day()
