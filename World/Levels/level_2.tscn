@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://cldkgwqny8lwy"]
+[gd_scene load_steps=32 format=4 uid="uid://cldkgwqny8lwy"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_m8bdm"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_vjuht"]
@@ -20,8 +20,6 @@
 [ext_resource type="PackedScene" uid="uid://dpyu3hof4l6hb" path="res://Objects/OverheatingWall/overheatable_wall.tscn" id="14_v74fr"]
 [ext_resource type="PackedScene" uid="uid://brg4hptmtkbt2" path="res://Objects/PushableBlock/pushable_block.tscn" id="15_d8wcr"]
 [ext_resource type="PackedScene" uid="uid://bni6clyp4sg3" path="res://Objects/RockBarrier/rock_barrier.tscn" id="20_gvedq"]
-[ext_resource type="PackedScene" uid="uid://b0qvmacfrffh2" path="res://Components/PlaceItemInteractable/place_item_interactable.tscn" id="21_whake"]
-[ext_resource type="Resource" uid="uid://bckiex7mctva7" path="res://Resources/Items/drill.tres" id="22_1a28r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_evjoi"]
 atlas = ExtResource("2_vjuht")
@@ -85,8 +83,6 @@ script = ExtResource("3_3lujh")
 display_texture = SubResource("AtlasTexture_jxiwm")
 z_index = 0
 scale = Vector2(0.8, 0.8)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8n6cb"]
 
 [node name="Level" instance=ExtResource("1_m8bdm")]
 
@@ -220,11 +216,3 @@ position = Vector2(-160, 112)
 node_to_put_item_pickup_in = NodePath("..")
 drill_time = 15
 day_night_cycle = NodePath("../DayNightCycle")
-
-[node name="PlaceItemInteractable" parent="." index="37" node_paths=PackedStringArray("node_to_put_item_pickup_in") instance=ExtResource("21_whake")]
-position = Vector2(224, -48)
-accepts_item = ExtResource("22_1a28r")
-node_to_put_item_pickup_in = NodePath("..")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlaceItemInteractable" index="1"]
-shape = SubResource("RectangleShape2D_8n6cb")

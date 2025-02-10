@@ -9,6 +9,7 @@ extends Node2D
 
 var _item_placed: bool = false
 
+signal insufficient_requirements
 signal item_placed
 signal item_picked_up
 
@@ -19,6 +20,9 @@ func _ready():
 			interaction_area.add_child(collision_shape)
 	
 	interaction_area.inventory_requirement.costs_items.append(accepts_item)
+
+func is_item_placed() -> bool:
+	return _item_placed
 
 func _on_inventory_requirement_interaction_area_requirements_met(_interactor):
 	interaction_area.disabled = true
@@ -36,3 +40,6 @@ func _on_item_pickup_collected(_item, _collector):
 	interaction_area.disabled = false
 	_item_placed = false
 	item_picked_up.emit()
+
+func _on_inventory_requirement_interaction_area_insufficient_requirements(_interactor):
+	insufficient_requirements.emit()

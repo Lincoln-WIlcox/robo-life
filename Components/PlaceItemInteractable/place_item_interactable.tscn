@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://Resources/item_data.gd" id="4_6gc8i"]
 [ext_resource type="Script" path="res://Resources/inventory_requirement.gd" id="6_vb4kk"]
 
-[sub_resource type="Resource" id="Resource_xokq1"]
+[sub_resource type="Resource" id="Resource_n50sa"]
 resource_local_to_scene = true
 script = ExtResource("6_vb4kk")
 batteries_cost = 0
@@ -21,6 +21,7 @@ item_pickup_packed_scene = ExtResource("2_m2hek")
 
 [node name="InventoryRequirementInteractionArea" parent="." instance=ExtResource("2_dda3f")]
 script = ExtResource("3_epj6w")
-inventory_requirement = SubResource("Resource_xokq1")
+inventory_requirement = SubResource("Resource_n50sa")
 
+[connection signal="insufficient_requirements" from="InventoryRequirementInteractionArea" to="." method="_on_inventory_requirement_interaction_area_insufficient_requirements"]
 [connection signal="requirements_met" from="InventoryRequirementInteractionArea" to="." method="_on_inventory_requirement_interaction_area_requirements_met"]

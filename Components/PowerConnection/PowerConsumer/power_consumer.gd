@@ -16,9 +16,11 @@ signal power_requirement_lost
 
 var enough_power_supplied := false:
 	set(new_value):
-		if enough_power_supplied and not new_value:
+		if enough_power_supplied and not new_value and active:
+			enough_power_supplied = new_value
 			power_requirement_lost.emit()
-		elif not enough_power_supplied and new_value:
+		elif not enough_power_supplied and new_value and active:
+			enough_power_supplied = new_value
 			power_requirement_met.emit()
 		enough_power_supplied = new_value
 
