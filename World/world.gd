@@ -27,6 +27,7 @@ var hide_ui: Callable:
 var get_current_ui: Callable:
 	set(new_value):
 		get_current_ui = new_value
+		
 		if is_node_ready():
 			player_character_controller.get_current_ui = get_current_ui
 var win: Callable:
