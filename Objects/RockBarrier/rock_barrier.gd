@@ -30,7 +30,7 @@ func _ready():
 
 func _handle_sprite_direction() -> void:
 	sprite.flip_v = flip_sprite
-	place_item_interactable.node_to_put_item_pickup_in = drill_pickup_position_left if flip_sprite else drill_pickup_position_right
+	place_item_interactable.node_to_put_item_pickup_in = node_to_put_item_pickup_in
 
 func _on_time_task_handler_task_completed():
 	queue_free()
@@ -48,11 +48,14 @@ func _on_power_consumer_power_requirement_met():
 func _on_power_consumer_power_requirement_lost():
 	_pause_progress()
 
-func _on_place_item_interactable_item_placed():
+func _on_place_item_interactable_item_placed(item_pickup: ItemPickup):
+	power_consumer.active = true
+	item_pickup.global_position = drill_pickup_position_left.global_position if flip_sprite else drill_pickup_position_right.global_position
 	if power_consumer.enough_power_supplied:
 		_make_progress()
 
 func _on_place_item_interactable_item_picked_up():
+	power_consumer.active = false
 	_pause_progress()
 
 func _on_place_item_interactable_insufficient_requirements():

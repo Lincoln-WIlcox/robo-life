@@ -10,7 +10,7 @@ extends Node2D
 var _item_placed: bool = false
 
 signal insufficient_requirements
-signal item_placed
+signal item_placed(item_pickup: ItemPickup)
 signal item_picked_up
 
 func _ready():
@@ -27,14 +27,16 @@ func is_item_placed() -> bool:
 func _on_inventory_requirement_interaction_area_requirements_met(_interactor):
 	interaction_area.disabled = true
 	_item_placed = true
-	item_placed.emit()
-	_create_item_pickup()
+	var item_pickup: ItemPickup = _create_item_pickup()
+	item_pickup.global_position = global_position
+	item_placed.emit(item_pickup)
 
-func _create_item_pickup():
+func _create_item_pickup() -> ItemPickup:
 	var item_pickup: ItemPickup = item_pickup_packed_scene.instantiate()
 	item_pickup.item = accepts_item
 	item_pickup.collected.connect(_on_item_pickup_collected)
 	node_to_put_item_pickup_in.add_child(item_pickup)
+	return item_pickup
 
 func _on_item_pickup_collected(_item, _collector):
 	interaction_area.disabled = false

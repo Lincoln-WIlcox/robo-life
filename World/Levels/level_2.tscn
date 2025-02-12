@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://cldkgwqny8lwy"]
+[gd_scene load_steps=33 format=4 uid="uid://cldkgwqny8lwy"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_m8bdm"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_vjuht"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://dpyu3hof4l6hb" path="res://Objects/OverheatingWall/overheatable_wall.tscn" id="14_v74fr"]
 [ext_resource type="PackedScene" uid="uid://brg4hptmtkbt2" path="res://Objects/PushableBlock/pushable_block.tscn" id="15_d8wcr"]
 [ext_resource type="PackedScene" uid="uid://bni6clyp4sg3" path="res://Objects/RockBarrier/rock_barrier.tscn" id="20_gvedq"]
+[ext_resource type="PackedScene" uid="uid://cxeqrhjq4hahf" path="res://Objects/DamagedUnit/damaged_unit.tscn" id="21_0v2rn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_evjoi"]
 atlas = ExtResource("2_vjuht")
@@ -90,6 +91,9 @@ scale = Vector2(0.8, 0.8)
 script = ExtResource("2_vues6")
 steel_mine = NodePath("../SteelMine")
 power_supply = NodePath("../PowerSupply")
+
+[node name="DamagedUnitsTracker" parent="." index="1" node_paths=PackedStringArray("initial_tracked_damaged_units")]
+initial_tracked_damaged_units = [NodePath("../DamagedUnit"), NodePath("../DamagedUnit2")]
 
 [node name="DayTimer" parent="DayNightCycle" index="0"]
 wait_time = 500.0
@@ -216,3 +220,13 @@ position = Vector2(-160, 112)
 node_to_put_item_pickup_in = NodePath("..")
 drill_time = 15
 day_night_cycle = NodePath("../DayNightCycle")
+
+[node name="DamagedUnit" parent="." index="37" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in") instance=ExtResource("21_0v2rn")]
+position = Vector2(368, -96)
+day_night_cycle = NodePath("../DayNightCycle")
+node_to_put_item_pickup_in = NodePath("..")
+
+[node name="DamagedUnit2" parent="." index="38" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in") instance=ExtResource("21_0v2rn")]
+position = Vector2(464, 176)
+day_night_cycle = NodePath("../DayNightCycle")
+node_to_put_item_pickup_in = NodePath("..")
