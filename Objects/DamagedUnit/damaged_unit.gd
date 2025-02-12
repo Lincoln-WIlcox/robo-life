@@ -4,6 +4,7 @@ extends Node2D
 @export var repaired_texture: Texture
 @export var day_night_cycle: DayNightCycle
 @export var node_to_put_item_pickup_in: Node
+@export var map_texture: MapTexture
 
 var _is_repaired: bool = false
 
@@ -17,6 +18,8 @@ signal repaired
 signal unrepaired
 
 func _ready():
+	map_texture.get_position = func() -> Vector2: return global_position
+	EventBus.emit_map_entity_added(map_texture)
 	place_item_interactable.node_to_put_item_pickup_in = node_to_put_item_pickup_in
 	time_task_handler.day_night_cycle = day_night_cycle
 
@@ -26,11 +29,13 @@ func get_repaired() -> bool:
 func repair() -> void:
 	_is_repaired = true
 	sprite.texture = repaired_texture
+	map_texture.display_texture = repaired_texture
 	repaired.emit()
 
 func unrepair() -> void:
 	_is_repaired = false
 	sprite.texture = _unrepaired_texture
+	map_texture.display_texture = _unrepaired_texture
 	unrepaired.emit()
 
 func _on_mouse_interaction_area_interacted_with():
