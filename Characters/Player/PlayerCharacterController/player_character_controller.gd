@@ -98,6 +98,8 @@ signal day_ended
 var shelter_map_scenes_interacted_with: Array[ShelterInteractionArea]
 
 func _ready():
+	EventBus.emit_map_entity_added(map_texture)
+	
 	_queryable.connect_source(self)
 	_queryable.player_inventory = inventory
 	environment_query_system.add_entity_queryable(_queryable)
@@ -143,14 +145,13 @@ func _ready():
 	player_shield_handler.player_character = player_character.character
 	player_shield_handler.shield_progress_bar = player_character.shield_progress_bar
 	none_state.toggle_map = func(): return Input.is_action_just_pressed("toggle_map")
-	#none_state.toggle_power_pole_selection = func(): return Input.is_action_just_pressed("test_input")
+	none_state.toggle_power_pole_selection = func(): return false #Input.is_action_just_pressed("test_input")
 	none_state.is_firing = func(): return Input.is_action_pressed("fire")
 	none_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
 	power_pole_placement_handler.enviornment_query_system = environment_query_system
-	#power_pole_selection_state.toggle_map = func(): return Input.is_action_just_pressed("test_input")
+	power_pole_selection_state.toggle_map = func(): return Input.is_action_just_pressed("test_input")
 	power_pole_selection_state.environment_query_system = environment_query_system
 	power_pole_selection_state.get_revealed_sectors = get_revealed_sectors
-	EventBus.emit_map_entity_added(map_texture)
 	level_map_state.toggle_map = func(): return Input.is_action_just_pressed("toggle_map")
 	level_map_state.environment_query_system = environment_query_system
 	level_map_state.map_entity_collection = level_map_map_entity_collection
@@ -166,7 +167,7 @@ func _ready():
 	cursor_interaction_handler.cursor_interacted = func(): return Input.is_action_just_pressed("cursor_interact")
 	other_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
 	other_state.toggle_map = func(): return Input.is_action_just_pressed("toggle_map")
-	#other_state.toggle_power_pole_selection = func(): return Input.is_action_just_pressed("test_input")
+	other_state.toggle_power_pole_selection = func(): return false #Input.is_action_just_pressed("test_input")
 	power_pole_placement_handler.node_to_put_lines_in = node_to_spawn_placeables_in
 	map_texture_updater.map_texture = map_texture
 	warp_state.environment_query_system = environment_query_system
