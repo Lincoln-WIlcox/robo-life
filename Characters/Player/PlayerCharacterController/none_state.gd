@@ -25,7 +25,7 @@ func run():
 		state_ended.emit(inventory_state)
 	elif toggle_map.call():
 		state_ended.emit(map_state)
-	elif toggle_power_pole_selection.call():
+	elif toggle_power_pole_selection and toggle_power_pole_selection.call():
 		state_ended.emit(power_pole_selection_state)
 	pickup_stuff_handler.update()
 	cursor_interaction_handler.update()

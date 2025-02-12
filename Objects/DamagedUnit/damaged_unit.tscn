@@ -1,0 +1,47 @@
+[gd_scene load_steps=10 format=3 uid="uid://cxeqrhjq4hahf"]
+
+[ext_resource type="Script" path="res://Objects/DamagedUnit/damaged_unit.gd" id="1_omhqs"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_6ua60"]
+[ext_resource type="PackedScene" uid="uid://b0qvmacfrffh2" path="res://Components/PlaceItemInteractable/place_item_interactable.tscn" id="3_vud1t"]
+[ext_resource type="Resource" uid="uid://pbpprwkoi5ph" path="res://Resources/Items/structural_stabilizer.tres" id="4_abjnd"]
+[ext_resource type="PackedScene" uid="uid://cy2f85iqat6q0" path="res://Components/TimeTaskHandler/time_task_handler.tscn" id="5_ab4d3"]
+[ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Components/PowerConnection/PowerConsumer/power_consumer.tscn" id="6_4r42e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofop4"]
+atlas = ExtResource("2_6ua60")
+region = Rect2(144, 208, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cnfn"]
+atlas = ExtResource("2_6ua60")
+region = Rect2(128, 208, 16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eepso"]
+radius = 16.0
+
+[node name="DamagedUnit" type="Node2D"]
+script = ExtResource("1_omhqs")
+repaired_texture = SubResource("AtlasTexture_ofop4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_0cnfn")
+
+[node name="PlaceItemInteractable" parent="." node_paths=PackedStringArray("node_to_put_item_pickup_in") instance=ExtResource("3_vud1t")]
+accepts_item = ExtResource("4_abjnd")
+node_to_put_item_pickup_in = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlaceItemInteractable"]
+shape = SubResource("CircleShape2D_eepso")
+
+[node name="TimeTaskHandler" parent="." instance=ExtResource("5_ab4d3")]
+position = Vector2(0, -16)
+task_time = 15
+
+[node name="PowerConsumer" parent="." instance=ExtResource("6_4r42e")]
+consumes_power = 1
+active = false
+
+[connection signal="item_picked_up" from="PlaceItemInteractable" to="." method="_on_place_item_interactable_item_picked_up"]
+[connection signal="item_placed" from="PlaceItemInteractable" to="." method="_on_place_item_interactable_item_placed"]
+[connection signal="task_completed" from="TimeTaskHandler" to="." method="_on_time_task_handler_task_completed"]
+[connection signal="power_requirement_lost" from="PowerConsumer" to="." method="_on_power_consumer_power_requirement_lost"]
+[connection signal="power_requirement_met" from="PowerConsumer" to="." method="_on_power_consumer_power_requirement_met"]

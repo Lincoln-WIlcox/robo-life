@@ -1,16 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://bni6clyp4sg3"]
+[gd_scene load_steps=12 format=3 uid="uid://bni6clyp4sg3"]
 
 [ext_resource type="Script" path="res://Objects/RockBarrier/rock_barrier.gd" id="1_y5d42"]
 [ext_resource type="PackedScene" uid="uid://cmog2buogarup" path="res://Objects/ItemPickup/item_pickup.tscn" id="2_cojh8"]
 [ext_resource type="Resource" uid="uid://bckiex7mctva7" path="res://Resources/Items/drill.tres" id="3_wjd4u"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="4_7vpgt"]
 [ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Components/PowerConnection/PowerConsumer/power_consumer.tscn" id="4_wrui2"]
-[ext_resource type="PackedScene" uid="uid://d3disugmcknvo" path="res://Components/InteractionArea/interaction_area.tscn" id="5_hes16"]
 [ext_resource type="PackedScene" uid="uid://xnd8ne8fypg3" path="res://Components/FloatAwayTextSpawner/float_away_text_spawner.tscn" id="5_j1lly"]
-[ext_resource type="Script" path="res://Components/InteractionArea/InventoryRequirementInteractionArea/inventory_requirement_interaction_area.gd" id="7_c1osu"]
 [ext_resource type="PackedScene" uid="uid://cy2f85iqat6q0" path="res://Components/TimeTaskHandler/time_task_handler.tscn" id="7_mnykd"]
-[ext_resource type="Script" path="res://Resources/inventory_requirement.gd" id="8_2ls0d"]
-[ext_resource type="Script" path="res://Resources/item_data.gd" id="8_wwu7d"]
+[ext_resource type="PackedScene" uid="uid://b0qvmacfrffh2" path="res://Components/PlaceItemInteractable/place_item_interactable.tscn" id="8_ils8e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xx1eq"]
 size = Vector2(16, 48)
@@ -19,14 +16,7 @@ size = Vector2(16, 48)
 atlas = ExtResource("4_7vpgt")
 region = Rect2(128, 144, 48, 16)
 
-[sub_resource type="Resource" id="Resource_1ds1y"]
-script = ExtResource("8_2ls0d")
-batteries_cost = 0
-steel_cost = 0
-costs_items = Array[ExtResource("8_wwu7d")]([ExtResource("3_wjd4u")])
-requires_items = Array[ExtResource("8_wwu7d")]([])
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_476da"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3kqfg"]
 size = Vector2(80, 48)
 
 [node name="RockBarrier" type="Node2D"]
@@ -56,17 +46,16 @@ centered = false
 [node name="TimeTaskHandler" parent="." instance=ExtResource("7_mnykd")]
 task_time = 3
 
-[node name="InventoryRequirementInteractionArea" parent="." instance=ExtResource("5_hes16")]
-position = Vector2(8, 24)
-script = ExtResource("7_c1osu")
-inventory_requirement = SubResource("Resource_1ds1y")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InventoryRequirementInteractionArea"]
-shape = SubResource("RectangleShape2D_476da")
-
 [node name="FloatAwayTextSpawner" parent="." instance=ExtResource("5_j1lly")]
 position = Vector2(32, 16)
 text = "Requires Drill"
+
+[node name="PlaceItemInteractable" parent="." instance=ExtResource("8_ils8e")]
+accepts_item = ExtResource("3_wjd4u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlaceItemInteractable"]
+position = Vector2(8, 24)
+shape = SubResource("RectangleShape2D_3kqfg")
 
 [node name="DrillPickupPositionLeft" type="Marker2D" parent="."]
 position = Vector2(-16, 32)
@@ -77,4 +66,6 @@ position = Vector2(32, 32)
 [connection signal="power_requirement_lost" from="PowerConsumer" to="." method="_on_power_consumer_power_requirement_lost"]
 [connection signal="power_requirement_met" from="PowerConsumer" to="." method="_on_power_consumer_power_requirement_met"]
 [connection signal="task_completed" from="TimeTaskHandler" to="." method="_on_time_task_handler_task_completed"]
-[connection signal="requirements_met" from="InventoryRequirementInteractionArea" to="." method="_on_inventory_requirement_interaction_area_requirements_met"]
+[connection signal="insufficient_requirements" from="PlaceItemInteractable" to="." method="_on_place_item_interactable_insufficient_requirements"]
+[connection signal="item_picked_up" from="PlaceItemInteractable" to="." method="_on_place_item_interactable_item_picked_up"]
+[connection signal="item_placed" from="PlaceItemInteractable" to="." method="_on_place_item_interactable_item_placed"]

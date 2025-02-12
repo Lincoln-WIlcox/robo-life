@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="CraftingRecipe" load_steps=8 format=3 uid="uid://cm8juyxrueqko"]
+
+[ext_resource type="Script" path="res://Resources/crafting_recipe.gd" id="1_qevwf"]
+[ext_resource type="Script" path="res://Resources/item_data.gd" id="1_sgdcw"]
+[ext_resource type="Resource" uid="uid://pbpprwkoi5ph" path="res://Resources/Items/structural_stabilizer.tres" id="2_bb1wj"]
+[ext_resource type="Script" path="res://Resources/inventory_addition.gd" id="3_ckdnn"]
+[ext_resource type="Script" path="res://Resources/inventory_requirement.gd" id="4_cl8xk"]
+
+[sub_resource type="Resource" id="Resource_lu561"]
+script = ExtResource("3_ckdnn")
+use_exported_properties = false
+gain_batteries = 0
+gain_steel = 0
+gain_food = 0
+initial_gain_items = Array[ExtResource("1_sgdcw")]([ExtResource("2_bb1wj")])
+
+[sub_resource type="Resource" id="Resource_fnt7t"]
+script = ExtResource("4_cl8xk")
+batteries_cost = 1
+steel_cost = 5
+costs_items = Array[ExtResource("1_sgdcw")]([])
+requires_items = Array[ExtResource("1_sgdcw")]([])
+
+[resource]
+script = ExtResource("1_qevwf")
+requirement = SubResource("Resource_fnt7t")
+inventory_addition = SubResource("Resource_lu561")

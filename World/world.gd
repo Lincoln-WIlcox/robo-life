@@ -27,8 +27,10 @@ var hide_ui: Callable:
 var get_current_ui: Callable:
 	set(new_value):
 		get_current_ui = new_value
+		
 		if is_node_ready():
 			player_character_controller.get_current_ui = get_current_ui
+var win: Callable
 
 func _ready():
 	day_night_cycle.start_first_day()
@@ -38,3 +40,6 @@ func _ready():
 	player_character_controller.get_revealed_sectors = func() -> Array[Vector2i]: return sector_handler.revealed_sectors
 	player_character_controller.reveal_sector = sector_handler.reveal_sector
 	player_character_controller.setup_sectors()
+
+func _on_damaged_units_tracker_all_damaged_units_repaired():
+	win.call()

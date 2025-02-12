@@ -5,6 +5,7 @@ const DEATH_MESSAGE = "You Died.. Bruh.."
 @onready var hud: HUD = $UILayer/HUD
 @onready var game_over_menu: GameOverMenu = $UILayer/GameOverMenu
 @onready var UILayer = $UILayer
+@onready var win_screen = $UILayer/WinScreen
 
 @export var ui_state_machine: StateMachine
 @export var current_level_packed_scene: PackedScene
@@ -30,10 +31,21 @@ func load_level(_level: PackedScene) -> void:
 	world.show_ui = UILayer.show_ui
 	world.hide_ui = UILayer.hide_ui
 	world.get_current_ui = UILayer.get_current_ui
+	world.win = win
+
+func game_over() -> void:
+	_end_game()
+	game_over_menu.show_menu_with_death_message(DEATH_MESSAGE)
+
+func win() -> void:
+	_end_game()
+	win_screen.show()
+
+func _end_game() -> void:
+	world.call_deferred("set_process_mode", Node.PROCESS_MODE_DISABLED)
 
 func _on_world_day_ended():
-	world.call_deferred("set_process_mode", Node.PROCESS_MODE_DISABLED)
-	game_over_menu.show_menu_with_death_message(DEATH_MESSAGE)
+	game_over()
 
 func _on_game_over_menu_play_again_pressed():
 	game_over_menu.hide()

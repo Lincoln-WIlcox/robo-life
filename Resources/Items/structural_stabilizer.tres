@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://pbpprwkoi5ph"]
+
+[ext_resource type="Script" path="res://Resources/item_data.gd" id="1_1bjmj"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_bjy08"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0xtvt"]
+atlas = ExtResource("2_bjy08")
+region = Rect2(288, 24, 16, 16)
+
+[resource]
+script = ExtResource("1_1bjmj")
+texture = SubResource("AtlasTexture_0xtvt")
+name = "Structural Stabilizer"
+grid_size = Vector2i(1, 1)
+drop_scene = ""

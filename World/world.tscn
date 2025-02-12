@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://wqdgq1a7r2ml"]
+[gd_scene load_steps=23 format=3 uid="uid://wqdgq1a7r2ml"]
 
 [ext_resource type="Script" path="res://World/world.gd" id="1_fuqf5"]
 [ext_resource type="Script" path="res://World/day_night_cycle.gd" id="1_yp3no"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://Resources/MapData/map_texture.gd" id="10_tgpag"]
 [ext_resource type="Script" path="res://World/player_target.gd" id="11_bifaf"]
 [ext_resource type="Script" path="res://Components/EnviornmentQuerySystem/enviornment_query_system.gd" id="13_0dgh0"]
+[ext_resource type="Script" path="res://World/damaged_units_tracker.gd" id="18_uwj3v"]
 
 [sub_resource type="Resource" id="Resource_hghbi"]
 script = ExtResource("2_y51w7")
@@ -46,6 +47,9 @@ scale = Vector2(2, 2)
 script = ExtResource("1_fuqf5")
 active_player = NodePath("PlayerCharacterController")
 shelter_inventory = SubResource("Resource_ecwqp")
+
+[node name="DamagedUnitsTracker" type="Node" parent="."]
+script = ExtResource("18_uwj3v")
 
 [node name="SectorHandler" type="Node" parent="."]
 script = ExtResource("5_ph0as")
@@ -85,6 +89,7 @@ environment_query_system = NodePath("../EnvironmentQuerySystem")
 script = ExtResource("11_bifaf")
 player_character_controller = NodePath("../PlayerCharacterController")
 
+[connection signal="all_damaged_units_repaired" from="DamagedUnitsTracker" to="." method="_on_damaged_units_tracker_all_damaged_units_repaired"]
 [connection signal="day_ended" from="DayNightCycle" to="PlayerCharacterController" method="_on_day_night_cycle_day_ended"]
 [connection signal="day_started" from="DayNightCycle" to="PlayerCharacterController" method="_on_day_night_cycle_day_started"]
 [connection signal="timeout" from="DayNightCycle/DayTimer" to="DayNightCycle" method="_on_day_timer_timeout"]

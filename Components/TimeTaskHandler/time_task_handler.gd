@@ -17,7 +17,7 @@ extends Node
 		day_night_cycle = new_value
 		day_night_cycle.day_started.connect(_on_day_started)
 
-var completed := false
+var _completed := false
 
 var _paused:
 	set(new_value):
@@ -41,6 +41,9 @@ func _ready():
 func get_paused() -> bool:
 	return _paused
 
+func task_complete() -> bool:
+	return _completed
+
 func _process(_delta):
 	progress_bar.value = timer.time_left
 
@@ -53,7 +56,7 @@ func pause_progress() -> void:
 
 func _complete_task() -> void:
 	task_completed.emit()
-	completed = true
+	_completed = true
 
 func _set_up_progress_bar() -> void:
 	progress_bar.max_value = task_time
