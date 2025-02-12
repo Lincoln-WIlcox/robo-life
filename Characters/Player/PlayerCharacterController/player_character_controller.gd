@@ -150,7 +150,7 @@ func _ready():
 	#power_pole_selection_state.toggle_map = func(): return Input.is_action_just_pressed("test_input")
 	power_pole_selection_state.environment_query_system = environment_query_system
 	power_pole_selection_state.get_revealed_sectors = get_revealed_sectors
-	level_map_map_entity_collection.add_map_entity(map_texture)
+	EventBus.emit_map_entity_added(map_texture)
 	level_map_state.toggle_map = func(): return Input.is_action_just_pressed("toggle_map")
 	level_map_state.environment_query_system = environment_query_system
 	level_map_state.map_entity_collection = level_map_map_entity_collection

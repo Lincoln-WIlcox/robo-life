@@ -151,33 +151,29 @@ position = Vector2(1824, 288)
 [node name="PoweredDoor2" parent="." index="22" instance=ExtResource("11_pl7cp")]
 position = Vector2(1440, 352)
 
-[node name="BasicEnemy" parent="." index="23" node_paths=PackedStringArray("target", "node_to_put_nodes_in", "level_map_entity_collection") instance=ExtResource("12_5j21r")]
+[node name="BasicEnemy" parent="." index="23" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
 position = Vector2(624, 224)
 map_entity = SubResource("Resource_ehmki")
 target = NodePath("../PlayerTarget")
 node_to_put_nodes_in = NodePath("..")
-level_map_entity_collection = NodePath("../LevelMapMapEntityCollection")
 
-[node name="BasicEnemy2" parent="." index="24" node_paths=PackedStringArray("target", "node_to_put_nodes_in", "level_map_entity_collection") instance=ExtResource("12_5j21r")]
+[node name="BasicEnemy2" parent="." index="24" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
 position = Vector2(672, 224)
 map_entity = SubResource("Resource_acg51")
 target = NodePath("../PlayerTarget")
 node_to_put_nodes_in = NodePath("..")
-level_map_entity_collection = NodePath("../LevelMapMapEntityCollection")
 
-[node name="BasicEnemy3" parent="." index="25" node_paths=PackedStringArray("target", "node_to_put_nodes_in", "level_map_entity_collection") instance=ExtResource("12_5j21r")]
+[node name="BasicEnemy3" parent="." index="25" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
 position = Vector2(1120, 400)
 map_entity = SubResource("Resource_1jdlk")
 target = NodePath("../PlayerTarget")
 node_to_put_nodes_in = NodePath("..")
-level_map_entity_collection = NodePath("../LevelMapMapEntityCollection")
 
-[node name="BasicEnemy4" parent="." index="26" node_paths=PackedStringArray("target", "node_to_put_nodes_in", "level_map_entity_collection") instance=ExtResource("12_5j21r")]
+[node name="BasicEnemy4" parent="." index="26" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
 position = Vector2(1392, 608)
 map_entity = SubResource("Resource_xe2t3")
 target = NodePath("../PlayerTarget")
 node_to_put_nodes_in = NodePath("..")
-level_map_entity_collection = NodePath("../LevelMapMapEntityCollection")
 
 [node name="PowerSupply4" parent="." index="27" instance=ExtResource("9_wnkks")]
 position = Vector2(1264, -16)
