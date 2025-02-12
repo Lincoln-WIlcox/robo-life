@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 PowerConnectionHandler="*res://Singletons/power_connection_handler.gd"
 MouseArea="*res://Singletons/MouseArea/mouse_area.tscn"
+EventBus="*res://Singletons/event_bus.gd"
 
 [display]
 

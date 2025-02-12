@@ -111,15 +111,13 @@ position = Vector2(128, -32)
 height = 192
 tile_height = 12.0
 
-[node name="Shelter" parent="." index="13" node_paths=PackedStringArray("level_map_map_entity_collection") instance=ExtResource("6_raav1")]
+[node name="Shelter" parent="." index="13" instance=ExtResource("6_raav1")]
 position = Vector2(0, 144)
-level_map_map_entity_collection = NodePath("../LevelMapMapEntityCollection")
 map_scene = SubResource("Resource_oj4ej")
 selectable_map_entity = SubResource("Resource_447tw")
 
-[node name="Shelter2" parent="." index="14" node_paths=PackedStringArray("level_map_map_entity_collection") instance=ExtResource("6_raav1")]
+[node name="Shelter2" parent="." index="14" instance=ExtResource("6_raav1")]
 position = Vector2(1456, 144)
-level_map_map_entity_collection = NodePath("../LevelMapMapEntityCollection")
 map_scene = SubResource("Resource_6c7hc")
 selectable_map_entity = SubResource("Resource_8ej7a")
 

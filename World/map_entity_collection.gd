@@ -6,6 +6,9 @@ extends Node
 signal map_entity_added(map_entity: MapEntity)
 signal map_entity_removed(map_entity: MapEntity)
 
+func _ready():
+	EventBus.map_entity_added.connect(add_map_entity)
+
 func add_map_entity(map_entity: MapEntity) -> void:
 	_map_entities.append(map_entity)
 	map_entity_added.emit(map_entity)

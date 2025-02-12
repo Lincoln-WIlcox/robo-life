@@ -1,13 +1,11 @@
 class_name Shelter extends Node2D
 
-@export var level_map_map_entity_collection: MapEntityCollection
 @export var map_scene: MapScene
 @export var selectable_map_entity: SelectableMapEntity
 @export var shelter_selection_texture: Texture
 
 func _ready():
-	if level_map_map_entity_collection:
-		level_map_map_entity_collection.add_map_entity(map_scene)
+	EventBus.emit_map_entity_added(map_scene)
 	map_scene.scene_setup.connect(_set_map_entity_position)
 
 func make_selectable_map_entity() -> SelectableMapEntity:
