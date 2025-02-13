@@ -1,21 +1,21 @@
 extends Node
 
-@export var initial_tracked_damaged_units: Array[DamagedUnit]
+@export var initial_tracked_damaged_ship_parts: Array[DamagedShipPart]
 
-var _tracked_damaged_units: Array[DamagedUnit]
+var _tracked_damaged_ship_parts: Array[DamagedShipPart]
 
-signal all_damaged_units_repaired
+signal all_damaged_ship_parts_repaired
 
 func _ready() -> void:
-	for damaged_unit: DamagedUnit in initial_tracked_damaged_units:
-		track_damaged_unit(damaged_unit)
+	for damaged_ship_part: DamagedShipPart in initial_tracked_damaged_ship_parts:
+		track_damaged_ship_part(damaged_ship_part)
 
-func track_damaged_unit(damaged_unit: DamagedUnit) -> void:
-	damaged_unit.repaired.connect(_on_damaged_unit_repaired)
-	_tracked_damaged_units.append(damaged_unit)
+func track_damaged_ship_part(damaged_ship_part: DamagedShipPart) -> void:
+	damaged_ship_part.repaired.connect(_on_damaged_ship_part_repaired)
+	_tracked_damaged_ship_parts.append(damaged_ship_part)
 
-func _on_damaged_unit_repaired() -> void:
-	for damaged_unit: DamagedUnit in _tracked_damaged_units:
-		if not damaged_unit.get_repaired():
+func _on_damaged_ship_part_repaired() -> void:
+	for damaged_ship_part: DamagedShipPart in _tracked_damaged_ship_parts:
+		if not damaged_ship_part.get_repaired():
 			return
-	all_damaged_units_repaired.emit()
+	all_damaged_ship_parts_repaired.emit()

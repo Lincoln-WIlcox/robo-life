@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4rih6s7igrrh"]
+
+[ext_resource type="PackedScene" uid="uid://cl1nq1hmkcwg0" path="res://Objects/DamagedShipPart/damaged_ship_part.tscn" id="1_h1dnf"]
+[ext_resource type="Script" path="res://Objects/DamagedShipPart/damaged_units_damaged_ship_part.gd" id="2_3728v"]
+
+[node name="DamagedUnitsDamagedShipPart" node_paths=PackedStringArray("damaged_units") instance=ExtResource("1_h1dnf")]
+script = ExtResource("2_3728v")
+damaged_units = []
