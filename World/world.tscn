@@ -48,7 +48,7 @@ script = ExtResource("1_fuqf5")
 active_player = NodePath("PlayerCharacterController")
 shelter_inventory = SubResource("Resource_ecwqp")
 
-[node name="DamagedUnitsTracker" type="Node" parent="."]
+[node name="DamagedShipPartsTracker" type="Node" parent="."]
 script = ExtResource("18_uwj3v")
 
 [node name="SectorHandler" type="Node" parent="."]
@@ -89,7 +89,7 @@ environment_query_system = NodePath("../EnvironmentQuerySystem")
 script = ExtResource("11_bifaf")
 player_character_controller = NodePath("../PlayerCharacterController")
 
-[connection signal="all_damaged_units_repaired" from="DamagedUnitsTracker" to="." method="_on_damaged_units_tracker_all_damaged_units_repaired"]
+[connection signal="all_damaged_ship_parts_repaired" from="DamagedShipPartsTracker" to="." method="_on_damaged_ship_parts_tracker_all_damaged_ship_parts_repaired"]
 [connection signal="day_ended" from="DayNightCycle" to="PlayerCharacterController" method="_on_day_night_cycle_day_ended"]
 [connection signal="day_started" from="DayNightCycle" to="PlayerCharacterController" method="_on_day_night_cycle_day_started"]
 [connection signal="timeout" from="DayNightCycle/DayTimer" to="DayNightCycle" method="_on_day_timer_timeout"]

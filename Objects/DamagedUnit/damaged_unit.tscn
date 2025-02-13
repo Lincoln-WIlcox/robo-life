@@ -47,7 +47,7 @@ shape = SubResource("CircleShape2D_eepso")
 
 [node name="TimeTaskHandler" parent="." instance=ExtResource("5_ab4d3")]
 position = Vector2(0, -16)
-task_time = 15
+task_time = 2
 
 [node name="PowerConsumer" parent="." instance=ExtResource("6_4r42e")]
 consumes_power = 1

@@ -41,5 +41,5 @@ func _ready():
 	player_character_controller.reveal_sector = sector_handler.reveal_sector
 	player_character_controller.setup_sectors()
 
-func _on_damaged_units_tracker_all_damaged_units_repaired():
+func _on_damaged_ship_parts_tracker_all_damaged_ship_parts_repaired():
 	win.call()
