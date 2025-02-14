@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://8w7wcsj6atyp"]
+
+[ext_resource type="Script" path="res://Resources/item_data.gd" id="1_bo08u"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_ksg31"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x85nu"]
+atlas = ExtResource("2_ksg31")
+region = Rect2(128, 80, 8, 16)
+
+[resource]
+script = ExtResource("1_bo08u")
+texture = SubResource("AtlasTexture_x85nu")
+name = "Fuse"
+grid_size = Vector2i(1, 1)
+drop_scene = ""

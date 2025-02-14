@@ -2,11 +2,11 @@ class_name DamagedUnitsDamagedShipPart
 extends DamagedShipPart
 
 @export var damaged_units: Array[DamagedUnit]
-@export var map_texture: MapTexture
+
+var _revealed_damaged_units: bool = false
 
 func _ready() -> void:
-	map_texture.get_position = func() -> Vector2: return global_position
-	EventBus.emit_map_entity_added(map_texture)
+	super()
 	for damaged_unit: DamagedUnit in damaged_units:
 		track_damaged_unit(damaged_unit)
 
@@ -16,6 +16,7 @@ func track_damaged_unit(damaged_unit: DamagedUnit) -> void:
 func reveal_damaged_units() -> void:
 	for damaged_unit: DamagedUnit in damaged_units:
 		damaged_unit.reveal_on_map()
+	_revealed_damaged_units = true
 
 func _on_damaged_unit_repaired() -> void:
 	for damaged_unit: DamagedUnit in damaged_units:
@@ -23,10 +24,6 @@ func _on_damaged_unit_repaired() -> void:
 			return
 	repair()
 
-func repair() -> void:
-	super()
-	map_texture.display_texture = repaired_texture
-
 func _on_player_detector_area_entered(area: Area2D):
-	if area is PlayerArea:
+	if area is PlayerArea and not _revealed_damaged_units:
 		reveal_damaged_units()

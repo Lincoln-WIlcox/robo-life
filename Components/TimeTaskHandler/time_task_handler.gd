@@ -28,15 +28,8 @@ var _paused:
 signal task_completed
 
 func _ready():
-	_set_up_progress_bar()
-	progress_bar.hide()
-	
-	timer.start(task_time)
-	timer.paused = true
-	if start_paused:
-		pause_progress()
-	else:
-		make_progress()
+	_paused = start_paused
+	reset_progress()
 
 func get_paused() -> bool:
 	return _paused
@@ -44,15 +37,28 @@ func get_paused() -> bool:
 func task_complete() -> bool:
 	return _completed
 
-func _process(_delta):
-	progress_bar.value = timer.time_left
-
 func make_progress() -> void:
 	_paused = false
 	progress_bar.show()
 
 func pause_progress() -> void:
 	_paused = true
+
+func reset_progress() -> void:
+	_completed = false
+	
+	_set_up_progress_bar()
+	progress_bar.hide()
+	
+	timer.start(task_time)
+	timer.paused = true
+	if _paused:
+		pause_progress()
+	else:
+		make_progress()
+
+func _process(_delta):
+	progress_bar.value = timer.time_left
 
 func _complete_task() -> void:
 	task_completed.emit()
