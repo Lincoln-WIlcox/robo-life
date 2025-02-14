@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b3gp3b84stcay"]
+[gd_scene load_steps=13 format=3 uid="uid://b3gp3b84stcay"]
 
 [ext_resource type="Script" path="res://Objects/FuseDispenser/fuse_dispenser.gd" id="1_xuh3t"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_emh5v"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Resources/inventory_requirement.gd" id="5_e5mpv"]
 [ext_resource type="PackedScene" uid="uid://cy2f85iqat6q0" path="res://Components/TimeTaskHandler/time_task_handler.tscn" id="6_j0up7"]
 [ext_resource type="PackedScene" uid="uid://bsg04qq855kqx" path="res://Components/ItemSpawner/item_spawner.tscn" id="7_qer4s"]
+[ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Components/PowerConnection/PowerConsumer/power_consumer.tscn" id="9_6444w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_egd35"]
 atlas = ExtResource("2_emh5v")
@@ -34,6 +35,7 @@ texture = SubResource("AtlasTexture_egd35")
 
 [node name="InventoryRequirementInteractionArea" parent="." instance=ExtResource("3_3hmph")]
 inventory_requirement = SubResource("Resource_yiao6")
+disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InventoryRequirementInteractionArea"]
 position = Vector2(0, 3)
@@ -45,5 +47,11 @@ task_time = 20
 
 [node name="ItemSpawner" parent="." instance=ExtResource("7_qer4s")]
 
+[node name="PowerConsumer" parent="." instance=ExtResource("9_6444w")]
+consumes_power = 1
+active = true
+
 [connection signal="requirements_met" from="InventoryRequirementInteractionArea" to="." method="_on_inventory_requirement_interaction_area_requirements_met"]
 [connection signal="task_completed" from="TimeTaskHandler" to="." method="_on_time_task_handler_task_completed"]
+[connection signal="power_requirement_lost" from="PowerConsumer" to="." method="_on_power_consumer_power_requirement_lost"]
+[connection signal="power_requirement_met" from="PowerConsumer" to="." method="_on_power_consumer_power_requirement_met"]
