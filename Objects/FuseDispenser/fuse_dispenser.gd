@@ -8,6 +8,7 @@ extends Node2D
 @onready var inventory_requirement_interaction_area: InventoryRequirementInteractionArea = $InventoryRequirementInteractionArea
 @onready var time_task_handler: TimeTaskHandler = $TimeTaskHandler
 @onready var item_spawner: ItemSpawner = $ItemSpawner
+@onready var power_consumer: PowerConsumer = $PowerConsumer
 
 var _crafting: bool = false
 
@@ -28,3 +29,15 @@ func _on_time_task_handler_task_completed():
 	time_task_handler.pause_progress()
 	time_task_handler.reset_progress()
 	_crafting = false
+
+func _on_power_consumer_power_requirement_met():
+	if not _crafting:
+		inventory_requirement_interaction_area.enable()
+	else:
+		time_task_handler.make_progress()
+
+func _on_power_consumer_power_requirement_lost():
+	if not _crafting:
+		inventory_requirement_interaction_area.disable()
+	else:
+		time_task_handler.pause_progress()
