@@ -3,7 +3,7 @@ extends Node
 @export var player_character: PlayerCharacter
 @export var item_pickup_scene: PackedScene
 
-signal drop_created(drop: Object)
+signal drop_created(drop: Node)
 
 func drop_item(item: ItemData):
 	

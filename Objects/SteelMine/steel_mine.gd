@@ -41,5 +41,5 @@ func _create_item_pickup() -> void:
 	item_pickup.collected.connect(_on_item_pickup_picked_up)
 
 func _on_item_pickup_picked_up(_item, _collector):
-	interaction_area.enabled()
+	interaction_area.enable()
 	_drill_on_mine = false

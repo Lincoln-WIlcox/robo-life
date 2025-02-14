@@ -1,0 +1,48 @@
+[gd_scene load_steps=12 format=3 uid="uid://b3gp3b84stcay"]
+
+[ext_resource type="Script" path="res://Objects/FuseDispenser/fuse_dispenser.gd" id="1_xuh3t"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_emh5v"]
+[ext_resource type="Resource" uid="uid://8w7wcsj6atyp" path="res://Resources/Items/fuse.tres" id="2_i0r20"]
+[ext_resource type="PackedScene" uid="uid://b7qfrcuaghpqn" path="res://Components/InteractionArea/InventoryRequirementInteractionArea/inventory_requirement_interaction_area.tscn" id="3_3hmph"]
+[ext_resource type="Script" path="res://Resources/item_data.gd" id="4_oqh1j"]
+[ext_resource type="Script" path="res://Resources/inventory_requirement.gd" id="5_e5mpv"]
+[ext_resource type="PackedScene" uid="uid://cy2f85iqat6q0" path="res://Components/TimeTaskHandler/time_task_handler.tscn" id="6_j0up7"]
+[ext_resource type="PackedScene" uid="uid://bsg04qq855kqx" path="res://Components/ItemSpawner/item_spawner.tscn" id="7_qer4s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_egd35"]
+atlas = ExtResource("2_emh5v")
+region = Rect2(176, 200, 16, 24)
+
+[sub_resource type="Resource" id="Resource_yiao6"]
+script = ExtResource("5_e5mpv")
+batteries_cost = 0
+steel_cost = 3
+costs_items = Array[ExtResource("4_oqh1j")]([])
+requires_items = Array[ExtResource("4_oqh1j")]([])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sc6dy"]
+size = Vector2(24, 28)
+
+[node name="FuseDispenser" type="Node2D"]
+script = ExtResource("1_xuh3t")
+fuse_item = ExtResource("2_i0r20")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 0.333333, 1)
+position = Vector2(0, 4)
+texture = SubResource("AtlasTexture_egd35")
+
+[node name="InventoryRequirementInteractionArea" parent="." instance=ExtResource("3_3hmph")]
+inventory_requirement = SubResource("Resource_yiao6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InventoryRequirementInteractionArea"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_sc6dy")
+
+[node name="TimeTaskHandler" parent="." instance=ExtResource("6_j0up7")]
+position = Vector2(0, -15)
+
+[node name="ItemSpawner" parent="." instance=ExtResource("7_qer4s")]
+
+[connection signal="requirements_met" from="InventoryRequirementInteractionArea" to="." method="_on_inventory_requirement_interaction_area_requirements_met"]
+[connection signal="task_completed" from="TimeTaskHandler" to="." method="_on_time_task_handler_task_completed"]

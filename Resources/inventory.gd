@@ -52,7 +52,7 @@ func remove_grid_item(grid_item: ItemGridItem) -> void:
 
 ##Gets all the items in the item grid
 func get_items() -> Array[ItemData]:
-	return item_grid.get_items()
+	return item_grid.get_items() if item_grid else []
 
 ##Returns true if the item grid contains the given item
 func has_item(item: ItemData) -> bool:
@@ -90,7 +90,7 @@ func can_add_addition(inventory_addition: InventoryAddition) -> bool:
 
 func to_inventory_addition() -> InventoryAddition:
 	var items: Array[ItemData]
-	var items_assigner: Array = item_grid.get_items() if item_grid else []
+	var items_assigner: Array = get_items()
 	items.assign(items_assigner)
 	var inventory_addition: InventoryAddition = InventoryAddition.new(batteries,steel,food,items)
 	return inventory_addition

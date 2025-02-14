@@ -14,5 +14,5 @@ func interact(interactor: Node) -> void:
 func disable() -> void:
 	disabled = true
 
-func enabled() -> void:
+func enable() -> void:
 	disabled = false
