@@ -114,6 +114,7 @@ func _ready():
 	player_character.just_climbed_callable = func(): return Input.is_action_just_pressed("player_climb") and not movement_disabled
 	player_character.item_dropped.connect(func(drop: Object): item_dropped.emit(drop))
 	player_character.died.connect(func(): died.emit())
+	player_character.node_to_put_drops_in = node_to_spawn_placeables_in
 	pickup_stuff_handler.inventory = inventory
 	pickup_stuff_handler.cursor_detect_area = player_character.cursor_detect_area
 	inventory_state.active_player = player_character

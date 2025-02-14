@@ -1,20 +1,19 @@
 class_name ItemSpawner
 extends Node2D
 
-@export var node_to_put_drop_in: Node
+@export var node_to_put_drops_in: Node
 @export var item_pickup_scene: PackedScene
 
 signal drop_created(drop: Node)
 
-func drop_item(item: ItemData):
-	var drop = _create_drop(item)
-	drop.global_position = global_position
-	_add_drop(drop)
+func drop_item(item: ItemData) -> Node:
+	return drop_item_at(item, global_position)
 
-func drop_item_at(item: ItemData, at: Vector2) -> void:
+func drop_item_at(item: ItemData, at: Vector2) -> Node:
 	var drop = _create_drop(item)
 	drop.global_position = at
 	_add_drop(drop)
+	return drop
 
 func _create_drop(item: ItemData) -> Node:
 	var drop
@@ -27,5 +26,5 @@ func _create_drop(item: ItemData) -> Node:
 	return drop
 
 func _add_drop(drop: Node) -> void:
-	node_to_put_drop_in.add_child(drop)
+	node_to_put_drops_in.add_child(drop)
 	drop_created.emit(drop)
