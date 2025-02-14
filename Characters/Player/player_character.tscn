@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://d1kvhwjb0iy8m"]
+[gd_scene load_steps=64 format=3 uid="uid://d1kvhwjb0iy8m"]
 
 [ext_resource type="Script" path="res://Characters/Player/player_character.gd" id="1_ru1lf"]
 [ext_resource type="Script" path="res://Characters/Player/interaction_handler.gd" id="2_7jrx7"]
@@ -34,6 +34,7 @@
 [ext_resource type="Script" path="res://Characters/Player/shelter_interaction_area_interaction_handler.gd" id="28_6gxux"]
 [ext_resource type="Script" path="res://Characters/Player/gas_handler.gd" id="29_yxvar"]
 [ext_resource type="PackedScene" uid="uid://dgsqt81g28ys" path="res://Components/MouseDetectArea/cursor_detect_area.tscn" id="32_jrak7"]
+[ext_resource type="Script" path="res://Characters/Player/player_area.gd" id="35_k8fxw"]
 
 [sub_resource type="Resource" id="Resource_i3vek"]
 script = ExtResource("2_f2ewa")
@@ -549,6 +550,13 @@ offset_right = 190.0
 offset_bottom = 9.0
 scale = Vector2(0.1, 0.1)
 show_percentage = false
+
+[node name="PlayerArea" type="Area2D" parent="PlayerCharacterBody"]
+script = ExtResource("35_k8fxw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/PlayerArea"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_6ufrv")
 
 [connection signal="just_climbed" from="." to="ClimbingRopeDetector" method="_on_player_character_just_climbed"]
 [connection signal="just_interacted" from="." to="InteractionHandler" method="_on_player_character_just_interacted"]

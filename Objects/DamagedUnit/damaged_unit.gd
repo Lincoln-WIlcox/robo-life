@@ -19,9 +19,11 @@ signal unrepaired
 
 func _ready():
 	map_texture.get_position = func() -> Vector2: return global_position
-	EventBus.emit_map_entity_added(map_texture)
 	place_item_interactable.node_to_put_item_pickup_in = node_to_put_item_pickup_in
 	time_task_handler.day_night_cycle = day_night_cycle
+
+func reveal_on_map() -> void:
+	EventBus.emit_map_entity_added(map_texture)
 
 func get_repaired() -> bool:
 	return _is_repaired

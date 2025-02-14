@@ -1,8 +1,33 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4rih6s7igrrh"]
+[gd_scene load_steps=9 format=3 uid="uid://c4rih6s7igrrh"]
 
 [ext_resource type="PackedScene" uid="uid://cl1nq1hmkcwg0" path="res://Objects/DamagedShipPart/damaged_ship_part.tscn" id="1_h1dnf"]
 [ext_resource type="Script" path="res://Objects/DamagedShipPart/damaged_units_damaged_ship_part.gd" id="2_3728v"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="3_q2lsx"]
+[ext_resource type="Script" path="res://Resources/MapData/map_texture.gd" id="4_tqfwc"]
+[ext_resource type="Script" path="res://Objects/DamagedShipPart/player_detector.gd" id="5_dji1c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hp3wt"]
+atlas = ExtResource("3_q2lsx")
+region = Rect2(64, 96, 16, 32)
+
+[sub_resource type="Resource" id="Resource_hv1u0"]
+script = ExtResource("4_tqfwc")
+display_texture = SubResource("AtlasTexture_hp3wt")
+z_index = 3
+scale = Vector2(2, 2)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o3qx8"]
+radius = 208.0
 
 [node name="DamagedUnitsDamagedShipPart" node_paths=PackedStringArray("damaged_units") instance=ExtResource("1_h1dnf")]
 script = ExtResource("2_3728v")
 damaged_units = []
+map_texture = SubResource("Resource_hv1u0")
+
+[node name="PlayerDetector" type="Area2D" parent="." index="1"]
+script = ExtResource("5_dji1c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" index="0"]
+shape = SubResource("CircleShape2D_o3qx8")
+
+[connection signal="area_entered" from="PlayerDetector" to="." method="_on_player_detector_area_entered"]

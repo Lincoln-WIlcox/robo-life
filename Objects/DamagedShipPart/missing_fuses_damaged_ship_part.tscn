@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dudjuyi1qo3tm"]
+
+[ext_resource type="PackedScene" uid="uid://cl1nq1hmkcwg0" path="res://Objects/DamagedShipPart/damaged_ship_part.tscn" id="1_ye0kf"]
+[ext_resource type="Script" path="res://Objects/DamagedShipPart/missing_fuses_damaged_ship_part.gd" id="2_6sjh6"]
+
+[node name="MissingFusesDamagedShipPart" instance=ExtResource("1_ye0kf")]
+script = ExtResource("2_6sjh6")
+repaired_texture = null
