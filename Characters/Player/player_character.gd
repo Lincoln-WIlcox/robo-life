@@ -27,12 +27,18 @@ extends Node2D
 @onready var interaction_area = $PlayerCharacterBody/InteractArea
 @onready var shield_progress_bar = $PlayerCharacterBody/ShieldProgressBar
 @onready var gas_handler = $GasHandler
+@onready var item_spawner = $PlayerCharacterBody/ItemSpawner
 
 @export var inventory: Inventory:
 	set(new_value):
 		inventory = new_value
 		if is_inside_tree():
 			inventory_interaction_handler.inventory = inventory
+@export var node_to_put_drops_in: Node:
+	set(new_value):
+		node_to_put_drops_in = new_value
+		if is_inside_tree():
+			item_spawner.node_to_put_drops_in = node_to_put_drops_in
 
 var facing_left:
 	get:
@@ -73,7 +79,7 @@ var is_climbing := func(): return false:
 
 signal just_interacted
 signal just_climbed
-signal item_dropped(drop: Object)
+signal item_dropped(drop: Node)
 signal died
 signal shelter_interacted_with(shelter_area: ShelterInteractionArea)
 
@@ -82,6 +88,7 @@ func _ready():
 	interact_indicator_animation.play("flash")
 	health_component.health_reached_zero.connect(func(): died.emit())
 	inventory_interaction_handler.inventory = inventory
+	item_spawner.node_to_put_drops_in = node_to_put_drops_in
 
 func _update_children():
 	pushing_state.is_moving_left = is_moving_left

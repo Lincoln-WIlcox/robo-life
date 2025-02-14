@@ -94,5 +94,4 @@ player_character_controller = NodePath("../PlayerCharacterController")
 [connection signal="day_started" from="DayNightCycle" to="PlayerCharacterController" method="_on_day_night_cycle_day_started"]
 [connection signal="timeout" from="DayNightCycle/DayTimer" to="DayNightCycle" method="_on_day_timer_timeout"]
 [connection signal="day_ended" from="PlayerCharacterController" to="DayNightCycle" method="start_new_day"]
-[connection signal="item_dropped" from="PlayerCharacterController" to="." method="add_child"]
 [connection signal="changed" from="Tiles" to="Tiles" method="_on_changed"]
