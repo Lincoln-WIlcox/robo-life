@@ -20,11 +20,11 @@ display_texture = SubResource("AtlasTexture_hp3wt")
 z_index = 3
 scale = Vector2(2, 2)
 
-[sub_resource type="Resource" id="Resource_rgn4y"]
+[sub_resource type="Resource" id="Resource_r7bqm"]
 script = ExtResource("5_3rlm2")
 batteries_cost = 0
 steel_cost = 0
-costs_items = Array[ExtResource("4_xorka")]([])
+costs_items = Array[ExtResource("4_xorka")]([ExtResource("3_kqse7")])
 requires_items = Array[ExtResource("4_xorka")]([])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_swoyc"]
@@ -32,14 +32,22 @@ size = Vector2(32, 64)
 
 [node name="MissingFusesDamagedShipPart" instance=ExtResource("1_ye0kf")]
 script = ExtResource("2_6sjh6")
-fuse_num = 6
+fuses_required = 6
 fuse_item = ExtResource("3_kqse7")
 map_texture = SubResource("Resource_3ycvs")
 
 [node name="InventoryRequirementInteractionArea" parent="." index="1" instance=ExtResource("3_ltvde")]
-inventory_requirement = SubResource("Resource_rgn4y")
+inventory_requirement = SubResource("Resource_r7bqm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InventoryRequirementInteractionArea" index="0"]
 shape = SubResource("RectangleShape2D_swoyc")
+
+[node name="Label" type="Label" parent="." index="2"]
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 24.0
+offset_bottom = -9.0
+theme_override_font_sizes/font_size = 12
+text = "0/3"
 
 [connection signal="requirements_met" from="InventoryRequirementInteractionArea" to="." method="_on_inventory_requirement_interaction_area_requirements_met"]

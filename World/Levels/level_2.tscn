@@ -283,7 +283,7 @@ map_texture = SubResource("Resource_st16p")
 
 [node name="MissingFusesDamagedShipPart" parent="." index="40" instance=ExtResource("23_ujgtb")]
 position = Vector2(1280, 320)
-fuse_num = 3
+fuses_required = 6
 map_texture = SubResource("Resource_i72fx")
 
 [node name="FuseDispenser" parent="." index="41" node_paths=PackedStringArray("day_night_cycle", "node_to_put_fuse_pickup_in") instance=ExtResource("24_h4wi1")]
