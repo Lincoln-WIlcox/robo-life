@@ -41,6 +41,7 @@ shape = SubResource("RectangleShape2D_sc6dy")
 
 [node name="TimeTaskHandler" parent="." instance=ExtResource("6_j0up7")]
 position = Vector2(0, -15)
+task_time = 20
 
 [node name="ItemSpawner" parent="." instance=ExtResource("7_qer4s")]
 
