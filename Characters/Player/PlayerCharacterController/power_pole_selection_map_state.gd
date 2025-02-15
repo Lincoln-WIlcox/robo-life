@@ -23,16 +23,16 @@ func setup_map() -> void:
 func _get_map_data() -> MapData:
 	var solidity_polygons: Array[PackedVector2Array] = environment_query_system.get_tile_maps_solidity()
 	var bounding_box: Rect2 = environment_query_system.get_solidity_bounding_box()
-	var power_pole_queryables: Array[QueryableEntity] = environment_query_system.get_queryables_by_class(PowerPole)
-	var power_pole_map_entities_assigner: Array = power_pole_queryables.map(func(power_pole_queryable: QueryableEntity): return power_pole_queryable.source_node.power_pole_selection_map_entity)
+	var power_pole_queryables: Array[QueryableEntity] = environment_query_system.get_queryables_by_class(TransportBucketDestinationSelectionQueryableEntity)
+	var power_pole_map_entities_assigner: Array = power_pole_queryables.map(func(power_pole_queryable: TransportBucketDestinationSelectionQueryableEntity): return power_pole_queryable.make_selectable_map_entity())
 	var power_pole_map_entities: Array[MapEntity]
 	power_pole_map_entities.assign(power_pole_map_entities_assigner)
 	var map_data: MapData = MapData.new(power_pole_map_entities, solidity_polygons, bounding_box, get_revealed_sectors.call())
 	return map_data
 
 func _on_enviornment_query_system_queryable_added(added_queryable: QueryableEntity) -> void:
-	if added_queryable.source_node is PowerPole:
-		_map_data.add_map_entity(added_queryable.source_node.power_pole_selection_map_entity)
+	if added_queryable is TransportBucketDestinationSelectionQueryableEntity:
+		_map_data.add_map_entity(added_queryable.make_selectable_map_entity())
 
 func _on_map_ui_power_pole_selected(_power_pole) -> void:
 	state_ended.emit(none_state)

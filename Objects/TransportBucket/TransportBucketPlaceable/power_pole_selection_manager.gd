@@ -20,15 +20,17 @@ func reveal_sector(sector_coords: Vector2i) -> void:
 func _get_map_data() -> MapData:
 	var solidity_polygons: Array[PackedVector2Array] = environment_query_system.get_tile_maps_solidity()
 	var bounding_box: Rect2 = environment_query_system.get_solidity_bounding_box()
-	var power_pole_queryables: Array[QueryableEntity] = environment_query_system.get_queryables_by_source_class(PowerPole)
+	var destination_queryables_assigner: Array[TransportBucketDestinationSelectionQueryableEntity] = environment_query_system.get_queryables_by_class(TransportBucketDestinationSelectionQueryableEntity)
+	var destination_queryables: Array[TransportBucketDestinationSelectionQueryableEntity]
+	destination_queryables.assign(destination_queryables_assigner)
 	var power_pole_map_entities: Array[MapEntity]
 	
 	var power_connectors_in_tree: Array[PowerConnector] = PowerConnectionHandler.get_power_connectors_in_tree(initial_power_connector)
 	
-	for power_pole_queryable: QueryableEntity in power_pole_queryables:
+	for power_pole_queryable: TransportBucketDestinationSelectionQueryableEntity in power_pole_queryables:
 		if power_pole_queryable.source_node.power_connector in power_connectors_in_tree:
 			#don't use _track_new_power_pole cause i have to append the map entity to local array instead of script array
-			var power_pole_map_entity: SelectableMapEntity = power_pole_queryable.source_node.make_selectable_power_pole_map_entity()
+			var power_pole_map_entity: SelectableMapEntity = power_pole_queryable.make_selectable_map_entity()
 			power_pole_map_entities.append(power_pole_map_entity)
 			power_pole_map_entity.selected.connect(_on_power_pole_map_entity_selected.bind(power_pole_queryable.source_node))
 			power_pole_map_entity.source_removed.connect(_on_power_pole_map_entity_source_removed.bind(power_pole_map_entity))
@@ -38,10 +40,10 @@ func _get_map_data() -> MapData:
 
 func _on_enviornment_query_system_queryable_added(added_queryable: QueryableEntity) -> void:
 	if added_queryable.source_node is PowerPole:
-		_track_new_power_pole(added_queryable.source_node)
+		_track_new_power_pole(added_queryable)
 
 func _track_new_power_pole(power_pole: PowerPole) -> void:
-	var power_pole_map_entity: SelectableMapEntity = power_pole.make_selectable_power_pole_map_entity()
+	var power_pole_map_entity: SelectableMapEntity = power_pole.make_selectable_map_entity()
 	_map_data.add_map_entity(power_pole_map_entity)
 	power_pole_map_entity.selected.connect(_on_power_pole_map_entity_selected.bind(power_pole))
 	power_pole_map_entity.source_removed.connect(_on_power_pole_map_entity_source_removed.bind(power_pole_map_entity))

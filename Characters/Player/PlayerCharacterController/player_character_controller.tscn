@@ -56,20 +56,20 @@ script = ExtResource("7_45g5n")
 item_data = ExtResource("13_geyg5")
 position = Vector2i(0, 0)
 
-[sub_resource type="Resource" id="Resource_l0g4i"]
+[sub_resource type="Resource" id="Resource_8dq01"]
 resource_local_to_scene = true
 script = ExtResource("4_saie0")
 size = Vector2i(3, 3)
 initial_items = Array[ExtResource("7_45g5n")]([SubResource("Resource_7o84n")])
 
-[sub_resource type="Resource" id="Resource_ugng8"]
+[sub_resource type="Resource" id="Resource_u6h3v"]
 resource_local_to_scene = true
 script = ExtResource("4_d214o")
 batteries = 0
 steel = 0
 food = 0
 max_food = 5
-item_grid = SubResource("Resource_l0g4i")
+item_grid = SubResource("Resource_8dq01")
 
 [node name="PlayerCharacterController" type="Node2D"]
 script = ExtResource("1_bw5ol")
@@ -105,7 +105,7 @@ player_character = NodePath("../PlayerCharacter")
 laser_gun = NodePath("../LaserGun")
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("2_u8dgg")]
-inventory = SubResource("Resource_ugng8")
+inventory = SubResource("Resource_u6h3v")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_callback = 0
@@ -126,7 +126,7 @@ other_state = NodePath("../Other")
 inventory_state = NodePath("../Inventory")
 shelter_state = NodePath("../Shelter")
 map_state = NodePath("../LevelMap")
-power_pole_selection_state = NodePath("../PowerPoleSelection")
+power_pole_selection_state = NodePath("../TransportBucketDestinationSelectionMap")
 pickup_stuff_handler = NodePath("../../PickupStuffHandler")
 cursor_interaction_handler = NodePath("../../CursorInteractionHandler")
 laser_gun_handler = NodePath("../../PlayerLaserGunHandler")
@@ -137,7 +137,7 @@ script = ExtResource("18_ysl17")
 none_state = NodePath("../None")
 inventory_state = NodePath("../Inventory")
 map_state = NodePath("../LevelMap")
-power_pole_selection_state = NodePath("../PowerPoleSelection")
+power_pole_selection_state = NodePath("../TransportBucketDestinationSelectionMap")
 
 [node name="Inventory" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("none_state", "placing_state")]
 script = ExtResource("5_fsdf8")
@@ -183,7 +183,7 @@ script = ExtResource("21_hxwre")
 map_ui_packed_scene = ExtResource("22_hokhb")
 none_state = NodePath("../None")
 
-[node name="PowerPoleSelection" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("none_state")]
+[node name="TransportBucketDestinationSelectionMap" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("none_state")]
 script = ExtResource("27_e41dx")
 map_ui_packed_scene = ExtResource("28_waerg")
 none_state = NodePath("../None")
@@ -207,7 +207,7 @@ script = ExtResource("38_fnqtp")
 [connection signal="sector_revealed" from="SectorHandler" to="TransportBucketPlacementHandler" method="_on_sector_handler_sector_revealed"]
 [connection signal="sector_revealed" from="SectorHandler" to="UIStateMachine/Shelter/ShelterStateMachine/Warp" method="_on_sector_handler_sector_revealed"]
 [connection signal="sector_revealed" from="SectorHandler" to="UIStateMachine/LevelMap" method="_on_sector_handler_sector_revealed"]
-[connection signal="sector_revealed" from="SectorHandler" to="UIStateMachine/PowerPoleSelection" method="_on_sector_handler_sector_revealed"]
+[connection signal="sector_revealed" from="SectorHandler" to="UIStateMachine/TransportBucketDestinationSelectionMap" method="_on_sector_handler_sector_revealed"]
 [connection signal="shelter_interacted_with" from="PlayerCharacter" to="UIStateMachine/None" method="_on_player_character_shelter_interacted_with"]
 [connection signal="shelter_interacted_with" from="PlayerCharacter" to="UIStateMachine/Shelter/ShelterStateMachine/Warp" method="_on_player_character_shelter_interacted_with"]
 [connection signal="item_dropped" from="UIStateMachine/Inventory" to="." method="handle_drop_item"]

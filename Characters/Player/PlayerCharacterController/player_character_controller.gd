@@ -18,7 +18,7 @@ extends Node2D
 @onready var level_map_state = $UIStateMachine/LevelMap
 @onready var map_texture_updater = $MapTextureUpdater
 @onready var power_pole_placement_handler = $PowerPolePlacementHandler
-@onready var power_pole_selection_state = $UIStateMachine/PowerPoleSelection
+@onready var power_pole_selection_state = $UIStateMachine/TransportBucketDestinationSelectionMap
 @onready var transport_bucket_placement_handler = $TransportBucketPlacementHandler
 @onready var cursor_interaction_handler = $CursorInteractionHandler
 @onready var shield = $ShieldRotationPivot/Shield
