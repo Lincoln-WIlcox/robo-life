@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b0qvmacfrffh2" path="res://Components/PlaceItemInteractable/place_item_interactable.tscn" id="3_vud1t"]
 [ext_resource type="Resource" uid="uid://pbpprwkoi5ph" path="res://Resources/Items/structural_stabilizer.tres" id="4_abjnd"]
 [ext_resource type="PackedScene" uid="uid://cy2f85iqat6q0" path="res://Components/TimeTaskHandler/time_task_handler.tscn" id="5_ab4d3"]
-[ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Components/PowerConnection/PowerConsumer/power_consumer.tscn" id="6_4r42e"]
+[ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Characters/Player/power_consumer.tscn" id="6_4r42e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ofop4"]
 atlas = ExtResource("2_6ua60")

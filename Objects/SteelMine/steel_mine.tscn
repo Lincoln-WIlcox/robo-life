@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://Objects/SteelMine/not_drilling.gd" id="5_tmnhx"]
 [ext_resource type="Script" path="res://Objects/SteelMine/drilling.gd" id="6_tuk0r"]
 [ext_resource type="Script" path="res://Resources/item_data.gd" id="9_2rjwa"]
-[ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Components/PowerConnection/PowerConsumer/power_consumer.tscn" id="10_budbg"]
+[ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Characters/Player/power_consumer.tscn" id="10_budbg"]
 [ext_resource type="PackedScene" uid="uid://cqnd47al60df" path="res://Objects/GravityWalkOverPickupSpawner/gravity_walk_over_pickup_spawner.tscn" id="12_t4jqo"]
 [ext_resource type="PackedScene" uid="uid://e2r1erqmej6l" path="res://Objects/GravityWalkOverItemPickup/gravity_walk_over_item_pickup_steel.tscn" id="13_4g10x"]
 

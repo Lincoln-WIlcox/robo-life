@@ -21,6 +21,7 @@ func _on_inventory_requirement_interaction_area_requirements_met(interactor):
 	inventory_requirement_interaction_area.disable()
 	time_task_handler.make_progress()
 	_crafting = true
+	power_consumer.active = true
 
 func _on_time_task_handler_task_completed():
 	item_spawner.drop_item(fuse_item)
@@ -29,6 +30,7 @@ func _on_time_task_handler_task_completed():
 	time_task_handler.pause_progress()
 	time_task_handler.reset_progress()
 	_crafting = false
+	power_consumer.active = false
 
 func _on_power_consumer_power_requirement_met():
 	if not _crafting:

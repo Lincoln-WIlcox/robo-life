@@ -5,6 +5,7 @@ signal just_powered
 signal just_lost_power
 #signal connections_changed
 signal status_changed
+signal transport_bucket_arrived(transport_bucket: TransportBucket)
 
 func connect_to(connector: PowerConnector) -> PowerConnectorConnection:
 	return PowerConnectionHandler.add_connection(self, connector)
@@ -19,6 +20,9 @@ var powered := false:
 
 func _ready():
 	tree_exited.connect(PowerConnectionHandler.remove_connections_to_connector.bind(self))
+
+func emit_transport_bucket_arrived(transport_bucket: TransportBucket) -> void:
+	transport_bucket_arrived.emit(transport_bucket)
 
 func emit_status_changed() -> void:
 	status_changed.emit()

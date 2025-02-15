@@ -21,6 +21,7 @@ var _being_picked_up := false
 
 signal interacted_with
 signal disconnected_from_path
+signal reached_end_of_path
 
 func _ready():
 	_inventory = initial_inventory.duplicate()
@@ -64,6 +65,9 @@ func _physics_process(delta: float):
 	if _can_move() and path_follow.progress_ratio < 1:
 		var move_per_time := Utils.float_per_frame_to_float_per_time(speed, delta)
 		path_follow.progress += move_per_time
+		if path_follow.progress_ratio >= 1:
+			reached_end_of_path.emit()
+			stop()
 
 func _can_move() -> bool:
 	return _moving and not _being_picked_up

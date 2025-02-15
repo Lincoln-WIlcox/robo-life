@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cmog2buogarup" path="res://Objects/ItemPickup/item_pickup.tscn" id="2_cojh8"]
 [ext_resource type="Resource" uid="uid://bckiex7mctva7" path="res://Resources/Items/drill.tres" id="3_wjd4u"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="4_7vpgt"]
-[ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Components/PowerConnection/PowerConsumer/power_consumer.tscn" id="4_wrui2"]
+[ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Characters/Player/power_consumer.tscn" id="4_wrui2"]
 [ext_resource type="PackedScene" uid="uid://xnd8ne8fypg3" path="res://Components/FloatAwayTextSpawner/float_away_text_spawner.tscn" id="5_j1lly"]
 [ext_resource type="PackedScene" uid="uid://cy2f85iqat6q0" path="res://Components/TimeTaskHandler/time_task_handler.tscn" id="7_mnykd"]
 [ext_resource type="PackedScene" uid="uid://b0qvmacfrffh2" path="res://Components/PlaceItemInteractable/place_item_interactable.tscn" id="8_ils8e"]

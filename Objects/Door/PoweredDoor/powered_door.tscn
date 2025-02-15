@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bf3k02fdggn06" path="res://Objects/Door/door.tscn" id="1_dt1mj"]
 [ext_resource type="Script" path="res://Objects/Door/PoweredDoor/powered_door.gd" id="2_mgmdi"]
-[ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Components/PowerConnection/PowerConsumer/power_consumer.tscn" id="2_ufmqk"]
+[ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Characters/Player/power_consumer.tscn" id="2_ufmqk"]
 
 [node name="PoweredDoor" instance=ExtResource("1_dt1mj")]
 script = ExtResource("2_mgmdi")

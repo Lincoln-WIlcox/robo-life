@@ -56,3 +56,6 @@ func _on_transport_bucket_tree_exiting():
 
 func on_sector_revealed(sector_coords: Vector2i) -> void:
 	power_pole_selection_manager.reveal_sector(sector_coords)
+
+func _on_transport_bucket_reached_end_of_path():
+	path_handler.get_last_power_connector().emit_transport_bucket_arrived(transport_bucket)

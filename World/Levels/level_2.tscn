@@ -163,7 +163,7 @@ map_scene = SubResource("Resource_oj4ej")
 selectable_map_entity = SubResource("Resource_447tw")
 
 [node name="Shelter2" parent="." index="14" instance=ExtResource("6_raav1")]
-position = Vector2(1456, 144)
+position = Vector2(1536, 144)
 map_scene = SubResource("Resource_6c7hc")
 selectable_map_entity = SubResource("Resource_8ej7a")
 
@@ -258,34 +258,41 @@ node_to_put_item_pickup_in = NodePath("..")
 drill_time = 15
 day_night_cycle = NodePath("../DayNightCycle")
 
-[node name="DamagedUnit" parent="." index="36" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in") instance=ExtResource("21_0v2rn")]
-position = Vector2(368, -96)
+[node name="RockBarrier2" parent="." index="36" node_paths=PackedStringArray("node_to_put_item_pickup_in", "day_night_cycle") instance=ExtResource("20_gvedq")]
+position = Vector2(432, -128)
+node_to_put_item_pickup_in = NodePath("..")
+flip_sprite = true
+drill_time = 15
+day_night_cycle = NodePath("../DayNightCycle")
+
+[node name="DamagedUnit" parent="." index="37" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in") instance=ExtResource("21_0v2rn")]
+position = Vector2(608, -96)
 day_night_cycle = NodePath("../DayNightCycle")
 node_to_put_item_pickup_in = NodePath("..")
 map_texture = SubResource("Resource_x3ugl")
 
-[node name="DamagedUnit2" parent="." index="37" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in") instance=ExtResource("21_0v2rn")]
+[node name="DamagedUnit2" parent="." index="38" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in") instance=ExtResource("21_0v2rn")]
 position = Vector2(464, 176)
 day_night_cycle = NodePath("../DayNightCycle")
 node_to_put_item_pickup_in = NodePath("..")
 map_texture = SubResource("Resource_kctux")
 
-[node name="DamagedUnit3" parent="." index="38" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in") instance=ExtResource("21_0v2rn")]
+[node name="DamagedUnit3" parent="." index="39" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in") instance=ExtResource("21_0v2rn")]
 position = Vector2(800, 176)
 day_night_cycle = NodePath("../DayNightCycle")
 node_to_put_item_pickup_in = NodePath("..")
 map_texture = SubResource("Resource_c0gd1")
 
-[node name="DamagedUnitsDamagedShipPart" parent="." index="39" node_paths=PackedStringArray("damaged_units") instance=ExtResource("22_wugnc")]
+[node name="DamagedUnitsDamagedShipPart" parent="." index="40" node_paths=PackedStringArray("damaged_units") instance=ExtResource("22_wugnc")]
 position = Vector2(576, 16)
 damaged_units = [NodePath("../DamagedUnit"), NodePath("../DamagedUnit2"), NodePath("../DamagedUnit3")]
 map_texture = SubResource("Resource_st16p")
 
-[node name="MissingFusesDamagedShipPart" parent="." index="40" instance=ExtResource("23_ujgtb")]
+[node name="MissingFusesDamagedShipPart" parent="." index="41" instance=ExtResource("23_ujgtb")]
 position = Vector2(1280, 320)
 map_texture = SubResource("Resource_i72fx")
 
-[node name="FuseDispenser" parent="." index="41" node_paths=PackedStringArray("day_night_cycle", "node_to_put_fuse_pickup_in") instance=ExtResource("24_h4wi1")]
+[node name="FuseDispenser" parent="." index="42" node_paths=PackedStringArray("day_night_cycle", "node_to_put_fuse_pickup_in") instance=ExtResource("24_h4wi1")]
 position = Vector2(1168, 0)
 day_night_cycle = NodePath("../DayNightCycle")
 node_to_put_fuse_pickup_in = NodePath("..")
