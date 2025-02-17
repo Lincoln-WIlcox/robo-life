@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://cldkgwqny8lwy"]
+[gd_scene load_steps=46 format=4 uid="uid://cldkgwqny8lwy"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_m8bdm"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_vjuht"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://c4rih6s7igrrh" path="res://Objects/DamagedShipPart/damaged_units_damaged_ship_part.tscn" id="22_wugnc"]
 [ext_resource type="PackedScene" uid="uid://dudjuyi1qo3tm" path="res://Objects/DamagedShipPart/missing_fuses_damaged_ship_part.tscn" id="23_ujgtb"]
 [ext_resource type="PackedScene" uid="uid://b3gp3b84stcay" path="res://Objects/FuseDispenser/fuse_dispenser.tscn" id="24_h4wi1"]
+[ext_resource type="Script" path="res://Resources/QueryableEntity/transport_bucket_destination_selection_queryable_entity.gd" id="25_6xaaq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_evjoi"]
 atlas = ExtResource("2_vjuht")
@@ -130,6 +131,16 @@ script = ExtResource("3_3lujh")
 display_texture = SubResource("AtlasTexture_hp3wt")
 z_index = 3
 scale = Vector2(2, 2)
+
+[sub_resource type="Resource" id="Resource_bouf3"]
+resource_local_to_scene = true
+script = ExtResource("9_te10s")
+packed_scene = ExtResource("8_qyddm")
+
+[sub_resource type="Resource" id="Resource_51gn0"]
+resource_local_to_scene = true
+script = ExtResource("25_6xaaq")
+selectable_map_entity = SubResource("Resource_bouf3")
 
 [node name="Level" instance=ExtResource("1_m8bdm")]
 
@@ -292,7 +303,9 @@ map_texture = SubResource("Resource_st16p")
 position = Vector2(1280, 320)
 map_texture = SubResource("Resource_i72fx")
 
-[node name="FuseDispenser" parent="." index="42" node_paths=PackedStringArray("day_night_cycle", "node_to_put_fuse_pickup_in") instance=ExtResource("24_h4wi1")]
+[node name="FuseDispenser" parent="." index="42" node_paths=PackedStringArray("day_night_cycle", "node_to_put_fuse_pickup_in", "environment_query_system") instance=ExtResource("24_h4wi1")]
 position = Vector2(1168, 0)
 day_night_cycle = NodePath("../DayNightCycle")
 node_to_put_fuse_pickup_in = NodePath("..")
+environment_query_system = NodePath("../EnvironmentQuerySystem")
+transport_bucket_destination = SubResource("Resource_51gn0")
