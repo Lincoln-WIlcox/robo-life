@@ -29,6 +29,13 @@ func add_connection(connector_a: PowerConnector, connector_b: PowerConnector) ->
 		_handle_connector_added(connector_b)
 	
 	_update_power_consumers_in_tree(connector_a)
+	
+	connector_a.emit_connections_changed()
+	connector_b.emit_connections_changed()
+	
+	connector_a.emit_connection_added(connector_b)
+	connector_b.emit_connection_added(connector_a)
+	
 	return power_connector_connection
 
 func remove_connections_to_connector(connector: PowerConnector) -> void:
@@ -41,6 +48,10 @@ func remove_connections_to_connector(connector: PowerConnector) -> void:
 			connection_removed.emit(power_connection_at_index) 
 			power_connection_at_index.emit_broken()
 			_update_power_consumers_in_tree(other_connector)
+			other_connector.emit_connections_changed()
+			other_connector.emit_connection_removed(connector)
+			connector.emit_connection_removed(other_connector)
+	connector.emit_connections_changed()
 	connections_changed.emit()
 
 func remove_connection(connection: PowerConnectorConnection) -> void:
@@ -49,6 +60,10 @@ func remove_connection(connection: PowerConnectorConnection) -> void:
 	connection.emit_broken()
 	_update_power_consumers_in_tree(connection.power_connector_a)
 	_update_power_consumers_in_tree(connection.power_connector_b)
+	connection.power_connector_a.emit_connections_changed()
+	connection.power_connector_b.emit_connections_changed()
+	connection.power_connector_a.emit_connection_removed(connection.power_connector_b)
+	connection.power_connector_b.emit_connection_removed(connection.power_connector_a)
 
 func get_connections_for_connector(power_connector: PowerConnector) -> Array[PowerConnectorConnection]:
 	return power_connector_connections.filter(func(pc: PowerConnectorConnection): return pc.power_connector_a == power_connector or pc.power_connector_b == power_connector)

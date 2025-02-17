@@ -18,7 +18,7 @@ extends Node2D
 @onready var level_map_state = $UIStateMachine/LevelMap
 @onready var map_texture_updater = $MapTextureUpdater
 @onready var power_pole_placement_handler = $PowerPolePlacementHandler
-@onready var power_pole_selection_state = $UIStateMachine/TransportBucketDestinationSelectionMap
+#@onready var power_pole_selection_state = $UIStateMachine/TransportBucketDestinationSelectionMap
 @onready var transport_bucket_placement_handler = $TransportBucketPlacementHandler
 @onready var cursor_interaction_handler = $CursorInteractionHandler
 @onready var shield = $ShieldRotationPivot/Shield
@@ -52,7 +52,7 @@ var show_ui: Callable:
 			shelter_shelter_state.show_ui = show_ui
 			crafting_state.show_ui = show_ui
 			level_map_state.show_ui = show_ui
-			power_pole_selection_state.show_ui = show_ui
+			#power_pole_selection_state.show_ui = show_ui
 			transport_bucket_placement_handler.show_ui = show_ui
 			warp_state.show_ui = show_ui
 var hide_ui: Callable:
@@ -63,7 +63,7 @@ var hide_ui: Callable:
 			shelter_shelter_state.hide_ui = hide_ui
 			crafting_state.hide_ui = hide_ui
 			level_map_state.hide_ui = hide_ui
-			power_pole_selection_state.hide_ui = hide_ui
+			#power_pole_selection_state.hide_ui = hide_ui
 			transport_bucket_placement_handler.hide_ui = hide_ui
 			warp_state.hide_ui = hide_ui
 var get_current_ui: Callable:
@@ -79,7 +79,7 @@ var get_revealed_sectors: Callable:
 			sector_handler.get_revealed_sectors = get_revealed_sectors
 			level_map_state.get_revealed_sectors = get_revealed_sectors
 			warp_state.get_revealed_sectors = get_revealed_sectors
-			power_pole_selection_state.get_revealed_sectors = get_revealed_sectors
+			#power_pole_selection_state.get_revealed_sectors = get_revealed_sectors
 			transport_bucket_placement_handler.get_revealed_sectors = get_revealed_sectors
 var reveal_sector: Callable:
 	set(new_value):
@@ -150,9 +150,9 @@ func _ready():
 	none_state.is_firing = func(): return Input.is_action_pressed("fire")
 	none_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
 	power_pole_placement_handler.enviornment_query_system = environment_query_system
-	power_pole_selection_state.toggle_map = func(): return Input.is_action_just_pressed("test_input")
-	power_pole_selection_state.environment_query_system = environment_query_system
-	power_pole_selection_state.get_revealed_sectors = get_revealed_sectors
+	#power_pole_selection_state.toggle_map = func(): return Input.is_action_just_pressed("test_input")
+	#power_pole_selection_state.environment_query_system = environment_query_system
+	#power_pole_selection_state.get_revealed_sectors = get_revealed_sectors
 	level_map_state.toggle_map = func(): return Input.is_action_just_pressed("toggle_map")
 	level_map_state.environment_query_system = environment_query_system
 	level_map_state.map_entity_collection = level_map_map_entity_collection
@@ -186,7 +186,7 @@ func _ready():
 func setup_sectors() -> void:
 	level_map_state.setup_map()
 	warp_state.setup_map()
-	power_pole_selection_state.setup_map()
+	#power_pole_selection_state.setup_map()
 
 func drop_item(item: ItemData):
 	player_character.drop_item(item)

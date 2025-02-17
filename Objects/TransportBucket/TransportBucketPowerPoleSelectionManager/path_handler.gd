@@ -20,6 +20,10 @@ func make_new_path(power_connector_a: PowerConnector, power_connector_b: PowerCo
 	_curve = shortest_path_curve
 	_update_power_connectors(shortest_path_of_power_connections, power_connector_a)
 
+func get_previous_power_connector() -> PowerConnector:
+	var previous_connector_index: int = Utils.get_index_of_point_along_curve_before_offset(_curve, transport_bucket.path_follow.progress)
+	return _curve_power_connectors[previous_connector_index]
+
 ##Reroutes from the transport bucket's current position.
 ##Cannot be called before [method self.make_new_path], as information about the previous path is used in the calculation of the new route
 func reroute() -> void:
