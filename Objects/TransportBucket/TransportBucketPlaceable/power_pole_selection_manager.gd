@@ -61,7 +61,7 @@ func update_map_data() -> void:
 func _register_queryable(queryable: TransportBucketDestinationSelectionQueryableEntity, map_entity: SelectableMapEntity) -> void:
 	if not map_entity.selected.is_connected(_on_destination_map_entity_selected):
 		map_entity.selected.connect(_on_destination_map_entity_selected.bind(queryable))
-	if not queryable.power_connector.connections_changed.is_connected(update_map_data):
+	if not queryable.power_connector.connections_changed.is_connected(update_map_data.call_deferred):
 		queryable.power_connector.connections_changed.connect(update_map_data.call_deferred)
 	if not _tracking_power_connectors.has(queryable.power_connector):
 		_tracking_power_connectors.append(queryable.power_connector)
