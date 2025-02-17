@@ -37,6 +37,7 @@ extends Node2D
 			crafting_state.shelter_inventory = shelter_inventory
 @export var environment_query_system: EnvironmentQuerySystem
 @export var level_map_map_entity_collection: MapEntityCollection = MapEntityCollection.new()
+@export var transport_bucket_item: ItemData
 
 var _queryable: PlayerQueryable = PlayerQueryable.new()
 
@@ -220,3 +221,14 @@ func _on_day_night_cycle_day_started(_day):
 
 func _on_day_night_cycle_day_ended():
 	player_character.start_gassing()
+
+func _on_shelter_transport_bucket_arrived(transport_bucket: TransportBucket):
+	var inventory_addition: InventoryAddition = transport_bucket.get_inventory().to_inventory_addition()
+	inventory_addition.add_item(transport_bucket_item)
+	shelter_inventory.add_addition(inventory_addition)
+	if inventory_addition.is_empty():
+		transport_bucket.kill()
+		return
+	inventory_addition.remove_item(transport_bucket_item)
+	var new_transport_bucket_inventory: Inventory = inventory_addition.to_inventory(transport_bucket.get_inventory().item_grid.size)
+	transport_bucket.set_inventory(new_transport_bucket_inventory)

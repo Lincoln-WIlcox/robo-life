@@ -25,7 +25,6 @@ extends Resource
 	set(new_value):
 		max_food = new_value
 		emit_changed()
-##The initial value for the item grid. The item grid itself is private. To interact with it, use the functions provided
 @export var item_grid: ItemGrid:
 	set(new_value):
 		item_grid = new_value
@@ -126,7 +125,6 @@ func set_food(new_food: int) -> void:
 func meets_requirements(inventory_requirement: InventoryRequirement) -> bool:
 	var indexes_used: Array[int] = []
 	var items: Array[ItemData] = get_items()
-	
 	if batteries < inventory_requirement.batteries_cost or steel < inventory_requirement.steel_cost:
 		return false
 	
@@ -153,3 +151,14 @@ func spend_requirement(inventory_requirement: InventoryRequirement) -> bool:
 		return true
 	else:
 		return false
+
+##Overwrites the inventory contents to use the new data in [param new_inventory].
+func use_data(new_inventory: Inventory) -> void:
+	batteries = new_inventory.batteries
+	steel = new_inventory.steel
+	food = new_inventory.food
+	max_food = new_inventory.max_food
+	item_grid.remove_all()
+	item_grid.size = new_inventory.item_grid.size
+	for item: ItemGridItem in new_inventory.item_grid.get_grid_items():
+		item_grid.add_grid_item(item)

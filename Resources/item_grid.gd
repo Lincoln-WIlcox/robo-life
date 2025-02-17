@@ -75,6 +75,9 @@ func remove_index(index: int) -> void:
 	_items.remove_at(index)
 	emit_changed()
 
+func remove_all() -> void:
+	_items.clear()
+
 ##Returns the [ItemData] for each item in the grid.
 func get_items() -> Array[ItemData]:
 	var return_items: Array[ItemData]

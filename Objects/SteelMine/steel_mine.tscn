@@ -89,9 +89,9 @@ spawn_range_width = 32
 
 [node name="ProgressBar" type="ProgressBar" parent="CharacterBody2D"]
 offset_left = 11.0
-offset_top = 2.0
+offset_top = -13.0
 offset_right = 271.0
-offset_bottom = 29.0
+offset_bottom = 14.0
 scale = Vector2(0.1, 0.1)
 show_percentage = false
 

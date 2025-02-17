@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=4 uid="uid://cldkgwqny8lwy"]
+[gd_scene load_steps=50 format=4 uid="uid://cldkgwqny8lwy"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_m8bdm"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_vjuht"]
@@ -47,6 +47,16 @@ resource_local_to_scene = true
 script = ExtResource("9_te10s")
 packed_scene = ExtResource("8_qyddm")
 
+[sub_resource type="Resource" id="Resource_lpg7a"]
+resource_local_to_scene = true
+script = ExtResource("9_te10s")
+packed_scene = ExtResource("8_qyddm")
+
+[sub_resource type="Resource" id="Resource_7mg7g"]
+resource_local_to_scene = true
+script = ExtResource("25_6xaaq")
+selectable_map_entity = SubResource("Resource_lpg7a")
+
 [sub_resource type="Resource" id="Resource_6c7hc"]
 resource_local_to_scene = true
 script = ExtResource("9_phbew")
@@ -56,6 +66,16 @@ packed_scene = ExtResource("8_q1m4d")
 resource_local_to_scene = true
 script = ExtResource("9_te10s")
 packed_scene = ExtResource("8_qyddm")
+
+[sub_resource type="Resource" id="Resource_mkfoa"]
+resource_local_to_scene = true
+script = ExtResource("9_te10s")
+packed_scene = ExtResource("8_qyddm")
+
+[sub_resource type="Resource" id="Resource_b4rat"]
+resource_local_to_scene = true
+script = ExtResource("25_6xaaq")
+selectable_map_entity = SubResource("Resource_mkfoa")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jxiwm"]
 atlas = ExtResource("2_vjuht")
@@ -168,15 +188,19 @@ position = Vector2(128, -32)
 height = 192
 tile_height = 12.0
 
-[node name="Shelter" parent="." index="13" instance=ExtResource("6_raav1")]
+[node name="Shelter" parent="." index="13" node_paths=PackedStringArray("environment_query_system") instance=ExtResource("6_raav1")]
 position = Vector2(0, 144)
 map_scene = SubResource("Resource_oj4ej")
 selectable_map_entity = SubResource("Resource_447tw")
+environment_query_system = NodePath("../EnvironmentQuerySystem")
+transport_bucket_destination = SubResource("Resource_7mg7g")
 
-[node name="Shelter2" parent="." index="14" instance=ExtResource("6_raav1")]
+[node name="Shelter2" parent="." index="14" node_paths=PackedStringArray("environment_query_system") instance=ExtResource("6_raav1")]
 position = Vector2(1536, 144)
 map_scene = SubResource("Resource_6c7hc")
 selectable_map_entity = SubResource("Resource_8ej7a")
+environment_query_system = NodePath("../EnvironmentQuerySystem")
+transport_bucket_destination = SubResource("Resource_b4rat")
 
 [node name="SteelMine2" parent="." index="15" node_paths=PackedStringArray("node_to_put_item_pickup_in") instance=ExtResource("7_eu3xj")]
 position = Vector2(-256, -192)
@@ -309,3 +333,6 @@ day_night_cycle = NodePath("../DayNightCycle")
 node_to_put_fuse_pickup_in = NodePath("..")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination = SubResource("Resource_51gn0")
+
+[connection signal="transport_bucket_arrived" from="Shelter" to="PlayerCharacterController" method="_on_shelter_transport_bucket_arrived"]
+[connection signal="transport_bucket_arrived" from="Shelter2" to="PlayerCharacterController" method="_on_shelter_transport_bucket_arrived"]

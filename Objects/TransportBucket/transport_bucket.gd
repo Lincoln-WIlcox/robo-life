@@ -48,6 +48,10 @@ func stop() -> void:
 func get_inventory() -> Inventory:
 	return _inventory
 
+func set_inventory(new_inventory: Inventory) -> void:
+	_inventory.use_data(new_inventory)
+	update_inventory_addition()
+
 func use_curve(new_curve: Curve2D) -> void:
 	path.curve = new_curve
 	path_follow.progress = 0
@@ -60,6 +64,9 @@ func disconnect_from_path() -> void:
 	mouse_interaction_area.monitorable = false
 	mouse_interaction_area.monitoring = false
 	disconnected_from_path.emit()
+
+func kill() -> void:
+	queue_free()
 
 func _physics_process(delta: float):
 	if _can_move() and path_follow.progress_ratio < 1:
