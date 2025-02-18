@@ -36,6 +36,9 @@ func _on_transport_bucket_destination_setup(map_entity: SelectableMapEntity) -> 
 	map_entity.instance.position = global_position
 	map_entity.instance.use_texture(transport_bucket_destination_texture)
 	
+	var use_texture = repaired_texture if _is_repaired else transport_bucket_destination_texture
+	map_entity.instance.use_texture(use_texture)
+	
 	repaired.connect(func() -> void: if map_entity: map_entity.instance.use_texture(repaired_texture))
 
 func _update_label() -> void:
