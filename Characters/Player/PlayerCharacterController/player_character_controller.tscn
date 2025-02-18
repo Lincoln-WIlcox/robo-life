@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://dw2fqgynxjcit"]
+[gd_scene load_steps=44 format=3 uid="uid://dw2fqgynxjcit"]
 
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/player_character_controller.gd" id="1_bw5ol"]
 [ext_resource type="PackedScene" uid="uid://by3dehhgwxdqr" path="res://Objects/Shield/shield.tscn" id="2_ipind"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="3_wtset"]
 [ext_resource type="Script" path="res://Resources/MapData/map_texture.gd" id="3_xy8oe"]
 [ext_resource type="PackedScene" uid="uid://cx1e5ov1byhig" path="res://Components/MapTextureUpdater/map_texture_updater.tscn" id="4_5f3iy"]
+[ext_resource type="Resource" uid="uid://bem4gymr67uoh" path="res://Resources/Items/transport_bucket.tres" id="4_6c5nd"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/none_state.gd" id="4_7is3e"]
 [ext_resource type="Script" path="res://Resources/inventory.gd" id="4_d214o"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/player_shield_handler.gd" id="4_j00oc"]
@@ -33,9 +34,7 @@
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/other.gd" id="18_ysl17"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/map.gd" id="21_hxwre"]
 [ext_resource type="PackedScene" uid="uid://cfhvw7mmxv7dy" path="res://UI/Map/map.tscn" id="22_hokhb"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/power_pole_selection_map_state.gd" id="27_e41dx"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/warp_state.gd" id="28_q4vny"]
-[ext_resource type="PackedScene" uid="uid://nifofmv4xqni" path="res://UI/Map/power_pole_selection_map.tscn" id="28_waerg"]
 [ext_resource type="PackedScene" uid="uid://cv7qwkdsdis5l" path="res://UI/ShelterUI/ShelterWarpUI/shelter_warp_ui.tscn" id="29_sis4p"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/cursor_interaction_handler.gd" id="32_emp26"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/warp_handler.gd" id="38_fnqtp"]
@@ -56,24 +55,25 @@ script = ExtResource("7_45g5n")
 item_data = ExtResource("13_geyg5")
 position = Vector2i(0, 0)
 
-[sub_resource type="Resource" id="Resource_wdtne"]
+[sub_resource type="Resource" id="Resource_40i8j"]
 resource_local_to_scene = true
 script = ExtResource("4_saie0")
 size = Vector2i(3, 3)
 initial_items = Array[ExtResource("7_45g5n")]([SubResource("Resource_7o84n")])
 
-[sub_resource type="Resource" id="Resource_antlw"]
+[sub_resource type="Resource" id="Resource_df32q"]
 resource_local_to_scene = true
 script = ExtResource("4_d214o")
 batteries = 0
 steel = 0
 food = 0
 max_food = 5
-item_grid = SubResource("Resource_wdtne")
+item_grid = SubResource("Resource_40i8j")
 
 [node name="PlayerCharacterController" type="Node2D"]
 script = ExtResource("1_bw5ol")
 map_texture = SubResource("Resource_d6xii")
+transport_bucket_item = ExtResource("4_6c5nd")
 
 [node name="SectorHandler" type="Node" parent="."]
 script = ExtResource("4_vjnlu")
@@ -105,7 +105,7 @@ player_character = NodePath("../PlayerCharacter")
 laser_gun = NodePath("../LaserGun")
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("2_u8dgg")]
-inventory = SubResource("Resource_antlw")
+inventory = SubResource("Resource_df32q")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_callback = 0
@@ -120,24 +120,22 @@ drag_right_margin = 0.01
 [node name="UIStateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("3_aoc7a")]
 initial_state = NodePath("None")
 
-[node name="None" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("other_state", "inventory_state", "shelter_state", "map_state", "power_pole_selection_state", "pickup_stuff_handler", "cursor_interaction_handler", "laser_gun_handler", "laser_gun")]
+[node name="None" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("other_state", "inventory_state", "shelter_state", "map_state", "pickup_stuff_handler", "cursor_interaction_handler", "laser_gun_handler", "laser_gun")]
 script = ExtResource("4_7is3e")
 other_state = NodePath("../Other")
 inventory_state = NodePath("../Inventory")
 shelter_state = NodePath("../Shelter")
 map_state = NodePath("../LevelMap")
-power_pole_selection_state = NodePath("../PowerPoleSelection")
 pickup_stuff_handler = NodePath("../../PickupStuffHandler")
 cursor_interaction_handler = NodePath("../../CursorInteractionHandler")
 laser_gun_handler = NodePath("../../PlayerLaserGunHandler")
 laser_gun = NodePath("../../LaserGun")
 
-[node name="Other" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("none_state", "inventory_state", "map_state", "power_pole_selection_state")]
+[node name="Other" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("none_state", "inventory_state", "map_state")]
 script = ExtResource("18_ysl17")
 none_state = NodePath("../None")
 inventory_state = NodePath("../Inventory")
 map_state = NodePath("../LevelMap")
-power_pole_selection_state = NodePath("../PowerPoleSelection")
 
 [node name="Inventory" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("none_state", "placing_state")]
 script = ExtResource("5_fsdf8")
@@ -183,11 +181,6 @@ script = ExtResource("21_hxwre")
 map_ui_packed_scene = ExtResource("22_hokhb")
 none_state = NodePath("../None")
 
-[node name="PowerPoleSelection" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("none_state")]
-script = ExtResource("27_e41dx")
-map_ui_packed_scene = ExtResource("28_waerg")
-none_state = NodePath("../None")
-
 [node name="PickupStuffHandler" type="Node" parent="."]
 script = ExtResource("7_bmrc0")
 
@@ -207,7 +200,6 @@ script = ExtResource("38_fnqtp")
 [connection signal="sector_revealed" from="SectorHandler" to="TransportBucketPlacementHandler" method="_on_sector_handler_sector_revealed"]
 [connection signal="sector_revealed" from="SectorHandler" to="UIStateMachine/Shelter/ShelterStateMachine/Warp" method="_on_sector_handler_sector_revealed"]
 [connection signal="sector_revealed" from="SectorHandler" to="UIStateMachine/LevelMap" method="_on_sector_handler_sector_revealed"]
-[connection signal="sector_revealed" from="SectorHandler" to="UIStateMachine/PowerPoleSelection" method="_on_sector_handler_sector_revealed"]
 [connection signal="shelter_interacted_with" from="PlayerCharacter" to="UIStateMachine/None" method="_on_player_character_shelter_interacted_with"]
 [connection signal="shelter_interacted_with" from="PlayerCharacter" to="UIStateMachine/Shelter/ShelterStateMachine/Warp" method="_on_player_character_shelter_interacted_with"]
 [connection signal="item_dropped" from="UIStateMachine/Inventory" to="." method="handle_drop_item"]

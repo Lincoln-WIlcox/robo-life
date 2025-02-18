@@ -333,3 +333,14 @@ static func get_global_sector_bounds(sector_coords: Vector2i) -> Rect2:
 
 static func get_sector_coords_at(at_position: Vector2) -> Vector2i:
 	return Vector2i(floori(at_position.x / SECTOR_SIZE.x), floori(at_position.y / SECTOR_SIZE.y))
+
+##Returns true if the transaction was successful.
+static func handle_inventory_requirement_interaction_area_interaction(inventory: Inventory, inventory_requirement_interaction_area: InventoryRequirementInteractionArea, interactor: Object) -> bool:
+	if inventory_requirement_interaction_area.disabled:
+		return false
+	if inventory.spend_requirement(inventory_requirement_interaction_area.inventory_requirement):
+		inventory_requirement_interaction_area.meet_requirements(interactor)
+		return true
+	else:
+		inventory_requirement_interaction_area.fail_requirements(interactor)
+	return false

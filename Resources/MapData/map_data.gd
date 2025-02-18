@@ -79,3 +79,14 @@ func remove_map_entity(map_entity: MapEntity) -> void:
 	_map_entities.remove_at(index)
 	map_entity.source_removed.disconnect(remove_map_entity)
 	map_entity_removed.emit(map_entity)
+
+func set_map_entities(new_map_entities: Array[MapEntity]) -> void:
+	var remove_map_entities = _map_entities.filter(func(map_entity: MapEntity) -> bool: return not new_map_entities.has(map_entity))
+	
+	for map_entity: MapEntity in remove_map_entities:
+		remove_map_entity(map_entity)
+	
+	var add_map_entities = new_map_entities.filter(func(map_entity: MapEntity) -> bool: return not _map_entities.has(map_entity))
+	
+	for map_entity: MapEntity in add_map_entities:
+		add_map_entity(map_entity)

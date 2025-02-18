@@ -5,6 +5,9 @@ extends Node2D
 @export var day_night_cycle: DayNightCycle
 @export var node_to_put_item_pickup_in: Node
 @export var map_texture: MapTexture
+@export var environment_query_system: EnvironmentQuerySystem
+@export var transport_bucket_destination_queryable: TransportBucketDestinationSelectionQueryableEntity
+@export var transport_bucket_destination_texture: Texture
 
 var _is_repaired: bool = false
 
@@ -18,6 +21,12 @@ signal repaired
 signal unrepaired
 
 func _ready():
+	transport_bucket_destination_queryable.connect_source(self)
+	transport_bucket_destination_queryable.power_connector = power_consumer
+	transport_bucket_destination_queryable.map_entity_setup.connect(_on_transport_bucket_destination_map_entity_scene_setup)
+	
+	environment_query_system.add_entity_queryable(transport_bucket_destination_queryable)
+	
 	map_texture.get_position = func() -> Vector2: return global_position
 	place_item_interactable.node_to_put_item_pickup_in = node_to_put_item_pickup_in
 	time_task_handler.day_night_cycle = day_night_cycle
@@ -39,6 +48,14 @@ func unrepair() -> void:
 	sprite.texture = _unrepaired_texture
 	map_texture.display_texture = _unrepaired_texture
 	unrepaired.emit()
+
+func _on_transport_bucket_destination_map_entity_scene_setup(map_entity: SelectableMapEntity) -> void:
+	map_entity.instance.position = global_position
+	
+	var use_texture = repaired_texture if _is_repaired else transport_bucket_destination_texture
+	map_entity.instance.use_texture(use_texture)
+	
+	repaired.connect(func() -> void: if map_entity: map_entity.instance.use_texture(repaired_texture))
 
 func _on_mouse_interaction_area_interacted_with():
 	repair()

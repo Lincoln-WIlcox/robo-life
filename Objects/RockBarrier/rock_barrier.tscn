@@ -1,13 +1,31 @@
-[gd_scene load_steps=12 format=3 uid="uid://bni6clyp4sg3"]
+[gd_scene load_steps=19 format=3 uid="uid://bni6clyp4sg3"]
 
 [ext_resource type="Script" path="res://Objects/RockBarrier/rock_barrier.gd" id="1_y5d42"]
 [ext_resource type="PackedScene" uid="uid://cmog2buogarup" path="res://Objects/ItemPickup/item_pickup.tscn" id="2_cojh8"]
 [ext_resource type="Resource" uid="uid://bckiex7mctva7" path="res://Resources/Items/drill.tres" id="3_wjd4u"]
+[ext_resource type="Script" path="res://Resources/QueryableEntity/transport_bucket_destination_selection_queryable_entity.gd" id="4_2mhdg"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="4_7vpgt"]
-[ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Components/PowerConnection/PowerConsumer/power_consumer.tscn" id="4_wrui2"]
+[ext_resource type="Script" path="res://Objects/RockBarrier/transport_bucket_arrival_handler.gd" id="4_omege"]
+[ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Characters/Player/power_consumer.tscn" id="4_wrui2"]
 [ext_resource type="PackedScene" uid="uid://xnd8ne8fypg3" path="res://Components/FloatAwayTextSpawner/float_away_text_spawner.tscn" id="5_j1lly"]
+[ext_resource type="PackedScene" uid="uid://cihd7i38vg5st" path="res://UI/Map/MapScenes/SelectableMapScene/selectable_map_scene.tscn" id="5_sdd0t"]
+[ext_resource type="Script" path="res://Resources/MapData/selectable_map_entity.gd" id="6_n1rys"]
 [ext_resource type="PackedScene" uid="uid://cy2f85iqat6q0" path="res://Components/TimeTaskHandler/time_task_handler.tscn" id="7_mnykd"]
 [ext_resource type="PackedScene" uid="uid://b0qvmacfrffh2" path="res://Components/PlaceItemInteractable/place_item_interactable.tscn" id="8_ils8e"]
+
+[sub_resource type="Resource" id="Resource_0wxoi"]
+resource_local_to_scene = true
+script = ExtResource("6_n1rys")
+packed_scene = ExtResource("5_sdd0t")
+
+[sub_resource type="Resource" id="Resource_o3g3q"]
+resource_local_to_scene = true
+script = ExtResource("4_2mhdg")
+selectable_map_entity = SubResource("Resource_0wxoi")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17t3w"]
+atlas = ExtResource("4_7vpgt")
+region = Rect2(128, 144, 48, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xx1eq"]
 size = Vector2(16, 48)
@@ -23,6 +41,13 @@ size = Vector2(80, 48)
 script = ExtResource("1_y5d42")
 item_pickup_packed_scene = ExtResource("2_cojh8")
 drill_item = ExtResource("3_wjd4u")
+transport_bucket_destination_queryable = SubResource("Resource_o3g3q")
+transport_bucket_destination_texture = SubResource("AtlasTexture_17t3w")
+
+[node name="TransportBucketArrivalHandler" type="Node" parent="." node_paths=PackedStringArray("interactor", "place_item_interactable")]
+script = ExtResource("4_omege")
+interactor = NodePath("..")
+place_item_interactable = NodePath("../PlaceItemInteractable")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 4
@@ -65,6 +90,7 @@ position = Vector2(32, 32)
 
 [connection signal="power_requirement_lost" from="PowerConsumer" to="." method="_on_power_consumer_power_requirement_lost"]
 [connection signal="power_requirement_met" from="PowerConsumer" to="." method="_on_power_consumer_power_requirement_met"]
+[connection signal="transport_bucket_arrived" from="PowerConsumer" to="TransportBucketArrivalHandler" method="_on_power_consumer_transport_bucket_arrived"]
 [connection signal="task_completed" from="TimeTaskHandler" to="." method="_on_time_task_handler_task_completed"]
 [connection signal="insufficient_requirements" from="PlaceItemInteractable" to="." method="_on_place_item_interactable_insufficient_requirements"]
 [connection signal="item_picked_up" from="PlaceItemInteractable" to="." method="_on_place_item_interactable_item_picked_up"]

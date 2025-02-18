@@ -15,7 +15,7 @@
 [ext_resource type="Script" path="res://Resources/item_data.gd" id="10_3crxs"]
 [ext_resource type="Resource" uid="uid://di5ihtaupovf3" path="res://Resources/Items/deployable_ladder.tres" id="11_staqh"]
 [ext_resource type="Script" path="res://Resources/inventory_addition.gd" id="12_fnctc"]
-[ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Components/PowerConnection/PowerConsumer/power_consumer.tscn" id="14_flo30"]
+[ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Characters/Player/power_consumer.tscn" id="14_flo30"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qtf72"]
 atlas = ExtResource("3_rablb")

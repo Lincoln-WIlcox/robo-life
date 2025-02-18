@@ -1,18 +1,36 @@
-[gd_scene load_steps=18 format=3 uid="uid://cykbmxquct7pp"]
+[gd_scene load_steps=25 format=3 uid="uid://cykbmxquct7pp"]
 
 [ext_resource type="Script" path="res://Objects/SteelMine/steel_mine.gd" id="1_fpyg3"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="1_r1cfi"]
 [ext_resource type="PackedScene" uid="uid://cmog2buogarup" path="res://Objects/ItemPickup/item_pickup.tscn" id="2_3dfq5"]
 [ext_resource type="PackedScene" uid="uid://b7qfrcuaghpqn" path="res://Components/InteractionArea/InventoryRequirementInteractionArea/inventory_requirement_interaction_area.tscn" id="2_es1y4"]
 [ext_resource type="Resource" uid="uid://bckiex7mctva7" path="res://Resources/Items/drill.tres" id="3_lpbnu"]
+[ext_resource type="Script" path="res://Resources/QueryableEntity/transport_bucket_destination_selection_queryable_entity.gd" id="4_728id"]
 [ext_resource type="PackedScene" uid="uid://c2nwpx3t8tmc0" path="res://Components/StateMachine/state_machine.tscn" id="4_bitbt"]
 [ext_resource type="Script" path="res://Resources/inventory_requirement.gd" id="4_qbvvb"]
+[ext_resource type="PackedScene" uid="uid://cihd7i38vg5st" path="res://UI/Map/MapScenes/SelectableMapScene/selectable_map_scene.tscn" id="5_jwo24"]
 [ext_resource type="Script" path="res://Objects/SteelMine/not_drilling.gd" id="5_tmnhx"]
+[ext_resource type="Script" path="res://Resources/MapData/selectable_map_entity.gd" id="6_8hwak"]
 [ext_resource type="Script" path="res://Objects/SteelMine/drilling.gd" id="6_tuk0r"]
+[ext_resource type="Script" path="res://Objects/SteelMine/transport_bucket_arrival_handler.gd" id="8_llcrn"]
 [ext_resource type="Script" path="res://Resources/item_data.gd" id="9_2rjwa"]
-[ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Components/PowerConnection/PowerConsumer/power_consumer.tscn" id="10_budbg"]
+[ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Characters/Player/power_consumer.tscn" id="10_budbg"]
 [ext_resource type="PackedScene" uid="uid://cqnd47al60df" path="res://Objects/GravityWalkOverPickupSpawner/gravity_walk_over_pickup_spawner.tscn" id="12_t4jqo"]
 [ext_resource type="PackedScene" uid="uid://e2r1erqmej6l" path="res://Objects/GravityWalkOverItemPickup/gravity_walk_over_item_pickup_steel.tscn" id="13_4g10x"]
+
+[sub_resource type="Resource" id="Resource_t8je5"]
+resource_local_to_scene = true
+script = ExtResource("6_8hwak")
+packed_scene = ExtResource("5_jwo24")
+
+[sub_resource type="Resource" id="Resource_8lmeq"]
+resource_local_to_scene = true
+script = ExtResource("4_728id")
+selectable_map_entity = SubResource("Resource_t8je5")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1lpk"]
+atlas = ExtResource("1_r1cfi")
+region = Rect2(112, 64, 48, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6avpw"]
 atlas = ExtResource("1_r1cfi")
@@ -36,6 +54,13 @@ script = ExtResource("1_fpyg3")
 item_pickup_packed_scene = ExtResource("2_3dfq5")
 drill = ExtResource("3_lpbnu")
 progress_bar = NodePath("CharacterBody2D/ProgressBar")
+transport_bucket_destination = SubResource("Resource_8lmeq")
+transport_bucket_destination_texture = SubResource("AtlasTexture_p1lpk")
+
+[node name="TransportBucketArrivalHandler" type="Node" parent="." node_paths=PackedStringArray("interactor", "inventory_requirement_interaction_area")]
+script = ExtResource("8_llcrn")
+interactor = NodePath("..")
+inventory_requirement_interaction_area = NodePath("../CharacterBody2D/InventoryRequirementInteractionArea")
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("4_bitbt")]
 initial_state = NodePath("NotDrilling")
@@ -89,9 +114,9 @@ spawn_range_width = 32
 
 [node name="ProgressBar" type="ProgressBar" parent="CharacterBody2D"]
 offset_left = 11.0
-offset_top = 2.0
+offset_top = -13.0
 offset_right = 271.0
-offset_bottom = 29.0
+offset_bottom = 14.0
 scale = Vector2(0.1, 0.1)
 show_percentage = false
 
@@ -100,3 +125,4 @@ show_percentage = false
 [connection signal="requirements_met" from="CharacterBody2D/InventoryRequirementInteractionArea" to="StateMachine/NotDrilling" method="_on_inventory_requirement_interaction_area_requirements_met"]
 [connection signal="power_requirement_lost" from="CharacterBody2D/PowerConsumer" to="StateMachine/Drilling" method="_on_power_consumer_power_requirement_lost"]
 [connection signal="power_requirement_met" from="CharacterBody2D/PowerConsumer" to="StateMachine/NotDrilling" method="_on_power_consumer_power_requirement_met"]
+[connection signal="transport_bucket_arrived" from="CharacterBody2D/PowerConsumer" to="TransportBucketArrivalHandler" method="_on_power_consumer_transport_bucket_arrived"]
