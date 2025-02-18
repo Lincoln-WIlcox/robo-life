@@ -367,18 +367,20 @@ rotation = -1.57079
 [node name="PushableBlock" parent="." index="34" instance=ExtResource("15_d8wcr")]
 position = Vector2(1536, 320)
 
-[node name="RockBarrier" parent="." index="35" node_paths=PackedStringArray("node_to_put_item_pickup_in", "day_night_cycle") instance=ExtResource("20_gvedq")]
+[node name="RockBarrier" parent="." index="35" node_paths=PackedStringArray("node_to_put_item_pickup_in", "day_night_cycle", "environment_query_system") instance=ExtResource("20_gvedq")]
 position = Vector2(-160, 112)
 node_to_put_item_pickup_in = NodePath("..")
 drill_time = 15
 day_night_cycle = NodePath("../DayNightCycle")
+environment_query_system = NodePath("../EnvironmentQuerySystem")
 
-[node name="RockBarrier2" parent="." index="36" node_paths=PackedStringArray("node_to_put_item_pickup_in", "day_night_cycle") instance=ExtResource("20_gvedq")]
+[node name="RockBarrier2" parent="." index="36" node_paths=PackedStringArray("node_to_put_item_pickup_in", "day_night_cycle", "environment_query_system") instance=ExtResource("20_gvedq")]
 position = Vector2(432, -128)
 node_to_put_item_pickup_in = NodePath("..")
 flip_sprite = true
 drill_time = 15
 day_night_cycle = NodePath("../DayNightCycle")
+environment_query_system = NodePath("../EnvironmentQuerySystem")
 
 [node name="DamagedUnit" parent="." index="37" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("21_0v2rn")]
 position = Vector2(608, -96)
