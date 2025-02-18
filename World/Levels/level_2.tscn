@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=4 uid="uid://cldkgwqny8lwy"]
+[gd_scene load_steps=64 format=4 uid="uid://cldkgwqny8lwy"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_m8bdm"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_vjuht"]
@@ -205,6 +205,16 @@ display_texture = SubResource("AtlasTexture_hp3wt")
 z_index = 3
 scale = Vector2(2, 2)
 
+[sub_resource type="Resource" id="Resource_ohnbk"]
+resource_local_to_scene = true
+script = ExtResource("9_te10s")
+packed_scene = ExtResource("8_qyddm")
+
+[sub_resource type="Resource" id="Resource_wph25"]
+resource_local_to_scene = true
+script = ExtResource("25_6xaaq")
+selectable_map_entity = SubResource("Resource_ohnbk")
+
 [sub_resource type="Resource" id="Resource_i72fx"]
 resource_local_to_scene = true
 script = ExtResource("3_3lujh")
@@ -399,8 +409,11 @@ position = Vector2(576, 16)
 damaged_units = [NodePath("../DamagedUnit"), NodePath("../DamagedUnit2"), NodePath("../DamagedUnit3")]
 map_texture = SubResource("Resource_st16p")
 
-[node name="MissingFusesDamagedShipPart" parent="." index="41" instance=ExtResource("23_ujgtb")]
+[node name="MissingFusesDamagedShipPart" parent="." index="41" node_paths=PackedStringArray("environment_query_system") instance=ExtResource("23_ujgtb")]
 position = Vector2(1280, 320)
+fuses_required = 2
+environment_query_system = NodePath("../EnvironmentQuerySystem")
+transport_bucket_destination_queryable = SubResource("Resource_wph25")
 map_texture = SubResource("Resource_i72fx")
 
 [node name="FuseDispenser" parent="." index="42" node_paths=PackedStringArray("day_night_cycle", "node_to_put_fuse_pickup_in", "environment_query_system") instance=ExtResource("24_h4wi1")]

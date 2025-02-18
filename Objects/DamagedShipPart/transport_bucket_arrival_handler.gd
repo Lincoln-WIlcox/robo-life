@@ -1,0 +1,9 @@
+extends Node
+
+@export var inventory_requirement_interaction_area: InventoryRequirementInteractionArea
+@export var missing_fuses_damaged_ship_part: MissingFusesDamagedShipPart
+
+func _on_power_connector_transport_bucket_arrived(transport_bucket: TransportBucket):
+	var transport_bucket_inventory: Inventory = transport_bucket.get_inventory()
+	while(not missing_fuses_damaged_ship_part.get_repaired() and transport_bucket_inventory.meets_requirements(inventory_requirement_interaction_area.inventory_requirement)):
+		Utils.handle_inventory_requirement_interaction_area_interaction(transport_bucket_inventory, inventory_requirement_interaction_area, missing_fuses_damaged_ship_part)

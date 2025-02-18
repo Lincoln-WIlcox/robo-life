@@ -52,6 +52,8 @@ func unrepair() -> void:
 func _on_transport_bucket_destination_map_entity_scene_setup(map_entity: SelectableMapEntity) -> void:
 	map_entity.instance.position = global_position
 	map_entity.instance.use_texture(transport_bucket_destination_texture)
+	
+	repaired.connect(func() -> void: if map_entity: map_entity.instance.use_texture(repaired_texture))
 
 func _on_mouse_interaction_area_interacted_with():
 	repair()

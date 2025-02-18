@@ -336,6 +336,8 @@ static func get_sector_coords_at(at_position: Vector2) -> Vector2i:
 
 ##Returns true if the transaction was successful.
 static func handle_inventory_requirement_interaction_area_interaction(inventory: Inventory, inventory_requirement_interaction_area: InventoryRequirementInteractionArea, interactor: Object) -> bool:
+	if inventory_requirement_interaction_area.disabled:
+		return false
 	if inventory.spend_requirement(inventory_requirement_interaction_area.inventory_requirement):
 		inventory_requirement_interaction_area.meet_requirements(interactor)
 		return true
