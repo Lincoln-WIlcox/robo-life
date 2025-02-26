@@ -22,6 +22,7 @@ var _being_picked_up := false
 signal interacted_with
 signal disconnected_from_path
 signal reached_end_of_path
+signal picked_up
 
 func _ready():
 	_inventory = initial_inventory.duplicate()
@@ -87,3 +88,6 @@ func _on_mouse_pickup_area_cancelled_picking_up():
 
 func _on_mouse_interaction_area_interacted_with():
 	interacted_with.emit()
+
+func _on_cursor_pickup_area_picked_up(_inventory_addition):
+	picked_up.emit()

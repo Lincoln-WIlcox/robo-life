@@ -40,6 +40,7 @@ script = ExtResource("6_ystpc")
 transport_bucket = NodePath("../TransportBucket")
 
 [connection signal="interacted_with" from="TransportBucket" to="." method="_on_transport_bucket_interacted_with"]
+[connection signal="picked_up" from="TransportBucket" to="." method="_on_transport_bucket_picked_up"]
 [connection signal="reached_end_of_path" from="TransportBucket" to="." method="_on_transport_bucket_reached_end_of_path"]
 [connection signal="tree_exiting" from="TransportBucket" to="." method="_on_transport_bucket_tree_exiting"]
 [connection signal="power_connector_selected" from="PowerPoleSelectionManager" to="." method="_on_power_pole_selection_manager_power_connector_selected"]
