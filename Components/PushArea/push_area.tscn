@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b7827uel8tqdj"]
 
-[ext_resource type="Script" path="res://Components/PushArea/push_area.gd" id="1_ryduf"]
+[ext_resource type="Script" uid="uid://cf2ti46i6x5s5" path="res://Components/PushArea/push_area.gd" id="1_ryduf"]
 
 [node name="PushArea" type="Area2D"]
 script = ExtResource("1_ryduf")

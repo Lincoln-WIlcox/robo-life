@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c4ikfoien6boi"]
 
-[ext_resource type="Script" path="res://Components/Target/target.gd" id="1_er1py"]
-[ext_resource type="Script" path="res://Components/Target/target_area.gd" id="2_vmsk5"]
+[ext_resource type="Script" uid="uid://dffil5j2hm0md" path="res://Components/Target/target.gd" id="1_er1py"]
+[ext_resource type="Script" uid="uid://cw8w2qcogxsfd" path="res://Components/Target/target_area.gd" id="2_vmsk5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2xty0"]
 radius = 1.0

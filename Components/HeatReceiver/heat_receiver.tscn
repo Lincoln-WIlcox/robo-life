@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cqgdaw3uhpn"]
 
-[ext_resource type="Script" path="res://Components/HeatReceiver/heat_receiver.gd" id="1_4u64m"]
+[ext_resource type="Script" uid="uid://dt8nnecbg1dqu" path="res://Components/HeatReceiver/heat_receiver.gd" id="1_4u64m"]
 
 [node name="HeatReceiver" type="Area2D"]
 collision_layer = 64

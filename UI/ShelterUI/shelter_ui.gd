@@ -11,7 +11,7 @@ const END_DAY_BUTTON_TEXT = "end day "
 	set(new_value):
 		shelter_inventory = new_value
 		if is_node_ready():
-			$ShelterContentVbox/ItemGridHbox/Interface1Vbox/ItemGridInterface1.item_grid = shelter_inventory.item_grid
+			$ShelterContentVbox/ItemGridHbox/Interface1Vbox/InteractableItemGridInterface1.item_grid = shelter_inventory.item_grid
 			if not shelter_inventory.changed.is_connected(update_labels):
 				shelter_inventory.changed.connect(update_labels)
 			if not shelter_inventory.changed.is_connected(update_end_day_disabled):
@@ -20,7 +20,7 @@ const END_DAY_BUTTON_TEXT = "end day "
 	set(new_value):
 		player_inventory = new_value
 		if is_node_ready():
-			$ShelterContentVbox/ItemGridHbox/VBoxContainer2/ItemGridInterface2.item_grid = player_inventory.item_grid
+			$ShelterContentVbox/ItemGridHbox/VBoxContainer2/InteractableItemGridInterface2.item_grid = player_inventory.item_grid
 			if not player_inventory.changed.is_connected(update_labels):
 				player_inventory.changed.connect(update_labels)
 			if not player_inventory.changed.is_connected(update_end_day_disabled):
@@ -32,8 +32,8 @@ signal crafting_pressed
 signal warp_pressed
 
 func _ready():
-	$ShelterContentVbox/ItemGridHbox/Interface1Vbox/ItemGridInterface1.item_grid = shelter_inventory.item_grid
-	$ShelterContentVbox/ItemGridHbox/VBoxContainer2/ItemGridInterface2.item_grid = player_inventory.item_grid
+	$ShelterContentVbox/ItemGridHbox/Interface1Vbox/InteractableItemGridInterface1.item_grid = shelter_inventory.item_grid
+	$ShelterContentVbox/ItemGridHbox/VBoxContainer2/InteractableItemGridInterface2.item_grid = player_inventory.item_grid
 	$ShelterContentVbox/EndDayButtonMargin/EndDayHbox/EndDayButton.text = END_DAY_BUTTON_TEXT + "(" + str(Utils.AMOUNT_OF_FOOD_TO_CONSUME) + ")"
 	$ShelterContentVbox/EndDayButtonMargin/EndDayHbox/EndDayButton.pressed.connect(func(): end_day_pressed.emit())
 	$ShelterContentVbox/EndDayButtonMargin/EndDayHbox/TransferFoodButton.pressed.connect(func(): transfer_food_pressed.emit())

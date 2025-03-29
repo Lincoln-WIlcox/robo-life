@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="PlaceableItemData" load_steps=4 format=3 uid="uid://bem4gymr67uoh"]
 
-[ext_resource type="Script" path="res://Resources/placeable_item_data.gd" id="1_rvgwm"]
+[ext_resource type="Script" uid="uid://c3ln5vs3r571n" path="res://Resources/placeable_item_data.gd" id="1_rvgwm"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_nuskp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_47r70"]

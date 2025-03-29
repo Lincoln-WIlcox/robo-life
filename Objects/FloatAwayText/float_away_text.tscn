@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://do3lt61x3sp61"]
 
-[ext_resource type="Script" path="res://Objects/FloatAwayText/float_away_text.gd" id="1_q5ipf"]
+[ext_resource type="Script" uid="uid://bcdrh0ssurt1h" path="res://Objects/FloatAwayText/float_away_text.gd" id="1_q5ipf"]
 
 [sub_resource type="Animation" id="Animation_pb7hl"]
 resource_name = "Float"
@@ -57,8 +57,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_isclc"]
 _data = {
-"Float": SubResource("Animation_pb7hl"),
-"RESET": SubResource("Animation_p5at2")
+&"Float": SubResource("Animation_pb7hl"),
+&"RESET": SubResource("Animation_p5at2")
 }
 
 [node name="FloatAwayText" type="Node2D"]

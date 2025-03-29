@@ -1,13 +1,13 @@
 [gd_scene load_steps=11 format=3 uid="uid://blum4fqe6ct0a"]
 
-[ext_resource type="Script" path="res://Objects/TransportBucket/TransportBucketPlaceable/power_pole_selection_manager.gd" id="1_0yoyt"]
-[ext_resource type="Script" path="res://Objects/TransportBucket/TransportBucketPowerPoleSelectionManager/transport_bucket_power_pole_selection_manager.gd" id="1_xea4w"]
+[ext_resource type="Script" uid="uid://bsvsv6uk2ts0q" path="res://Objects/TransportBucket/TransportBucketPlaceable/power_pole_selection_manager.gd" id="1_0yoyt"]
+[ext_resource type="Script" uid="uid://gfgvqxrl3lpe" path="res://Objects/TransportBucket/TransportBucketPowerPoleSelectionManager/transport_bucket_power_pole_selection_manager.gd" id="1_xea4w"]
 [ext_resource type="PackedScene" uid="uid://bgqgiy1o0dn8e" path="res://Objects/TransportBucket/transport_bucket.tscn" id="2_4750m"]
 [ext_resource type="PackedScene" uid="uid://mwe43y7dhjg" path="res://UI/TransportBucketUI/transport_bucket_ui.tscn" id="2_uaido"]
-[ext_resource type="Script" path="res://Resources/item_grid_item.gd" id="4_3hx7g"]
-[ext_resource type="Script" path="res://Resources/item_grid.gd" id="5_gyjnq"]
-[ext_resource type="Script" path="res://Resources/inventory.gd" id="6_rch3e"]
-[ext_resource type="Script" path="res://Objects/TransportBucket/TransportBucketPowerPoleSelectionManager/path_handler.gd" id="6_ystpc"]
+[ext_resource type="Script" uid="uid://rvwny5vq4uhf" path="res://Resources/item_grid_item.gd" id="4_3hx7g"]
+[ext_resource type="Script" uid="uid://cdp7s6pjgskwb" path="res://Resources/item_grid.gd" id="5_gyjnq"]
+[ext_resource type="Script" uid="uid://bg5ne6c0ge6gv" path="res://Resources/inventory.gd" id="6_rch3e"]
+[ext_resource type="Script" uid="uid://dxeteirc2qg47" path="res://Objects/TransportBucket/TransportBucketPowerPoleSelectionManager/path_handler.gd" id="6_ystpc"]
 
 [sub_resource type="Resource" id="Resource_ibgew"]
 resource_local_to_scene = true

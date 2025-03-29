@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://v7qso20aqmk5"]
 
-[ext_resource type="Script" path="res://UI/ShelterUI/shelter_ui.gd" id="1_wyca2"]
-[ext_resource type="PackedScene" uid="uid://cwncv8ljmchc5" path="res://UI/ItemGridInterface/item_grid_interface.tscn" id="2_r5snk"]
+[ext_resource type="Script" uid="uid://b7d7g7r3jiiy8" path="res://UI/ShelterUI/shelter_ui.gd" id="1_wyca2"]
+[ext_resource type="PackedScene" uid="uid://83jm7xfdis1q" path="res://UI/InteractableItemGridInterface/interactable_item_grid_interface.tscn" id="2_7rmsi"]
 
 [node name="ShelterUI" type="Control"]
 layout_mode = 3
@@ -35,19 +35,19 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ItemGridInterface1" parent="ShelterContentVbox/ItemGridHbox/Interface1Vbox" instance=ExtResource("2_r5snk")]
+[node name="InteractableItemGridInterface1" parent="ShelterContentVbox/ItemGridHbox/Interface1Vbox" instance=ExtResource("2_7rmsi")]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BottomMargin" type="MarginContainer" parent="ShelterContentVbox/ItemGridHbox/Interface1Vbox"]
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="ShelterContentVbox/ItemGridHbox/Interface1Vbox"]
 layout_mode = 2
 
 [node name="ItemGridInterface1FoodLabel" type="Label" parent="ShelterContentVbox/ItemGridHbox/Interface1Vbox/CenterContainer"]
 layout_mode = 2
-
-[node name="BottomMargin" type="MarginContainer" parent="ShelterContentVbox/ItemGridHbox/Interface1Vbox"]
-layout_mode = 2
-size_flags_vertical = 3
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="ShelterContentVbox/ItemGridHbox"]
 layout_mode = 2
@@ -57,19 +57,19 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ItemGridInterface2" parent="ShelterContentVbox/ItemGridHbox/VBoxContainer2" instance=ExtResource("2_r5snk")]
+[node name="InteractableItemGridInterface2" parent="ShelterContentVbox/ItemGridHbox/VBoxContainer2" instance=ExtResource("2_7rmsi")]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BottomMargin" type="MarginContainer" parent="ShelterContentVbox/ItemGridHbox/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="ShelterContentVbox/ItemGridHbox/VBoxContainer2"]
 layout_mode = 2
 
 [node name="ItemGridInterface2FoodLabel" type="Label" parent="ShelterContentVbox/ItemGridHbox/VBoxContainer2/CenterContainer"]
 layout_mode = 2
-
-[node name="BottomMargin" type="MarginContainer" parent="ShelterContentVbox/ItemGridHbox/VBoxContainer2"]
-layout_mode = 2
-size_flags_vertical = 3
 
 [node name="EndDayButtonMargin" type="MarginContainer" parent="ShelterContentVbox"]
 layout_mode = 2

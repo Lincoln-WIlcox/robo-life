@@ -1,0 +1,32 @@
+[gd_scene load_steps=9 format=3 uid="uid://83jm7xfdis1q"]
+
+[ext_resource type="PackedScene" uid="uid://b8f0re3ap8qjk" path="res://Components/ItemGridInterface/item_grid_interface.tscn" id="1_idm2p"]
+[ext_resource type="Script" uid="uid://drr3lb542nqfo" path="res://UI/InteractableItemGridInterface/interactable_item_grid_interface.gd" id="2_8k3ak"]
+[ext_resource type="PackedScene" uid="uid://cxu02inpnbs4y" path="res://UI/InteractableItemGridInterface/ItemGridInteractableTile/item_grid_interactable_tile.tscn" id="3_3ac11"]
+[ext_resource type="Script" uid="uid://cwj8woxmx2vwt" path="res://UI/InteractableItemGridInterface/dragging_tile_over_manager.gd" id="3_8r6a3"]
+[ext_resource type="PackedScene" uid="uid://c2nwpx3t8tmc0" path="res://Components/StateMachine/state_machine.tscn" id="4_jg4mt"]
+[ext_resource type="Script" uid="uid://clouet71a1j0a" path="res://UI/InteractableItemGridInterface/none_state.gd" id="5_gnp3x"]
+[ext_resource type="Script" uid="uid://b6w0052swb28f" path="res://UI/InteractableItemGridInterface/dragging_state.gd" id="6_0ikmk"]
+[ext_resource type="PackedScene" uid="uid://dhwyldylayefs" path="res://UI/InteractableItemGridInterface/move_tile_area.tscn" id="7_orgoi"]
+
+[node name="InteractableItemGridInterface" instance=ExtResource("1_idm2p")]
+script = ExtResource("2_8k3ak")
+item_grid_tile_packed_scene = ExtResource("3_3ac11")
+
+[node name="DraggingTileOverManager" type="Node" parent="." index="0"]
+script = ExtResource("3_8r6a3")
+
+[node name="StateMachine" parent="." index="1" node_paths=PackedStringArray("initial_state") instance=ExtResource("4_jg4mt")]
+initial_state = NodePath("None")
+
+[node name="None" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("dragging_state")]
+script = ExtResource("5_gnp3x")
+dragging_state = NodePath("../Dragging")
+
+[node name="Dragging" type="Node" parent="StateMachine" index="1" node_paths=PackedStringArray("none_state", "node_to_put_color_rect_in")]
+script = ExtResource("6_0ikmk")
+move_tile_area_packed_scene = ExtResource("7_orgoi")
+none_state = NodePath("../None")
+node_to_put_color_rect_in = NodePath("../..")
+
+[connection signal="tile_dragged" from="." to="StateMachine/None" method="_on_item_grid_interface_tile_dragged"]

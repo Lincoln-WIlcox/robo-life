@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://l3i3s2jucooj" path="res://Objects/GravityWalkOverItemPickup/gravity_walk_over_item_pickup.tscn" id="1_tntkf"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_gqoye"]
-[ext_resource type="Script" path="res://Resources/inventory_addition.gd" id="3_vskcc"]
-[ext_resource type="Script" path="res://Resources/item_data.gd" id="3_yc8rl"]
+[ext_resource type="Script" uid="uid://ctcb4av5ecd5o" path="res://Resources/inventory_addition.gd" id="3_vskcc"]
+[ext_resource type="Script" uid="uid://bviplh42sb2sb" path="res://Resources/item_data.gd" id="3_yc8rl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dy2qj"]
 atlas = ExtResource("2_gqoye")

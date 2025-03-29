@@ -1,10 +1,10 @@
 [gd_scene load_steps=17 format=3 uid="uid://lqkjlgq5dar6"]
 
-[ext_resource type="Script" path="res://World/world.gd" id="1_fuqf5"]
-[ext_resource type="Script" path="res://World/day_night_cycle.gd" id="1_yp3no"]
+[ext_resource type="Script" uid="uid://b166xvbc6nf64" path="res://World/world.gd" id="1_fuqf5"]
+[ext_resource type="Script" uid="uid://lyj3fi66muug" path="res://World/day_night_cycle.gd" id="1_yp3no"]
 [ext_resource type="PackedScene" uid="uid://dw2fqgynxjcit" path="res://Characters/Player/PlayerCharacterController/player_character_controller.tscn" id="1_yr2t8"]
 [ext_resource type="TileSet" uid="uid://b2ajxli8pwv36" path="res://Resources/TileSets/level_1.tres" id="6_3k4c5"]
-[ext_resource type="Script" path="res://World/tiles.gd" id="6_7fj4g"]
+[ext_resource type="Script" uid="uid://o1776oesu3i2" path="res://World/tiles.gd" id="6_7fj4g"]
 [ext_resource type="PackedScene" uid="uid://c33tblr4cbh8p" path="res://Objects/Ledge/ledge.tscn" id="7_p745u"]
 [ext_resource type="PackedScene" uid="uid://daw30mg70crel" path="res://Objects/OneWayPlatform/one_way_platform.tscn" id="8_k3r3x"]
 [ext_resource type="PackedScene" uid="uid://csa7weg8wqsft" path="res://Objects/Battery/battery.tscn" id="9_r2sbr"]

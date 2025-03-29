@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://wnwdpxb3bxx4"]
 
-[ext_resource type="Script" path="res://Objects/Rope/rope.gd" id="1_vtll6"]
+[ext_resource type="Script" uid="uid://cmiybcfsfsqgb" path="res://Objects/Rope/rope.gd" id="1_vtll6"]
 [ext_resource type="Texture2D" uid="uid://38m8jtee76r3" path="res://Assets/Rope.png" id="2_hywng"]
-[ext_resource type="Script" path="res://Objects/Rope/climbable_area.gd" id="2_qfp15"]
+[ext_resource type="Script" uid="uid://c2yiwm8oupcfo" path="res://Objects/Rope/climbable_area.gd" id="2_qfp15"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ol8pr"]
 size = Vector2(16, 16)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://7an10crxeid1"]
 
-[ext_resource type="Script" path="res://Components/HeatArea/heat_area.gd" id="1_clkyj"]
+[ext_resource type="Script" uid="uid://c70v6wnjprhrt" path="res://Components/HeatArea/heat_area.gd" id="1_clkyj"]
 
 [node name="HeatArea" type="Area2D"]
 collision_mask = 32

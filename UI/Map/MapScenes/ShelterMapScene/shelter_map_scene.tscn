@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://diqjv4565hiir"]
 
-[ext_resource type="Script" path="res://UI/Map/MapScenes/ShelterMapScene/shelter_map_scene.gd" id="1_tsshx"]
+[ext_resource type="Script" uid="uid://8fc8pbgxj1l4" path="res://UI/Map/MapScenes/ShelterMapScene/shelter_map_scene.gd" id="1_tsshx"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_liotu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_36bvo"]

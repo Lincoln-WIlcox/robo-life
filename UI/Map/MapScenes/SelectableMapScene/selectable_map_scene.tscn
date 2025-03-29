@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://cihd7i38vg5st"]
 
-[ext_resource type="Script" path="res://UI/Map/MapScenes/SelectableMapScene/selectable_map_scene.gd" id="1_ox2cq"]
+[ext_resource type="Script" uid="uid://3s766w2ifixm" path="res://UI/Map/MapScenes/SelectableMapScene/selectable_map_scene.gd" id="1_ox2cq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0gyer"]
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dqwwtsntni62j"]
+[gd_scene load_steps=8 format=3 uid="uid://dqwwtsntni62j"]
 
-[ext_resource type="Script" path="res://Components/MapDisplay/map_display.gd" id="1_82s18"]
-[ext_resource type="Script" path="res://Components/MapDisplay/panning_handler.gd" id="2_qn6yq"]
-[ext_resource type="Script" path="res://Components/MapDisplay/fog_of_war_handler.gd" id="4_mbbb0"]
+[ext_resource type="Script" uid="uid://0v5uwbxt1wkh" path="res://Components/MapDisplay/map_display.gd" id="1_82s18"]
+[ext_resource type="Script" uid="uid://do0avs7t5nm2e" path="res://Components/MapDisplay/panning_handler.gd" id="2_qn6yq"]
+[ext_resource type="Script" uid="uid://d1sq4es1dlqpy" path="res://Components/MapDisplay/fog_of_war_handler.gd" id="4_mbbb0"]
+[ext_resource type="PackedScene" uid="uid://dxd0kh8rswpem" path="res://Components/PowerLineDrawer/power_line_drawer.tscn" id="5_xaoq4"]
 [ext_resource type="Texture2D" uid="uid://48vj7npce78t" path="res://Assets/Fog.png" id="7_j1rc0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_66nex"]
@@ -78,3 +79,7 @@ scale = Vector2(0.4, 0.4)
 [node name="Fog" type="TileMapLayer" parent="MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer"]
 z_index = 1
 tile_set = SubResource("TileSet_r7aiw")
+
+[node name="PowerLineDrawer" parent="MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer" instance=ExtResource("5_xaoq4")]
+line_width = 10.0
+line_color = Color(1, 1, 0, 0.784314)

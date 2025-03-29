@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://buke53aipiw0n"]
 
-[ext_resource type="Script" path="res://UI/PlayerInventoryUI/player_inventory_ui.gd" id="1_fbupe"]
-[ext_resource type="PackedScene" uid="uid://cwncv8ljmchc5" path="res://UI/ItemGridInterface/item_grid_interface.tscn" id="1_h7dq1"]
+[ext_resource type="Script" uid="uid://xoa4myuiwgol" path="res://UI/PlayerInventoryUI/player_inventory_ui.gd" id="1_fbupe"]
+[ext_resource type="PackedScene" uid="uid://83jm7xfdis1q" path="res://UI/InteractableItemGridInterface/interactable_item_grid_interface.tscn" id="2_08d08"]
 
 [node name="PlayerInventoryUI" type="Control"]
 layout_mode = 3
@@ -24,9 +24,9 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ItemGridInterface" parent="VBoxContainer" instance=ExtResource("1_h7dq1")]
-custom_minimum_size = Vector2(0, 200)
+[node name="InteractableItemGridInterface" parent="VBoxContainer" instance=ExtResource("2_08d08")]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
 layout_mode = 2

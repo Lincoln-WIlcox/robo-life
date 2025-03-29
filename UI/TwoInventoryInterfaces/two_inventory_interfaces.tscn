@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://eg4r6pex37fh"]
 
-[ext_resource type="Script" path="res://UI/TwoInventoryInterfaces/two_inventory_interfaces.gd" id="1_4jutj"]
-[ext_resource type="PackedScene" uid="uid://cwncv8ljmchc5" path="res://UI/ItemGridInterface/item_grid_interface.tscn" id="2_5r2yc"]
+[ext_resource type="Script" uid="uid://c8pom7grv412o" path="res://UI/TwoInventoryInterfaces/two_inventory_interfaces.gd" id="1_4jutj"]
+[ext_resource type="PackedScene" uid="uid://83jm7xfdis1q" path="res://UI/InteractableItemGridInterface/interactable_item_grid_interface.tscn" id="2_pxokg"]
 
 [node name="TwoInventoryInterfaces" type="Control"]
 layout_mode = 3
@@ -22,10 +22,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ItemGridInterface1" parent="HBoxContainer" instance=ExtResource("2_5r2yc")]
+[node name="InteractableItemGridInterface1" parent="HBoxContainer" instance=ExtResource("2_pxokg")]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ItemGridInterface2" parent="HBoxContainer" instance=ExtResource("2_5r2yc")]
+[node name="InteractableItemGridInterface2" parent="HBoxContainer" instance=ExtResource("2_pxokg")]
 layout_mode = 2
 size_flags_horizontal = 3

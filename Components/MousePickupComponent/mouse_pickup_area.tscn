@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://gfntau5ijo5h"]
 
-[ext_resource type="Script" path="res://Components/MousePickupComponent/mouse_pickup_area.gd" id="1_phtxq"]
+[ext_resource type="Script" uid="uid://cjnims2esm4sn" path="res://Components/MousePickupComponent/mouse_pickup_area.gd" id="1_phtxq"]
 [ext_resource type="PackedScene" uid="uid://xnd8ne8fypg3" path="res://Components/FloatAwayTextSpawner/float_away_text_spawner.tscn" id="2_ik7t8"]
 
 [node name="MousePickupArea" type="Area2D"]

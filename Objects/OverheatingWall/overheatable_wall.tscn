@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dpyu3hof4l6hb"]
 
-[ext_resource type="Script" path="res://Objects/OverheatingWall/overheatable_wall.gd" id="1_88knb"]
+[ext_resource type="Script" uid="uid://cyiqxy35jxukp" path="res://Objects/OverheatingWall/overheatable_wall.gd" id="1_88knb"]
 [ext_resource type="PackedScene" uid="uid://vvmx1q8uqi2n" path="res://Components/Overheater/overheater.tscn" id="1_eugad"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yl2go"]

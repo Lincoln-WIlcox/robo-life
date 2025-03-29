@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ub0qa7k8xrx7"]
 
-[ext_resource type="Script" path="res://World/map_entity_collection.gd" id="1_ubsrv"]
+[ext_resource type="Script" uid="uid://n6k2sfa2cm4x" path="res://World/map_entity_collection.gd" id="1_ubsrv"]
 
 [node name="MapEntityCollection" type="Node"]
 script = ExtResource("1_ubsrv")

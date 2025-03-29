@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://b0qvmacfrffh2"]
 
-[ext_resource type="Script" path="res://Components/PlaceItemInteractable/place_item_interactable.gd" id="1_odatr"]
+[ext_resource type="Script" uid="uid://dpll0df6ml7np" path="res://Components/PlaceItemInteractable/place_item_interactable.gd" id="1_odatr"]
 [ext_resource type="PackedScene" uid="uid://d3disugmcknvo" path="res://Components/InteractionArea/interaction_area.tscn" id="2_dda3f"]
 [ext_resource type="PackedScene" uid="uid://cmog2buogarup" path="res://Objects/ItemPickup/item_pickup.tscn" id="2_m2hek"]
-[ext_resource type="Script" path="res://Components/InteractionArea/InventoryRequirementInteractionArea/inventory_requirement_interaction_area.gd" id="3_epj6w"]
-[ext_resource type="Script" path="res://Resources/item_data.gd" id="4_6gc8i"]
-[ext_resource type="Script" path="res://Resources/inventory_requirement.gd" id="6_vb4kk"]
+[ext_resource type="Script" uid="uid://b2guegrivornf" path="res://Components/InteractionArea/InventoryRequirementInteractionArea/inventory_requirement_interaction_area.gd" id="3_epj6w"]
+[ext_resource type="Script" uid="uid://bviplh42sb2sb" path="res://Resources/item_data.gd" id="4_6gc8i"]
+[ext_resource type="Script" uid="uid://dvclds4rayld8" path="res://Resources/inventory_requirement.gd" id="6_vb4kk"]
 
 [sub_resource type="Resource" id="Resource_urhk1"]
 resource_local_to_scene = true
