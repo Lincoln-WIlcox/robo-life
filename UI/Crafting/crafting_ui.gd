@@ -34,9 +34,12 @@ func update_nodes() -> void:
 func creating_crafting_row(crafting_recipe: CraftingRecipe) -> void:
 	var crafting_row: CraftingRow = crafting_row_packed_scene.instantiate()
 	crafting_row.crafting_recipe = crafting_recipe
-	crafting_row.disabled = not player_inventory.meets_requirements(crafting_recipe.requirement) and (player_inventory.can_add_addition(crafting_recipe.inventory_addition) or shelter_inventory.can_add_addition(crafting_recipe.inventory_addition))
+	crafting_row.disabled = crafting_row_disabled(crafting_recipe)
 	crafting_row.craft_pressed.connect(_on_crafting_row_craft_pressed)
 	crafting_rows_container.add_child(crafting_row)
+
+func crafting_row_disabled(crafting_recipe: CraftingRecipe) -> bool:
+	return (not player_inventory.meets_requirements(crafting_recipe.requirement)) or (not player_inventory.can_add_addition(crafting_recipe.inventory_addition) and not shelter_inventory.can_add_addition(crafting_recipe.inventory_addition))
 
 func _on_crafting_row_craft_pressed(crafting_recipe: CraftingRecipe):
 	if player_inventory.meets_requirements(crafting_recipe.requirement):
