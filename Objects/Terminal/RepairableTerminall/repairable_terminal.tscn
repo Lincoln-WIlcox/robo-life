@@ -1,0 +1,47 @@
+[gd_scene load_steps=11 format=3 uid="uid://mcu533bsrbcr"]
+
+[ext_resource type="PackedScene" uid="uid://cotjlwqe7bhhs" path="res://Objects/Terminal/terminal.tscn" id="1_qyywd"]
+[ext_resource type="Script" uid="uid://c68wfnl7df56x" path="res://Objects/Terminal/RepairableTerminall/repairable_terminal.gd" id="2_vij5a"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="3_6x56n"]
+[ext_resource type="PackedScene" uid="uid://b7qfrcuaghpqn" path="res://Components/InteractionArea/InventoryRequirementInteractionArea/inventory_requirement_interaction_area.tscn" id="3_b0ijd"]
+[ext_resource type="Script" uid="uid://bviplh42sb2sb" path="res://Resources/item_data.gd" id="4_6x56n"]
+[ext_resource type="Script" uid="uid://dvclds4rayld8" path="res://Resources/inventory_requirement.gd" id="5_sevbc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sevbc"]
+atlas = ExtResource("3_6x56n")
+region = Rect2(176, 200, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0ijd"]
+atlas = ExtResource("3_6x56n")
+region = Rect2(160, 200, 16, 24)
+
+[sub_resource type="Resource" id="Resource_ybp30"]
+script = ExtResource("5_sevbc")
+batteries_cost = 0
+steel_cost = 0
+costs_items = Array[ExtResource("4_6x56n")]([])
+requires_items = Array[ExtResource("4_6x56n")]([])
+metadata/_custom_type_script = "uid://dvclds4rayld8"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uuxmq"]
+size = Vector2(16, 24)
+
+[node name="RepairableTerminal" instance=ExtResource("1_qyywd")]
+script = ExtResource("2_vij5a")
+steel_cost = 5
+repaired_terminal_texture = SubResource("AtlasTexture_sevbc")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = SubResource("AtlasTexture_b0ijd")
+
+[node name="InteractionArea" parent="." index="1"]
+disabled = true
+
+[node name="InventoryRequirementInteractionArea" parent="." index="2" instance=ExtResource("3_b0ijd")]
+position = Vector2(0, 4)
+inventory_requirement = SubResource("Resource_ybp30")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InventoryRequirementInteractionArea" index="0"]
+shape = SubResource("RectangleShape2D_uuxmq")
+
+[connection signal="requirements_met" from="InventoryRequirementInteractionArea" to="." method="_on_inventory_requirement_interaction_area_requirements_met"]

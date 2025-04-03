@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://cotjlwqe7bhhs"]
+
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="1_d3axn"]
+[ext_resource type="Script" uid="uid://bo3pwghkwd55u" path="res://Objects/Terminal/terminal.gd" id="1_lwyyf"]
+[ext_resource type="Script" uid="uid://biod2mi4426mb" path="res://Components/InteractionArea/interaction_area.gd" id="2_lwyyf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwyyf"]
+atlas = ExtResource("1_d3axn")
+region = Rect2(176, 200, 16, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_assdn"]
+size = Vector2(16, 24)
+
+[node name="Terminal" type="Node2D"]
+script = ExtResource("1_lwyyf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 4)
+texture = SubResource("AtlasTexture_lwyyf")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+position = Vector2(0, 4)
+script = ExtResource("2_lwyyf")
+metadata/_custom_type_script = "uid://biod2mi4426mb"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("RectangleShape2D_assdn")
+
+[connection signal="interacted_with" from="InteractionArea" to="." method="_on_interaction_area_interacted_with"]
