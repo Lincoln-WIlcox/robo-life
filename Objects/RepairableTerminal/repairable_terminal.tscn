@@ -1,0 +1,54 @@
+[gd_scene load_steps=11 format=3 uid="uid://1mmkabouoqtl"]
+
+[ext_resource type="Script" uid="uid://u2vvomvxhnpp" path="res://Objects/RepairableTerminal/repairable_terminal.gd" id="1_0h4br"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_wf2aa"]
+[ext_resource type="PackedScene" uid="uid://b7qfrcuaghpqn" path="res://Components/InteractionArea/InventoryRequirementInteractionArea/inventory_requirement_interaction_area.tscn" id="3_eij03"]
+[ext_resource type="Script" uid="uid://bviplh42sb2sb" path="res://Resources/item_data.gd" id="4_3qskk"]
+[ext_resource type="Script" uid="uid://dvclds4rayld8" path="res://Resources/inventory_requirement.gd" id="5_f32cs"]
+[ext_resource type="Script" uid="uid://biod2mi4426mb" path="res://Components/InteractionArea/interaction_area.gd" id="6_3qskk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eij03"]
+atlas = ExtResource("2_wf2aa")
+region = Rect2(176, 200, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_emqeq"]
+atlas = ExtResource("2_wf2aa")
+region = Rect2(160, 200, 16, 24)
+
+[sub_resource type="Resource" id="Resource_w1302"]
+script = ExtResource("5_f32cs")
+batteries_cost = 0
+steel_cost = 0
+costs_items = Array[ExtResource("4_3qskk")]([])
+requires_items = Array[ExtResource("4_3qskk")]([])
+metadata/_custom_type_script = "uid://dvclds4rayld8"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wg7a5"]
+size = Vector2(16, 24)
+
+[node name="RepairableTerminal" type="Node2D"]
+script = ExtResource("1_0h4br")
+repaired_terminal_texture = SubResource("AtlasTexture_eij03")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, 12)
+texture = SubResource("AtlasTexture_emqeq")
+
+[node name="InventoryRequirementInteractionArea" parent="." instance=ExtResource("3_eij03")]
+inventory_requirement = SubResource("Resource_w1302")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InventoryRequirementInteractionArea"]
+position = Vector2(8, 12)
+shape = SubResource("RectangleShape2D_wg7a5")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+position = Vector2(8, 12)
+script = ExtResource("6_3qskk")
+disabled = true
+metadata/_custom_type_script = "uid://biod2mi4426mb"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("RectangleShape2D_wg7a5")
+
+[connection signal="requirements_met" from="InventoryRequirementInteractionArea" to="." method="_on_inventory_requirement_interaction_area_requirements_met"]
+[connection signal="interacted_with" from="InteractionArea" to="." method="_on_interaction_area_interacted_with"]
