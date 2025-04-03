@@ -9,6 +9,7 @@ const MAP_BOX_OFFSET = Vector2(10, 10)
 @onready var map_view_handler: Node = $MapViewHandler
 @onready var node_to_put_map_in: Node2D = $MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer
 @onready var fog: TileMapLayer = $MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer/Fog
+@onready var power_line_drawer = $MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer/PowerLineDrawer
 @onready var fog_handler: Node = $FogOfWarHandler
 
 var _representing_map_data: MapData
@@ -22,7 +23,7 @@ func _ready():
 
 func clear_map() -> void:
 	for node in node_to_put_map_in.get_children():
-		if node != fog:
+		if node != fog and node != power_line_drawer:
 			node.queue_free()
 	map_changed.emit()
 

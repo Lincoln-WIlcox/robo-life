@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://mwe43y7dhjg"]
 
 [ext_resource type="PackedScene" uid="uid://nifofmv4xqni" path="res://UI/Map/power_pole_selection_map.tscn" id="1_0va26"]
-[ext_resource type="Script" path="res://UI/TransportBucketUI/transport_bucket_ui.gd" id="1_n5wvg"]
-[ext_resource type="Script" path="res://UI/TransportBucketUI/food_transfer_handler.gd" id="2_7q70e"]
+[ext_resource type="Script" uid="uid://bfgqwehdg6bu4" path="res://UI/TransportBucketUI/transport_bucket_ui.gd" id="1_n5wvg"]
+[ext_resource type="Script" uid="uid://cpv754wuar4oi" path="res://UI/TransportBucketUI/food_transfer_handler.gd" id="2_7q70e"]
 [ext_resource type="PackedScene" uid="uid://eg4r6pex37fh" path="res://UI/TwoInventoryInterfaces/two_inventory_interfaces.tscn" id="2_mnctn"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="5_3j24q"]
 

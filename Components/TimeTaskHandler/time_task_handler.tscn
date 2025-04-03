@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cy2f85iqat6q0"]
 
-[ext_resource type="Script" path="res://Components/TimeTaskHandler/time_task_handler.gd" id="1_w7lw1"]
+[ext_resource type="Script" uid="uid://k56vr57ckxdb" path="res://Components/TimeTaskHandler/time_task_handler.gd" id="1_w7lw1"]
 
 [node name="TimeTaskHandler" type="Node2D"]
 script = ExtResource("1_w7lw1")

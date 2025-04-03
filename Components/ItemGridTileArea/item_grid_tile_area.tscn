@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b5ux0a1ldgf60"]
 
-[ext_resource type="Script" path="res://Components/ItemGridTileArea/item_grid_tile_area.gd" id="1_upy4d"]
+[ext_resource type="Script" uid="uid://ckpc6tjadap03" path="res://Components/ItemGridTileArea/item_grid_tile_area.gd" id="1_upy4d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p6o2e"]
 size = Vector2(48, 48)

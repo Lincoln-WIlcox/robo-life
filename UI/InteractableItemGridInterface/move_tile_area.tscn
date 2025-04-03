@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhwyldylayefs"]
+
+[ext_resource type="Script" uid="uid://b18co1bi0axlj" path="res://UI/InteractableItemGridInterface/move_tile_area.gd" id="1_3rjfj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iph3j"]
+size = Vector2(64, 64)
+
+[node name="MoveTileArea" type="Area2D"]
+collision_layer = 256
+collision_mask = 256
+script = ExtResource("1_3rjfj")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 64.0
+offset_bottom = 64.0
+color = Color(1, 1, 1, 0.337255)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(32, 32)
+shape = SubResource("RectangleShape2D_iph3j")

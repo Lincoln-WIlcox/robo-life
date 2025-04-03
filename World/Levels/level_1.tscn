@@ -1,8 +1,8 @@
-[gd_scene load_steps=46 format=4 uid="uid://4hdu5f7ikd0h"]
+[gd_scene load_steps=41 format=4 uid="uid://4hdu5f7ikd0h"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_s0fbl"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_52sld"]
-[ext_resource type="Script" path="res://Resources/MapData/map_texture.gd" id="3_67wrv"]
+[ext_resource type="Script" uid="uid://c1ol66hrqye82" path="res://Resources/MapData/map_texture.gd" id="3_67wrv"]
 [ext_resource type="PackedScene" uid="uid://uusfotp1xgjx" path="res://Objects/Spike/spike.tscn" id="5_a1p1l"]
 [ext_resource type="TileSet" uid="uid://b2ajxli8pwv36" path="res://Resources/TileSets/level_1.tres" id="6_3k4c5"]
 [ext_resource type="PackedScene" uid="uid://bni6clyp4sg3" path="res://Objects/RockBarrier/rock_barrier.tscn" id="9_d0j2f"]
@@ -23,13 +23,10 @@
 [ext_resource type="PackedScene" uid="uid://cunc28rnr20cj" path="res://Characters/Enemies/BasicEnemy/basic_enemy.tscn" id="19_q2u7d"]
 [ext_resource type="PackedScene" uid="uid://g1jj5acjo7c5" path="res://Objects/GravityWalkOverItemPickup/gravity_walk_over_item_pickup_food.tscn" id="20_gpwbd"]
 [ext_resource type="PackedScene" uid="uid://sm5rnfdhpnwf" path="res://UI/Map/MapScenes/SelectablePowerPole/selectable_power_pole.tscn" id="20_r4v6s"]
-[ext_resource type="Script" path="res://Resources/MapData/selectable_map_entity.gd" id="21_d0twq"]
-[ext_resource type="Script" path="res://Resources/QueryableEntity/queryable_entity.gd" id="22_gd8f5"]
+[ext_resource type="Script" uid="uid://xi5ukiv7cagg" path="res://Resources/MapData/selectable_map_entity.gd" id="21_d0twq"]
+[ext_resource type="Script" uid="uid://xetarse0cq0o" path="res://Resources/QueryableEntity/queryable_entity.gd" id="22_gd8f5"]
 [ext_resource type="PackedScene" uid="uid://bgqgiy1o0dn8e" path="res://Objects/TransportBucket/transport_bucket.tscn" id="26_bh01c"]
-[ext_resource type="Script" path="res://Resources/item_grid_item.gd" id="27_5a316"]
-[ext_resource type="Script" path="res://Resources/item_grid.gd" id="28_7amgo"]
-[ext_resource type="Resource" uid="uid://b3au5vg63nxkc" path="res://Resources/Items/power_pole.tres" id="28_kmwnn"]
-[ext_resource type="Script" path="res://Resources/inventory.gd" id="29_6vhaj"]
+[ext_resource type="Script" uid="uid://bg5ne6c0ge6gv" path="res://Resources/inventory.gd" id="29_6vhaj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_evjoi"]
 atlas = ExtResource("2_52sld")
@@ -94,23 +91,12 @@ display_texture = SubResource("AtlasTexture_jxiwm")
 z_index = 0
 scale = Vector2(1, 1)
 
-[sub_resource type="Resource" id="Resource_o0nwn"]
-script = ExtResource("27_5a316")
-item_data = ExtResource("28_kmwnn")
-position = Vector2i(2, 1)
-
-[sub_resource type="Resource" id="Resource_k53ns"]
-script = ExtResource("28_7amgo")
-size = Vector2i(3, 3)
-initial_items = Array[ExtResource("27_5a316")]([SubResource("Resource_o0nwn"), SubResource("Resource_o0nwn")])
-
 [sub_resource type="Resource" id="Resource_dyyfr"]
 script = ExtResource("29_6vhaj")
 batteries = 0
 steel = 0
-initial_food = 0
+food = 0
 max_food = 50
-initial_item_grid = SubResource("Resource_k53ns")
 
 [node name="Level1" instance=ExtResource("1_s0fbl")]
 

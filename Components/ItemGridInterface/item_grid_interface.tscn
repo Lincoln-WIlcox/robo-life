@@ -1,0 +1,62 @@
+[gd_scene load_steps=14 format=3 uid="uid://b8f0re3ap8qjk"]
+
+[ext_resource type="Script" uid="uid://cyscn7uoqb5mf" path="res://Components/ItemGridInterface/item_grid_interface.gd" id="1_dg0oh"]
+[ext_resource type="PackedScene" uid="uid://b7ewdl311174v" path="res://Components/ItemGridInterface/ItemGridEmptyTile/empty_tile.tscn" id="2_uyc1s"]
+[ext_resource type="PackedScene" uid="uid://cikhx27twofld" path="res://Components/ItemGridInterface/ItemGridMarginTile/margin_tile.tscn" id="3_6xqnk"]
+[ext_resource type="PackedScene" uid="uid://cfw0j8ooks5wq" path="res://Components/ItemGridInterface/ItemGridItemTile/item_grid_item_tile.tscn" id="4_cgvh2"]
+[ext_resource type="Script" uid="uid://rvwny5vq4uhf" path="res://Resources/item_grid_item.gd" id="5_f4w77"]
+[ext_resource type="Resource" uid="uid://bckiex7mctva7" path="res://Resources/Items/drill.tres" id="6_8sgah"]
+[ext_resource type="Resource" uid="uid://pbpprwkoi5ph" path="res://Resources/Items/structural_stabilizer.tres" id="7_vgki5"]
+[ext_resource type="Resource" uid="uid://di5ihtaupovf3" path="res://Resources/Items/deployable_ladder.tres" id="8_6xqnk"]
+[ext_resource type="Script" uid="uid://cdp7s6pjgskwb" path="res://Resources/item_grid.gd" id="8_fuik7"]
+
+[sub_resource type="Resource" id="Resource_or2bx"]
+script = ExtResource("5_f4w77")
+item_data = ExtResource("6_8sgah")
+position = Vector2i(0, 0)
+metadata/_custom_type_script = "uid://rvwny5vq4uhf"
+
+[sub_resource type="Resource" id="Resource_ohtay"]
+script = ExtResource("5_f4w77")
+item_data = ExtResource("7_vgki5")
+position = Vector2i(3, 3)
+metadata/_custom_type_script = "uid://rvwny5vq4uhf"
+
+[sub_resource type="Resource" id="Resource_cgvh2"]
+script = ExtResource("5_f4w77")
+item_data = ExtResource("8_6xqnk")
+position = Vector2i(3, 1)
+metadata/_custom_type_script = "uid://rvwny5vq4uhf"
+
+[sub_resource type="Resource" id="Resource_kbdyt"]
+script = ExtResource("8_fuik7")
+size = Vector2i(6, 4)
+initial_items = Array[ExtResource("5_f4w77")]([SubResource("Resource_or2bx"), SubResource("Resource_ohtay"), SubResource("Resource_cgvh2")])
+metadata/_custom_type_script = "uid://cdp7s6pjgskwb"
+
+[node name="ItemGridInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dg0oh")
+empty_tile_packed_scene = ExtResource("2_uyc1s")
+margin_tile_packed_scene = ExtResource("3_6xqnk")
+display_tile_packed_scene = ExtResource("4_cgvh2")
+item_grid = SubResource("Resource_kbdyt")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="GridContainer" type="GridContainer" parent="CenterContainer"]
+layout_mode = 2
+mouse_filter = 2
+columns = 4

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bsg04qq855kqx"]
 
-[ext_resource type="Script" path="res://Components/ItemSpawner/item_spawner.gd" id="1_6715m"]
+[ext_resource type="Script" uid="uid://cecwulxg1xqs7" path="res://Components/ItemSpawner/item_spawner.gd" id="1_6715m"]
 [ext_resource type="PackedScene" uid="uid://cmog2buogarup" path="res://Objects/ItemPickup/item_pickup.tscn" id="2_1p6j6"]
 
 [node name="ItemSpawner" type="Node2D"]

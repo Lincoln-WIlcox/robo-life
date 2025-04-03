@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b6lhkvvfn2odv"]
 
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="1_kpklp"]
-[ext_resource type="Script" path="res://Characters/Enemies/NightRobot/night_robot.gd" id="1_rlvpq"]
+[ext_resource type="Script" uid="uid://cgpqmftgf42o1" path="res://Characters/Enemies/NightRobot/night_robot.gd" id="1_rlvpq"]
 [ext_resource type="PackedScene" uid="uid://lxxl844xt4sk" path="res://Components/VelocityComponent/velocity_component.tscn" id="2_bwq8y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_87a86"]

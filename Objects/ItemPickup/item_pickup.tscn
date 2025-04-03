@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cmog2buogarup"]
 
-[ext_resource type="Script" path="res://Objects/ItemPickup/item_pickup.gd" id="1_eoq0x"]
+[ext_resource type="Script" uid="uid://cwm2sk4wc8380" path="res://Objects/ItemPickup/item_pickup.gd" id="1_eoq0x"]
 [ext_resource type="PackedScene" uid="uid://cjca7t0u41kqs" path="res://Components/InteractionArea/ItemPickupInteractionArea/item_collect_interaction_area.tscn" id="2_mftoj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k3wwr"]

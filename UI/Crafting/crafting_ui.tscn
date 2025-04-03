@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://wgwi4qdwfkaq"]
 
-[ext_resource type="Script" path="res://UI/Crafting/crafting_ui.gd" id="1_ab6bm"]
+[ext_resource type="Script" uid="uid://ck1nfy4wpj8ss" path="res://UI/Crafting/crafting_ui.gd" id="1_ab6bm"]
 [ext_resource type="Resource" uid="uid://d2daim5btky2m" path="res://Resources/CraftingRecipes/power_pole_recipe.tres" id="2_23ils"]
-[ext_resource type="Script" path="res://Resources/crafting_recipe.gd" id="2_gssuj"]
+[ext_resource type="Script" uid="uid://csa8146ayyeyl" path="res://Resources/crafting_recipe.gd" id="2_gssuj"]
 [ext_resource type="PackedScene" uid="uid://i18bwfti3ecg" path="res://UI/Crafting/crafting_row.tscn" id="2_ibjwy"]
 [ext_resource type="Resource" uid="uid://rrx5jsdom0ee" path="res://Resources/CraftingRecipes/drill_recipe.tres" id="3_r8meb"]
 [ext_resource type="Resource" uid="uid://dnsrdyywy76m" path="res://Resources/CraftingRecipes/deployable_ladder_recipe.tres" id="4_lmltp"]

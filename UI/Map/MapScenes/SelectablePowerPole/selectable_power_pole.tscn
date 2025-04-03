@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://sm5rnfdhpnwf"]
 
-[ext_resource type="Script" path="res://UI/Map/MapScenes/SelectablePowerPole/selectable_power_pole.gd" id="1_as2jj"]
+[ext_resource type="Script" uid="uid://c2rydwmm03d56" path="res://UI/Map/MapScenes/SelectablePowerPole/selectable_power_pole.gd" id="1_as2jj"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_f5yvj"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vdh2h"]

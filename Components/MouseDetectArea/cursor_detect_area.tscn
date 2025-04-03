@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dgsqt81g28ys"]
 
-[ext_resource type="Script" path="res://Components/MouseDetectArea/cursor_detect_area.gd" id="1_rijxy"]
+[ext_resource type="Script" uid="uid://duwqviyjcaihe" path="res://Components/MouseDetectArea/cursor_detect_area.gd" id="1_rijxy"]
 
 [node name="CursorDetectArea" type="Area2D"]
 collision_mask = 16

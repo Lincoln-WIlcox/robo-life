@@ -1,42 +1,42 @@
 [gd_scene load_steps=42 format=3 uid="uid://dw2fqgynxjcit"]
 
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/player_character_controller.gd" id="1_bw5ol"]
+[ext_resource type="Script" uid="uid://c60acows37ws5" path="res://Characters/Player/PlayerCharacterController/player_character_controller.gd" id="1_bw5ol"]
 [ext_resource type="PackedScene" uid="uid://by3dehhgwxdqr" path="res://Objects/Shield/shield.tscn" id="2_ipind"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/laser_gun_handler.gd" id="2_paldi"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shield_rotation_pivot.gd" id="2_rrboe"]
+[ext_resource type="Script" uid="uid://uelrcygo1aq7" path="res://Characters/Player/PlayerCharacterController/laser_gun_handler.gd" id="2_paldi"]
+[ext_resource type="Script" uid="uid://bpjqtb4g8lip6" path="res://Characters/Player/PlayerCharacterController/shield_rotation_pivot.gd" id="2_rrboe"]
 [ext_resource type="PackedScene" uid="uid://d1kvhwjb0iy8m" path="res://Characters/Player/player_character.tscn" id="2_u8dgg"]
 [ext_resource type="PackedScene" uid="uid://c2nwpx3t8tmc0" path="res://Components/StateMachine/state_machine.tscn" id="3_aoc7a"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="3_wtset"]
-[ext_resource type="Script" path="res://Resources/MapData/map_texture.gd" id="3_xy8oe"]
+[ext_resource type="Script" uid="uid://c1ol66hrqye82" path="res://Resources/MapData/map_texture.gd" id="3_xy8oe"]
 [ext_resource type="PackedScene" uid="uid://cx1e5ov1byhig" path="res://Components/MapTextureUpdater/map_texture_updater.tscn" id="4_5f3iy"]
 [ext_resource type="Resource" uid="uid://bem4gymr67uoh" path="res://Resources/Items/transport_bucket.tres" id="4_6c5nd"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/none_state.gd" id="4_7is3e"]
-[ext_resource type="Script" path="res://Resources/inventory.gd" id="4_d214o"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/player_shield_handler.gd" id="4_j00oc"]
-[ext_resource type="Script" path="res://Resources/item_grid.gd" id="4_saie0"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/transport_bucket_placement_handler.gd" id="4_u31iq"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/sector_handler.gd" id="4_vjnlu"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/power_pole_placement_handler.gd" id="4_x3qr7"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/inventory_state.gd" id="5_fsdf8"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/placing_object_state.gd" id="6_1j2hy"]
-[ext_resource type="Script" path="res://Resources/item_grid_item.gd" id="7_45g5n"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/pickup_stuff_handler.gd" id="7_bmrc0"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/handle_placing_object.gd" id="8_4yuco"]
+[ext_resource type="Script" uid="uid://81tk6m115s2h" path="res://Characters/Player/PlayerCharacterController/none_state.gd" id="4_7is3e"]
+[ext_resource type="Script" uid="uid://bg5ne6c0ge6gv" path="res://Resources/inventory.gd" id="4_d214o"]
+[ext_resource type="Script" uid="uid://cejj3d0bd7g4y" path="res://Characters/Player/PlayerCharacterController/player_shield_handler.gd" id="4_j00oc"]
+[ext_resource type="Script" uid="uid://cdp7s6pjgskwb" path="res://Resources/item_grid.gd" id="4_saie0"]
+[ext_resource type="Script" uid="uid://gnqykdfubpqs" path="res://Characters/Player/PlayerCharacterController/transport_bucket_placement_handler.gd" id="4_u31iq"]
+[ext_resource type="Script" uid="uid://bkn8hcp4iqdgj" path="res://Characters/Player/PlayerCharacterController/sector_handler.gd" id="4_vjnlu"]
+[ext_resource type="Script" uid="uid://dhpc7exojy7s8" path="res://Characters/Player/PlayerCharacterController/power_pole_placement_handler.gd" id="4_x3qr7"]
+[ext_resource type="Script" uid="uid://bw3pdxxauxynu" path="res://Characters/Player/PlayerCharacterController/inventory_state.gd" id="5_fsdf8"]
+[ext_resource type="Script" uid="uid://dty71uff5eh3i" path="res://Characters/Player/PlayerCharacterController/placing_object_state.gd" id="6_1j2hy"]
+[ext_resource type="Script" uid="uid://rvwny5vq4uhf" path="res://Resources/item_grid_item.gd" id="7_45g5n"]
+[ext_resource type="Script" uid="uid://k1rijaj3sokv" path="res://Characters/Player/PlayerCharacterController/pickup_stuff_handler.gd" id="7_bmrc0"]
+[ext_resource type="Script" uid="uid://cslvebpokvfhg" path="res://Characters/Player/PlayerCharacterController/handle_placing_object.gd" id="8_4yuco"]
 [ext_resource type="PackedScene" uid="uid://buke53aipiw0n" path="res://UI/PlayerInventoryUI/player_inventory_ui.tscn" id="9_1p1ww"]
 [ext_resource type="PackedScene" uid="uid://b0pmkjnlnl8p0" path="res://Objects/LaserGun/laser_gun.tscn" id="9_03qrv"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_state.gd" id="10_0syx4"]
+[ext_resource type="Script" uid="uid://dnheer8illebj" path="res://Characters/Player/PlayerCharacterController/shelter_state.gd" id="10_0syx4"]
 [ext_resource type="PackedScene" uid="uid://v7qso20aqmk5" path="res://UI/ShelterUI/shelter_ui.tscn" id="12_vxdl5"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_none.gd" id="13_itu6i"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_ui.gd" id="13_v1eve"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/shelter_crafting.gd" id="15_0w8mt"]
+[ext_resource type="Script" uid="uid://c5pdsqx8v5r4b" path="res://Characters/Player/PlayerCharacterController/shelter_none.gd" id="13_itu6i"]
+[ext_resource type="Script" uid="uid://cq2xap6tdcs2f" path="res://Characters/Player/PlayerCharacterController/shelter_ui.gd" id="13_v1eve"]
+[ext_resource type="Script" uid="uid://cu3b67nkuokj2" path="res://Characters/Player/PlayerCharacterController/shelter_crafting.gd" id="15_0w8mt"]
 [ext_resource type="PackedScene" uid="uid://wgwi4qdwfkaq" path="res://UI/Crafting/crafting_ui.tscn" id="16_yn3tl"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/other.gd" id="18_ysl17"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/map.gd" id="21_hxwre"]
+[ext_resource type="Script" uid="uid://c8wu1lijruw3t" path="res://Characters/Player/PlayerCharacterController/other.gd" id="18_ysl17"]
+[ext_resource type="Script" uid="uid://dhrmftbiulnyk" path="res://Characters/Player/PlayerCharacterController/map.gd" id="21_hxwre"]
 [ext_resource type="PackedScene" uid="uid://cfhvw7mmxv7dy" path="res://UI/Map/map.tscn" id="22_hokhb"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/warp_state.gd" id="28_q4vny"]
+[ext_resource type="Script" uid="uid://c88ggr4g6c87q" path="res://Characters/Player/PlayerCharacterController/warp_state.gd" id="28_q4vny"]
 [ext_resource type="PackedScene" uid="uid://cv7qwkdsdis5l" path="res://UI/ShelterUI/ShelterWarpUI/shelter_warp_ui.tscn" id="29_sis4p"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/cursor_interaction_handler.gd" id="32_emp26"]
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/warp_handler.gd" id="38_fnqtp"]
+[ext_resource type="Script" uid="uid://duyup100cdbv2" path="res://Characters/Player/PlayerCharacterController/cursor_interaction_handler.gd" id="32_emp26"]
+[ext_resource type="Script" uid="uid://dwha0dvlf2ssq" path="res://Characters/Player/PlayerCharacterController/warp_handler.gd" id="38_fnqtp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_evjoi"]
 atlas = ExtResource("3_wtset")
@@ -49,20 +49,20 @@ display_texture = SubResource("AtlasTexture_evjoi")
 z_index = 1
 scale = Vector2(2, 2)
 
-[sub_resource type="Resource" id="Resource_q0cky"]
+[sub_resource type="Resource" id="Resource_lbej1"]
 resource_local_to_scene = true
 script = ExtResource("4_saie0")
 size = Vector2i(3, 3)
 initial_items = Array[ExtResource("7_45g5n")]([])
 
-[sub_resource type="Resource" id="Resource_rnpev"]
+[sub_resource type="Resource" id="Resource_s13k6"]
 resource_local_to_scene = true
 script = ExtResource("4_d214o")
 batteries = 0
 steel = 0
 food = 0
 max_food = 5
-item_grid = SubResource("Resource_q0cky")
+item_grid = SubResource("Resource_lbej1")
 
 [node name="PlayerCharacterController" type="Node2D"]
 script = ExtResource("1_bw5ol")
@@ -99,7 +99,7 @@ player_character = NodePath("../PlayerCharacter")
 laser_gun = NodePath("../LaserGun")
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("2_u8dgg")]
-inventory = SubResource("Resource_rnpev")
+inventory = SubResource("Resource_s13k6")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_callback = 0

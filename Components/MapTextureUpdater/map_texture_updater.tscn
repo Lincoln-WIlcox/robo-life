@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cx1e5ov1byhig"]
 
-[ext_resource type="Script" path="res://Characters/Player/PlayerCharacterController/map_texture_handler.gd" id="1_y2h3p"]
+[ext_resource type="Script" uid="uid://byvb3eb3kd47r" path="res://Characters/Player/PlayerCharacterController/map_texture_handler.gd" id="1_y2h3p"]
 
 [node name="MapTextureUpdater" type="Node"]
 script = ExtResource("1_y2h3p")

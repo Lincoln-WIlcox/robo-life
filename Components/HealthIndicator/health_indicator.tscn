@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dk8ly2h53jrty"]
 
-[ext_resource type="Script" path="res://Components/HealthIndicator/health_indicator.gd" id="1_0hwo4"]
+[ext_resource type="Script" uid="uid://b1mtpqvqwjj2n" path="res://Components/HealthIndicator/health_indicator.gd" id="1_0hwo4"]
 
 [node name="HealthIndicator" type="Label"]
 offset_right = 40.0

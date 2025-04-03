@@ -1,16 +1,16 @@
 [gd_scene load_steps=20 format=3 uid="uid://cxeqrhjq4hahf"]
 
-[ext_resource type="Script" path="res://Objects/DamagedUnit/damaged_unit.gd" id="1_omhqs"]
+[ext_resource type="Script" uid="uid://c2ja7aqukydwm" path="res://Objects/DamagedUnit/damaged_unit.gd" id="1_omhqs"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="2_6ua60"]
-[ext_resource type="Script" path="res://Resources/MapData/map_texture.gd" id="3_sxk2a"]
+[ext_resource type="Script" uid="uid://c1ol66hrqye82" path="res://Resources/MapData/map_texture.gd" id="3_sxk2a"]
 [ext_resource type="PackedScene" uid="uid://b0qvmacfrffh2" path="res://Components/PlaceItemInteractable/place_item_interactable.tscn" id="3_vud1t"]
 [ext_resource type="Resource" uid="uid://pbpprwkoi5ph" path="res://Resources/Items/structural_stabilizer.tres" id="4_abjnd"]
-[ext_resource type="Script" path="res://Objects/DamagedUnit/transport_bucket_arrival_handler.gd" id="4_nilyu"]
-[ext_resource type="Script" path="res://Resources/QueryableEntity/transport_bucket_destination_selection_queryable_entity.gd" id="4_nwvho"]
+[ext_resource type="Script" uid="uid://c8lfqmh5jky0l" path="res://Objects/DamagedUnit/transport_bucket_arrival_handler.gd" id="4_nilyu"]
+[ext_resource type="Script" uid="uid://oksv2oda1t17" path="res://Resources/QueryableEntity/transport_bucket_destination_selection_queryable_entity.gd" id="4_nwvho"]
 [ext_resource type="PackedScene" uid="uid://cihd7i38vg5st" path="res://UI/Map/MapScenes/SelectableMapScene/selectable_map_scene.tscn" id="5_0wy3g"]
 [ext_resource type="PackedScene" uid="uid://cy2f85iqat6q0" path="res://Components/TimeTaskHandler/time_task_handler.tscn" id="5_ab4d3"]
 [ext_resource type="PackedScene" uid="uid://g0qwgikclavs" path="res://Characters/Player/power_consumer.tscn" id="6_4r42e"]
-[ext_resource type="Script" path="res://Resources/MapData/selectable_map_entity.gd" id="6_i3mcc"]
+[ext_resource type="Script" uid="uid://xi5ukiv7cagg" path="res://Resources/MapData/selectable_map_entity.gd" id="6_i3mcc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ofop4"]
 atlas = ExtResource("2_6ua60")

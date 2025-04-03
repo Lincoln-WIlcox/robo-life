@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="CraftingRecipe" load_steps=8 format=3 uid="uid://cm8juyxrueqko"]
 
-[ext_resource type="Script" path="res://Resources/crafting_recipe.gd" id="1_qevwf"]
-[ext_resource type="Script" path="res://Resources/item_data.gd" id="1_sgdcw"]
+[ext_resource type="Script" uid="uid://csa8146ayyeyl" path="res://Resources/crafting_recipe.gd" id="1_qevwf"]
+[ext_resource type="Script" uid="uid://bviplh42sb2sb" path="res://Resources/item_data.gd" id="1_sgdcw"]
 [ext_resource type="Resource" uid="uid://pbpprwkoi5ph" path="res://Resources/Items/structural_stabilizer.tres" id="2_bb1wj"]
-[ext_resource type="Script" path="res://Resources/inventory_addition.gd" id="3_ckdnn"]
-[ext_resource type="Script" path="res://Resources/inventory_requirement.gd" id="4_cl8xk"]
+[ext_resource type="Script" uid="uid://ctcb4av5ecd5o" path="res://Resources/inventory_addition.gd" id="3_ckdnn"]
+[ext_resource type="Script" uid="uid://dvclds4rayld8" path="res://Resources/inventory_requirement.gd" id="4_cl8xk"]
 
 [sub_resource type="Resource" id="Resource_lu561"]
 script = ExtResource("3_ckdnn")

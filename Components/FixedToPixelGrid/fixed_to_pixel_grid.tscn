@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://du8phtqclxy77"]
 
-[ext_resource type="Script" path="res://Components/FixedToPixelGrid/FixedToPixelGrid.gd" id="1_hjtvj"]
+[ext_resource type="Script" uid="uid://c64p43ewdsqmo" path="res://Components/FixedToPixelGrid/FixedToPixelGrid.gd" id="1_hjtvj"]
 
 [node name="FixedToPixelGrid" type="Node2D"]
 script = ExtResource("1_hjtvj")

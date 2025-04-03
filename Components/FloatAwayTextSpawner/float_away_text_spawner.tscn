@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://xnd8ne8fypg3"]
 
-[ext_resource type="Script" path="res://Components/FloatAwayTextSpawner/float_away_text_spawner.gd" id="1_6ijbf"]
+[ext_resource type="Script" uid="uid://cmlmc2nqn21uy" path="res://Components/FloatAwayTextSpawner/float_away_text_spawner.gd" id="1_6ijbf"]
 [ext_resource type="PackedScene" uid="uid://do3lt61x3sp61" path="res://Objects/FloatAwayText/float_away_text.tscn" id="2_f3u3v"]
 
 [node name="FloatAwayTextSpawner" type="Marker2D"]

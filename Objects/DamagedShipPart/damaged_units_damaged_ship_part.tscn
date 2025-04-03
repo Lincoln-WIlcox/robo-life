@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://c4rih6s7igrrh"]
 
 [ext_resource type="PackedScene" uid="uid://cl1nq1hmkcwg0" path="res://Objects/DamagedShipPart/damaged_ship_part.tscn" id="1_h1dnf"]
-[ext_resource type="Script" path="res://Objects/DamagedShipPart/damaged_units_damaged_ship_part.gd" id="2_3728v"]
-[ext_resource type="Script" path="res://Objects/DamagedShipPart/player_detector.gd" id="5_dji1c"]
+[ext_resource type="Script" uid="uid://c2bbpvbu2avb1" path="res://Objects/DamagedShipPart/damaged_units_damaged_ship_part.gd" id="2_3728v"]
+[ext_resource type="Script" uid="uid://c5caoethpinh2" path="res://Objects/DamagedShipPart/player_detector.gd" id="5_dji1c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o3qx8"]
 radius = 208.0

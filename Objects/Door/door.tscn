@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bf3k02fdggn06"]
 
-[ext_resource type="Script" path="res://Objects/Door/door.gd" id="1_rqneq"]
+[ext_resource type="Script" uid="uid://b1hhipqhdrj6d" path="res://Objects/Door/door.gd" id="1_rqneq"]
 
 [sub_resource type="Animation" id="Animation_q4c1c"]
 length = 0.001
@@ -51,9 +51,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1k4jk"]
 _data = {
-"RESET": SubResource("Animation_q4c1c"),
-"SlideDoorDown": SubResource("Animation_j368a"),
-"SlideDoorUp": SubResource("Animation_xt0eq")
+&"RESET": SubResource("Animation_q4c1c"),
+&"SlideDoorDown": SubResource("Animation_j368a"),
+&"SlideDoorUp": SubResource("Animation_xt0eq")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1nt0i"]

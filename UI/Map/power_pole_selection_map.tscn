@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://nifofmv4xqni"]
 
-[ext_resource type="Script" path="res://UI/Map/power_pole_selection_map.gd" id="1_7xxns"]
+[ext_resource type="Script" uid="uid://uhp0w1lj8tfb" path="res://UI/Map/power_pole_selection_map.gd" id="1_7xxns"]
 [ext_resource type="PackedScene" uid="uid://ct3tyjhca48wr" path="res://Components/MapDisplay/EntityMapDisplay/entity_selection_map_display.tscn" id="2_a2b8i"]
 
 [node name="PowerPoleSelectionMap" type="Control"]

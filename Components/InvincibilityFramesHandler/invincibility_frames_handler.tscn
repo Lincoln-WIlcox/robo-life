@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://62v7whtb3ow4"]
 
-[ext_resource type="Script" path="res://Components/InvincibilityFramesHandler/invincibility_frames_handler.gd" id="1_whf2o"]
+[ext_resource type="Script" uid="uid://bectv3ayyx47p" path="res://Components/InvincibilityFramesHandler/invincibility_frames_handler.gd" id="1_whf2o"]
 
 [node name="InvincibilityFramesHandler" type="Node"]
 script = ExtResource("1_whf2o")

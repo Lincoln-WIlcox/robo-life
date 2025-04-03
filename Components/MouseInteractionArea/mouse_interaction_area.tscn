@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://56x88ls7d0gr"]
 
-[ext_resource type="Script" path="res://Components/MouseInteractionArea/mouse_interaction_area.gd" id="1_1a4dj"]
+[ext_resource type="Script" uid="uid://c8rh14wi17fa4" path="res://Components/MouseInteractionArea/mouse_interaction_area.gd" id="1_1a4dj"]
 [ext_resource type="PackedScene" uid="uid://xnd8ne8fypg3" path="res://Components/FloatAwayTextSpawner/float_away_text_spawner.tscn" id="2_4l65j"]
 
 [node name="MouseInteractionArea" type="Area2D"]

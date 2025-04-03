@@ -2,7 +2,7 @@ extends Control
 
 const FOOD_LABEL_TEXT := "food: "
 
-@onready var item_grid_interface = $VBoxContainer/ItemGridInterface
+@onready var item_grid_interface = $VBoxContainer/InteractableItemGridInterface
 @onready var label = $VBoxContainer/CenterContainer/Label
 
 @export var player_inventory: Inventory:
