@@ -17,5 +17,11 @@ func deactivate() -> void:
 	_currently_activated = false
 	deactivated.emit()
 
+func toggle() -> void:
+	if _currently_activated:
+		deactivate()
+	else:
+		activate()
+
 func is_activated() -> bool:
 	return _currently_activated
