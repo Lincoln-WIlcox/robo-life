@@ -31,18 +31,18 @@ script = ExtResource("1_0h4br")
 repaired_terminal_texture = SubResource("AtlasTexture_eij03")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(8, 12)
+position = Vector2(0, 4)
 texture = SubResource("AtlasTexture_emqeq")
 
 [node name="InventoryRequirementInteractionArea" parent="." instance=ExtResource("3_eij03")]
+position = Vector2(0, 4)
 inventory_requirement = SubResource("Resource_w1302")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InventoryRequirementInteractionArea"]
-position = Vector2(8, 12)
 shape = SubResource("RectangleShape2D_wg7a5")
 
 [node name="InteractionArea" type="Area2D" parent="."]
-position = Vector2(8, 12)
+position = Vector2(0, 4)
 script = ExtResource("6_3qskk")
 disabled = true
 metadata/_custom_type_script = "uid://biod2mi4426mb"
