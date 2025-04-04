@@ -49,24 +49,21 @@ layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="CountersCenterContainer" type="CenterContainer" parent="ShelterContentVbox/MarginContainer/ItemGridHbox"]
-layout_mode = 2
-
-[node name="CounterTransfersVbox" type="VBoxContainer" parent="ShelterContentVbox/MarginContainer/ItemGridHbox/CountersCenterContainer"]
+[node name="CounterTransfersVbox" type="VBoxContainer" parent="ShelterContentVbox/MarginContainer/ItemGridHbox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
 theme_override_constants/separation = 10
 
-[node name="BatteryTransfer" parent="ShelterContentVbox/MarginContainer/ItemGridHbox/CountersCenterContainer/CounterTransfersVbox" instance=ExtResource("2_dt0rf")]
+[node name="BatteryTransfer" parent="ShelterContentVbox/MarginContainer/ItemGridHbox/CounterTransfersVbox" instance=ExtResource("2_dt0rf")]
 layout_mode = 2
 texture = SubResource("AtlasTexture_64qsv")
 
-[node name="SteelTransfer" parent="ShelterContentVbox/MarginContainer/ItemGridHbox/CountersCenterContainer/CounterTransfersVbox" instance=ExtResource("2_dt0rf")]
+[node name="SteelTransfer" parent="ShelterContentVbox/MarginContainer/ItemGridHbox/CounterTransfersVbox" instance=ExtResource("2_dt0rf")]
 layout_mode = 2
 texture = SubResource("AtlasTexture_f3whd")
 
-[node name="FoodTransfer" parent="ShelterContentVbox/MarginContainer/ItemGridHbox/CountersCenterContainer/CounterTransfersVbox" instance=ExtResource("2_dt0rf")]
+[node name="FoodTransfer" parent="ShelterContentVbox/MarginContainer/ItemGridHbox/CounterTransfersVbox" instance=ExtResource("2_dt0rf")]
 layout_mode = 2
 texture = SubResource("AtlasTexture_g1tif")
 

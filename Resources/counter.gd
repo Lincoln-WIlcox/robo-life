@@ -48,3 +48,6 @@ func value_is_max() -> bool:
 
 func value_is_min() -> bool:
 	return value == min_value
+
+func value_as_string() -> String:
+	return str(value)

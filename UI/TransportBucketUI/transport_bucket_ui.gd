@@ -4,8 +4,8 @@ extends Control
 @onready var power_pole_selection_map: PowerPoleSelectionMap = $PowerPoleSelectionMap
 @onready var transport_bucket_inventory_ui: Control = $TransportBucketInventory
 @onready var two_inventory_interface: TwoInventoryUI = $TransportBucketInventory/ContentContainer/TwoInventoryInterfaces
-@onready var food_transfer_handler = $FoodTransferHandler
-@onready var steel_transfer_handler = $SteelTransferHandler
+@onready var steel_transfer: CounterTransferUI = $TransportBucketInventory/ContentContainer/SteelTransferCenterContainer/SteelTransferMargin/SteelTransfer
+@onready var food_transfer: CounterTransferUI = $TransportBucketInventory/ContentContainer/FoodTransferCenterContainer/FoodTransferMargin/FoodTransfer
 
 var player_inventory: Inventory
 var transport_bucket_inventory: Inventory
@@ -22,28 +22,11 @@ func setup(map_data: MapData) -> void:
 	
 	power_pole_selection_map.display_map_data(map_data)
 	
-	player_inventory.changed.connect(_on_player_inventory_changed)
-	transport_bucket_inventory.changed.connect(_on_transport_bucket_inventory_changed)
+	steel_transfer.counter_1 = transport_bucket_inventory.steel
+	steel_transfer.counter_2 = player_inventory.steel
 	
-	food_transfer_handler.get_player_counter_value = func() -> int: return player_inventory.food.value
-	food_transfer_handler.set_player_counter_value = func(new_value) -> void: player_inventory.food.value = new_value
-	food_transfer_handler.get_transport_bucket_counter_value = func() -> int: return transport_bucket_inventory.food.value
-	food_transfer_handler.set_transport_bucket_counter_value = func(new_value) -> void: transport_bucket_inventory.food.value = new_value
-	food_transfer_handler.can_transfer_to_player = func() -> bool: return not player_inventory.food.value_is_max()
-	food_transfer_handler.can_transfer_to_transport_bucket = func() -> bool: return  not transport_bucket_inventory.food.value_is_max()
-	
-	steel_transfer_handler.get_player_counter_value = func() -> int: return player_inventory.steel.value
-	steel_transfer_handler.set_player_counter_value = func(new_value) -> void: player_inventory.steel.value = new_value
-	steel_transfer_handler.get_transport_bucket_counter_value = func() -> int: return transport_bucket_inventory.steel.value
-	steel_transfer_handler.set_transport_bucket_counter_value = func(new_value) -> void: transport_bucket_inventory.steel.value = new_value
-
-func _on_player_inventory_changed() -> void:
-	food_transfer_handler.on_player_inventory_changed()
-	steel_transfer_handler.on_player_inventory_changed()
-
-func _on_transport_bucket_inventory_changed() -> void:
-	food_transfer_handler.on_transport_bucket_inventory_changed()
-	steel_transfer_handler.on_transport_bucket_inventory_changed()
+	food_transfer.counter_1 = transport_bucket_inventory.food
+	food_transfer.counter_2 = player_inventory.food
 
 func close() -> void:
 	_go_to_inventory()
