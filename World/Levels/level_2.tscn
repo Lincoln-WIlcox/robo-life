@@ -317,7 +317,6 @@ wait_time = 500.0
 [node name="PowerLineDrawer" parent="." index="6"]
 z_index = -2
 line_width = 6.0
-line_color = Color(0.968627, 1, 0, 0.784314)
 
 [node name="PlayerCharacterController" parent="." index="8"]
 position = Vector2(64, 144)
