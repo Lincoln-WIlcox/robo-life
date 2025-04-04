@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://d050x65g27glb"]
+
+[ext_resource type="Script" uid="uid://cqwulojncasg7" path="res://UI/Components/CounterTransfer/counter_transfer.gd" id="1_xrx7n"]
+
+[node name="CounterTransferUI" type="AspectRatioContainer"]
+offset_right = 142.0
+offset_bottom = 31.0
+script = ExtResource("1_xrx7n")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+expand_mode = 2
+
+[node name="Counter1Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "?"
+
+[node name="TransferButtonsMargin" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="TransferButtonsContainer" type="HBoxContainer" parent="HBoxContainer/TransferButtonsMargin"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="TransferTo1" type="Button" parent="HBoxContainer/TransferButtonsMargin/TransferButtonsContainer"]
+layout_mode = 2
+text = "<"
+
+[node name="TransferTo2" type="Button" parent="HBoxContainer/TransferButtonsMargin/TransferButtonsContainer"]
+layout_mode = 2
+text = ">"
+
+[node name="Counter2Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "?"
+
+[connection signal="pressed" from="HBoxContainer/TransferButtonsMargin/TransferButtonsContainer/TransferTo1" to="." method="_on_transfer_to_1_pressed"]
+[connection signal="pressed" from="HBoxContainer/TransferButtonsMargin/TransferButtonsContainer/TransferTo2" to="." method="_on_transfer_to_2_pressed"]
