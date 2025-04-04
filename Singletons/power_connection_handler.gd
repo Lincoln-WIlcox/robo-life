@@ -7,6 +7,7 @@ var power_connector_connections: Array[PowerConnectorConnection]
 signal connection_added(power_connection: PowerConnectorConnection)
 signal connection_removed
 signal connections_changed
+signal connectors_state_changed
 
 func add_connection(connector_a: PowerConnector, connector_b: PowerConnector) -> PowerConnectorConnection:
 	assert(connector_a != connector_b, "connector_a and connector_b cannot be the same power connector")
@@ -204,9 +205,17 @@ func _update_power_consumers_in_tree(power_connector: PowerConnector) -> void:
 	var total_power_supplying: float = power_suppliers.reduce(func(total_power: int, power_supplier: PowerSupplier): return total_power + power_supplier.supplies_power, 0)
 	var consuming_power: float = power_consumers.reduce(func(total_power: int, power_consumer: PowerConsumer): return total_power + (power_consumer.consumes_power if power_consumer.active else 0), 0)
 	
+	for updating_power_connector: PowerConnector in connectors:
+		updating_power_connector.powered = total_power_supplying >= consuming_power
+		if updating_power_connector is PowerConsumer:
+			updating_power_connector.enough_power_supplied = total_power_supplying >= consuming_power
+			updating_power_connector.extra_power = total_power_supplying - consuming_power / power_consumers.size() if total_power_supplying > consuming_power else 0.0
+	
 	for power_consumer: PowerConsumer in power_consumers:
 		power_consumer.enough_power_supplied = total_power_supplying >= consuming_power
 		power_consumer.extra_power = total_power_supplying - consuming_power / power_consumers.size() if total_power_supplying > consuming_power else 0.0
+	
+	connectors_state_changed.emit()
 
 func _connector_is_handled(connector: PowerConnector) -> bool:
 	return connector.status_changed.is_connected(_update_power_consumers_in_tree)
