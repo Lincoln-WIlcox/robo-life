@@ -4,7 +4,7 @@ extends Node
 @export var inventory: Inventory
 
 func collect_battery() -> void:
-	inventory.batteries += 1
+	inventory.batteries.add_value(1)
 
 func collect_item(item: ItemData) -> bool:
 	return inventory.add_item(item)

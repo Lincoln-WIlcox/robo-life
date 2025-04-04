@@ -55,4 +55,4 @@ func _on_active_player_changed(active_player: PlayerCharacterController):
 	active_player.died.connect(_on_world_day_ended)
 
 func _on_active_player_inventory_changed(inventory: Inventory):
-	hud.battery_quantity = inventory.batteries
+	hud.battery_quantity = inventory.batteries.value

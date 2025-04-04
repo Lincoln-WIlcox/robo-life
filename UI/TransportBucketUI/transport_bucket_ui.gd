@@ -25,17 +25,17 @@ func setup(map_data: MapData) -> void:
 	player_inventory.changed.connect(_on_player_inventory_changed)
 	transport_bucket_inventory.changed.connect(_on_transport_bucket_inventory_changed)
 	
-	food_transfer_handler.get_player_counter_value = func() -> int: return player_inventory.get_food()
-	food_transfer_handler.set_player_counter_value = func(new_value) -> void: player_inventory.set_food(new_value)
-	food_transfer_handler.get_transport_bucket_counter_value = func() -> int: return transport_bucket_inventory.get_food()
-	food_transfer_handler.set_transport_bucket_counter_value = func(new_value) -> void: transport_bucket_inventory.set_food(new_value)
-	food_transfer_handler.can_transfer_to_player = func() -> bool: return player_inventory.get_food() < player_inventory.max_food
-	food_transfer_handler.can_transfer_to_transport_bucket = func() -> bool: return transport_bucket_inventory.get_food() < transport_bucket_inventory.max_food
+	food_transfer_handler.get_player_counter_value = func() -> int: return player_inventory.food.value
+	food_transfer_handler.set_player_counter_value = func(new_value) -> void: player_inventory.food.value = new_value
+	food_transfer_handler.get_transport_bucket_counter_value = func() -> int: return transport_bucket_inventory.food.value
+	food_transfer_handler.set_transport_bucket_counter_value = func(new_value) -> void: transport_bucket_inventory.food.value = new_value
+	food_transfer_handler.can_transfer_to_player = func() -> bool: return not player_inventory.food.value_is_max()
+	food_transfer_handler.can_transfer_to_transport_bucket = func() -> bool: return  not transport_bucket_inventory.food.value_is_max()
 	
-	steel_transfer_handler.get_player_counter_value = func() -> int: return player_inventory.steel
-	steel_transfer_handler.set_player_counter_value = func(new_value) -> void: player_inventory.steel = new_value
-	steel_transfer_handler.get_transport_bucket_counter_value = func() -> int: return transport_bucket_inventory.steel
-	steel_transfer_handler.set_transport_bucket_counter_value = func(new_value) -> void: transport_bucket_inventory.steel = new_value
+	steel_transfer_handler.get_player_counter_value = func() -> int: return player_inventory.steel.value
+	steel_transfer_handler.set_player_counter_value = func(new_value) -> void: player_inventory.steel.value = new_value
+	steel_transfer_handler.get_transport_bucket_counter_value = func() -> int: return transport_bucket_inventory.steel.value
+	steel_transfer_handler.set_transport_bucket_counter_value = func(new_value) -> void: transport_bucket_inventory.steel.value = new_value
 
 func _on_player_inventory_changed() -> void:
 	food_transfer_handler.on_player_inventory_changed()

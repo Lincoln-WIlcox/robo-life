@@ -216,7 +216,7 @@ func _on_shelter_day_ended():
 	day_ended.emit()
 
 func _on_day_night_cycle_day_started(_day):
-	shelter_inventory.change_food(-Utils.AMOUNT_OF_FOOD_TO_CONSUME)
+	shelter_inventory.food.subtract_value(Utils.AMOUNT_OF_FOOD_TO_CONSUME)
 	player_character.stop_gassing()
 
 func _on_day_night_cycle_day_ended():
