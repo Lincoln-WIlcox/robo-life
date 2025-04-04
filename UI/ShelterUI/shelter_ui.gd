@@ -58,11 +58,11 @@ func close_gui() -> void:
 	hide()
 
 func update_labels() -> void:
-	shelter_food_label.text = FOOD_TEXT + str(shelter_inventory.get_food()) + "/" + str(shelter_inventory.max_food)
-	player_food_label.text = FOOD_TEXT + str(player_inventory.get_food()) + "/" + str(player_inventory.max_food)
+	shelter_food_label.text = FOOD_TEXT + str(shelter_inventory.food.value) + "/" + str(shelter_inventory.food.max_value)
+	player_food_label.text = FOOD_TEXT + str(player_inventory.food.value) + "/" + str(player_inventory.food.max_value)
 
 func update_end_day_disabled() -> void:
-	$ShelterContentVbox/EndDayButtonMargin/EndDayHbox/EndDayButton.disabled = not shelter_inventory.get_food() + player_inventory.get_food() >= Utils.AMOUNT_OF_FOOD_TO_CONSUME
+	$ShelterContentVbox/EndDayButtonMargin/EndDayHbox/EndDayButton.disabled = not shelter_inventory.food.value + player_inventory.food.value >= Utils.AMOUNT_OF_FOOD_TO_CONSUME
 
 func _on_warp_button_pressed():
 	warp_pressed.emit()

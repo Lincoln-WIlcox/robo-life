@@ -81,9 +81,9 @@ func is_empty() -> bool:
 ##Converts the inventory addition to an [Inventory] with given grid size. If items cannot fit in the grid, excess items will not be transferred.
 func to_inventory(item_grid_size: Vector2i) -> Inventory:
 	var inventory: Inventory = Inventory.new()
-	inventory.batteries = gain_batteries
-	inventory.steel = gain_steel
-	inventory.food = gain_food
+	inventory.batteries.value = gain_batteries
+	inventory.steel.value = gain_steel
+	inventory.food.value = gain_food
 	inventory.item_grid = ItemGrid.new()
 	inventory.item_grid.size = item_grid_size
 	for item: ItemData in _gain_items:

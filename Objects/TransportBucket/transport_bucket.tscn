@@ -22,10 +22,6 @@ initial_items = Array[ExtResource("2_tapvu")]([])
 [sub_resource type="Resource" id="Resource_kaggv"]
 resource_local_to_scene = true
 script = ExtResource("2_a183c")
-batteries = 0
-steel = 0
-food = 0
-max_food = 50
 item_grid = SubResource("Resource_f08sj")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xlxon"]

@@ -3,28 +3,18 @@ extends Resource
 
 ##Used to represent the batteries, steel, food and items a character or object holds
 
-##The amount of batteries currently in the inventory
-@export var batteries := 0:
+@export var batteries: Counter = Counter.new():
 	set(new_value):
 		batteries = new_value
-		
-		emit_changed()
-##The amount of steel currently in the inventory
-@export var steel := 0:
+		batteries.changed.connect(emit_changed)
+@export var steel: Counter = Counter.new():
 	set(new_value):
 		steel = new_value
-		
-		emit_changed()
-##The amount of food
-@export var food := 0:
+		steel.changed.connect(emit_changed)
+@export var food: Counter = Counter.new():
 	set(new_value):
 		food = new_value
-		emit_changed()
-##The maximum amount of food this inventory can hold. Using [method change_food] will not allow food to go above this value
-@export var max_food := 50:
-	set(new_value):
-		max_food = new_value
-		emit_changed()
+		food.changed.connect(emit_changed)
 @export var item_grid: ItemGrid:
 	set(new_value):
 		item_grid = new_value
@@ -59,10 +49,9 @@ func has_item(item: ItemData) -> bool:
 
 ##Adds an [InventoryAddition] to the inventory. Anything the inventory takes is subtracted from [param inventory_addition]. If the inventory can't take something in an addition, it will only subtract what it can take from the inventory addition.
 func add_addition(inventory_addition: InventoryAddition) -> void:
-	batteries += inventory_addition.gain_batteries
-	inventory_addition.gain_batteries = 0
-	steel += inventory_addition.gain_steel
-	inventory_addition.gain_steel = 0
+	inventory_addition.gain_batteries = batteries.add_value(inventory_addition.gain_batteries)
+	inventory_addition.gain_steel = steel.add_value(inventory_addition.gain_steel)
+	inventory_addition.gain_food = food.add_value(inventory_addition.gain_food)
 	var gaining_items: Array[ItemData]
 	for item: ItemData in inventory_addition.get_gain_items():
 		if item_grid.item_can_be_added(item):
@@ -71,13 +60,10 @@ func add_addition(inventory_addition: InventoryAddition) -> void:
 		var item_added: bool = item_grid.add_item(item)
 		if item_added:
 			inventory_addition.remove_item(item)
-	var gain_food: int = inventory_addition.gain_food if food + inventory_addition.gain_food <= max_food else max_food - food
-	inventory_addition.gain_food -= gain_food
-	food += gain_food
 	emit_changed()
 
 func can_add_addition(inventory_addition: InventoryAddition) -> bool:
-	if inventory_addition.gain_food + food > max_food:
+	if not batteries.can_add_value(inventory_addition.gain_batteries) or not steel.can_add_value(inventory_addition.gain_steel) or not food.can_add_value(inventory_addition.gain_food):
 		return false
 	
 	var item_grid_copy: ItemGrid = item_grid.duplicate()
@@ -92,41 +78,14 @@ func to_inventory_addition() -> InventoryAddition:
 	var items: Array[ItemData]
 	var items_assigner: Array = get_items()
 	items.assign(items_assigner)
-	var inventory_addition: InventoryAddition = InventoryAddition.new(batteries,steel,food,items)
+	var inventory_addition: InventoryAddition = InventoryAddition.new(batteries.value, steel.value, food.value, items)
 	return inventory_addition
-
-##Returns the amount of food in the inventory
-func get_food() -> int:
-	return food
-
-##Returns true if inventory has food.
-func has_food() -> bool:
-	return food > 0
-
-##Changes the amount of food in the inventory. Will not set food above [member Inventory.max_food] or below 0
-func change_food(change: int) -> void:
-	set_food(food + change)
-
-##Adds food. See [method Inventory.set_food]
-func add_food(amount: int = 1) -> void:
-	set_food(food + amount)
-
-##Removes food. See [method Inventory.set_food]
-func remove_food(amount: int = 1) -> void:
-	set_food(food - amount)
-
-##Sets the amount of food in the inventory.  Will not set food above [member Inventory.max_food] or below 0
-func set_food(new_food: int) -> void:
-	food = new_food
-	food = min(food, max_food)
-	food = max(0, food)
-	emit_changed()
 
 ##Returns true if this inventory can spend [param inventory_requirement].
 func meets_requirements(inventory_requirement: InventoryRequirement) -> bool:
 	var indexes_used: Array[int] = []
 	var items: Array[ItemData] = get_items()
-	if batteries < inventory_requirement.batteries_cost or steel < inventory_requirement.steel_cost:
+	if not batteries.can_subtract_value(inventory_requirement.batteries_cost) or not steel.can_subtract_value(inventory_requirement.steel_cost):
 		return false
 	
 	#this iterates through each item in inventory_requirement.costs_items and ensures the item exists in items and hasn't been used yet.
@@ -145,8 +104,8 @@ func meets_requirements(inventory_requirement: InventoryRequirement) -> bool:
 ##Attemps to spend the requirement. Returns true if successful, and false if not. The exchange might not be successful if the inventory does not meet the requirements.
 func spend_requirement(inventory_requirement: InventoryRequirement) -> bool:
 	if meets_requirements(inventory_requirement):
-		batteries -= inventory_requirement.batteries_cost
-		steel -= inventory_requirement.steel_cost
+		batteries.subtract_value(inventory_requirement.batteries_cost)
+		steel.subtract_value(inventory_requirement.steel_cost)
 		for item: ItemData in inventory_requirement.costs_items:
 			remove_item(item)
 		return true
@@ -155,10 +114,9 @@ func spend_requirement(inventory_requirement: InventoryRequirement) -> bool:
 
 ##Overwrites the inventory contents to use the new data in [param new_inventory].
 func use_data(new_inventory: Inventory) -> void:
-	batteries = new_inventory.batteries
-	steel = new_inventory.steel
-	food = new_inventory.food
-	max_food = new_inventory.max_food
+	batteries = new_inventory.batteries.duplicate()
+	steel = new_inventory.steel.duplicate()
+	food = new_inventory.food.duplicate()
 	item_grid.remove_all()
 	item_grid.size = new_inventory.item_grid.size
 	for item: ItemGridItem in new_inventory.item_grid.get_grid_items():

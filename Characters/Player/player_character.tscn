@@ -38,10 +38,6 @@
 
 [sub_resource type="Resource" id="Resource_i3vek"]
 script = ExtResource("2_f2ewa")
-batteries = 0
-steel = 0
-food = 0
-max_food = 50
 
 [sub_resource type="GDScript" id="GDScript_h7t3e"]
 script/source = "extends Node
@@ -463,7 +459,7 @@ color = Color(0, 1, 1, 1)
 
 [node name="FlashAnimation" type="AnimationPlayer" parent="PlayerCharacterBody/InteractionIndicator"]
 libraries = {
-"": SubResource("AnimationLibrary_keqdj")
+&"": SubResource("AnimationLibrary_keqdj")
 }
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayerCharacterBody"]

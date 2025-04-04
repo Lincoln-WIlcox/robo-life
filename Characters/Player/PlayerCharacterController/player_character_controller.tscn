@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://dw2fqgynxjcit"]
+[gd_scene load_steps=46 format=3 uid="uid://dw2fqgynxjcit"]
 
 [ext_resource type="Script" uid="uid://c60acows37ws5" path="res://Characters/Player/PlayerCharacterController/player_character_controller.gd" id="1_bw5ol"]
 [ext_resource type="PackedScene" uid="uid://by3dehhgwxdqr" path="res://Objects/Shield/shield.tscn" id="2_ipind"]
@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://v7qso20aqmk5" path="res://UI/ShelterUI/shelter_ui.tscn" id="12_vxdl5"]
 [ext_resource type="Script" uid="uid://c5pdsqx8v5r4b" path="res://Characters/Player/PlayerCharacterController/shelter_none.gd" id="13_itu6i"]
 [ext_resource type="Script" uid="uid://cq2xap6tdcs2f" path="res://Characters/Player/PlayerCharacterController/shelter_ui.gd" id="13_v1eve"]
+[ext_resource type="Script" uid="uid://dl6huvtb5e0v5" path="res://Resources/counter.gd" id="14_276kj"]
 [ext_resource type="Script" uid="uid://cu3b67nkuokj2" path="res://Characters/Player/PlayerCharacterController/shelter_crafting.gd" id="15_0w8mt"]
 [ext_resource type="PackedScene" uid="uid://wgwi4qdwfkaq" path="res://UI/Crafting/crafting_ui.tscn" id="16_yn3tl"]
 [ext_resource type="Script" uid="uid://c8wu1lijruw3t" path="res://Characters/Player/PlayerCharacterController/other.gd" id="18_ysl17"]
@@ -49,20 +50,45 @@ display_texture = SubResource("AtlasTexture_evjoi")
 z_index = 1
 scale = Vector2(2, 2)
 
+[sub_resource type="Resource" id="Resource_j41is"]
+resource_local_to_scene = true
+script = ExtResource("14_276kj")
+value = 0
+min_value = 0
+max_value = 100
+metadata/_custom_type_script = "uid://dl6huvtb5e0v5"
+
+[sub_resource type="Resource" id="Resource_5jlhx"]
+resource_local_to_scene = true
+script = ExtResource("14_276kj")
+value = 0
+min_value = 0
+max_value = 100
+metadata/_custom_type_script = "uid://dl6huvtb5e0v5"
+
 [sub_resource type="Resource" id="Resource_jileu"]
 resource_local_to_scene = true
 script = ExtResource("4_saie0")
 size = Vector2i(3, 3)
 initial_items = Array[ExtResource("7_45g5n")]([])
+metadata/_custom_type_script = "uid://cdp7s6pjgskwb"
+
+[sub_resource type="Resource" id="Resource_xihey"]
+resource_local_to_scene = true
+script = ExtResource("14_276kj")
+value = 0
+min_value = 0
+max_value = 100
+metadata/_custom_type_script = "uid://dl6huvtb5e0v5"
 
 [sub_resource type="Resource" id="Resource_276kj"]
 resource_local_to_scene = true
 script = ExtResource("4_d214o")
-batteries = 0
-steel = 1000
-food = 0
-max_food = 5
+batteries = SubResource("Resource_j41is")
+steel = SubResource("Resource_xihey")
+food = SubResource("Resource_5jlhx")
 item_grid = SubResource("Resource_jileu")
+metadata/_custom_type_script = "uid://bg5ne6c0ge6gv"
 
 [node name="PlayerCharacterController" type="Node2D"]
 script = ExtResource("1_bw5ol")

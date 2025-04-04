@@ -42,13 +42,13 @@ func on_shelter_closed() -> void:
 		state_ended.emit(none_state)
 
 func _on_end_day_pressed() -> void:
-	if shelter_inventory.get_food() + inventory.get_food() >= Utils.AMOUNT_OF_FOOD_TO_CONSUME:
+	if shelter_inventory.food.value + inventory.food.value >= Utils.AMOUNT_OF_FOOD_TO_CONSUME:
 		_transfer_food()
 		day_ended.emit()
 
 func _transfer_food() -> void:
-	shelter_inventory.change_food(inventory.get_food())
-	inventory.set_food(0)
+	shelter_inventory.food.add_value(inventory.food.value)
+	inventory.food.value = 0
 
 func _on_crafting_pressed() -> void:
 	if is_current_state.call():
