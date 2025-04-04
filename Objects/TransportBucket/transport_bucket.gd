@@ -25,7 +25,7 @@ signal reached_end_of_path
 signal picked_up
 
 func _ready():
-	_inventory = initial_inventory.duplicate()
+	_inventory = initial_inventory.duplicate(true)
 	
 	update_inventory_addition()
 	_inventory.changed.connect(update_inventory_addition)

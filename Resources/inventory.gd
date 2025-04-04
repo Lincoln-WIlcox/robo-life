@@ -68,8 +68,9 @@ func add_addition(inventory_addition: InventoryAddition) -> void:
 		if item_grid.item_can_be_added(item):
 			gaining_items.append(item)
 	for item: ItemData in gaining_items:
-		item_grid.add_item(item)
-		inventory_addition.remove_item(item)
+		var item_added: bool = item_grid.add_item(item)
+		if item_added:
+			inventory_addition.remove_item(item)
 	var gain_food: int = inventory_addition.gain_food if food + inventory_addition.gain_food <= max_food else max_food - food
 	inventory_addition.gain_food -= gain_food
 	food += gain_food
