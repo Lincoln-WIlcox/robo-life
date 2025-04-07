@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bvpfxo05k5nyo"]
+[gd_scene load_steps=7 format=3 uid="uid://bvpfxo05k5nyo"]
 
 [ext_resource type="Script" uid="uid://docnyps0u2ij3" path="res://Game/game.gd" id="1_p5sec"]
 [ext_resource type="PackedScene" uid="uid://cstcp7nfordr7" path="res://UI/HUD/hud.tscn" id="2_0xbcc"]
 [ext_resource type="PackedScene" uid="uid://cldkgwqny8lwy" path="res://World/Levels/level_2.tscn" id="2_tac4n"]
 [ext_resource type="Script" uid="uid://bhwawms2f5w7e" path="res://Game/UILayer.gd" id="3_6x136"]
 [ext_resource type="PackedScene" uid="uid://bkc6nabwtybq4" path="res://UI/GameOverMenu/game_over_menu.tscn" id="5_8hpvy"]
+[ext_resource type="PackedScene" uid="uid://buwh4vqqyn753" path="res://UI/DebugMenu/debug_menu.tscn" id="6_qmv3x"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_p5sec")
@@ -57,5 +58,8 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "You win! Yippee!"
 horizontal_alignment = 1
+
+[node name="DebugMenu" parent="UILayer" instance=ExtResource("6_qmv3x")]
+visible = false
 
 [connection signal="play_again_pressed" from="UILayer/GameOverMenu" to="." method="_on_game_over_menu_play_again_pressed"]
