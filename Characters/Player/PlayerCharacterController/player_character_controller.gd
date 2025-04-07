@@ -25,6 +25,7 @@ extends Node2D
 @onready var warp_state = $UIStateMachine/Shelter/ShelterStateMachine/Warp
 @onready var shelter_warp_handler = $ShelterWarpHandler
 @onready var sector_handler = $SectorHandler
+@onready var debug_handler = $DebugHandler
 
 @export var map_texture: MapTexture
 @export var movement_disabled := false
@@ -178,6 +179,7 @@ func _ready():
 	sector_handler.player_body = player_character.character
 	sector_handler.get_revealed_sectors = get_revealed_sectors
 	sector_handler.reveal_sector = reveal_sector
+	debug_handler.player_inventory = player_character.inventory
 	
 	remove_child(laser_gun)
 	player_character.character.add_child(laser_gun)
@@ -192,6 +194,12 @@ func setup_sectors() -> void:
 func drop_item(item: ItemData):
 	player_character.drop_item(item)
 
+func handle_drop_item(grid_item: ItemGridItem):
+	if grid_item.item_data is PlaceableItemData:
+		inventory_state.on_placeable_item_dropped(grid_item)
+	else:
+		player_character.drop_item(grid_item)
+
 func _input(event):
 	if event.is_action_pressed("player_interact") and not movement_disabled:
 		player_character.emit_just_interacted()
@@ -202,12 +210,6 @@ func _input(event):
 
 func _process(_delta):
 	camera.position = player_character.character.position
-
-func handle_drop_item(grid_item: ItemGridItem):
-	if grid_item.item_data is PlaceableItemData:
-		inventory_state.on_placeable_item_dropped(grid_item)
-	else:
-		player_character.drop_item(grid_item)
 
 func on_shelter_closed():
 	shelter_state.on_shelter_closed()

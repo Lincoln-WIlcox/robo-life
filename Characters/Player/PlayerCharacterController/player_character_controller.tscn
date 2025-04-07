@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dw2fqgynxjcit"]
+[gd_scene load_steps=49 format=3 uid="uid://dw2fqgynxjcit"]
 
 [ext_resource type="Script" uid="uid://c60acows37ws5" path="res://Characters/Player/PlayerCharacterController/player_character_controller.gd" id="1_bw5ol"]
 [ext_resource type="PackedScene" uid="uid://by3dehhgwxdqr" path="res://Objects/Shield/shield.tscn" id="2_ipind"]
@@ -18,9 +18,12 @@
 [ext_resource type="Script" uid="uid://bkn8hcp4iqdgj" path="res://Characters/Player/PlayerCharacterController/sector_handler.gd" id="4_vjnlu"]
 [ext_resource type="Script" uid="uid://dhpc7exojy7s8" path="res://Characters/Player/PlayerCharacterController/power_pole_placement_handler.gd" id="4_x3qr7"]
 [ext_resource type="Script" uid="uid://bw3pdxxauxynu" path="res://Characters/Player/PlayerCharacterController/inventory_state.gd" id="5_fsdf8"]
+[ext_resource type="Script" uid="uid://bhma5btdv87h" path="res://Characters/Player/PlayerCharacterController/debug_handler.gd" id="5_j41is"]
 [ext_resource type="Script" uid="uid://dty71uff5eh3i" path="res://Characters/Player/PlayerCharacterController/placing_object_state.gd" id="6_1j2hy"]
+[ext_resource type="Resource" uid="uid://bckiex7mctva7" path="res://Resources/Items/drill.tres" id="6_5jlhx"]
 [ext_resource type="Script" uid="uid://rvwny5vq4uhf" path="res://Resources/item_grid_item.gd" id="7_45g5n"]
 [ext_resource type="Script" uid="uid://k1rijaj3sokv" path="res://Characters/Player/PlayerCharacterController/pickup_stuff_handler.gd" id="7_bmrc0"]
+[ext_resource type="Resource" uid="uid://b3au5vg63nxkc" path="res://Resources/Items/power_pole.tres" id="7_xihey"]
 [ext_resource type="Script" uid="uid://cslvebpokvfhg" path="res://Characters/Player/PlayerCharacterController/handle_placing_object.gd" id="8_4yuco"]
 [ext_resource type="PackedScene" uid="uid://buke53aipiw0n" path="res://UI/PlayerInventoryUI/player_inventory_ui.tscn" id="9_1p1ww"]
 [ext_resource type="PackedScene" uid="uid://b0pmkjnlnl8p0" path="res://Objects/LaserGun/laser_gun.tscn" id="9_03qrv"]
@@ -94,6 +97,12 @@ metadata/_custom_type_script = "uid://bg5ne6c0ge6gv"
 script = ExtResource("1_bw5ol")
 map_texture = SubResource("Resource_d6xii")
 transport_bucket_item = ExtResource("4_6c5nd")
+
+[node name="DebugHandler" type="Node" parent="."]
+script = ExtResource("5_j41is")
+drill_item = ExtResource("6_5jlhx")
+transport_bucket_item = ExtResource("4_6c5nd")
+power_pole_item = ExtResource("7_xihey")
 
 [node name="SectorHandler" type="Node" parent="."]
 script = ExtResource("4_vjnlu")

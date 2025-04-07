@@ -1,0 +1,73 @@
+[gd_scene load_steps=2 format=3 uid="uid://buwh4vqqyn753"]
+
+[ext_resource type="Script" uid="uid://bhyfmdetg8r1v" path="res://UI/DebugMenu/debug_menu.gd" id="1_fjwbn"]
+
+[node name="DebugMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fjwbn")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -102.5
+offset_right = 114.0
+offset_bottom = 102.5
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="GiveBattery" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Give Battery"
+
+[node name="GiveSteel" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Give Steel
+"
+
+[node name="GiveFood" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Give Food
+"
+
+[node name="GiveDrill" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Give Drill
+"
+
+[node name="GiveTransportBucket" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Give TB
+"
+
+[node name="GivePowerPole" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Give PP
+"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/GiveBattery" to="." method="_on_give_battery_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/GiveSteel" to="." method="_on_give_steel_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/GiveFood" to="." method="_on_give_food_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/GiveDrill" to="." method="_on_give_drill_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/GiveTransportBucket" to="." method="_on_give_transport_bucket_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/GivePowerPole" to="." method="_on_give_power_pole_pressed"]
