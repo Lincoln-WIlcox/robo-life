@@ -53,29 +53,6 @@ display_texture = SubResource("AtlasTexture_evjoi")
 z_index = 1
 scale = Vector2(2, 2)
 
-[sub_resource type="Resource" id="Resource_276kj"]
-resource_local_to_scene = true
-script = ExtResource("14_276kj")
-value = 0
-min_value = 0
-max_value = 100
-metadata/_custom_type_script = "uid://dl6huvtb5e0v5"
-
-[sub_resource type="Resource" id="Resource_j41is"]
-resource_local_to_scene = true
-script = ExtResource("14_276kj")
-value = 0
-min_value = 0
-max_value = 100
-metadata/_custom_type_script = "uid://dl6huvtb5e0v5"
-
-[sub_resource type="Resource" id="Resource_5jlhx"]
-resource_local_to_scene = true
-script = ExtResource("4_saie0")
-size = Vector2i(3, 3)
-initial_items = Array[ExtResource("7_45g5n")]([])
-metadata/_custom_type_script = "uid://cdp7s6pjgskwb"
-
 [sub_resource type="Resource" id="Resource_xihey"]
 resource_local_to_scene = true
 script = ExtResource("14_276kj")
@@ -86,11 +63,34 @@ metadata/_custom_type_script = "uid://dl6huvtb5e0v5"
 
 [sub_resource type="Resource" id="Resource_ti61w"]
 resource_local_to_scene = true
+script = ExtResource("14_276kj")
+value = 0
+min_value = 0
+max_value = 100
+metadata/_custom_type_script = "uid://dl6huvtb5e0v5"
+
+[sub_resource type="Resource" id="Resource_4nulw"]
+resource_local_to_scene = true
+script = ExtResource("4_saie0")
+size = Vector2i(3, 3)
+initial_items = Array[ExtResource("7_45g5n")]([])
+metadata/_custom_type_script = "uid://cdp7s6pjgskwb"
+
+[sub_resource type="Resource" id="Resource_is2jc"]
+resource_local_to_scene = true
+script = ExtResource("14_276kj")
+value = 0
+min_value = 0
+max_value = 100
+metadata/_custom_type_script = "uid://dl6huvtb5e0v5"
+
+[sub_resource type="Resource" id="Resource_n2ef8"]
+resource_local_to_scene = true
 script = ExtResource("4_d214o")
-batteries = SubResource("Resource_276kj")
-steel = SubResource("Resource_xihey")
-food = SubResource("Resource_j41is")
-item_grid = SubResource("Resource_5jlhx")
+batteries = SubResource("Resource_xihey")
+steel = SubResource("Resource_is2jc")
+food = SubResource("Resource_ti61w")
+item_grid = SubResource("Resource_4nulw")
 metadata/_custom_type_script = "uid://bg5ne6c0ge6gv"
 
 [node name="PlayerCharacterController" type="Node2D"]
@@ -134,7 +134,7 @@ player_character = NodePath("../PlayerCharacter")
 laser_gun = NodePath("../LaserGun")
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("2_u8dgg")]
-inventory = SubResource("Resource_ti61w")
+inventory = SubResource("Resource_n2ef8")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_callback = 0

@@ -60,5 +60,6 @@ text = "You win! Yippee!"
 horizontal_alignment = 1
 
 [node name="DebugMenu" parent="UILayer" instance=ExtResource("6_qmv3x")]
+visible = false
 
 [connection signal="play_again_pressed" from="UILayer/GameOverMenu" to="." method="_on_game_over_menu_play_again_pressed"]
