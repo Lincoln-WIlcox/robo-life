@@ -206,18 +206,16 @@ static func merge_polygons(collision_polygons: Array[PackedVector2Array]) -> Pac
 	
 	return total_polygon
 
-##Merges touching polygons in array. Returns an array of the merged polygons. Excludes holes.
+##Merges touching polygons in array. Returns an array of the merged polygons.
 static func merge_touching_polygons(collision_polygons: Array[PackedVector2Array]) -> Array[PackedVector2Array]:
-	var merged_counterclockwise_polygons: Array[PackedVector2Array]
+	var merged_touching_polygons: Array[PackedVector2Array]
 	
 	for polygon_a: PackedVector2Array in collision_polygons:
 		for polygon_b: PackedVector2Array in collision_polygons:
 			var merged_polygons: Array[PackedVector2Array] = Geometry2D.merge_polygons(polygon_a, polygon_b)
-			for merged_polygon: PackedVector2Array in merged_polygons:
-				if not Geometry2D.is_polygon_clockwise(merged_polygon):
-					merged_counterclockwise_polygons.append(merged_polygon)
+			merged_touching_polygons.append_array(merged_polygons)
 	
-	return merged_counterclockwise_polygons
+	return merged_touching_polygons
 
 ##Assumes the collider is a TileMapLayer. Check if the collider is a TileMapLayer before passing.
 static func get_colliding_tile_position(collision: KinematicCollision2D) -> Vector2i:
@@ -343,4 +341,12 @@ static func handle_inventory_requirement_interaction_area_interaction(inventory:
 		return true
 	else:
 		inventory_requirement_interaction_area.fail_requirements(interactor)
+	return false
+
+##Returns true if the given polygons overlap, including if one polygon is entirely inside another or they only touch boundaries.
+static func polygons_overlap(a: PackedVector2Array, b: PackedVector2Array) -> bool:
+	var iterating_polygon = a if a.size() < b.size() else b
+	for point: Vector2 in iterating_polygon:
+		if not Geometry2D.is_point_in_polygon(point, b):
+			return true
 	return false
