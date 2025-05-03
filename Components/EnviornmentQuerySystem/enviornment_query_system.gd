@@ -54,9 +54,20 @@ func get_tile_maps_solidity() -> Array[PackedVector2Array]:
 	for tile_map_layer: TileMapLayer in _tile_map_layers:
 		var tile_map_layer_polygons: Array[PackedVector2Array] = _get_collision_polygons_for_tile_map_layer(tile_map_layer)
 		polygons.append_array(tile_map_layer_polygons)
-	if polygons.size() > 0:
-		polygons = Utils.merge_touching_polygons(polygons)
 	return polygons
+
+#func get_tile_maps_solidity() -> Array[PackedVector2Array]:
+	#var polygons: Array[PackedVector2Array]
+	#for tile_map_layer: TileMapLayer in _tile_map_layers:
+		#var tile_map_layer_polygons: Array[PackedVector2Array] = _get_collision_polygons_for_tile_map_layer(tile_map_layer)
+		#polygons.append_array(tile_map_layer_polygons)
+	#if polygons.size() > 0:
+		#polygons = Utils.merge_touching_polygons(polygons)
+	#
+	#for polygon in polygons:
+		#if Geometry2D.is_polygon_clockwise(polygon):
+			#breakpoint
+	#return polygons
 
 func get_solidity_bounding_box() -> Rect2:
 	var half_tile_size: Vector2 = Vector2(_tile_map_layers[0].tile_set.tile_size.x / 2.0, _tile_map_layers[0].tile_set.tile_size.x / 2.0)
@@ -115,35 +126,63 @@ func _get_collision_polygons_for_tile_map_layer(tile_map_layer: TileMapLayer) ->
 	var polygons: Array[PackedVector2Array]
 	
 	for tile_pos: Vector2i in solid_tiles:
-		var tile_polygon_return: Dictionary = _get_collision_polygon_for_tile(tile_pos, tile_map_layer)
-		var new_polygon: PackedVector2Array = tile_polygon_return[TILE_POLYGON_RETURN_KEYS.POLYGON]
-		var checked_tiles: Array[Vector2i] = tile_polygon_return[TILE_POLYGON_RETURN_KEYS.TILES]
+		var tile_collision_polygon: PackedVector2Array = _get_collision_polygon_for_tile(tile_pos, tile_map_layer)
 		
-		for checked_tile_pos: Vector2i in checked_tiles:
-			solid_tiles.erase(checked_tile_pos)
+		for i in range(tile_collision_polygon.size()):
+			tile_collision_polygon[i] = tile_collision_polygon[i] + Vector2(tile_map_layer.to_global(tile_map_layer.map_to_local(tile_pos)))
 		
-		polygons.append(new_polygon)
+		polygons.append(tile_collision_polygon)
 	
 	return polygons
 
+#func _get_collision_polygons_for_tile_map_layer(tile_map_layer: TileMapLayer) -> Array[PackedVector2Array]:
+	##tries every tile pos in tile map layer to see if its solid, when it finds a solid one gets all connected solid tiles and 
+	#
+	#var solid_tiles: Array[Vector2i] = tile_map_layer.get_used_cells()
+	#solid_tiles = solid_tiles.filter(
+		#func(tile_pos): 
+			#var tile_data: TileData = tile_map_layer.get_cell_tile_data(tile_pos)
+			#return Utils.tile_data_has_collision(tile_data)
+	#)
+	#var polygons: Array[PackedVector2Array]
+	#
+	#for tile_pos: Vector2i in solid_tiles:
+		#var tile_polygon_return: Dictionary = _get_collision_polygon_for_tile(tile_pos, tile_map_layer)
+		#var new_polygons: Array[PackedVector2Array] = tile_polygon_return[TILE_POLYGON_RETURN_KEYS.POLYGON]
+		#var checked_tiles: Array[Vector2i] = tile_polygon_return[TILE_POLYGON_RETURN_KEYS.TILES]
+		#
+		#for checked_tile_pos: Vector2i in checked_tiles:
+			#solid_tiles.erase(checked_tile_pos)
+		#
+		#polygons.append_array(new_polygons)
+	#
+	#return polygons
+
+##Returns collision polygon for given tile.
+func _get_collision_polygon_for_tile(tile_pos: Vector2i, tile_map_layer: TileMapLayer) -> PackedVector2Array:
+	#ar tiles: Array[Vector2i] = Utils.get_touching_tiles_with_collision(tile_map_layer, tile_pos, TILE_COLLISION_LAYER, [])
+	var tile_data: TileData = tile_map_layer.get_cell_tile_data(tile_pos)
+	var collision_polygon: PackedVector2Array = tile_data.get_collision_polygon_points(TILE_COLLISION_LAYER, TILE_POLYGON_INDEX)
+	return collision_polygon
+
 #gets solid tiles touching given tile recursively, then take the solidity of those tiles and turn them into one polygon
-func _get_collision_polygon_for_tile(tile_pos: Vector2i, tile_map_layer: TileMapLayer) -> Dictionary:
-	var tiles: Array[Vector2i] = Utils.get_touching_tiles_with_collision(tile_map_layer, tile_pos, TILE_COLLISION_LAYER, [])
-	var tiles_collision_polygons: Array[PackedVector2Array] = _get_collision_polygons_from_collision_tiles(tile_map_layer, tiles)
-	var full_polygon: PackedVector2Array = Utils.merge_polygons(tiles_collision_polygons)
-	return {TILE_POLYGON_RETURN_KEYS.POLYGON: full_polygon, TILE_POLYGON_RETURN_KEYS.TILES: tiles}
+#func _get_collision_polygon_for_tile(tile_pos: Vector2i, tile_map_layer: TileMapLayer) -> Dictionary:
+	#var tiles: Array[Vector2i] = Utils.get_touching_tiles_with_collision(tile_map_layer, tile_pos, TILE_COLLISION_LAYER, [])
+	#var tiles_collision_polygons: Array[PackedVector2Array] = _get_collision_polygons_from_collision_tiles(tile_map_layer, tiles)
+	#var full_polygons: Array[PackedVector2Array] = Utils.merge_polygons(tiles_collision_polygons)
+	#return {TILE_POLYGON_RETURN_KEYS.POLYGON: full_polygons, TILE_POLYGON_RETURN_KEYS.TILES: tiles}
 
 #takes a tile map layer and an array of tiles, returns the solidity of each tile as individual polygons
-func _get_collision_polygons_from_collision_tiles(tile_map_layer: TileMapLayer, tiles: Array[Vector2i]) -> Array[PackedVector2Array]:
-	var tiles_verts: Array[PackedVector2Array]
-	
-	for tile_pos: Vector2i in tiles:
-		var tile_data: TileData = tile_map_layer.get_cell_tile_data(tile_pos)
-		var polygon_verts: PackedVector2Array = tile_data.get_collision_polygon_points(TILE_COLLISION_LAYER, TILE_POLYGON_INDEX)
-		
-		#polygon verts are relative to center of the tile, so i have to add the tile's local pos to get its position local to the tile map layer.
-		for i in range(polygon_verts.size()):
-			polygon_verts[i] = polygon_verts[i] + Vector2(tile_map_layer.to_global(tile_map_layer.map_to_local(tile_pos)))
-		tiles_verts.append(polygon_verts)
-	
-	return tiles_verts
+#func _get_collision_polygons_from_collision_tiles(tile_map_layer: TileMapLayer, tiles: Array[Vector2i]) -> Array[PackedVector2Array]:
+	#var tiles_verts: Array[PackedVector2Array]
+	#
+	#for tile_pos: Vector2i in tiles:
+		#var tile_data: TileData = tile_map_layer.get_cell_tile_data(tile_pos)
+		#var polygon_verts: PackedVector2Array = tile_data.get_collision_polygon_points(TILE_COLLISION_LAYER, TILE_POLYGON_INDEX)
+		#
+		##polygon verts are relative to center of the tile, so i have to add the tile's local pos to get its position local to the tile map layer.
+		#for i in range(polygon_verts.size()):
+			#polygon_verts[i] = polygon_verts[i] + Vector2(tile_map_layer.to_global(tile_map_layer.map_to_local(tile_pos)))
+		#tiles_verts.append(polygon_verts)
+	#
+	#return tiles_verts

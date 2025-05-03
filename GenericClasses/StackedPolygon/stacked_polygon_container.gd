@@ -7,28 +7,38 @@ var _contains_polygons: Array[StackedPolygon]
 
 ##Adds [param new_polygon] to the stack if it is contained within the container's bounds and does not overlap another contained polygon. Returns false if new_polygon fails to be added.
 func add_contained_polygon(new_polygon: StackedPolygon) -> bool:
-	for new_point: Vector2 in new_polygon.bounds:
-		if not Geometry2D.is_point_in_polygon(new_point, bounds):
-			return false
+	if not Utils.polygon_inside_polygon(get_bounds(), new_polygon.get_bounds()):
+		return false
 	
+	#makes sure polygon does not overlap with any containing polygons
 	for contained_polygon: StackedPolygon in _contains_polygons:
-		if Utils.polygons_overlap(contained_polygon.bounds, new_polygon.bounds):
+		if Utils.polygons_overlap(contained_polygon.get_bounds(), new_polygon.get_bounds()):
 			return false
 	
-	_update_contained_polygon_is_hole(new_polygon)
+	emit_changed()
+	
+	new_polygon.update_hole(not _hole)
 	_contains_polygons.append(new_polygon)
+	new_polygon.changed.connect(emit_changed)
 	
 	return true
 
 func get_contained_polygons() -> Array[StackedPolygon]:
 	return _contains_polygons
 
-##Used by the polygon stack.
-func update_contained_polygons_is_hole() -> void:
+##Used by this polygon's containing polygon to manage if this polygon is a hole. Also updates its contained polygon's hole status.
+func update_hole(new_value: bool) -> void:
+	super(new_value)
 	for contained_polygon: StackedPolygon in _contains_polygons:
-		_update_contained_polygon_is_hole(contained_polygon)
+		contained_polygon.update_hole(not _hole)
 
-func _update_contained_polygon_is_hole(contained_polygon: StackedPolygon) -> void:
-	contained_polygon.is_hole = not is_hole
-	if contained_polygon is StackedPolygonContainer:
-		contained_polygon.update_contained_polygons_is_hole()
+##Returns the polygon furthest down the stack that contains the given point. If the point is outside of this polygon's bounds, this polygon will be returned.
+func get_polygon_at_point(point: Vector2) -> StackedPolygon:
+	for contained_polygon: StackedPolygon in _contains_polygons:
+		if Geometry2D.is_point_in_polygon(point, contained_polygon.get_bounds()):
+			if contained_polygon is StackedPolygonContainer:
+				return contained_polygon.get_polygon_at_point(point)
+			return contained_polygon
+	if Geometry2D.is_point_in_polygon(point, get_bounds()):
+		return self
+	return null
