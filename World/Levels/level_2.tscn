@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=4 uid="uid://cldkgwqny8lwy"]
+[gd_scene load_steps=82 format=4 uid="uid://cldkgwqny8lwy"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_m8bdm"]
 [ext_resource type="Script" uid="uid://rvwny5vq4uhf" path="res://Resources/item_grid_item.gd" id="2_7dx6r"]
@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://c1lsnxh56vg7b" path="res://Objects/Door/TriggerDoor/trigger_door.tscn" id="32_x2fqg"]
 [ext_resource type="PackedScene" uid="uid://cv2rvxq54baek" path="res://Components/Trigger/trigger.tscn" id="33_78k1x"]
 [ext_resource type="PackedScene" uid="uid://mcu533bsrbcr" path="res://Objects/Terminal/RepairableTerminall/repairable_terminal.tscn" id="33_niriw"]
+[ext_resource type="PackedScene" uid="uid://doc6lqt8v8vqt" path="res://Objects/MovingPlatform/moving_platform.tscn" id="34_06fha"]
 [ext_resource type="PackedScene" uid="uid://cotjlwqe7bhhs" path="res://Objects/Terminal/terminal.tscn" id="34_78k1x"]
 
 [sub_resource type="Resource" id="Resource_78k1x"]
@@ -522,6 +523,10 @@ trigger = NodePath("../Trigger1")
 position = Vector2(848, 560)
 trigger = NodePath("../Trigger2")
 one_time_activation = true
+
+[node name="MovingPlatform" parent="." index="50" instance=ExtResource("34_06fha")]
+position = Vector2(80, 96)
+speed_scale = 4
 
 [connection signal="transport_bucket_arrived" from="Shelter" to="PlayerCharacterController" method="_on_shelter_transport_bucket_arrived"]
 [connection signal="transport_bucket_arrived" from="Shelter2" to="PlayerCharacterController" method="_on_shelter_transport_bucket_arrived"]

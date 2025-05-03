@@ -21,6 +21,8 @@ func enter():
 	character.global_position = ledge.global_position - grab_right_marker.position if ledge.is_left_side else ledge.global_position - grab_left_marker.position
 
 func run():
+	character.global_position = ledge.global_position - grab_right_marker.position if ledge.is_left_side else ledge.global_position - grab_left_marker.position
+	
 	if is_moving_left.call() and just_jumped.call():
 		velocity_component.velocity = Vector2(-horizontal_jump_vel_x, 0)
 		state_ended.emit(jumping_state)
