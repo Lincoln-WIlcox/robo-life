@@ -466,3 +466,9 @@ static func clip_polygon_with_polygons(clipping_polygon: PackedVector2Array, aga
 	var intersected_polygons: Array[PackedVector2Array] = intersect_multiple_polygon_arrays(clipped_polygons)
 	
 	return intersected_polygons
+
+static func rect2_to_shape(rect2: Rect2) -> RectangleShape2D:
+	var shape = RectangleShape2D.new()
+	shape.shape.size = rect2.size
+	shape.transform = rect2.position
+	return shape

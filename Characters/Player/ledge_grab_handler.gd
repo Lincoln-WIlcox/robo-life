@@ -4,6 +4,7 @@ extends Node
 @export var grab_left: Area2D
 @export var grab_right: Area2D
 @export var active := true
+@export var player_shape: CollisionShape2D
 
 var ledge: Ledge
 
@@ -16,4 +17,6 @@ func _ready():
 func _on_grab_area_area_entered(area: Area2D, on_left_side: bool):
 	if area is Ledge and area.is_left_side != on_left_side:
 		ledge = area
-		ledge_grabbed.emit(ledge.is_left_side)
+		var use_transform: Transform2D = grab_left.get_global_transform() if ledge.is_left_side else grab_right.get_global_transform()
+		if ledge.can_fit_on_grab(player_shape.shape, use_transform):
+			ledge_grabbed.emit(ledge.is_left_side)

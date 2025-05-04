@@ -51,7 +51,7 @@ func _do_manual_update() -> void:
 		_update_collision()
 		_update_visuals()
 
-#func update() -> void:
+#func update() -> void:te
 	#raycast.force_raycast_update()
 	#_update_collision()
 	#_update_visuals()
