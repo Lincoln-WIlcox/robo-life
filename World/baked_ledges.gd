@@ -10,6 +10,7 @@ enum LedgeGrabbingBitFlags {
 }
 
 const PHYSICS_LAYER = 0
+const DONT_BAKE_LEDGE_CUSTOM_DATA_INDEX = 0
 
 const SQUARE_COLLISION_POINTS = [
 	Vector2(-1,-1),
@@ -39,7 +40,7 @@ func bake_ledges(tile_map_layer: TileMapLayer) -> void:
 	for tile_position: Vector2i in cells:
 		var tile: TileData = tile_map_layer.get_cell_tile_data(tile_position)
 		
-		if _tile_is_solid_square(tile, cell_size):
+		if _tile_is_solid_square(tile, cell_size) and not tile.get_custom_data_by_layer_id(DONT_BAKE_LEDGE_CUSTOM_DATA_INDEX):
 			var ledge_sides: int = _ledge_grab_sides(tile_map_layer, tile_position)
 			
 			if Utils.is_bit_set(ledge_sides, LedgeGrabbingBitFlags.LEFT):
