@@ -18,10 +18,6 @@ initial_items = Array[ExtResource("4_3hx7g")]([])
 [sub_resource type="Resource" id="Resource_5vjpj"]
 resource_local_to_scene = true
 script = ExtResource("6_rch3e")
-batteries = 0
-steel = 0
-food = 0
-max_food = 50
 item_grid = SubResource("Resource_ibgew")
 
 [node name="TransportBucketPowerPoleSelectionManager" type="Node"]
@@ -41,6 +37,7 @@ transport_bucket = NodePath("../TransportBucket")
 
 [connection signal="interacted_with" from="TransportBucket" to="." method="_on_transport_bucket_interacted_with"]
 [connection signal="picked_up" from="TransportBucket" to="." method="_on_transport_bucket_picked_up"]
+[connection signal="range_left" from="TransportBucket" to="." method="_on_transport_bucket_range_left"]
 [connection signal="reached_end_of_path" from="TransportBucket" to="." method="_on_transport_bucket_reached_end_of_path"]
 [connection signal="tree_exiting" from="TransportBucket" to="." method="_on_transport_bucket_tree_exiting"]
 [connection signal="power_connector_selected" from="PowerPoleSelectionManager" to="." method="_on_power_pole_selection_manager_power_connector_selected"]
