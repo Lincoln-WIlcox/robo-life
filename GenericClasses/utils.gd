@@ -467,8 +467,29 @@ static func clip_polygon_with_polygons(clipping_polygon: PackedVector2Array, aga
 	
 	return intersected_polygons
 
+##Converts given [Rect2] to a [RectangleShape2D].
 static func rect2_to_shape(rect2: Rect2) -> RectangleShape2D:
 	var shape = RectangleShape2D.new()
 	shape.shape.size = rect2.size
 	shape.transform = rect2.position
 	return shape
+
+##Returns true if [param array] has each element in [each]
+static func array_has_each(array: Array, each: Array) -> bool:
+	for element in each:
+		if not array.has(element):
+			return false
+	return true
+
+static func set_bit(bit_flags: int, bit: int) -> int:
+	return bit_flags | bit
+
+static func unset_bit(bit_flags: int, bit: int) -> int:
+	return bit_flags & ~bit
+
+static func is_bit_set(bit_flags: int, bit: int) -> bool:
+	return (bit_flags & bit) != 0
+
+static func free_children(node: Node) -> void:
+	for child in node.get_children():
+		child.queue_free()
