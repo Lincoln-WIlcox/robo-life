@@ -8,6 +8,7 @@ size = Vector2(6, 6)
 [node name="Ledge" type="Area2D"]
 script = ExtResource("1_wml8j")
 grab_direction = 2
+ledge_grab_obstruction_collision_layers = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_8iwg0")

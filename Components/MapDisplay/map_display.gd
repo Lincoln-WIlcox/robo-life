@@ -11,6 +11,7 @@ const MAP_BOX_OFFSET = Vector2(10, 10)
 @onready var fog: TileMapLayer = $MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer/Fog
 @onready var power_line_drawer = $MapMargin/MapPanel/MapPadding/MapContainer/ScrollableContainer/PowerLineDrawer
 @onready var fog_handler: Node = $FogOfWarHandler
+@onready var walls_drawer = $WallsDrawer
 
 var _representing_map_data: MapData
 
@@ -20,11 +21,10 @@ signal map_changed
 func _ready():
 	if test_map_data:
 		display_map_data(test_map_data)
+	walls_drawer.color = solidity_color
 
 func clear_map() -> void:
-	for node in node_to_put_map_in.get_children():
-		if node != fog and node != power_line_drawer:
-			node.queue_free()
+	walls_drawer.clear_walls()
 	map_changed.emit()
 
 func disconnect_map_data() -> void:
@@ -36,7 +36,6 @@ func disconnect_map_data() -> void:
 	map_changed.emit()
 
 func redraw_polygons(new_polygons: Array[PackedVector2Array]) -> void:
-	_clear_polygons()
 	_display_polygons(new_polygons)
 	map_changed.emit()
 
@@ -75,12 +74,13 @@ func reveal_fog_at_global_position(reveal_at: Vector2) -> void:
 	fog_handler.reveal_fog(tile_position)
 
 func _display_polygons(packed_vectors: Array[PackedVector2Array]) -> void:
-	var polygons: Array[Polygon2D] = Utils.packed_vector_arrays_to_polygons(packed_vectors)
-	for polygon: Polygon2D in polygons:
-		polygon.color = solidity_color
-	var polygons_assigned: Array[Node]
-	polygons_assigned.assign(polygons)
-	Utils.add_children(node_to_put_map_in, polygons_assigned)
+	#var polygons: Array[Polygon2D] = Utils.packed_vector_arrays_to_polygons(packed_vectors)
+	#for polygon: Polygon2D in polygons:
+		#polygon.color = solidity_color
+	#var polygons_assigned: Array[Node]
+	#polygons_assigned.assign(polygons)
+	#Utils.add_children(node_to_put_map_in, polygons_assigned)
+	walls_drawer.draw_walls(packed_vectors)
 
 func _display_map_entities(map_entities: Array[MapEntity]) -> void:
 	for map_entity: MapEntity in map_entities:
@@ -133,11 +133,6 @@ func _add_corner_markers(bounding_box: Rect2) -> void:
 	map_view_handler.upper_left_marker = upper_left_marker
 	map_view_handler.lower_right_marker = lower_right_marker
 	map_view_handler.clamp_scroll_to_markers()
-
-func _clear_polygons() -> void:
-	for node in node_to_put_map_in.get_children():
-		if node is Polygon2D:
-			node.queue_free() 
 
 func _on_map_entity_added(map_entity: MapEntity) -> void:
 	_display_map_entity(map_entity)

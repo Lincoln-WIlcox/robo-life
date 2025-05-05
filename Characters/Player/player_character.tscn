@@ -369,10 +369,11 @@ push_sticky_left_side = NodePath("../../PlayerCharacterBody/PushStickyLeftSide")
 push_sticky_right_side = NodePath("../../PlayerCharacterBody/PushStickyRightSide")
 push_speed = 130
 
-[node name="PlayerLedgeGrabDetector" type="Node" parent="." node_paths=PackedStringArray("grab_left", "grab_right")]
+[node name="PlayerLedgeGrabDetector" type="Node" parent="." node_paths=PackedStringArray("grab_left", "grab_right", "player_shape")]
 script = ExtResource("9_wtkme")
 grab_left = NodePath("../PlayerCharacterBody/GrabLeftMarker/GrabLeftArea")
 grab_right = NodePath("../PlayerCharacterBody/GrabRightMarker/GrabRightArea")
+player_shape = NodePath("../PlayerCharacterBody/CollisionShape2D")
 
 [node name="ClimbingRopeDetector" type="Node" parent="." node_paths=PackedStringArray("interact_area", "character")]
 script = ExtResource("11_0v6cm")

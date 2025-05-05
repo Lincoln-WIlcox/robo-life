@@ -21,7 +21,12 @@ func enter():
 	character.global_position = ledge.global_position - grab_right_marker.position if ledge.is_left_side else ledge.global_position - grab_left_marker.position
 
 func run():
-	if is_moving_left.call() and just_jumped.call():
+	character.global_position = ledge.global_position - grab_right_marker.position if ledge.is_left_side else ledge.global_position - grab_left_marker.position
+	
+	if not player_ledge_grab_detector.can_grab_ledge():
+		velocity_component.velocity = Vector2.ZERO
+		state_ended.emit(standing_state)
+	elif is_moving_left.call() and just_jumped.call():
 		velocity_component.velocity = Vector2(-horizontal_jump_vel_x, 0)
 		state_ended.emit(jumping_state)
 	elif is_moving_right.call() and just_jumped.call():

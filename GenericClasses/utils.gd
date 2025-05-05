@@ -191,14 +191,14 @@ static func get_next_vertex_in_direction(polygon: PackedVector2Array, point: Vec
 	
 	return 0
 
-##Will merge an array of polygons into one polygon. This will ignore any holes inside the polygons, returning only the outermost perimeter. 
+##Will merge an array of polygons into one polygon. This will ignore any holes inside the polygons or polygons that aren't overlapping, returning only the outermost perimeter. 
 ##It will exclude polygons that are only touching at points; polygons need to be overlapping or share an edge segment to be merged.
-static func merge_polygons(collision_polygons: Array[PackedVector2Array]) -> PackedVector2Array:
-	var total_polygon: PackedVector2Array = collision_polygons[0]
-	collision_polygons.remove_at(0)
+static func merge_polygons_to_one(merging_polygons: Array[PackedVector2Array]) -> PackedVector2Array:
+	var total_polygon: PackedVector2Array = merging_polygons[0]
+	merging_polygons.remove_at(0)
 	
-	for collision_polygon: PackedVector2Array in collision_polygons:
-		var merged_polygons: Array[PackedVector2Array] = Geometry2D.merge_polygons(total_polygon, collision_polygon)
+	for polygon: PackedVector2Array in merging_polygons:
+		var merged_polygons: Array[PackedVector2Array] = Geometry2D.merge_polygons(total_polygon, polygon)
 		for merged_polygon: PackedVector2Array in merged_polygons:
 			if not Geometry2D.is_polygon_clockwise(merged_polygon):
 				total_polygon = merged_polygon
@@ -206,18 +206,90 @@ static func merge_polygons(collision_polygons: Array[PackedVector2Array]) -> Pac
 	
 	return total_polygon
 
-##Merges touching polygons in array. Returns an array of the merged polygons. Excludes holes.
+##Merges all polygons in [param merging_polygons] and returns the merged polygons.
+static func merge_polygons(merging_polygons: Array[PackedVector2Array]) -> Array[PackedVector2Array]:
+	var merged_polygons: Array[PackedVector2Array] = merging_polygons.duplicate()
+	var polygons_were_merged: bool = true
+	
+	while(polygons_were_merged):
+		var new_merged_polygons: Array[PackedVector2Array] = []
+		polygons_were_merged = false
+		
+		for merging_polygon_index: int in merged_polygons.size():
+			var merging_polygon: PackedVector2Array = merged_polygons[merging_polygon_index]
+			
+			for merging_polygon_subindex in merging_polygon_index:
+				if new_merged_polygons.has(merged_polygons[merging_polygon_subindex]):
+					continue
+				
+				var other_merging_polygon: PackedVector2Array = merged_polygons[merging_polygon_subindex]
+				
+				var merged_polygon: Array[PackedVector2Array] = Geometry2D.merge_polygons(merging_polygon, other_merging_polygon)
+				
+				#if the polygons were merged, the size of the array will be 1. in other words, if the polygons were not overlapping, continue.
+				if merged_polygon.size() != 1:
+					new_merged_polygons.append_array(merged_polygon)
+					continue
+				
+				new_merged_polygons.append(merged_polygon[0])
+				polygons_were_merged = true
+				
+				break
+		
+		merged_polygons = new_merged_polygons
+	
+	return merged_polygons
+
+##Intersects all polygons in [param intersecting_polygons] and returns the intersected polygons (keeps area shared by all polygons).
+static func intersect_polygons(intersecting_polygons: Array[PackedVector2Array]) -> Array[PackedVector2Array]:
+	var intersected_polygons: Array[PackedVector2Array]
+	
+	return []
+
+##Intersects polygon arrays in [param intersecting_polygon_arrays] and returns the intersected polygons. Only area shared by all polygon arrays are kept.
+##Arrays within [param intersecting_polygon_arrays] must be of type Array[PackedVector2Array].
+static func intersect_multiple_polygon_arrays(intersecting_polygon_arrays: Array[Array]) -> Array[PackedVector2Array]:
+	for polygon_array: Array in intersecting_polygon_arrays:
+		assert(polygon_array is Array[PackedVector2Array], "Arrays within intersecting_polygon_arrays must be of type Array[PackedVector2Array].")
+	
+	if intersecting_polygon_arrays.size() == 1:
+		return intersecting_polygon_arrays[0]
+	
+	var intersected_polygons: Array[PackedVector2Array]
+	for polygons_a: Array[PackedVector2Array] in intersecting_polygon_arrays:
+		var intersecting_polygon_arrays_excluding_a: Array[Array] = intersecting_polygon_arrays.duplicate()
+		intersecting_polygon_arrays_excluding_a.erase(polygons_a)
+		for polygons_b: Array[PackedVector2Array] in intersecting_polygon_arrays_excluding_a:
+			var new_intersected_polygons = intersect_two_polygon_arrays(polygons_a, polygons_b)
+			intersected_polygons.append_array(new_intersected_polygons)
+	
+	var merged_polygons = merge_polygons(intersected_polygons)
+	
+	return merged_polygons
+
+##Intersects polygons in [param polygon_array_a] and [param polygon_array_b] and returns the intersected polygons. Only area shared by each array of polygons is kept.
+static func intersect_two_polygon_arrays(polygon_array_a: Array[PackedVector2Array], polygon_array_b: Array[PackedVector2Array]) -> Array[PackedVector2Array]:
+	var intersected_polygons: Array[PackedVector2Array]
+	
+	for polygon_a: PackedVector2Array in polygon_array_a:
+		for polygon_b: PackedVector2Array in polygon_array_b:
+			var new_intersected_polygons: Array[PackedVector2Array] = Geometry2D.intersect_polygons(polygon_a, polygon_b)
+			intersected_polygons.append_array(new_intersected_polygons)
+	
+	var merged_polygons = merge_polygons(intersected_polygons)
+	
+	return merged_polygons
+
+##Merges touching polygons in array. Returns an array of the merged polygons.
 static func merge_touching_polygons(collision_polygons: Array[PackedVector2Array]) -> Array[PackedVector2Array]:
-	var merged_counterclockwise_polygons: Array[PackedVector2Array]
+	var merged_touching_polygons: Array[PackedVector2Array]
 	
 	for polygon_a: PackedVector2Array in collision_polygons:
 		for polygon_b: PackedVector2Array in collision_polygons:
 			var merged_polygons: Array[PackedVector2Array] = Geometry2D.merge_polygons(polygon_a, polygon_b)
-			for merged_polygon: PackedVector2Array in merged_polygons:
-				if not Geometry2D.is_polygon_clockwise(merged_polygon):
-					merged_counterclockwise_polygons.append(merged_polygon)
+			merged_touching_polygons.append_array(merged_polygons)
 	
-	return merged_counterclockwise_polygons
+	return merged_touching_polygons
 
 ##Assumes the collider is a TileMapLayer. Check if the collider is a TileMapLayer before passing.
 static func get_colliding_tile_position(collision: KinematicCollision2D) -> Vector2i:
@@ -344,3 +416,80 @@ static func handle_inventory_requirement_interaction_area_interaction(inventory:
 	else:
 		inventory_requirement_interaction_area.fail_requirements(interactor)
 	return false
+
+##Returns true if the given polygons overlap, including if one polygon is entirely inside another or they only touch boundaries.
+static func polygons_overlap(a: PackedVector2Array, b: PackedVector2Array) -> bool:
+	var iterating_polygon = a if a.size() < b.size() else b
+	var other_polygon = a if a != iterating_polygon else b
+	for point: Vector2 in iterating_polygon:
+		if Geometry2D.is_point_in_polygon(point, other_polygon):
+			return true
+	return false
+
+##Returns the bounding box of the given polygon.
+static func get_polygon_bounding_box(polygon: PackedVector2Array) -> Rect2:
+	var top_left: Vector2 = Vector2(polygon[0].x, polygon[0].y)
+	var bottom_right: Vector2 = Vector2(polygon[0].x, polygon[0].y)
+	
+	for point: Vector2 in polygon:
+		top_left = top_left.min(point)
+		bottom_right = bottom_right.max(point)
+	
+	return Rect2(top_left, bottom_right - top_left)
+
+##Returns true if [param inside_polygon] is entirely inside [outside_polygon]. 
+static func polygon_inside_polygon(outside_polygon: PackedVector2Array, inside_polygon: PackedVector2Array) -> bool:
+	for point: Vector2 in inside_polygon:
+		if not Geometry2D.is_point_in_polygon(point, outside_polygon):
+			return false
+	return true
+
+##Clips each polygon in [param clipping_polygons] with [param against_polygon] and returns the clipped polygons.
+static func clip_polygons(clipping_polygons: Array[PackedVector2Array], against_polygon: PackedVector2Array) -> Array[PackedVector2Array]:
+	var clipped_polygons: Array[PackedVector2Array] = []
+	for clipping_polygon: PackedVector2Array in clipping_polygons:
+		if Utils.polygons_overlap(clipping_polygon, against_polygon):
+			clipped_polygons.append_array(Geometry2D.clip_polygons(clipping_polygon, against_polygon))
+		else:
+			clipped_polygons.append(clipping_polygon)
+	
+	return clipped_polygons
+
+##Clips [param clipping_polygon] with each of [param against_polygons] and returns the clipped polygons. Assumes no polygons in [param against_polygons] overlap.
+static func clip_polygon_with_polygons(clipping_polygon: PackedVector2Array, against_polygons: Array[PackedVector2Array]) -> Array[PackedVector2Array]:
+	var clipped_polygons: Array[Array] = []
+	
+	for against_polygon: PackedVector2Array in against_polygons:
+		var new_clipped_polygons: Array[PackedVector2Array] = Geometry2D.clip_polygons(clipping_polygon, against_polygon)
+		clipped_polygons.append(new_clipped_polygons)
+	
+	var intersected_polygons: Array[PackedVector2Array] = intersect_multiple_polygon_arrays(clipped_polygons)
+	
+	return intersected_polygons
+
+##Converts given [Rect2] to a [RectangleShape2D].
+static func rect2_to_shape(rect2: Rect2) -> RectangleShape2D:
+	var shape = RectangleShape2D.new()
+	shape.shape.size = rect2.size
+	shape.transform = rect2.position
+	return shape
+
+##Returns true if [param array] has each element in [each]
+static func array_has_each(array: Array, each: Array) -> bool:
+	for element in each:
+		if not array.has(element):
+			return false
+	return true
+
+static func set_bit(bit_flags: int, bit: int) -> int:
+	return bit_flags | bit
+
+static func unset_bit(bit_flags: int, bit: int) -> int:
+	return bit_flags & ~bit
+
+static func is_bit_set(bit_flags: int, bit: int) -> bool:
+	return (bit_flags & bit) != 0
+
+static func free_children(node: Node) -> void:
+	for child in node.get_children():
+		child.queue_free()
