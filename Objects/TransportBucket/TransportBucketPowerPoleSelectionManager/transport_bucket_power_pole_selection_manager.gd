@@ -62,3 +62,6 @@ func _on_transport_bucket_reached_end_of_path():
 
 func _on_transport_bucket_picked_up():
 	queue_free()
+
+func _on_transport_bucket_range_left():
+	hide_ui.call()

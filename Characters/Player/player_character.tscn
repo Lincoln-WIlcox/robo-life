@@ -535,7 +535,7 @@ position = Vector2(-8, 0)
 position = Vector2(8, 0)
 
 [node name="CursorDetectArea" parent="PlayerCharacterBody" instance=ExtResource("32_jrak7")]
-collision_layer = 0
+collision_layer = 16
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerCharacterBody/CursorDetectArea"]
 shape = SubResource("CircleShape2D_cuesd")

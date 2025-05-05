@@ -19,8 +19,14 @@ func update():
 		_handle_interaction(mouse_interaction_area)
 
 func _handle_interaction(mouse_interaction_area: MouseInteractionArea) -> void:
-	if cursor_detect_area.mouse_over:
+	if cursor_detect_area.overlaps_area(mouse_interaction_area):
 		mouse_interaction_area.interact()
 		interacted.emit(mouse_interaction_area)
+		mouse_interaction_area.area_exited.connect(_on_mouse_interaction_area_area_exited.bind(mouse_interaction_area))
 	else:
 		mouse_interaction_area.interaction_out_of_range()
+
+func _on_mouse_interaction_area_area_exited(area: Area2D, mouse_interaction_area: MouseInteractionArea) -> void:
+	if area == cursor_detect_area:
+		mouse_interaction_area.left_range()
+		mouse_interaction_area.area_exited.disconnect(_on_mouse_interaction_area_area_exited)
