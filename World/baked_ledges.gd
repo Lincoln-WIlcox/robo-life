@@ -45,12 +45,12 @@ func bake_ledges(tile_map_layer: TileMapLayer) -> void:
 			
 			if Utils.is_bit_set(ledge_sides, LedgeGrabbingBitFlags.LEFT):
 				var left_ledge_pos: Vector2 = Vector2(tile_position) * Vector2(cell_size)
-				_make_ledge_at(left_ledge_pos)
+				_make_ledge_at(left_ledge_pos, Utils.GrabDirections.LEFT)
 			
 			if Utils.is_bit_set(ledge_sides, LedgeGrabbingBitFlags.RIGHT):
 				var right_ledge_pos: Vector2 = Vector2(tile_position) * Vector2(cell_size)
 				right_ledge_pos.x += cell_size.x
-				_make_ledge_at(right_ledge_pos)
+				_make_ledge_at(right_ledge_pos, Utils.GrabDirections.RIGHT)
 
 #returns bit flags representing sides which has space for ledge grabbing.
 func _ledge_grab_sides(tile_map_layer: TileMapLayer, tile_pos: Vector2i) -> int:
@@ -84,8 +84,9 @@ func _tile_is_solid_square(tile: TileData, cell_size: Vector2) -> bool:
 	return true
 
 #pos should be global
-func _make_ledge_at(pos: Vector2) -> void:
+func _make_ledge_at(pos: Vector2, side: Utils.GrabDirections) -> void:
 	var ledge: Ledge = ledge_packed_scene.instantiate()
 	ledge.global_position = pos
+	ledge.grab_direction = side
 	add_child(ledge)
 	ledge.set_owner(get_tree().edited_scene_root)
