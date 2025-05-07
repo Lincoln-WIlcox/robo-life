@@ -3,6 +3,7 @@ extends Node
 @export var transport_bucket: TransportBucket
 var _curve: Curve2D
 var _first_power_connector: PowerConnector
+#can also be thought of as "final power connector" ir "target power connector".
 var _last_power_connector: PowerConnector
 var _curve_power_connections: Array[PowerConnectorConnection]
 var _curve_power_connectors: Array[PowerConnector]
@@ -32,8 +33,32 @@ func reroute() -> void:
 	#previous is the connector that transport bucket has just passed
 	var previous_connector_index: int = Utils.get_index_of_point_along_curve_before_offset(_curve, transport_bucket.path_follow.progress)
 	
+	#if _curve_power_connectors[previous_connector_index] == _first_power_connector and _first_power_connector == _last_power_connector:
+		#var new_curve: Curve2D = Curve2D.new()
+		##new_curve.add_point(transport_bucket.path_follow.global_position)
+		##new_curve.add_point(_last_power_connector.global_position)
+		###shortest_path_curve.add_point(transport_bucket.path_follow.global_position, Vector2.ZERO, Vector2.ZERO, 0)
+		##transport_bucket.use_curve(new_curve)
+		##
+		##_first_power_connector = _curve_power_connectors[previous_connector_index + 1]
+		##_curve = new_curve
+		##
+		##var path_of_power_connections: Array[PowerConnectorConnection] = [PowerConnectionHandler.get_connection_for_connectors(_curve_power_connectors[previous_connector_index + 1], _last_power_connector)]
+		##_update_power_connectors(path_of_power_connections, _first_power_connector)
+		#new_curve.add_point(transport_bucket.path_follow.global_position)
+		#new_curve.add_point(_last_power_connector.global_position)
+		#transport_bucket.use_curve(new_curve)
+		#transport_bucket.path_follow.progress = 0
+		#
+		#_curve = new_curve
+		#_first_power_connector = _last_power_connector
+		#var path_of_power_connections: Array[PowerConnectorConnection] = [PowerConnectionHandler.get_connection_for_connectors(_curve_power_connectors[previous_connector_index + 1], _last_power_connector)]
+		#_curve_power_connectors = [_last_power_connector]
+		#_update_power_connectors(path_of_power_connections, _first_power_connector)
+		#return
+	
 	#if transport bucket is at the end of the path, use the power connector the transport bucket is on
-	if previous_connector_index == _curve_power_connectors.size() - 1:
+	if previous_connector_index >= _curve_power_connectors.size() - 1:
 		var using_power_connector: PowerConnector = _curve_power_connectors.back()
 		_update_curve_to_power_connectors(using_power_connector, _last_power_connector)
 		return
@@ -79,8 +104,10 @@ func reroute() -> void:
 	
 	_curve = shortest_path_curve
 	_first_power_connector = shortest_connector
-	shortest_connections_path.push_front(PowerConnectionHandler.get_connection_for_connectors(previous_connector, next_connector))
-	_update_power_connectors(shortest_connections_path, shortest_connector)
+	var on_connection: PowerConnectorConnection = PowerConnectionHandler.get_connection_for_connectors(previous_connector, next_connector)
+	shortest_connections_path.push_front(on_connection)
+	var start_connector = PowerConnectionHandler.get_other_connector_in_connection(shortest_connector, on_connection)
+	_update_power_connectors(shortest_connections_path, start_connector)
 
 ##Reroutes to given target connector from the transport bucket's position.
 ##Cannot be called before [method self.make_new_path], as information about the previous path is used in the calculation of the new route
@@ -99,6 +126,7 @@ func get_last_power_connector() -> PowerConnector:
 func _update_curve_to_power_connectors(power_connector_a: PowerConnector, power_connector_b: PowerConnector) -> void:
 	var shortest_path_of_power_connections: Array[PowerConnectorConnection] = PowerConnectionHandler.get_shortest_path_power_connectors(power_connector_a, power_connector_b)
 	var shortest_path_curve: Curve2D = _make_curve_from_power_connection_path(shortest_path_of_power_connections, power_connector_a)
+	#shortest_path_curve.add_point(transport_bucket.path_follow.global_position, Vector2.ZERO, Vector2.ZERO, 0)
 	transport_bucket.use_curve(shortest_path_curve)
 	
 	_first_power_connector = power_connector_a
@@ -113,6 +141,9 @@ func _update_power_connectors(power_connections_path: Array[PowerConnectorConnec
 	_curve_power_connectors = [starting_power_connector]
 	
 	for power_connection: PowerConnectorConnection in power_connections_path:
+		if power_connection == null:
+			breakpoint
+		
 		power_connection.broken.connect(_on_path_connection_broken.bind(power_connection))
 		_curve_power_connectors.append(power_connection.power_connector_a if power_connection.power_connector_a not in _curve_power_connectors else power_connection.power_connector_b)
 	
