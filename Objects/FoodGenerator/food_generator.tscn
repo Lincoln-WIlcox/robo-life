@@ -1,0 +1,58 @@
+[gd_scene load_steps=13 format=3 uid="uid://b6s0g2k4vqrnq"]
+
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="1_aam8b"]
+[ext_resource type="Script" uid="uid://cr1wia8vqv525" path="res://Objects/FoodGenerator/food_generator.gd" id="1_ia725"]
+[ext_resource type="PackedScene" uid="uid://cqnd47al60df" path="res://Objects/GravityWalkOverPickupSpawner/gravity_walk_over_pickup_spawner.tscn" id="2_iec7h"]
+[ext_resource type="PackedScene" uid="uid://g1jj5acjo7c5" path="res://Objects/GravityWalkOverItemPickup/gravity_walk_over_item_pickup_food.tscn" id="3_ia725"]
+[ext_resource type="PackedScene" uid="uid://b7qfrcuaghpqn" path="res://Components/InteractionArea/InventoryRequirementInteractionArea/inventory_requirement_interaction_area.tscn" id="4_iog8r"]
+[ext_resource type="Script" uid="uid://bviplh42sb2sb" path="res://Resources/item_data.gd" id="5_7t45p"]
+[ext_resource type="Script" uid="uid://dvclds4rayld8" path="res://Resources/inventory_requirement.gd" id="6_f0peu"]
+[ext_resource type="PackedScene" uid="uid://cy2f85iqat6q0" path="res://Components/TimeTaskHandler/time_task_handler.tscn" id="8_iog8r"]
+[ext_resource type="PackedScene" uid="uid://xnd8ne8fypg3" path="res://Components/FloatAwayTextSpawner/float_away_text_spawner.tscn" id="9_iog8r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8o2l"]
+atlas = ExtResource("1_aam8b")
+region = Rect2(176, 200, 16, 24)
+
+[sub_resource type="Resource" id="Resource_m1cbn"]
+script = ExtResource("6_f0peu")
+batteries_cost = 0
+steel_cost = 5
+costs_items = Array[ExtResource("5_7t45p")]([])
+requires_items = Array[ExtResource("5_7t45p")]([])
+metadata/_custom_type_script = "uid://dvclds4rayld8"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7t45p"]
+size = Vector2(16, 24)
+
+[node name="FoodGenerator" type="Node2D"]
+script = ExtResource("1_ia725")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.560784, 0, 1)
+position = Vector2(8, 12)
+texture = SubResource("AtlasTexture_s8o2l")
+
+[node name="GravityWalkOverPickupSpawner" parent="." instance=ExtResource("2_iec7h")]
+position = Vector2(8, 12)
+gravity_walk_over_pickup_packed_scene = ExtResource("3_ia725")
+spawn_amount = 5
+spawn_range_width = 5
+
+[node name="InventoryRequirementInteractionArea" parent="." instance=ExtResource("4_iog8r")]
+position = Vector2(8, 12)
+inventory_requirement = SubResource("Resource_m1cbn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InventoryRequirementInteractionArea"]
+shape = SubResource("RectangleShape2D_7t45p")
+
+[node name="TimeTaskHandler" parent="." instance=ExtResource("8_iog8r")]
+position = Vector2(8, -6)
+
+[node name="FloatAwayTextSpawner" parent="." instance=ExtResource("9_iog8r")]
+position = Vector2(8, -5)
+text = "Costs 5 steel"
+
+[connection signal="insufficient_requirements" from="InventoryRequirementInteractionArea" to="." method="_on_inventory_requirement_interaction_area_insufficient_requirements"]
+[connection signal="requirements_met" from="InventoryRequirementInteractionArea" to="." method="_on_inventory_requirement_interaction_area_requirements_met"]
+[connection signal="task_completed" from="TimeTaskHandler" to="." method="_on_time_task_handler_task_completed"]
