@@ -1,26 +1,28 @@
 extends State
 
-@export var place_object_handler: PlaceObjectHandler
+@export var place_object_handler: PlayerPlaceObjectHandler
 @export var none_state: State
 
 var placeable_item: ItemGridItem
 var place_object: Callable
-var cancel_placing_object: Callable
 var inventory: Inventory
+var start_placing_placeable: Callable
+
+var _placing_placeable: Placeable
 
 func enter():
-	var placeable: Placeable = load(placeable_item.item_data.drop_scene).instantiate()
-	place_object_handler.start_placing_placeable(placeable)
+	_placing_placeable = load(placeable_item.item_data.drop_scene).instantiate()
+	start_placing_placeable.call(_placing_placeable)
 
-func run():
-	place_object_handler.update_placing()
-	if place_object.call() and place_object_handler.attempt_place_object():
+func end_placing() -> void:
+	placeable_item = null
+	state_ended.emit(none_state)
+
+func placing_complete() -> void:
+	if is_current_state.call():
+		end_placing()
+
+func placeable_placed(placed_placeable: Placeable) -> void:
+	if is_current_state.call() and _placing_placeable == placed_placeable:
 		inventory.remove_grid_item(placeable_item)
-		none_state.just_placed_object = true
-		state_ended.emit(none_state)
-	if cancel_placing_object.call():
-		place_object_handler.cancel_placing()
-		state_ended.emit(none_state)
-
-func exit():
-	place_object_handler.stop_placing()
+		end_placing()

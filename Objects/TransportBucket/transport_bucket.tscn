@@ -46,6 +46,7 @@ z_index = 1
 script = ExtResource("1_7v0ta")
 initial_inventory = SubResource("Resource_kaggv")
 transport_bucket_item = ExtResource("5_6rcnf")
+speed = 0.8
 
 [node name="VelocityComponent" parent="." node_paths=PackedStringArray("affecting_node") instance=ExtResource("3_3rux8")]
 affecting_node = NodePath("../CharacterBody2D")

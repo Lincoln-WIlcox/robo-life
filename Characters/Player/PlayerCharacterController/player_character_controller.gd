@@ -9,7 +9,6 @@ extends Node2D
 @onready var inventory_state: State = $UIStateMachine/Inventory
 @onready var placing_object_state: State = $UIStateMachine/PlacingObject
 @onready var shelter_state: State = $UIStateMachine/Shelter
-@onready var place_object_handler: PlaceObjectHandler = $PlaceObjectHandler
 @onready var laser_gun = $LaserGun
 @onready var laser_gun_handler = $PlayerLaserGunHandler
 @onready var crafting_state = $UIStateMachine/Shelter/ShelterStateMachine/Crafting
@@ -17,9 +16,7 @@ extends Node2D
 @onready var player_shield_handler = $PlayerShieldHandler
 @onready var level_map_state = $UIStateMachine/LevelMap
 @onready var map_texture_updater = $MapTextureUpdater
-@onready var power_pole_placement_handler = $PowerPolePlacementHandler
 #@onready var power_pole_selection_state = $UIStateMachine/TransportBucketDestinationSelectionMap
-@onready var transport_bucket_placement_handler = $TransportBucketPlacementHandler
 @onready var cursor_interaction_handler = $CursorInteractionHandler
 @onready var shield = $ShieldRotationPivot/Shield
 @onready var warp_state = $UIStateMachine/Shelter/ShelterStateMachine/Warp
@@ -55,7 +52,6 @@ var show_ui: Callable:
 			crafting_state.show_ui = show_ui
 			level_map_state.show_ui = show_ui
 			#power_pole_selection_state.show_ui = show_ui
-			transport_bucket_placement_handler.show_ui = show_ui
 			warp_state.show_ui = show_ui
 var hide_ui: Callable:
 	set(new_value):
@@ -66,7 +62,6 @@ var hide_ui: Callable:
 			crafting_state.hide_ui = hide_ui
 			level_map_state.hide_ui = hide_ui
 			#power_pole_selection_state.hide_ui = hide_ui
-			transport_bucket_placement_handler.hide_ui = hide_ui
 			warp_state.hide_ui = hide_ui
 var get_current_ui: Callable:
 	set(new_value):
@@ -82,12 +77,15 @@ var get_revealed_sectors: Callable:
 			level_map_state.get_revealed_sectors = get_revealed_sectors
 			warp_state.get_revealed_sectors = get_revealed_sectors
 			#power_pole_selection_state.get_revealed_sectors = get_revealed_sectors
-			transport_bucket_placement_handler.get_revealed_sectors = get_revealed_sectors
 var reveal_sector: Callable:
 	set(new_value):
 		reveal_sector = new_value
 		if is_node_ready():
 			sector_handler.reveal_sector = reveal_sector
+var start_placing_placeable: Callable:
+	set(new_value):
+		start_placing_placeable = new_value
+		placing_object_state.start_placing_placeable = start_placing_placeable
 
 signal item_dropped(drop: Object)
 signal died
@@ -96,6 +94,8 @@ signal inventory_closed
 signal shelter_opened(shelter_ui: Control)
 signal shelter_closed
 signal day_ended
+signal place_placeable_pressed
+signal cancel_placing_placeable_pressed
 
 var shelter_map_scenes_interacted_with: Array[ShelterInteractionArea]
 
@@ -122,14 +122,11 @@ func _ready():
 	inventory_state.active_player = player_character
 	inventory_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
 	placing_object_state.place_object = func(): return Input.is_action_just_pressed("place_object")
-	placing_object_state.cancel_placing_object = func(): return Input.is_action_just_pressed("cancel_placing_object")
 	placing_object_state.inventory = inventory
+	placing_object_state.start_placing_placeable = start_placing_placeable
 	pickup_stuff_handler.pickup = func(): return Input.is_action_just_pressed("pickup")
 	pickup_stuff_handler.cursor_detect_area = player_character.cursor_detect_area
 	pickup_stuff_handler.inventory = inventory
-	place_object_handler.cursor_detect_area = player_character.cursor_detect_area
-	place_object_handler.node_to_spawn_placeables_in = node_to_spawn_placeables_in
-	place_object_handler.can_place_items = func(): return not player_character.is_airborne()
 	laser_gun_handler.is_firing = func(): return Input.is_action_pressed("fire")
 	inventory_state.inventory_opened.connect(func(): inventory_opened.emit())
 	inventory_state.inventory_closed.connect(func(): inventory_closed.emit())
@@ -151,7 +148,6 @@ func _ready():
 	none_state.toggle_power_pole_selection = func(): return false #Input.is_action_just_pressed("test_input")
 	none_state.is_firing = func(): return Input.is_action_pressed("fire")
 	none_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
-	power_pole_placement_handler.enviornment_query_system = environment_query_system
 	#power_pole_selection_state.toggle_map = func(): return Input.is_action_just_pressed("test_input")
 	#power_pole_selection_state.environment_query_system = environment_query_system
 	#power_pole_selection_state.get_revealed_sectors = get_revealed_sectors
@@ -161,17 +157,11 @@ func _ready():
 	level_map_state.get_revealed_sectors = get_revealed_sectors
 	map_texture.get_position = func(): return player_character.character.global_position
 	map_texture.source_node = self
-	transport_bucket_placement_handler.node_to_put_transport_buckets_in = node_to_spawn_placeables_in
-	transport_bucket_placement_handler.show_ui = show_ui
-	transport_bucket_placement_handler.hide_ui = hide_ui
-	transport_bucket_placement_handler.environment_query_system = environment_query_system
-	transport_bucket_placement_handler.get_revealed_sectors = get_revealed_sectors
 	cursor_interaction_handler.cursor_detect_area = player_character.cursor_detect_area
 	cursor_interaction_handler.cursor_interacted = func(): return Input.is_action_just_pressed("cursor_interact")
 	other_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
 	other_state.toggle_map = func(): return Input.is_action_just_pressed("toggle_map")
 	other_state.toggle_power_pole_selection = func(): return false #Input.is_action_just_pressed("test_input")
-	power_pole_placement_handler.node_to_put_lines_in = node_to_spawn_placeables_in
 	map_texture_updater.map_texture = map_texture
 	warp_state.environment_query_system = environment_query_system
 	warp_state.get_revealed_sectors = get_revealed_sectors
@@ -185,6 +175,12 @@ func _ready():
 	player_character.character.add_child(laser_gun)
 	laser_gun.laser.raycast.add_exception(player_character.character)
 	laser_gun.laser.raycast.add_exception(shield.area)
+
+func get_cursor_detect_area() -> CursorDetectArea:
+	return player_character.cursor_detect_area
+
+func can_place_items() -> bool:
+	return not player_character.is_airborne()
 
 func setup_sectors() -> void:
 	level_map_state.setup_map()
@@ -207,6 +203,10 @@ func _input(event):
 		player_character.emit_just_climbed()
 	if event.is_action_pressed("toggle_inventory"):
 		shelter_state.on_shelter_closed()
+	if event.is_action_pressed("place_object"):
+		place_placeable_pressed.emit()
+	if event.is_action_pressed("cancel_placing_object"):
+		cancel_placing_placeable_pressed.emit()
 
 func _process(_delta):
 	camera.position = player_character.character.position
@@ -234,3 +234,9 @@ func _on_shelter_transport_bucket_arrived(transport_bucket: TransportBucket):
 	inventory_addition.remove_item(transport_bucket_item)
 	var new_transport_bucket_inventory: Inventory = inventory_addition.to_inventory(transport_bucket.get_inventory().item_grid.size)
 	transport_bucket.set_inventory(new_transport_bucket_inventory)
+
+func _on_player_place_object_handler_cancelled_placing():
+	placing_object_state.placing_complete()
+
+func _on_player_place_object_handler_placeable_placed(placeable):
+	placing_object_state.placeable_placed(placeable)
