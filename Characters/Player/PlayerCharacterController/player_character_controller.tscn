@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://dw2fqgynxjcit"]
+[gd_scene load_steps=48 format=3 uid="uid://dw2fqgynxjcit"]
 
 [ext_resource type="Script" uid="uid://c60acows37ws5" path="res://Characters/Player/PlayerCharacterController/player_character_controller.gd" id="1_bw5ol"]
 [ext_resource type="PackedScene" uid="uid://by3dehhgwxdqr" path="res://Objects/Shield/shield.tscn" id="2_ipind"]
@@ -24,7 +24,6 @@
 [ext_resource type="Script" uid="uid://rvwny5vq4uhf" path="res://Resources/item_grid_item.gd" id="7_45g5n"]
 [ext_resource type="Script" uid="uid://k1rijaj3sokv" path="res://Characters/Player/PlayerCharacterController/pickup_stuff_handler.gd" id="7_bmrc0"]
 [ext_resource type="Resource" uid="uid://b3au5vg63nxkc" path="res://Resources/Items/power_pole.tres" id="7_xihey"]
-[ext_resource type="Script" uid="uid://cslvebpokvfhg" path="res://Characters/Player/PlayerCharacterController/handle_placing_object.gd" id="8_4yuco"]
 [ext_resource type="PackedScene" uid="uid://buke53aipiw0n" path="res://UI/PlayerInventoryUI/player_inventory_ui.tscn" id="9_1p1ww"]
 [ext_resource type="PackedScene" uid="uid://b0pmkjnlnl8p0" path="res://Objects/LaserGun/laser_gun.tscn" id="9_03qrv"]
 [ext_resource type="Script" uid="uid://dnheer8illebj" path="res://Characters/Player/PlayerCharacterController/shelter_state.gd" id="10_0syx4"]
@@ -53,6 +52,14 @@ display_texture = SubResource("AtlasTexture_evjoi")
 z_index = 1
 scale = Vector2(2, 2)
 
+[sub_resource type="Resource" id="Resource_5jlhx"]
+resource_local_to_scene = true
+script = ExtResource("14_276kj")
+value = 0
+min_value = 0
+max_value = 100
+metadata/_custom_type_script = "uid://dl6huvtb5e0v5"
+
 [sub_resource type="Resource" id="Resource_xihey"]
 resource_local_to_scene = true
 script = ExtResource("14_276kj")
@@ -63,20 +70,12 @@ metadata/_custom_type_script = "uid://dl6huvtb5e0v5"
 
 [sub_resource type="Resource" id="Resource_ti61w"]
 resource_local_to_scene = true
-script = ExtResource("14_276kj")
-value = 0
-min_value = 0
-max_value = 100
-metadata/_custom_type_script = "uid://dl6huvtb5e0v5"
-
-[sub_resource type="Resource" id="Resource_4nulw"]
-resource_local_to_scene = true
 script = ExtResource("4_saie0")
 size = Vector2i(3, 3)
 initial_items = Array[ExtResource("7_45g5n")]([])
 metadata/_custom_type_script = "uid://cdp7s6pjgskwb"
 
-[sub_resource type="Resource" id="Resource_is2jc"]
+[sub_resource type="Resource" id="Resource_4nulw"]
 resource_local_to_scene = true
 script = ExtResource("14_276kj")
 value = 0
@@ -84,13 +83,13 @@ min_value = 0
 max_value = 100
 metadata/_custom_type_script = "uid://dl6huvtb5e0v5"
 
-[sub_resource type="Resource" id="Resource_n2ef8"]
+[sub_resource type="Resource" id="Resource_is2jc"]
 resource_local_to_scene = true
 script = ExtResource("4_d214o")
-batteries = SubResource("Resource_xihey")
-steel = SubResource("Resource_is2jc")
-food = SubResource("Resource_ti61w")
-item_grid = SubResource("Resource_4nulw")
+batteries = SubResource("Resource_5jlhx")
+steel = SubResource("Resource_4nulw")
+food = SubResource("Resource_xihey")
+item_grid = SubResource("Resource_ti61w")
 metadata/_custom_type_script = "uid://bg5ne6c0ge6gv"
 
 [node name="PlayerCharacterController" type="Node2D"]
@@ -134,7 +133,7 @@ player_character = NodePath("../PlayerCharacter")
 laser_gun = NodePath("../LaserGun")
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("2_u8dgg")]
-inventory = SubResource("Resource_n2ef8")
+inventory = SubResource("Resource_is2jc")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_callback = 0
@@ -172,9 +171,8 @@ none_state = NodePath("../None")
 placing_state = NodePath("../PlacingObject")
 inventory_ui_packed_scene = ExtResource("9_1p1ww")
 
-[node name="PlacingObject" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("place_object_handler", "none_state")]
+[node name="PlacingObject" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("none_state")]
 script = ExtResource("6_1j2hy")
-place_object_handler = NodePath("../../PlaceObjectHandler")
 none_state = NodePath("../None")
 
 [node name="Shelter" type="Node" parent="UIStateMachine" node_paths=PackedStringArray("none_state")]
@@ -216,9 +214,6 @@ script = ExtResource("7_bmrc0")
 [node name="CursorInteractionHandler" type="Node" parent="."]
 script = ExtResource("32_emp26")
 
-[node name="PlaceObjectHandler" type="Node2D" parent="."]
-script = ExtResource("8_4yuco")
-
 [node name="LaserGun" parent="." instance=ExtResource("9_03qrv")]
 firing = false
 heat_amount = 2
@@ -226,6 +221,7 @@ heat_amount = 2
 [node name="ShelterWarpHandler" type="Node" parent="."]
 script = ExtResource("38_fnqtp")
 
+[connection signal="sector_revealed" from="SectorHandler" to="." method="_on_sector_handler_sector_revealed"]
 [connection signal="sector_revealed" from="SectorHandler" to="TransportBucketPlacementHandler" method="_on_sector_handler_sector_revealed"]
 [connection signal="sector_revealed" from="SectorHandler" to="UIStateMachine/Shelter/ShelterStateMachine/Warp" method="_on_sector_handler_sector_revealed"]
 [connection signal="sector_revealed" from="SectorHandler" to="UIStateMachine/LevelMap" method="_on_sector_handler_sector_revealed"]
@@ -235,6 +231,3 @@ script = ExtResource("38_fnqtp")
 [connection signal="day_ended" from="UIStateMachine/Shelter/ShelterStateMachine/Shelter" to="." method="_on_shelter_day_ended"]
 [connection signal="shelter_selected" from="UIStateMachine/Shelter/ShelterStateMachine/Warp" to="ShelterWarpHandler" method="_on_warp_shelter_selected"]
 [connection signal="interacted" from="CursorInteractionHandler" to="UIStateMachine/None" method="_on_cursor_interaction_handler_interacted"]
-[connection signal="placeable_placed" from="PlaceObjectHandler" to="PowerPolePlacementHandler" method="_on_place_object_handler_placeable_placed"]
-[connection signal="placing_placeable" from="PlaceObjectHandler" to="TransportBucketPlacementHandler" method="_on_place_object_handler_placing_placeable"]
-[connection signal="placing_placeable" from="PlaceObjectHandler" to="PowerPolePlacementHandler" method="_on_place_object_handler_placing_placeable"]

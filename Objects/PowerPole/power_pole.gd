@@ -8,7 +8,7 @@ const MAX_CONNECTIONS = 6
 @onready var connect_area: Area2D = $ConnectArea
 
 @export var node_to_put_lines_in: Node
-@export var enviornment_query_system: EnvironmentQuerySystem
+@export var environment_query_system: EnvironmentQuerySystem
 @export var start_placed := false
 @export var power_pole_selection_texture: Texture
 @export var transport_bucket_queryable: TransportBucketDestinationSelectionQueryableEntity
@@ -21,8 +21,8 @@ func _ready():
 	transport_bucket_queryable.power_connector = power_connector
 	transport_bucket_queryable.map_entity_setup.connect(_on_transport_bucket_queryable_map_entity_setup)
 	
-	if enviornment_query_system:
-		enviornment_query_system.add_entity_queryable(transport_bucket_queryable)
+	if environment_query_system:
+		environment_query_system.add_entity_queryable(transport_bucket_queryable)
 	
 	#power_pole_selection_map_entity.source_node = self
 	#power_pole_selection_map_entity.scene_setup.connect(_on_power_pole_selection_map_entity_setup.bind(power_pole_selection_map_entity))
@@ -33,9 +33,13 @@ func _ready():
 		await Engine.get_main_loop().physics_frame
 		place()
 
-func add_to_enviornment_query_system(new_enviornment_query_system: EnvironmentQuerySystem) -> void:
-	enviornment_query_system = new_enviornment_query_system
-	enviornment_query_system.add_entity_queryable(transport_bucket_queryable)
+func initialize(context: PlaceableContext) -> void:
+	node_to_put_lines_in = context.world
+	environment_query_system = context.environment_query_system
+
+func add_to_environment_query_system(new_environment_query_system: EnvironmentQuerySystem) -> void:
+	environment_query_system = new_environment_query_system
+	environment_query_system.add_entity_queryable(transport_bucket_queryable)
 
 func _on_transport_bucket_queryable_map_entity_setup(map_entity: SelectableMapEntity) -> void:
 	map_entity.instance.position = global_position

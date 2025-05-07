@@ -10,7 +10,6 @@ const DEATH_MESSAGE = "You Died.. Bruh.."
 @export var ui_state_machine: StateMachine
 @export var current_level_packed_scene: PackedScene
 @export var inventory_state: State
-@export var place_object_handler: PlaceObjectHandler
 @export var placing_object_state: State
 @export var pickup_stuff_handler: PickupStuffHandler
 

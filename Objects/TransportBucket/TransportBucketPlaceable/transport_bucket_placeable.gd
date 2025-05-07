@@ -24,6 +24,14 @@ func _ready():
 	super()
 	_update_nearby_power_connector()
 
+func initialize(context: PlaceableContext) -> void:
+	node_to_put_transport_buckets_in = context.world
+	environment_query_system = context.environment_query_system
+	show_ui = context.show_ui
+	hide_ui = context.hide_ui
+	get_revealed_sectors = context.get_revealed_sectors
+	sector_revealed_signal = context.sector_revealed_signal
+
 func _on_placed() -> void:
 	var transport_bucket: TransportBucketPowerPoleSelectionManager = transport_bucket_power_pole_selection_manager_packed_scene.instantiate()
 	node_to_put_transport_buckets_in.add_child(transport_bucket)

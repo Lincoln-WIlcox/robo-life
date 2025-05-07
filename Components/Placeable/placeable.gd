@@ -29,6 +29,11 @@ func _ready():
 func _on_placed():
 	modulate = Color(1,1,1)
 
+#overwritten by sub classes. context will contain whatever context the placeable might need.
+#not the cleanest way of doing things, but at least it doesn't violate the open/closed principle.
+func initialize(_context: PlaceableContext) -> void:
+	pass
+
 func update_color():
 	if _placed:
 		modulate = Color(1,1,1)

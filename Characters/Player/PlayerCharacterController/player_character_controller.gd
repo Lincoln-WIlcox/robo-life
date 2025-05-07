@@ -9,7 +9,6 @@ extends Node2D
 @onready var inventory_state: State = $UIStateMachine/Inventory
 @onready var placing_object_state: State = $UIStateMachine/PlacingObject
 @onready var shelter_state: State = $UIStateMachine/Shelter
-@onready var place_object_handler: PlaceObjectHandler = $PlaceObjectHandler
 @onready var laser_gun = $LaserGun
 @onready var laser_gun_handler = $PlayerLaserGunHandler
 @onready var crafting_state = $UIStateMachine/Shelter/ShelterStateMachine/Crafting
@@ -88,6 +87,10 @@ var reveal_sector: Callable:
 		reveal_sector = new_value
 		if is_node_ready():
 			sector_handler.reveal_sector = reveal_sector
+var start_placing_placeable: Callable:
+	set(new_value):
+		start_placing_placeable = new_value
+		placing_object_state.start_placing_placeable = start_placing_placeable
 
 signal item_dropped(drop: Object)
 signal died
@@ -96,6 +99,8 @@ signal inventory_closed
 signal shelter_opened(shelter_ui: Control)
 signal shelter_closed
 signal day_ended
+signal place_placeable_pressed
+signal cancel_placing_placeable_pressed
 
 var shelter_map_scenes_interacted_with: Array[ShelterInteractionArea]
 
@@ -127,9 +132,6 @@ func _ready():
 	pickup_stuff_handler.pickup = func(): return Input.is_action_just_pressed("pickup")
 	pickup_stuff_handler.cursor_detect_area = player_character.cursor_detect_area
 	pickup_stuff_handler.inventory = inventory
-	place_object_handler.cursor_detect_area = player_character.cursor_detect_area
-	place_object_handler.node_to_spawn_placeables_in = node_to_spawn_placeables_in
-	place_object_handler.can_place_items = func(): return not player_character.is_airborne()
 	laser_gun_handler.is_firing = func(): return Input.is_action_pressed("fire")
 	inventory_state.inventory_opened.connect(func(): inventory_opened.emit())
 	inventory_state.inventory_closed.connect(func(): inventory_closed.emit())
@@ -186,6 +188,12 @@ func _ready():
 	laser_gun.laser.raycast.add_exception(player_character.character)
 	laser_gun.laser.raycast.add_exception(shield.area)
 
+func get_cursor_detect_area() -> CursorDetectArea:
+	return player_character.cursor_detect_area
+
+func can_place_items() -> bool:
+	return not player_character.is_airborne()
+
 func setup_sectors() -> void:
 	level_map_state.setup_map()
 	warp_state.setup_map()
@@ -207,6 +215,10 @@ func _input(event):
 		player_character.emit_just_climbed()
 	if event.is_action_pressed("toggle_inventory"):
 		shelter_state.on_shelter_closed()
+	if event.is_action_pressed("place_object"):
+		place_placeable_pressed.emit()
+	if event.is_action_pressed("cancel_placing_object"):
+		cancel_placing_placeable_pressed.emit()
 
 func _process(_delta):
 	camera.position = player_character.character.position
@@ -234,3 +246,9 @@ func _on_shelter_transport_bucket_arrived(transport_bucket: TransportBucket):
 	inventory_addition.remove_item(transport_bucket_item)
 	var new_transport_bucket_inventory: Inventory = inventory_addition.to_inventory(transport_bucket.get_inventory().item_grid.size)
 	transport_bucket.set_inventory(new_transport_bucket_inventory)
+
+func _on_player_place_object_handler_cancelled_placing():
+	placing_object_state.placing_complete()
+
+func _on_player_place_object_handler_placeable_placed(placeable):
+	placing_object_state.placeable_placed(placeable)

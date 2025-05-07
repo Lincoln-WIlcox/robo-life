@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://wqdgq1a7r2ml"]
+[gd_scene load_steps=25 format=3 uid="uid://wqdgq1a7r2ml"]
 
 [ext_resource type="Script" uid="uid://b166xvbc6nf64" path="res://World/world.gd" id="1_fuqf5"]
 [ext_resource type="Script" uid="uid://lyj3fi66muug" path="res://World/day_night_cycle.gd" id="1_yp3no"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://c1xjesyxds6hv" path="res://World/sector_handler.gd" id="5_ph0as"]
 [ext_resource type="Script" uid="uid://o1776oesu3i2" path="res://World/tiles.gd" id="6_7fj4g"]
 [ext_resource type="PackedScene" uid="uid://c33tblr4cbh8p" path="res://Objects/Ledge/ledge.tscn" id="7_p745u"]
+[ext_resource type="Script" uid="uid://cslvebpokvfhg" path="res://Characters/Player/PlayerCharacterController/handle_placing_object.gd" id="9_0lysu"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="9_dna0g"]
 [ext_resource type="PackedScene" uid="uid://c4ikfoien6boi" path="res://Components/Target/target.tscn" id="10_7fjhp"]
 [ext_resource type="PackedScene" uid="uid://daw30mg70crel" path="res://Objects/OneWayPlatform/one_way_platform.tscn" id="10_kift4"]
@@ -62,6 +63,11 @@ script = ExtResource("1_yp3no")
 wait_time = 120.0
 one_shot = true
 
+[node name="PlayerPlaceObjectHandler" type="Node2D" parent="." node_paths=PackedStringArray("world", "environment_query_system")]
+script = ExtResource("9_0lysu")
+world = NodePath("..")
+environment_query_system = NodePath("../EnvironmentQuerySystem")
+
 [node name="PowerLineDrawer" parent="." instance=ExtResource("2_gho6m")]
 
 [node name="EnvironmentQuerySystem" type="Node" parent="." node_paths=PackedStringArray("initial_tile_map_layers")]
@@ -91,5 +97,9 @@ player_character_controller = NodePath("../PlayerCharacterController")
 [connection signal="day_ended" from="DayNightCycle" to="PlayerCharacterController" method="_on_day_night_cycle_day_ended"]
 [connection signal="day_started" from="DayNightCycle" to="PlayerCharacterController" method="_on_day_night_cycle_day_started"]
 [connection signal="timeout" from="DayNightCycle/DayTimer" to="DayNightCycle" method="_on_day_timer_timeout"]
+[connection signal="cancelled_placing" from="PlayerPlaceObjectHandler" to="PlayerCharacterController" method="_on_player_place_object_handler_cancelled_placing"]
+[connection signal="placeable_placed" from="PlayerPlaceObjectHandler" to="PlayerCharacterController" method="_on_player_place_object_handler_placeable_placed"]
+[connection signal="cancel_placing_placeable_pressed" from="PlayerCharacterController" to="PlayerPlaceObjectHandler" method="_on_player_character_controller_cancel_placing_placeable_pressed"]
 [connection signal="day_ended" from="PlayerCharacterController" to="DayNightCycle" method="start_new_day"]
+[connection signal="place_placeable_pressed" from="PlayerCharacterController" to="PlayerPlaceObjectHandler" method="_on_player_character_controller_place_placeable_pressed"]
 [connection signal="changed" from="Tiles" to="Tiles" method="_on_changed"]
