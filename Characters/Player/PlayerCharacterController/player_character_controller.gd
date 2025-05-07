@@ -16,9 +16,7 @@ extends Node2D
 @onready var player_shield_handler = $PlayerShieldHandler
 @onready var level_map_state = $UIStateMachine/LevelMap
 @onready var map_texture_updater = $MapTextureUpdater
-@onready var power_pole_placement_handler = $PowerPolePlacementHandler
 #@onready var power_pole_selection_state = $UIStateMachine/TransportBucketDestinationSelectionMap
-@onready var transport_bucket_placement_handler = $TransportBucketPlacementHandler
 @onready var cursor_interaction_handler = $CursorInteractionHandler
 @onready var shield = $ShieldRotationPivot/Shield
 @onready var warp_state = $UIStateMachine/Shelter/ShelterStateMachine/Warp
@@ -54,7 +52,6 @@ var show_ui: Callable:
 			crafting_state.show_ui = show_ui
 			level_map_state.show_ui = show_ui
 			#power_pole_selection_state.show_ui = show_ui
-			transport_bucket_placement_handler.show_ui = show_ui
 			warp_state.show_ui = show_ui
 var hide_ui: Callable:
 	set(new_value):
@@ -65,7 +62,6 @@ var hide_ui: Callable:
 			crafting_state.hide_ui = hide_ui
 			level_map_state.hide_ui = hide_ui
 			#power_pole_selection_state.hide_ui = hide_ui
-			transport_bucket_placement_handler.hide_ui = hide_ui
 			warp_state.hide_ui = hide_ui
 var get_current_ui: Callable:
 	set(new_value):
@@ -81,7 +77,6 @@ var get_revealed_sectors: Callable:
 			level_map_state.get_revealed_sectors = get_revealed_sectors
 			warp_state.get_revealed_sectors = get_revealed_sectors
 			#power_pole_selection_state.get_revealed_sectors = get_revealed_sectors
-			transport_bucket_placement_handler.get_revealed_sectors = get_revealed_sectors
 var reveal_sector: Callable:
 	set(new_value):
 		reveal_sector = new_value
@@ -127,8 +122,8 @@ func _ready():
 	inventory_state.active_player = player_character
 	inventory_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
 	placing_object_state.place_object = func(): return Input.is_action_just_pressed("place_object")
-	placing_object_state.cancel_placing_object = func(): return Input.is_action_just_pressed("cancel_placing_object")
 	placing_object_state.inventory = inventory
+	placing_object_state.start_placing_placeable = start_placing_placeable
 	pickup_stuff_handler.pickup = func(): return Input.is_action_just_pressed("pickup")
 	pickup_stuff_handler.cursor_detect_area = player_character.cursor_detect_area
 	pickup_stuff_handler.inventory = inventory
@@ -153,7 +148,6 @@ func _ready():
 	none_state.toggle_power_pole_selection = func(): return false #Input.is_action_just_pressed("test_input")
 	none_state.is_firing = func(): return Input.is_action_pressed("fire")
 	none_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
-	power_pole_placement_handler.enviornment_query_system = environment_query_system
 	#power_pole_selection_state.toggle_map = func(): return Input.is_action_just_pressed("test_input")
 	#power_pole_selection_state.environment_query_system = environment_query_system
 	#power_pole_selection_state.get_revealed_sectors = get_revealed_sectors
@@ -163,17 +157,11 @@ func _ready():
 	level_map_state.get_revealed_sectors = get_revealed_sectors
 	map_texture.get_position = func(): return player_character.character.global_position
 	map_texture.source_node = self
-	transport_bucket_placement_handler.node_to_put_transport_buckets_in = node_to_spawn_placeables_in
-	transport_bucket_placement_handler.show_ui = show_ui
-	transport_bucket_placement_handler.hide_ui = hide_ui
-	transport_bucket_placement_handler.environment_query_system = environment_query_system
-	transport_bucket_placement_handler.get_revealed_sectors = get_revealed_sectors
 	cursor_interaction_handler.cursor_detect_area = player_character.cursor_detect_area
 	cursor_interaction_handler.cursor_interacted = func(): return Input.is_action_just_pressed("cursor_interact")
 	other_state.toggle_inventory = func(): return Input.is_action_just_pressed("toggle_inventory")
 	other_state.toggle_map = func(): return Input.is_action_just_pressed("toggle_map")
 	other_state.toggle_power_pole_selection = func(): return false #Input.is_action_just_pressed("test_input")
-	power_pole_placement_handler.node_to_put_lines_in = node_to_spawn_placeables_in
 	map_texture_updater.map_texture = map_texture
 	warp_state.environment_query_system = environment_query_system
 	warp_state.get_revealed_sectors = get_revealed_sectors

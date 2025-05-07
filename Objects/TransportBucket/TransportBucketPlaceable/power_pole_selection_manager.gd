@@ -16,7 +16,10 @@ func setup_map(map: TransportBucketUI) -> void:
 	map.setup(_map_data)
 
 func reveal_sector(sector_coords: Vector2i) -> void:
-	_map_data.reveal_sector(sector_coords)
+	if _map_data:
+		_map_data.reveal_sector(sector_coords)
+	else:
+		breakpoint
 
 func _get_map_data() -> MapData:
 	var solidity_polygons: Array[PackedVector2Array] = environment_query_system.get_tile_maps_solidity()

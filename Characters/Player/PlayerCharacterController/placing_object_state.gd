@@ -5,7 +5,6 @@ extends State
 
 var placeable_item: ItemGridItem
 var place_object: Callable
-var cancel_placing_object: Callable
 var inventory: Inventory
 var start_placing_placeable: Callable
 
