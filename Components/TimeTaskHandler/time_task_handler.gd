@@ -15,7 +15,8 @@ extends Node
 @export var day_night_cycle: DayNightCycle:
 	set(new_value):
 		day_night_cycle = new_value
-		day_night_cycle.day_started.connect(_on_day_started)
+		if day_night_cycle:
+			day_night_cycle.day_started.connect(_on_day_started)
 
 var _completed := false
 

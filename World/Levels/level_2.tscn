@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=4 uid="uid://cldkgwqny8lwy"]
+[gd_scene load_steps=84 format=4 uid="uid://cldkgwqny8lwy"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_m8bdm"]
 [ext_resource type="Script" uid="uid://rvwny5vq4uhf" path="res://Resources/item_grid_item.gd" id="2_7dx6r"]
@@ -35,6 +35,7 @@
 [ext_resource type="PackedScene" uid="uid://mcu533bsrbcr" path="res://Objects/Terminal/RepairableTerminall/repairable_terminal.tscn" id="33_niriw"]
 [ext_resource type="PackedScene" uid="uid://doc6lqt8v8vqt" path="res://Objects/MovingPlatform/moving_platform.tscn" id="34_06fha"]
 [ext_resource type="PackedScene" uid="uid://cotjlwqe7bhhs" path="res://Objects/Terminal/terminal.tscn" id="34_78k1x"]
+[ext_resource type="PackedScene" uid="uid://b6s0g2k4vqrnq" path="res://Objects/FoodGenerator/food_generator.tscn" id="36_70qm2"]
 
 [sub_resource type="Resource" id="Resource_78k1x"]
 resource_local_to_scene = true
@@ -551,123 +552,123 @@ grab_direction = 1
 [node name="@Area2D@47351" parent="Tiles/LedgeBaker" index="62" instance=ExtResource("10_70qm2")]
 position = Vector2(112, 48)
 
-[node name="Rope" parent="." index="11" instance=ExtResource("5_nbgxy")]
+[node name="Rope" parent="." index="12" instance=ExtResource("5_nbgxy")]
 position = Vector2(128, -32)
 height = 192
 tile_height = 12.0
 
-[node name="Shelter" parent="." index="12" node_paths=PackedStringArray("environment_query_system") instance=ExtResource("6_raav1")]
+[node name="Shelter" parent="." index="13" node_paths=PackedStringArray("environment_query_system") instance=ExtResource("6_raav1")]
 position = Vector2(0, 144)
 map_scene = SubResource("Resource_oj4ej")
 selectable_map_entity = SubResource("Resource_447tw")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination = SubResource("Resource_7mg7g")
 
-[node name="Shelter2" parent="." index="13" node_paths=PackedStringArray("environment_query_system") instance=ExtResource("6_raav1")]
+[node name="Shelter2" parent="." index="14" node_paths=PackedStringArray("environment_query_system") instance=ExtResource("6_raav1")]
 position = Vector2(1536, 144)
 map_scene = SubResource("Resource_6c7hc")
 selectable_map_entity = SubResource("Resource_8ej7a")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination = SubResource("Resource_b4rat")
 
-[node name="SteelMine2" parent="." index="14" node_paths=PackedStringArray("node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("7_eu3xj")]
+[node name="SteelMine2" parent="." index="15" node_paths=PackedStringArray("node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("7_eu3xj")]
 position = Vector2(-256, -192)
 node_to_put_item_pickup_in = NodePath("..")
 steel_amount = 25
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination = SubResource("Resource_do6wf")
 
-[node name="SteelMine" parent="." index="15" node_paths=PackedStringArray("node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("7_eu3xj")]
+[node name="SteelMine" parent="." index="16" node_paths=PackedStringArray("node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("7_eu3xj")]
 position = Vector2(256, 160)
 node_to_put_item_pickup_in = NodePath("..")
 steel_amount = 23
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination = SubResource("Resource_58sdd")
 
-[node name="SteelMine3" parent="." index="16" node_paths=PackedStringArray("node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("7_eu3xj")]
+[node name="SteelMine3" parent="." index="17" node_paths=PackedStringArray("node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("7_eu3xj")]
 position = Vector2(688, -96)
 node_to_put_item_pickup_in = NodePath("..")
 steel_amount = 27
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination = SubResource("Resource_eahyh")
 
-[node name="PowerSupply" parent="." index="17" instance=ExtResource("9_wnkks")]
+[node name="PowerSupply" parent="." index="18" instance=ExtResource("9_wnkks")]
 position = Vector2(336, 144)
 
-[node name="PowerSupply2" parent="." index="18" instance=ExtResource("9_wnkks")]
+[node name="PowerSupply2" parent="." index="19" instance=ExtResource("9_wnkks")]
 position = Vector2(-232, 74)
 
-[node name="Battery" parent="." index="19" instance=ExtResource("10_kxdmx")]
+[node name="Battery" parent="." index="20" instance=ExtResource("10_kxdmx")]
 position = Vector2(720, 192)
 
-[node name="Battery2" parent="." index="20" instance=ExtResource("10_kxdmx")]
+[node name="Battery2" parent="." index="21" instance=ExtResource("10_kxdmx")]
 position = Vector2(-240, 128)
 
-[node name="Battery3" parent="." index="21" instance=ExtResource("10_kxdmx")]
+[node name="Battery3" parent="." index="22" instance=ExtResource("10_kxdmx")]
 position = Vector2(-80, 112)
 
-[node name="PoweredDoor2" parent="." index="22" instance=ExtResource("11_pl7cp")]
+[node name="PoweredDoor2" parent="." index="23" instance=ExtResource("11_pl7cp")]
 position = Vector2(1440, 352)
 
-[node name="BasicEnemy" parent="." index="23" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
+[node name="BasicEnemy" parent="." index="24" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
 position = Vector2(624, 224)
 map_entity = SubResource("Resource_ehmki")
 target = NodePath("../PlayerTarget")
 node_to_put_nodes_in = NodePath("..")
 
-[node name="BasicEnemy2" parent="." index="24" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
+[node name="BasicEnemy2" parent="." index="25" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
 position = Vector2(672, 224)
 map_entity = SubResource("Resource_acg51")
 target = NodePath("../PlayerTarget")
 node_to_put_nodes_in = NodePath("..")
 
-[node name="BasicEnemy3" parent="." index="25" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
+[node name="BasicEnemy3" parent="." index="26" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
 position = Vector2(1120, 400)
 map_entity = SubResource("Resource_1jdlk")
 target = NodePath("../PlayerTarget")
 node_to_put_nodes_in = NodePath("..")
 
-[node name="BasicEnemy4" parent="." index="26" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
+[node name="BasicEnemy4" parent="." index="27" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
 position = Vector2(1392, 608)
 map_entity = SubResource("Resource_xe2t3")
 target = NodePath("../PlayerTarget")
 node_to_put_nodes_in = NodePath("..")
 
-[node name="PowerSupply4" parent="." index="27" instance=ExtResource("9_wnkks")]
+[node name="PowerSupply4" parent="." index="28" instance=ExtResource("9_wnkks")]
 position = Vector2(1264, -16)
 
-[node name="PowerSupply5" parent="." index="28" instance=ExtResource("9_wnkks")]
+[node name="PowerSupply5" parent="." index="29" instance=ExtResource("9_wnkks")]
 position = Vector2(1824, 224)
 
-[node name="Rope2" parent="." index="29" instance=ExtResource("5_nbgxy")]
+[node name="Rope2" parent="." index="30" instance=ExtResource("5_nbgxy")]
 position = Vector2(928, 432)
 height = 320
 tile_height = 20.0
 
-[node name="LaserableMine" parent="." index="30" node_paths=PackedStringArray("node_to_put_steel_in") instance=ExtResource("13_rghmc")]
+[node name="LaserableMine" parent="." index="31" node_paths=PackedStringArray("node_to_put_steel_in") instance=ExtResource("13_rghmc")]
 position = Vector2(528, -160)
 node_to_put_steel_in = NodePath("..")
 
-[node name="LaserableMine4" parent="." index="31" node_paths=PackedStringArray("node_to_put_steel_in") instance=ExtResource("13_rghmc")]
+[node name="LaserableMine4" parent="." index="32" node_paths=PackedStringArray("node_to_put_steel_in") instance=ExtResource("13_rghmc")]
 position = Vector2(1232, 80)
 node_to_put_steel_in = NodePath("..")
 
-[node name="LaserableMine3" parent="." index="32" node_paths=PackedStringArray("node_to_put_steel_in") instance=ExtResource("13_rghmc")]
+[node name="LaserableMine3" parent="." index="33" node_paths=PackedStringArray("node_to_put_steel_in") instance=ExtResource("13_rghmc")]
 position = Vector2(384, -304)
 node_to_put_steel_in = NodePath("..")
 
-[node name="LaserableMine2" parent="." index="33" node_paths=PackedStringArray("node_to_put_steel_in") instance=ExtResource("13_rghmc")]
+[node name="LaserableMine2" parent="." index="34" node_paths=PackedStringArray("node_to_put_steel_in") instance=ExtResource("13_rghmc")]
 position = Vector2(240, 80)
 node_to_put_steel_in = NodePath("..")
 
-[node name="OverheatableWall" parent="." index="34" instance=ExtResource("14_v74fr")]
+[node name="OverheatableWall" parent="." index="35" instance=ExtResource("14_v74fr")]
 position = Vector2(1504, 352)
 rotation = -1.57079
 
-[node name="PushableBlock" parent="." index="35" instance=ExtResource("15_d8wcr")]
+[node name="PushableBlock" parent="." index="36" instance=ExtResource("15_d8wcr")]
 position = Vector2(1536, 320)
 
-[node name="RockBarrier" parent="." index="36" node_paths=PackedStringArray("node_to_put_item_pickup_in", "day_night_cycle", "environment_query_system") instance=ExtResource("20_gvedq")]
+[node name="RockBarrier" parent="." index="37" node_paths=PackedStringArray("node_to_put_item_pickup_in", "day_night_cycle", "environment_query_system") instance=ExtResource("20_gvedq")]
 position = Vector2(-160, 112)
 node_to_put_item_pickup_in = NodePath("..")
 drill_time = 15
@@ -675,7 +676,7 @@ day_night_cycle = NodePath("../DayNightCycle")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination_queryable = SubResource("Resource_voh6p")
 
-[node name="RockBarrier2" parent="." index="37" node_paths=PackedStringArray("node_to_put_item_pickup_in", "day_night_cycle", "environment_query_system") instance=ExtResource("20_gvedq")]
+[node name="RockBarrier2" parent="." index="38" node_paths=PackedStringArray("node_to_put_item_pickup_in", "day_night_cycle", "environment_query_system") instance=ExtResource("20_gvedq")]
 position = Vector2(432, -128)
 node_to_put_item_pickup_in = NodePath("..")
 flip_sprite = true
@@ -684,7 +685,7 @@ day_night_cycle = NodePath("../DayNightCycle")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination_queryable = SubResource("Resource_10203")
 
-[node name="DamagedUnit" parent="." index="38" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("21_0v2rn")]
+[node name="DamagedUnit" parent="." index="39" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("21_0v2rn")]
 position = Vector2(608, -96)
 day_night_cycle = NodePath("../DayNightCycle")
 node_to_put_item_pickup_in = NodePath("..")
@@ -692,7 +693,7 @@ map_texture = SubResource("Resource_x3ugl")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination_queryable = SubResource("Resource_ya8cq")
 
-[node name="DamagedUnit2" parent="." index="39" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("21_0v2rn")]
+[node name="DamagedUnit2" parent="." index="40" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("21_0v2rn")]
 position = Vector2(464, 176)
 day_night_cycle = NodePath("../DayNightCycle")
 node_to_put_item_pickup_in = NodePath("..")
@@ -700,7 +701,7 @@ map_texture = SubResource("Resource_kctux")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination_queryable = SubResource("Resource_vbqpi")
 
-[node name="DamagedUnit3" parent="." index="40" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("21_0v2rn")]
+[node name="DamagedUnit3" parent="." index="41" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("21_0v2rn")]
 position = Vector2(800, 176)
 day_night_cycle = NodePath("../DayNightCycle")
 node_to_put_item_pickup_in = NodePath("..")
@@ -708,49 +709,54 @@ map_texture = SubResource("Resource_c0gd1")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination_queryable = SubResource("Resource_x5rw7")
 
-[node name="DamagedUnitsDamagedShipPart" parent="." index="41" node_paths=PackedStringArray("damaged_units") instance=ExtResource("22_wugnc")]
+[node name="DamagedUnitsDamagedShipPart" parent="." index="42" node_paths=PackedStringArray("damaged_units") instance=ExtResource("22_wugnc")]
 position = Vector2(576, 16)
 damaged_units = [NodePath("../DamagedUnit"), NodePath("../DamagedUnit2"), NodePath("../DamagedUnit3")]
 map_texture = SubResource("Resource_st16p")
 
-[node name="MissingFusesDamagedShipPart" parent="." index="42" node_paths=PackedStringArray("environment_query_system") instance=ExtResource("23_ujgtb")]
+[node name="MissingFusesDamagedShipPart" parent="." index="43" node_paths=PackedStringArray("environment_query_system") instance=ExtResource("23_ujgtb")]
 position = Vector2(1280, 320)
 fuses_required = 2
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination_queryable = SubResource("Resource_wph25")
 map_texture = SubResource("Resource_i72fx")
 
-[node name="FuseDispenser" parent="." index="43" node_paths=PackedStringArray("day_night_cycle", "node_to_put_fuse_pickup_in", "environment_query_system") instance=ExtResource("24_h4wi1")]
+[node name="FuseDispenser" parent="." index="44" node_paths=PackedStringArray("day_night_cycle", "node_to_put_fuse_pickup_in", "environment_query_system") instance=ExtResource("24_h4wi1")]
 position = Vector2(1168, 0)
 day_night_cycle = NodePath("../DayNightCycle")
 node_to_put_fuse_pickup_in = NodePath("..")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination = SubResource("Resource_51gn0")
 
-[node name="TriggerDoor" parent="." index="44" node_paths=PackedStringArray("trigger") instance=ExtResource("32_x2fqg")]
+[node name="TriggerDoor" parent="." index="45" node_paths=PackedStringArray("trigger") instance=ExtResource("32_x2fqg")]
 position = Vector2(656, 512)
 trigger = NodePath("../Trigger1")
 
-[node name="TriggerDoor2" parent="." index="45" node_paths=PackedStringArray("trigger") instance=ExtResource("32_x2fqg")]
+[node name="TriggerDoor2" parent="." index="46" node_paths=PackedStringArray("trigger") instance=ExtResource("32_x2fqg")]
 position = Vector2(784, 512)
 trigger = NodePath("../Trigger2")
 
-[node name="Trigger1" parent="." index="46" instance=ExtResource("33_78k1x")]
+[node name="Trigger1" parent="." index="47" instance=ExtResource("33_78k1x")]
 
-[node name="Trigger2" parent="." index="47" instance=ExtResource("33_78k1x")]
+[node name="Trigger2" parent="." index="48" instance=ExtResource("33_78k1x")]
 
-[node name="RepairableTerminal" parent="." index="48" node_paths=PackedStringArray("trigger") instance=ExtResource("33_niriw")]
+[node name="RepairableTerminal" parent="." index="49" node_paths=PackedStringArray("trigger") instance=ExtResource("33_niriw")]
 position = Vector2(720, 560)
 trigger = NodePath("../Trigger1")
 
-[node name="Terminal" parent="." index="49" node_paths=PackedStringArray("trigger") instance=ExtResource("34_78k1x")]
+[node name="Terminal" parent="." index="50" node_paths=PackedStringArray("trigger") instance=ExtResource("34_78k1x")]
 position = Vector2(848, 560)
 trigger = NodePath("../Trigger2")
 one_time_activation = true
 
-[node name="MovingPlatform" parent="." index="50" instance=ExtResource("34_06fha")]
+[node name="MovingPlatform" parent="." index="51" instance=ExtResource("34_06fha")]
 position = Vector2(80, 96)
 speed_scale = 4
+
+[node name="FoodGenerator" parent="." index="52" node_paths=PackedStringArray("day_night_cycle", "node_to_put_food_in") instance=ExtResource("36_70qm2")]
+position = Vector2(224, -56)
+day_night_cycle = NodePath("../DayNightCycle")
+node_to_put_food_in = NodePath("..")
 
 [connection signal="transport_bucket_arrived" from="Shelter" to="PlayerCharacterController" method="_on_shelter_transport_bucket_arrived"]
 [connection signal="transport_bucket_arrived" from="Shelter2" to="PlayerCharacterController" method="_on_shelter_transport_bucket_arrived"]
