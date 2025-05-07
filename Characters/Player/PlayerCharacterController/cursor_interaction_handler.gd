@@ -22,7 +22,9 @@ func _handle_interaction(mouse_interaction_area: MouseInteractionArea) -> void:
 	if cursor_detect_area.overlaps_area(mouse_interaction_area):
 		mouse_interaction_area.interact()
 		interacted.emit(mouse_interaction_area)
-		mouse_interaction_area.area_exited.connect(_on_mouse_interaction_area_area_exited.bind(mouse_interaction_area))
+		
+		if not mouse_interaction_area.area_exited.is_connected(_on_mouse_interaction_area_area_exited):
+			mouse_interaction_area.area_exited.connect(_on_mouse_interaction_area_area_exited.bind(mouse_interaction_area))
 	else:
 		mouse_interaction_area.interaction_out_of_range()
 
