@@ -149,16 +149,20 @@ func add_addition(inventory_addition: InventoryAddition) -> void:
 
 ##Returns true if the composite can accept the inventory addition.
 func can_add_addition(inventory_addition: InventoryAddition) -> bool:
-	var duplicate_inventories: Array[Inventory] = _inventories.duplicate(true)
+	var duplicate_inventories_assigner: Array = _inventories.map(func(i: Inventory) -> Inventory: return i.duplicate(true))
+	var duplicate_inventories: Array[Inventory]
+	duplicate_inventories.assign(duplicate_inventories_assigner)
+	
 	var duplicate_inventory_addition: InventoryAddition = inventory_addition.duplicate()
 	
 	for inventory: Inventory in duplicate_inventories:
-		if inventory.can_add_addition(inventory_addition):
+		if inventory.can_add_addition(duplicate_inventory_addition):
 			return true
 		
 		inventory.add_addition(duplicate_inventory_addition)
 	return false
 
+##Spends the requirement using the composite.
 func spend_requirement(inventory_requirement: InventoryRequirement) -> bool:
 	if not meets_requirement(inventory_requirement):
 		return false
@@ -170,15 +174,19 @@ func spend_requirement(inventory_requirement: InventoryRequirement) -> bool:
 		inventory.spend_and_update_requirement(inventory_requirement, true)
 	return inventory_requirement.is_empty()
 
+##Returns true if the composite meets the requirement.
 func meets_requirement(inventory_requirement: InventoryRequirement) -> bool:
-	var duplicate_inventories: Array[Inventory] = _inventories.duplicate(true)
+	var duplicate_inventories_assigner: Array = _inventories.map(func(i: Inventory) -> Inventory: return i.duplicate(true))
+	var duplicate_inventories: Array[Inventory]
+	duplicate_inventories.assign(duplicate_inventories_assigner)
+	
 	var duplicate_inventory_requirement: InventoryRequirement = inventory_requirement.duplicate()
 	
 	for inventory: Inventory in duplicate_inventories:
 		if duplicate_inventory_requirement.is_empty():
 			return true
 		
-		inventory.spend_requirement(duplicate_inventory_requirement)
+		inventory.spend_and_update_requirement(duplicate_inventory_requirement)
 	
 	return duplicate_inventory_requirement.is_empty()
 
