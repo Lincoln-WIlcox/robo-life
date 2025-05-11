@@ -112,6 +112,20 @@ func spend_requirement(inventory_requirement: InventoryRequirement) -> bool:
 	else:
 		return false
 
+##Spends as much of the requirement this inventory can and updates the inventory requirement to remove the required items. 
+##If [param remove_required_items_too] is true, required items will be removed from [param inventory_requirement]. No change will be made to the inventory.
+func spend_and_update_requirement(inventory_requirement: InventoryRequirement, remove_required_items_too: bool = false) -> void:
+	inventory_requirement.batteries_cost = batteries.subtract_value(inventory_requirement.batteries_cost)
+	inventory_requirement.steel_cost = steel.subtract_value(inventory_requirement.steel_cost)
+	for item: ItemData in inventory_requirement.costs_items:
+		if has_item(item):
+			remove_item(item)
+			inventory_requirement.costs_items.erase(item)
+	if remove_required_items_too:
+		for item: ItemData in inventory_requirement.requires_items:
+			if has_item(item):
+				inventory_requirement.requires_items.erase(item)
+
 ##Overwrites the inventory contents to use the new data in [param new_inventory].
 func use_data(new_inventory: Inventory) -> void:
 	batteries = new_inventory.batteries.duplicate()

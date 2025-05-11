@@ -11,3 +11,6 @@ extends Resource
 		steel_cost = new_value
 @export var costs_items: Array[ItemData]
 @export var requires_items: Array[ItemData]
+
+func is_empty() -> bool:
+	return batteries_cost == 0 and steel_cost == 0 and costs_items.is_empty() and requires_items.is_empty()

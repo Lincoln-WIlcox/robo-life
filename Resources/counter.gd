@@ -27,11 +27,11 @@ func add_value(value_change: int) -> int:
 	value += value_change
 	return return_value
 
-##Returns the leftover value change not subtracted from [member value] for the case that value_change is greater than value.
+##Returns the leftover value change not subtracted from [member value] for the case that [param value_change] is greater than [member value] minus [member min_value].
 ##If all of [param value_change] was subtracted from [member value], returns 0.
 func subtract_value(value_change: int) -> int:
 	assert(value_change >= 0, "you should not pass negative value changes to subtract_value.")
-	var return_value: int = max(value_change - value, 0)
+	var return_value: int = max(value_change - (value - min_value), 0)
 	value -= value_change
 	return return_value
 
