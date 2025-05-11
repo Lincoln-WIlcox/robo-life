@@ -8,8 +8,14 @@ extends Control
 		crafting_recipes = new_value
 		if is_node_ready():
 			update_nodes()
-@export var player_inventory: Inventory
-@export var shelter_inventory: Inventory
+@export var player_inventory: Inventory:
+	set(new_value):
+		player_inventory = new_value
+		_update_composite_inventory()
+@export var shelter_inventory: Inventory:
+	set(new_value):
+		shelter_inventory = new_value
+		_update_composite_inventory()
 @export var crafting_row_packed_scene: PackedScene
 
 var crafting_rows: Array[CraftingRow]:
@@ -18,11 +24,13 @@ var crafting_rows: Array[CraftingRow]:
 		var return_crafting_rows_assigner: Array[Node] = crafting_rows_container.get_children()
 		return_crafting_rows.assign(return_crafting_rows_assigner)
 		return return_crafting_rows
+var _composite_inventory: CompositeInventory
 
 signal return_pressed
 
 func _ready():
 	update_nodes()
+	_update_composite_inventory()
 
 func update_nodes() -> void:
 	for child: Node in crafting_rows:
@@ -39,16 +47,20 @@ func creating_crafting_row(crafting_recipe: CraftingRecipe) -> void:
 	crafting_rows_container.add_child(crafting_row)
 
 func crafting_row_disabled(crafting_recipe: CraftingRecipe) -> bool:
-	return (not player_inventory.meets_requirements(crafting_recipe.requirement)) or (not player_inventory.can_add_addition(crafting_recipe.inventory_addition) and not shelter_inventory.can_add_addition(crafting_recipe.inventory_addition))
+	return not(_composite_inventory.meets_requirement(crafting_recipe.requirement) and _composite_inventory.can_add_addition(crafting_recipe.inventory_addition))
+
+func _update_composite_inventory() -> void:
+	var inventories: Array[Inventory] = []
+	if player_inventory:
+		inventories.append(player_inventory)
+	if shelter_inventory:
+		inventories.append(shelter_inventory)
+	_composite_inventory = CompositeInventory.make_from_inventories(inventories)
 
 func _on_crafting_row_craft_pressed(crafting_recipe: CraftingRecipe):
-	if player_inventory.meets_requirements(crafting_recipe.requirement):
-		if player_inventory.can_add_addition(crafting_recipe.inventory_addition):
-			player_inventory.spend_requirement(crafting_recipe.requirement.duplicate())
-			player_inventory.add_addition(crafting_recipe.inventory_addition.duplicate())
-		elif shelter_inventory.can_add_addition(crafting_recipe.inventory_addition):
-			player_inventory.spend_requirement(crafting_recipe.requirement.duplicate())
-			shelter_inventory.add_addition(crafting_recipe.inventory_addition.duplicate())
+	if _composite_inventory.meets_requirement(crafting_recipe.requirement) and _composite_inventory.can_add_addition(crafting_recipe.inventory_addition):
+		_composite_inventory.spend_requirement(crafting_recipe.requirement.duplicate())
+		_composite_inventory.add_addition(crafting_recipe.inventory_addition.duplicate())
 	update_nodes()
 
 func _on_return_button_pressed():
