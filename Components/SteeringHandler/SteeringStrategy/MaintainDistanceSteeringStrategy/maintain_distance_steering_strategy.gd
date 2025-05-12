@@ -11,6 +11,8 @@ func get_interest_vector() -> Vector2:
 	
 	var vector_to_steering_target: Vector2 = steering_node.global_position.direction_to(target.global_position).normalized()
 	
+	print("maintain distance interest vector: ", vector_to_steering_target)
+	
 	return vector_to_steering_target
 
 func get_danger_vector() -> Vector2:
@@ -18,5 +20,7 @@ func get_danger_vector() -> Vector2:
 		return Vector2.ZERO
 	
 	var vector_to_steering_target: Vector2 = steering_node.global_position.direction_to(target.global_position).normalized()
+	
+	print("maintain distance danger vector: ", vector_to_steering_target)
 	
 	return vector_to_steering_target

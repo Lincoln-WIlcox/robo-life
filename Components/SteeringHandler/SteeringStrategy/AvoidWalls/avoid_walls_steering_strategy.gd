@@ -44,6 +44,8 @@ func get_danger_vector() -> Vector2:
 	normalized_directions.assign(normalized_directions_assigner)
 	var weighted_average_direction: Vector2 = Utils.vectors_weighted_combination(normalized_directions, direction_dangers)
 	
+	print("avoid walls vector: ", weighted_average_direction)
+	
 	return weighted_average_direction
 
 func _get_dangers() -> Array[float]:

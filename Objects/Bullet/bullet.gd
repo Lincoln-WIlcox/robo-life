@@ -13,10 +13,6 @@ extends Node2D
 
 @export var ignore_node: Node
 
-#func _ready():
-	#if not visible_on_screen_notifier.is_on_screen():
-		#destroy()
-
 func _physics_process(_delta):
 	marker.position.x += speed
 

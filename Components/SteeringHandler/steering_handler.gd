@@ -1,7 +1,7 @@
 class_name SteeringHandler
 extends Node
 
-func get_preferred_direction() -> Vector2:
+func get_preferred_velocity() -> Vector2:
 	var steering_strategies: Array[SteeringStrategy] = _get_steering_strategies()
 	
 	var interest_vectors: Array[Vector2] = _get_interest_vectors_from_steering_strategies(steering_strategies)
@@ -9,9 +9,7 @@ func get_preferred_direction() -> Vector2:
 	
 	var preferred_direction: Vector2 = _get_preferred_direction_from_vectors(interest_vectors, danger_vectors)
 	
-	print(preferred_direction)
-	
-	return preferred_direction.normalized()
+	return preferred_direction
 
 func _get_preferred_direction_from_vectors(interest_vectors: Array[Vector2], danger_vectors: Array[Vector2]) -> Vector2:
 	var total_vector: Vector2

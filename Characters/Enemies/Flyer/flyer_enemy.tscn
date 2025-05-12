@@ -59,6 +59,8 @@ one_shot = true
 [node name="BetweenShotsTimer" type="Timer" parent="StateMachine/ChasingTarget"]
 wait_time = 0.08
 
+[node name="RaycastRotationChangeTimer" type="Timer" parent="StateMachine/ChasingTarget"]
+
 [node name="ShootingHandler" type="Node" parent="." node_paths=PackedStringArray("character")]
 script = ExtResource("5_tfxvv")
 bullet_packed_scene = ExtResource("6_fbnxn")
@@ -69,23 +71,24 @@ script = ExtResource("7_2d53p")
 metadata/_custom_type_script = "uid://j12cw475byw8"
 
 [node name="AvoidWallsSteeringStrategy" parent="SteeringHandler" node_paths=PackedStringArray("raycasts_center") instance=ExtResource("8_2i8ba")]
+raycast_length = 40.0
 raycasts_center = NodePath("../../CharacterBody2D")
-strategy_weight = 0.7
+strategy_weight = 2000.0
 
 [node name="FollowNavigationPathStrategy" parent="SteeringHandler" node_paths=PackedStringArray("navigation_agent", "steering_node") instance=ExtResource("9_6y5bx")]
 navigation_agent = NodePath("../../CharacterBody2D/NavigationAgent2D")
 steering_node = NodePath("../../CharacterBody2D")
+strategy_weight = 800.0
 
 [node name="MaintainDistanceSteeringStrategy" parent="SteeringHandler" node_paths=PackedStringArray("steering_node") instance=ExtResource("10_2h7hc")]
 steering_node = NodePath("../../CharacterBody2D")
 min_distance = 80.0
 max_distance = 150.0
-strategy_weight = 0.5
-enabled = false
+strategy_weight = 500.0
 
 [node name="VelocityComponent" parent="." node_paths=PackedStringArray("affecting_node") instance=ExtResource("2_io86p")]
 affecting_node = NodePath("../CharacterBody2D")
-acceleration_coefficient = 7.0
+acceleration_coefficient = 8.0
 terminal_speed = 160
 max_speed = 200
 
@@ -142,6 +145,7 @@ collision_mask = 5
 
 [connection signal="timeout" from="StateMachine/ChasingTarget/BetweenBarrageTimer" to="StateMachine/ChasingTarget" method="_on_between_barrage_timer_timeout"]
 [connection signal="timeout" from="StateMachine/ChasingTarget/BetweenShotsTimer" to="StateMachine/ChasingTarget" method="_on_between_shots_timer_timeout"]
+[connection signal="timeout" from="StateMachine/ChasingTarget/RaycastRotationChangeTimer" to="StateMachine/ChasingTarget" method="_on_raycast_rotation_change_timer_timeout"]
 [connection signal="navigation_finished" from="CharacterBody2D/NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
 [connection signal="max_heat_reached" from="CharacterBody2D/Overheater" to="." method="_on_overheater_max_heat_reached"]
 [connection signal="timeout" from="RerouteTimer" to="." method="_on_reroute_timer_timeout"]
