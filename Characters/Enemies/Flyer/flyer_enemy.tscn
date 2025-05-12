@@ -69,8 +69,8 @@ query_raycasts_container = NodePath("../CharacterBody2D/QueryRaycasts")
 [node name="VelocityComponent" parent="." node_paths=PackedStringArray("affecting_node") instance=ExtResource("2_io86p")]
 affecting_node = NodePath("../CharacterBody2D")
 acceleration_coefficient = 4.5
-terminal_speed = 120
-max_speed = 600
+terminal_speed = 160
+max_speed = 200
 
 [node name="OverheatProgressBarUpdater" type="Node" parent="." node_paths=PackedStringArray("overheater", "progress_bar")]
 script = ExtResource("9_eowyn")

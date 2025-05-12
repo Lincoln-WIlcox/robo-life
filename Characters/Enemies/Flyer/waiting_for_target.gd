@@ -1,6 +1,6 @@
 extends State
 
-const CHASE_DISTANCE = 300
+const CHASE_DISTANCE = 320
 
 @export var to_player_raycast: RayCast2D
 @export var character: CharacterBody2D
