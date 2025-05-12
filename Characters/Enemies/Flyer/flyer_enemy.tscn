@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://kvs5y6kb2v0g"]
+[gd_scene load_steps=18 format=3 uid="uid://kvs5y6kb2v0g"]
 
 [ext_resource type="Script" uid="uid://bk8c0nlkbhyff" path="res://Characters/Enemies/Flyer/flyer_enemy.gd" id="1_b57ma"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="1_yp2kr"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://cn3dfn1tyl8tv" path="res://Characters/Enemies/Flyer/chasing_target.gd" id="4_6p7di"]
 [ext_resource type="Script" uid="uid://bnd45p2cuwltt" path="res://Characters/Enemies/Flyer/shooting_handler.gd" id="5_tfxvv"]
 [ext_resource type="PackedScene" uid="uid://bpjyigrxmafpo" path="res://Objects/Bullet/bullet.tscn" id="6_fbnxn"]
+[ext_resource type="Script" uid="uid://j12cw475byw8" path="res://Components/SteeringHandler/steering_handler.gd" id="7_2d53p"]
 [ext_resource type="Script" uid="uid://b5m8ta1fbfj4a" path="res://Components/HeaterProgressBarUpdater/heater_progress_bar_updater.gd" id="9_eowyn"]
 [ext_resource type="PackedScene" uid="uid://vvmx1q8uqi2n" path="res://Components/Overheater/overheater.tscn" id="10_p3rtc"]
 [ext_resource type="PackedScene" uid="uid://cqnd47al60df" path="res://Objects/GravityWalkOverPickupSpawner/gravity_walk_over_pickup_spawner.tscn" id="12_60v0y"]
@@ -60,6 +61,9 @@ wait_time = 0.08
 script = ExtResource("5_tfxvv")
 bullet_packed_scene = ExtResource("6_fbnxn")
 character = NodePath("../CharacterBody2D")
+
+[node name="SteeringHandler2" type="Node" parent="."]
+script = ExtResource("7_2d53p")
 
 [node name="SteeringHandler" type="Node" parent="." node_paths=PackedStringArray("character", "query_raycasts_container")]
 script = ExtResource("2_6bf3k")
