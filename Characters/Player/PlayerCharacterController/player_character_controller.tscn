@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dw2fqgynxjcit"]
+[gd_scene load_steps=50 format=3 uid="uid://dw2fqgynxjcit"]
 
 [ext_resource type="Script" uid="uid://c60acows37ws5" path="res://Characters/Player/PlayerCharacterController/player_character_controller.gd" id="1_bw5ol"]
 [ext_resource type="PackedScene" uid="uid://by3dehhgwxdqr" path="res://Objects/Shield/shield.tscn" id="2_ipind"]
@@ -67,13 +67,37 @@ max_value = 100
 metadata/_custom_type_script = "uid://dl6huvtb5e0v5"
 
 [sub_resource type="Resource" id="Resource_5jlhx"]
+script = ExtResource("7_45g5n")
+item_data = ExtResource("6_5jlhx")
+position = Vector2i(0, 0)
+metadata/_custom_type_script = "uid://rvwny5vq4uhf"
+
+[sub_resource type="Resource" id="Resource_is2jc"]
+script = ExtResource("7_45g5n")
+item_data = ExtResource("4_6c5nd")
+position = Vector2i(0, 1)
+metadata/_custom_type_script = "uid://rvwny5vq4uhf"
+
+[sub_resource type="Resource" id="Resource_n2ef8"]
+script = ExtResource("7_45g5n")
+item_data = ExtResource("7_xihey")
+position = Vector2i(2, 0)
+metadata/_custom_type_script = "uid://rvwny5vq4uhf"
+
+[sub_resource type="Resource" id="Resource_mow0u"]
+script = ExtResource("7_45g5n")
+item_data = ExtResource("7_xihey")
+position = Vector2i(2, 1)
+metadata/_custom_type_script = "uid://rvwny5vq4uhf"
+
+[sub_resource type="Resource" id="Resource_xihey"]
 resource_local_to_scene = true
 script = ExtResource("4_saie0")
 size = Vector2i(3, 3)
-initial_items = Array[ExtResource("7_45g5n")]([])
+initial_items = Array[ExtResource("7_45g5n")]([SubResource("Resource_5jlhx"), SubResource("Resource_is2jc"), SubResource("Resource_n2ef8"), SubResource("Resource_mow0u")])
 metadata/_custom_type_script = "uid://cdp7s6pjgskwb"
 
-[sub_resource type="Resource" id="Resource_xihey"]
+[sub_resource type="Resource" id="Resource_ti61w"]
 resource_local_to_scene = true
 script = ExtResource("14_276kj")
 value = 0
@@ -81,13 +105,13 @@ min_value = 0
 max_value = 100
 metadata/_custom_type_script = "uid://dl6huvtb5e0v5"
 
-[sub_resource type="Resource" id="Resource_ti61w"]
+[sub_resource type="Resource" id="Resource_4nulw"]
 resource_local_to_scene = true
 script = ExtResource("4_d214o")
 batteries = SubResource("Resource_276kj")
-steel = SubResource("Resource_xihey")
+steel = SubResource("Resource_ti61w")
 food = SubResource("Resource_j41is")
-item_grid = SubResource("Resource_5jlhx")
+item_grid = SubResource("Resource_xihey")
 metadata/_custom_type_script = "uid://bg5ne6c0ge6gv"
 
 [node name="PlayerCharacterController" type="Node2D"]
@@ -125,7 +149,7 @@ player_character = NodePath("../PlayerCharacter")
 laser_gun = NodePath("../LaserGun")
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("2_u8dgg")]
-inventory = SubResource("Resource_ti61w")
+inventory = SubResource("Resource_4nulw")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_callback = 0
