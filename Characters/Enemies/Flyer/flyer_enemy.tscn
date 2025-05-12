@@ -70,7 +70,7 @@ metadata/_custom_type_script = "uid://j12cw475byw8"
 
 [node name="AvoidWallsSteeringStrategy" parent="SteeringHandler" node_paths=PackedStringArray("raycasts_center") instance=ExtResource("8_2i8ba")]
 raycasts_center = NodePath("../../CharacterBody2D")
-strategy_weight = 0.5
+strategy_weight = 0.7
 
 [node name="FollowNavigationPathStrategy" parent="SteeringHandler" node_paths=PackedStringArray("navigation_agent", "steering_node") instance=ExtResource("9_6y5bx")]
 navigation_agent = NodePath("../../CharacterBody2D/NavigationAgent2D")
