@@ -493,3 +493,6 @@ static func is_bit_set(bit_flags: int, bit: int) -> bool:
 static func free_children(node: Node) -> void:
 	for child in node.get_children():
 		child.queue_free()
+
+static func get_in_array_wrap(array: Array, index: int) -> Variant:
+	return array[(index % array.size() + array.size()) % array.size()]

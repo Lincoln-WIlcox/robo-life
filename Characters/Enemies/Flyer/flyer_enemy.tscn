@@ -1,0 +1,78 @@
+[gd_scene load_steps=7 format=3 uid="uid://kvs5y6kb2v0g"]
+
+[ext_resource type="Script" uid="uid://bk8c0nlkbhyff" path="res://Characters/Enemies/Flyer/flyer_enemy.gd" id="1_b57ma"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="1_yp2kr"]
+[ext_resource type="Script" uid="uid://d33e5j513fp4l" path="res://Characters/Enemies/Flyer/steering_handler.gd" id="2_6bf3k"]
+[ext_resource type="PackedScene" uid="uid://lxxl844xt4sk" path="res://Components/VelocityComponent/velocity_component.tscn" id="2_io86p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b57ma"]
+atlas = ExtResource("1_yp2kr")
+region = Rect2(288, 120, 16, 24)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_io86p"]
+radius = 5.0
+height = 22.0
+
+[node name="FlyerEnemy" type="Node2D"]
+script = ExtResource("1_b57ma")
+
+[node name="SteeringHandler" type="Node" parent="." node_paths=PackedStringArray("character", "query_raycasts_container", "navigation_agent")]
+script = ExtResource("2_6bf3k")
+character = NodePath("../CharacterBody2D")
+query_raycasts_container = NodePath("../CharacterBody2D/QueryRaycasts")
+navigation_agent = NodePath("../CharacterBody2D/NavigationAgent2D")
+
+[node name="VelocityComponent" parent="." node_paths=PackedStringArray("affecting_node") instance=ExtResource("2_io86p")]
+affecting_node = NodePath("../CharacterBody2D")
+acceleration_coefficient = 8.0
+terminal_speed = 50
+max_speed = 600
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+motion_mode = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(0, -1)
+texture = SubResource("AtlasTexture_b57ma")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CapsuleShape2D_io86p")
+
+[node name="QueryRaycasts" type="Node2D" parent="CharacterBody2D"]
+
+[node name="RayCast2DUp" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
+target_position = Vector2(0, -30)
+collision_mask = 5
+
+[node name="RayCast2DUpRight" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
+target_position = Vector2(21.2, -21.2)
+collision_mask = 5
+
+[node name="RayCast2DRight" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
+target_position = Vector2(30, 0)
+collision_mask = 5
+
+[node name="RayCast2DDownRight" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
+target_position = Vector2(21.2, 21.2)
+collision_mask = 5
+
+[node name="RayCast2DDown" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
+target_position = Vector2(0, 30)
+collision_mask = 5
+
+[node name="RayCast2DDownLeft" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
+target_position = Vector2(-21.2, 21.2)
+collision_mask = 5
+
+[node name="RayCast2DLeft" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
+target_position = Vector2(-30, 0)
+collision_mask = 5
+
+[node name="RayCast2DUpLeft" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
+target_position = Vector2(-21.2, -21.2)
+collision_mask = 5
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D" groups=["navigation"]]
+path_desired_distance = 30.0
+target_desired_distance = 20.0
+debug_enabled = true

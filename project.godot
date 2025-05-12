@@ -40,6 +40,10 @@ version_control/autoload_on_startup=true
 
 import/blender/enabled=false
 
+[global_group]
+
+navigation=""
+
 [input]
 
 player_move_up={

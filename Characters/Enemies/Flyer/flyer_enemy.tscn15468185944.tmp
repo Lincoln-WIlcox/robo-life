@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://kvs5y6kb2v0g"]
+
+[ext_resource type="Script" uid="uid://bk8c0nlkbhyff" path="res://Characters/Enemies/Flyer/flyer_enemy.gd" id="1_b57ma"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="1_yp2kr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b57ma"]
+atlas = ExtResource("1_yp2kr")
+region = Rect2(288, 120, 16, 24)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_io86p"]
+radius = 8.0
+height = 26.0
+
+[node name="FlyerEnemy" type="Node2D"]
+script = ExtResource("1_b57ma")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = SubResource("AtlasTexture_b57ma")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CapsuleShape2D_io86p")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

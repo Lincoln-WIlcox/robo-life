@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=4 uid="uid://cldkgwqny8lwy"]
+[gd_scene load_steps=86 format=4 uid="uid://cldkgwqny8lwy"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_m8bdm"]
 [ext_resource type="Script" uid="uid://rvwny5vq4uhf" path="res://Resources/item_grid_item.gd" id="2_7dx6r"]
@@ -36,6 +36,7 @@
 [ext_resource type="PackedScene" uid="uid://doc6lqt8v8vqt" path="res://Objects/MovingPlatform/moving_platform.tscn" id="34_06fha"]
 [ext_resource type="PackedScene" uid="uid://cotjlwqe7bhhs" path="res://Objects/Terminal/terminal.tscn" id="34_78k1x"]
 [ext_resource type="PackedScene" uid="uid://b6s0g2k4vqrnq" path="res://Objects/FoodGenerator/food_generator.tscn" id="36_70qm2"]
+[ext_resource type="PackedScene" uid="uid://kvs5y6kb2v0g" path="res://Characters/Enemies/Flyer/flyer_enemy.tscn" id="37_5064p"]
 
 [sub_resource type="Resource" id="Resource_78k1x"]
 resource_local_to_scene = true
@@ -87,6 +88,15 @@ script = ExtResource("3_3lujh")
 display_texture = SubResource("AtlasTexture_evjoi")
 z_index = 1
 scale = Vector2(2, 2)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_5064p"]
+vertices = PackedVector2Array(4543.91, 248.656, 3231.77, 248.656, 3130.16, 106.461, 3130.16, -284.023, 5166.25, -844.758, 3427.79, 1146.44, 5110.7, 1415.31, -1185.69, 1238.03, 2636.5, 1146.44, 813.492, 248.656, 701.883, 248.656, 265.43, 106.461, 478.656, 106.461, 2562.09, 121.828, 2562.09, 426.211, 2450.48, 426.211, 2274.45, 334.75, 2274.45, 274.023, 4543.91, 791.328, 3427.79, 984.25, 4320.69, 816.688, 2301.66, 908.148, 2301.66, 1070.34, 2051.23, 994.25, 2051.23, 908.148, 2981.34, 994.25, 2981.34, 933.523, 3082.95, 984.25, 3082.95, 1060.34, 2795.31, 1060.34, 2896.93, 994.25, 2896.93, 933.523, 2795.31, 984.25, 2869.73, 842.047, 739.094, -553.039, 776.289, -502.297, 925.102, -284.023, 925.102, -197.922, 813.492, -131.828, 701.883, -106.461, 525.859, -223.289, 525.859, -334.75, 627.469, -578.406, 1939.62, -284.023, 1939.62, -360.117, 1083.92, -360.117, 1083.92, -639.133, 860.703, -639.133, 860.703, -715.227, 525.859, -715.227, 525.859, -791.328, -153.82, -791.328, -153.82, -486.953, -935.102, -486.953, -1259.76, -870.07, -935.102, -147.203, -488.656, -147.203, -488.656, 157.203, -749.094, 248.656, -414.25, 157.203, -414.25, 182.547, -292.633, 182.547, -292.633, 157.203, -255.43, 157.203, -255.43, -147.203, -143.82, -147.203, 218.227, 71.0938, 218.227, 106.461, -143.82, -172.547, -69.4063, -172.547, -69.4063, -258.656, -367.039, -258.656, -367.039, -284.023, -153.82, -350.117, -32.2031, -350.117, 181.023, -274.023, -711.883, -284.023, -711.883, -258.656, -813.492, -258.656, -813.492, -400.844, -701.883, -400.844, -701.883, -426.211, -377.039, -426.211, -377.039, -400.844, -153.82, -400.844, -32.2031, -375.477, 79.4063, -375.477, 79.4063, -629.133, 515.859, -629.133, 515.859, -603.773, 181.023, -486.953, 627.469, -603.773, 525.859, -486.953, 739.094, -578.406, 776.289, -553.039, 962.313, -502.297, 962.313, -284.023, 488.656, -334.75, 488.656, -350.117, 525.859, -350.117, 525.859, -410.844, 488.656, -410.844, 488.656, -426.211, 525.859, -426.211, 218.227, -274.023, 218.227, -258.656, 181.023, -258.656, 1158.33, -197.922, 1158.33, -274.023, 1818.01, -274.023, 1818.01, -131.828, 1408.76, -131.828, 1408.76, -96.4609, 1520.38, -96.4609, 1520.38, -45.7266, 1557.58, -45.7266, 1557.58, -30.3672, 1520.38, -30.3672, 1641.98, 233.289, 1641.98, 182.547, 1929.62, 182.547, 1929.62, 207.922, 2274.45, 172.547, 2237.25, 172.547, 2237.25, 157.203, 2274.45, 157.203, 2274.45, -121.828, 3008.54, -121.828, 3008.54, 20.3672, 2673.7, 20.3672, 2673.7, 45.7266, 2562.09, 45.7266, 2562.09, 106.461, 2599.3, 106.461, 2599.3, 121.828, 1929.62, 274.023, 1929.62, 299.383, 1818.01, 299.383, 1818.01, 375.477, 1158.33, 375.477, 1158.33, 299.383, 1520.38, 233.289, 1046.72, 299.383, 1046.72, 223.289, 1158.33, 106.461, 935.102, 223.289, 935.102, 106.461, 1158.33, 71.0938, 1121.13, 71.0938, 1121.13, 55.7266, 1158.33, 55.7266, 813.492, -106.461, 701.883, -81.0938, 590.273, -81.0938, 590.273, -55.7266, 478.656, -55.7266, 181.023, -223.289, 813.492, 106.461, 265.43, 71.0938, 701.883, 274.023, 600.273, 274.023, 600.273, 248.656, -749.094, 410.844, 925.102, 410.844, 925.102, 461.578, 1036.72, 461.578, 1036.72, 537.672, 1818.01, 537.672, 1818.01, 654.5, 1483.17, 654.5, 1604.78, 816.688, 1604.78, 765.961, 1818.01, 765.961, 1818.01, 816.688, 2051.23, 426.211, 2014.02, 426.211, 2014.02, 410.844, 2051.23, 410.844, 2051.23, 334.75, 2683.7, 512.297, 2683.7, 486.953, 2795.31, 486.953, 2795.31, 106.461, 3231.77, 284.023, 3268.97, 284.023, 3268.97, 299.383, 3231.77, 299.383, 3231.77, 360.117, 3268.97, 360.117, 3268.97, 375.477, 3231.77, 375.477, 3231.77, 486.953, 3130.16, 578.406, 2896.93, 578.406, 3204.56, 603.773, 3306.17, 486.953, 3306.17, 563.039, 3204.56, 654.5, 3502.2, 563.039, 3502.2, 486.953, 3641.01, 486.953, 3641.01, 563.039, 3762.63, 563.039, 3762.63, 410.844, 4209.08, 410.844, 3975.85, 502.297, 4209.08, 334.75, 4310.69, 334.75, 4310.69, 502.297, 3975.85, 654.5, 3130.16, 603.773, 2896.93, 603.773, 2822.52, 603.773, 2822.52, 654.5, 2386.07, 654.5, 2386.07, 603.773, 2450.48, 512.297, 2301.66, 603.773, 2301.66, 791.328, 2636.5, 791.328, 2636.5, 842.047, 2534.88, 908.148, 2869.73, 791.328, 3082.95, 791.328, 3082.95, 842.047, 3427.79, 842.047, 3427.79, 816.688, 4320.69, 791.328, 3380.59, 984.25, 3380.59, 1009.62, 3130.16, 1009.62, 3130.16, 984.25, 2534.88, 984.25, 2636.5, 1070.34, 1483.17, 994.25, 1483.17, 908.148, 2274.45, 207.922, 1158.33, -131.828, 1483.17, 816.688, 2051.23, 816.688)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 8), PackedInt32Array(9, 10, 11, 12), PackedInt32Array(13, 14, 15, 16, 17), PackedInt32Array(18, 6, 5, 19, 20), PackedInt32Array(4, 6, 18, 0), PackedInt32Array(21, 22, 23, 24), PackedInt32Array(25, 26, 27, 28), PackedInt32Array(25, 28, 29, 30), PackedInt32Array(31, 30, 29, 32, 33), PackedInt32Array(34, 35, 36, 37, 38, 39, 40, 41, 42), PackedInt32Array(3, 43, 44, 4), PackedInt32Array(44, 45, 46, 4), PackedInt32Array(46, 47, 48, 4), PackedInt32Array(48, 49, 50, 4), PackedInt32Array(51, 52, 53, 54), PackedInt32Array(55, 56, 57, 58), PackedInt32Array(57, 59, 60, 58), PackedInt32Array(61, 62, 63), PackedInt32Array(63, 64, 65, 66, 67), PackedInt32Array(65, 68, 69, 66), PackedInt32Array(70, 71, 72, 73, 74, 75), PackedInt32Array(76, 77, 78, 79), PackedInt32Array(76, 79, 80, 72), PackedInt32Array(80, 81, 82, 83), PackedInt32Array(72, 80, 83), PackedInt32Array(72, 83, 84, 73), PackedInt32Array(74, 85, 86, 75), PackedInt32Array(87, 88, 89, 90), PackedInt32Array(89, 91, 42, 92, 90), PackedInt32Array(42, 93, 34), PackedInt32Array(34, 94, 35), PackedInt32Array(35, 95, 96, 36), PackedInt32Array(41, 97, 98, 99), PackedInt32Array(42, 41, 99), PackedInt32Array(42, 99, 100), PackedInt32Array(100, 101, 102, 103), PackedInt32Array(42, 100, 103), PackedInt32Array(42, 103, 92), PackedInt32Array(86, 87, 90, 75), PackedInt32Array(75, 104, 105, 106), PackedInt32Array(107, 108, 109, 110, 111), PackedInt32Array(112, 113, 114), PackedInt32Array(114, 115, 116, 117), PackedInt32Array(118, 119, 120, 121), PackedInt32Array(122, 123, 124, 125), PackedInt32Array(126, 127, 128, 129), PackedInt32Array(129, 130, 131, 126), PackedInt32Array(125, 126, 131, 132), PackedInt32Array(132, 133, 134, 13), PackedInt32Array(125, 132, 13, 122), PackedInt32Array(135, 136, 137, 118), PackedInt32Array(118, 137, 138, 139, 140, 141), PackedInt32Array(141, 140, 142, 143, 144, 117), PackedInt32Array(143, 145, 146, 144), PackedInt32Array(147, 148, 149, 150), PackedInt32Array(38, 151, 39), PackedInt32Array(39, 152, 153, 40), PackedInt32Array(40, 153, 154, 155, 156), PackedInt32Array(12, 157, 9), PackedInt32Array(155, 12, 11, 158), PackedInt32Array(10, 159, 160, 161), PackedInt32Array(11, 10, 161), PackedInt32Array(11, 161, 58, 61), PackedInt32Array(162, 163, 164, 7), PackedInt32Array(164, 165, 166, 7), PackedInt32Array(166, 167, 168, 169), PackedInt32Array(170, 171, 172, 173), PackedInt32Array(174, 175, 176, 177), PackedInt32Array(177, 178, 16), PackedInt32Array(179, 180, 181), PackedInt32Array(181, 182, 2, 1, 183), PackedInt32Array(183, 184, 185, 186), PackedInt32Array(181, 183, 186), PackedInt32Array(181, 186, 187), PackedInt32Array(187, 188, 189, 190), PackedInt32Array(181, 187, 190), PackedInt32Array(181, 190, 191, 192, 193), PackedInt32Array(194, 191, 195, 196, 197), PackedInt32Array(198, 199, 200, 201), PackedInt32Array(202, 203, 204, 205), PackedInt32Array(204, 206, 207, 208), PackedInt32Array(204, 208, 205), PackedInt32Array(202, 205, 209), PackedInt32Array(202, 209, 197, 201), PackedInt32Array(198, 201, 197), PackedInt32Array(196, 198, 197), PackedInt32Array(194, 210, 192, 191), PackedInt32Array(193, 211, 212, 181), PackedInt32Array(181, 212, 213, 214, 215, 179), PackedInt32Array(216, 179, 215, 217), PackedInt32Array(218, 219, 220, 221, 21), PackedInt32Array(33, 222, 223, 224, 26, 31), PackedInt32Array(225, 226, 20), PackedInt32Array(20, 227, 18), PackedInt32Array(225, 20, 19), PackedInt32Array(224, 225, 19, 228), PackedInt32Array(228, 229, 230, 231), PackedInt32Array(224, 228, 231), PackedInt32Array(224, 231, 27, 26), PackedInt32Array(32, 232, 221, 220, 33), PackedInt32Array(22, 233, 8, 7), PackedInt32Array(23, 22, 7, 234), PackedInt32Array(235, 234, 7), PackedInt32Array(218, 21, 24), PackedInt32Array(236, 122, 13), PackedInt32Array(236, 13, 17), PackedInt32Array(121, 236, 17, 135, 118), PackedInt32Array(117, 144, 147), PackedInt32Array(117, 147, 150), PackedInt32Array(114, 117, 150, 237, 112), PackedInt32Array(107, 111, 112, 237, 37), PackedInt32Array(37, 237, 38), PackedInt32Array(156, 155, 158, 66, 69), PackedInt32Array(166, 169, 238, 7), PackedInt32Array(174, 177, 16), PackedInt32Array(239, 174, 16, 15, 217), PackedInt32Array(217, 218, 24, 239), PackedInt32Array(70, 75, 106, 69), PackedInt32Array(69, 106, 156), PackedInt32Array(15, 216, 217), PackedInt32Array(173, 239, 24, 235), PackedInt32Array(170, 173, 235), PackedInt32Array(238, 170, 235, 7), PackedInt32Array(162, 7, 54, 55), PackedInt32Array(61, 63, 67, 11), PackedInt32Array(54, 4, 50, 51), PackedInt32Array(54, 53, 55), PackedInt32Array(58, 162, 55), PackedInt32Array(58, 60, 61)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-1264.94, -875.104, 5171.38, -849.739, 5115.58, 1420.46, -1190.53, 1242.9)])
+parsed_collision_mask = 4278190085
+source_geometry_mode = 1
+source_geometry_group_name = &"navigation"
+agent_radius = 5.0
 
 [sub_resource type="Resource" id="Resource_oj4ej"]
 resource_local_to_scene = true
@@ -322,7 +332,7 @@ z_index = -2
 line_width = 6.0
 
 [node name="PlayerCharacterController" parent="." index="9"]
-position = Vector2(64, 144)
+position = Vector2(976, 256)
 map_texture = SubResource("Resource_xtc4p")
 
 [node name="Tiles" parent="." index="10"]
@@ -552,123 +562,127 @@ grab_direction = 1
 [node name="@Area2D@47351" parent="Tiles/LedgeBaker" index="62" instance=ExtResource("10_70qm2")]
 position = Vector2(112, 48)
 
-[node name="Rope" parent="." index="12" instance=ExtResource("5_nbgxy")]
+[node name="NavigationRegion2D" parent="." index="12"]
+visible = false
+navigation_polygon = SubResource("NavigationPolygon_5064p")
+
+[node name="Rope" parent="." index="13" instance=ExtResource("5_nbgxy")]
 position = Vector2(128, -32)
 height = 192
 tile_height = 12.0
 
-[node name="Shelter" parent="." index="13" node_paths=PackedStringArray("environment_query_system") instance=ExtResource("6_raav1")]
+[node name="Shelter" parent="." index="14" node_paths=PackedStringArray("environment_query_system") instance=ExtResource("6_raav1")]
 position = Vector2(0, 144)
 map_scene = SubResource("Resource_oj4ej")
 selectable_map_entity = SubResource("Resource_447tw")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination = SubResource("Resource_7mg7g")
 
-[node name="Shelter2" parent="." index="14" node_paths=PackedStringArray("environment_query_system") instance=ExtResource("6_raav1")]
+[node name="Shelter2" parent="." index="15" node_paths=PackedStringArray("environment_query_system") instance=ExtResource("6_raav1")]
 position = Vector2(1536, 144)
 map_scene = SubResource("Resource_6c7hc")
 selectable_map_entity = SubResource("Resource_8ej7a")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination = SubResource("Resource_b4rat")
 
-[node name="SteelMine2" parent="." index="15" node_paths=PackedStringArray("node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("7_eu3xj")]
+[node name="SteelMine2" parent="." index="16" node_paths=PackedStringArray("node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("7_eu3xj")]
 position = Vector2(-256, -192)
 node_to_put_item_pickup_in = NodePath("..")
 steel_amount = 25
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination = SubResource("Resource_do6wf")
 
-[node name="SteelMine" parent="." index="16" node_paths=PackedStringArray("node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("7_eu3xj")]
+[node name="SteelMine" parent="." index="17" node_paths=PackedStringArray("node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("7_eu3xj")]
 position = Vector2(256, 160)
 node_to_put_item_pickup_in = NodePath("..")
 steel_amount = 23
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination = SubResource("Resource_58sdd")
 
-[node name="SteelMine3" parent="." index="17" node_paths=PackedStringArray("node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("7_eu3xj")]
+[node name="SteelMine3" parent="." index="18" node_paths=PackedStringArray("node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("7_eu3xj")]
 position = Vector2(688, -96)
 node_to_put_item_pickup_in = NodePath("..")
 steel_amount = 27
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination = SubResource("Resource_eahyh")
 
-[node name="PowerSupply" parent="." index="18" instance=ExtResource("9_wnkks")]
+[node name="PowerSupply" parent="." index="19" instance=ExtResource("9_wnkks")]
 position = Vector2(336, 144)
 
-[node name="PowerSupply2" parent="." index="19" instance=ExtResource("9_wnkks")]
+[node name="PowerSupply2" parent="." index="20" instance=ExtResource("9_wnkks")]
 position = Vector2(-232, 74)
 
-[node name="Battery" parent="." index="20" instance=ExtResource("10_kxdmx")]
+[node name="Battery" parent="." index="21" instance=ExtResource("10_kxdmx")]
 position = Vector2(720, 192)
 
-[node name="Battery2" parent="." index="21" instance=ExtResource("10_kxdmx")]
+[node name="Battery2" parent="." index="22" instance=ExtResource("10_kxdmx")]
 position = Vector2(-240, 128)
 
-[node name="Battery3" parent="." index="22" instance=ExtResource("10_kxdmx")]
+[node name="Battery3" parent="." index="23" instance=ExtResource("10_kxdmx")]
 position = Vector2(-80, 112)
 
-[node name="PoweredDoor2" parent="." index="23" instance=ExtResource("11_pl7cp")]
+[node name="PoweredDoor2" parent="." index="24" instance=ExtResource("11_pl7cp")]
 position = Vector2(1440, 352)
 
-[node name="BasicEnemy" parent="." index="24" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
+[node name="BasicEnemy" parent="." index="25" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
 position = Vector2(624, 224)
 map_entity = SubResource("Resource_ehmki")
 target = NodePath("../PlayerTarget")
 node_to_put_nodes_in = NodePath("..")
 
-[node name="BasicEnemy2" parent="." index="25" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
+[node name="BasicEnemy2" parent="." index="26" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
 position = Vector2(672, 224)
 map_entity = SubResource("Resource_acg51")
 target = NodePath("../PlayerTarget")
 node_to_put_nodes_in = NodePath("..")
 
-[node name="BasicEnemy3" parent="." index="26" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
+[node name="BasicEnemy3" parent="." index="27" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
 position = Vector2(1120, 400)
 map_entity = SubResource("Resource_1jdlk")
 target = NodePath("../PlayerTarget")
 node_to_put_nodes_in = NodePath("..")
 
-[node name="BasicEnemy4" parent="." index="27" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
+[node name="BasicEnemy4" parent="." index="28" node_paths=PackedStringArray("target", "node_to_put_nodes_in") instance=ExtResource("12_5j21r")]
 position = Vector2(1392, 608)
 map_entity = SubResource("Resource_xe2t3")
 target = NodePath("../PlayerTarget")
 node_to_put_nodes_in = NodePath("..")
 
-[node name="PowerSupply4" parent="." index="28" instance=ExtResource("9_wnkks")]
+[node name="PowerSupply4" parent="." index="29" instance=ExtResource("9_wnkks")]
 position = Vector2(1264, -16)
 
-[node name="PowerSupply5" parent="." index="29" instance=ExtResource("9_wnkks")]
+[node name="PowerSupply5" parent="." index="30" instance=ExtResource("9_wnkks")]
 position = Vector2(1824, 224)
 
-[node name="Rope2" parent="." index="30" instance=ExtResource("5_nbgxy")]
+[node name="Rope2" parent="." index="31" instance=ExtResource("5_nbgxy")]
 position = Vector2(928, 432)
 height = 320
 tile_height = 20.0
 
-[node name="LaserableMine" parent="." index="31" node_paths=PackedStringArray("node_to_put_steel_in") instance=ExtResource("13_rghmc")]
+[node name="LaserableMine" parent="." index="32" node_paths=PackedStringArray("node_to_put_steel_in") instance=ExtResource("13_rghmc")]
 position = Vector2(528, -160)
 node_to_put_steel_in = NodePath("..")
 
-[node name="LaserableMine4" parent="." index="32" node_paths=PackedStringArray("node_to_put_steel_in") instance=ExtResource("13_rghmc")]
+[node name="LaserableMine4" parent="." index="33" node_paths=PackedStringArray("node_to_put_steel_in") instance=ExtResource("13_rghmc")]
 position = Vector2(1232, 80)
 node_to_put_steel_in = NodePath("..")
 
-[node name="LaserableMine3" parent="." index="33" node_paths=PackedStringArray("node_to_put_steel_in") instance=ExtResource("13_rghmc")]
+[node name="LaserableMine3" parent="." index="34" node_paths=PackedStringArray("node_to_put_steel_in") instance=ExtResource("13_rghmc")]
 position = Vector2(384, -304)
 node_to_put_steel_in = NodePath("..")
 
-[node name="LaserableMine2" parent="." index="34" node_paths=PackedStringArray("node_to_put_steel_in") instance=ExtResource("13_rghmc")]
+[node name="LaserableMine2" parent="." index="35" node_paths=PackedStringArray("node_to_put_steel_in") instance=ExtResource("13_rghmc")]
 position = Vector2(240, 80)
 node_to_put_steel_in = NodePath("..")
 
-[node name="OverheatableWall" parent="." index="35" instance=ExtResource("14_v74fr")]
+[node name="OverheatableWall" parent="." index="36" instance=ExtResource("14_v74fr")]
 position = Vector2(1504, 352)
 rotation = -1.57079
 
-[node name="PushableBlock" parent="." index="36" instance=ExtResource("15_d8wcr")]
+[node name="PushableBlock" parent="." index="37" instance=ExtResource("15_d8wcr")]
 position = Vector2(1536, 320)
 
-[node name="RockBarrier" parent="." index="37" node_paths=PackedStringArray("node_to_put_item_pickup_in", "day_night_cycle", "environment_query_system") instance=ExtResource("20_gvedq")]
+[node name="RockBarrier" parent="." index="38" node_paths=PackedStringArray("node_to_put_item_pickup_in", "day_night_cycle", "environment_query_system") instance=ExtResource("20_gvedq")]
 position = Vector2(-160, 112)
 node_to_put_item_pickup_in = NodePath("..")
 drill_time = 15
@@ -676,7 +690,7 @@ day_night_cycle = NodePath("../DayNightCycle")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination_queryable = SubResource("Resource_voh6p")
 
-[node name="RockBarrier2" parent="." index="38" node_paths=PackedStringArray("node_to_put_item_pickup_in", "day_night_cycle", "environment_query_system") instance=ExtResource("20_gvedq")]
+[node name="RockBarrier2" parent="." index="39" node_paths=PackedStringArray("node_to_put_item_pickup_in", "day_night_cycle", "environment_query_system") instance=ExtResource("20_gvedq")]
 position = Vector2(432, -128)
 node_to_put_item_pickup_in = NodePath("..")
 flip_sprite = true
@@ -685,7 +699,7 @@ day_night_cycle = NodePath("../DayNightCycle")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination_queryable = SubResource("Resource_10203")
 
-[node name="DamagedUnit" parent="." index="39" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("21_0v2rn")]
+[node name="DamagedUnit" parent="." index="40" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("21_0v2rn")]
 position = Vector2(608, -96)
 day_night_cycle = NodePath("../DayNightCycle")
 node_to_put_item_pickup_in = NodePath("..")
@@ -693,7 +707,7 @@ map_texture = SubResource("Resource_x3ugl")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination_queryable = SubResource("Resource_ya8cq")
 
-[node name="DamagedUnit2" parent="." index="40" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("21_0v2rn")]
+[node name="DamagedUnit2" parent="." index="41" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("21_0v2rn")]
 position = Vector2(464, 176)
 day_night_cycle = NodePath("../DayNightCycle")
 node_to_put_item_pickup_in = NodePath("..")
@@ -701,7 +715,7 @@ map_texture = SubResource("Resource_kctux")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination_queryable = SubResource("Resource_vbqpi")
 
-[node name="DamagedUnit3" parent="." index="41" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("21_0v2rn")]
+[node name="DamagedUnit3" parent="." index="42" node_paths=PackedStringArray("day_night_cycle", "node_to_put_item_pickup_in", "environment_query_system") instance=ExtResource("21_0v2rn")]
 position = Vector2(800, 176)
 day_night_cycle = NodePath("../DayNightCycle")
 node_to_put_item_pickup_in = NodePath("..")
@@ -709,54 +723,58 @@ map_texture = SubResource("Resource_c0gd1")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination_queryable = SubResource("Resource_x5rw7")
 
-[node name="DamagedUnitsDamagedShipPart" parent="." index="42" node_paths=PackedStringArray("damaged_units") instance=ExtResource("22_wugnc")]
+[node name="DamagedUnitsDamagedShipPart" parent="." index="43" node_paths=PackedStringArray("damaged_units") instance=ExtResource("22_wugnc")]
 position = Vector2(576, 16)
 damaged_units = [NodePath("../DamagedUnit"), NodePath("../DamagedUnit2"), NodePath("../DamagedUnit3")]
 map_texture = SubResource("Resource_st16p")
 
-[node name="MissingFusesDamagedShipPart" parent="." index="43" node_paths=PackedStringArray("environment_query_system") instance=ExtResource("23_ujgtb")]
+[node name="MissingFusesDamagedShipPart" parent="." index="44" node_paths=PackedStringArray("environment_query_system") instance=ExtResource("23_ujgtb")]
 position = Vector2(1280, 320)
 fuses_required = 2
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination_queryable = SubResource("Resource_wph25")
 map_texture = SubResource("Resource_i72fx")
 
-[node name="FuseDispenser" parent="." index="44" node_paths=PackedStringArray("day_night_cycle", "node_to_put_fuse_pickup_in", "environment_query_system") instance=ExtResource("24_h4wi1")]
+[node name="FuseDispenser" parent="." index="45" node_paths=PackedStringArray("day_night_cycle", "node_to_put_fuse_pickup_in", "environment_query_system") instance=ExtResource("24_h4wi1")]
 position = Vector2(1168, 0)
 day_night_cycle = NodePath("../DayNightCycle")
 node_to_put_fuse_pickup_in = NodePath("..")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 transport_bucket_destination = SubResource("Resource_51gn0")
 
-[node name="TriggerDoor" parent="." index="45" node_paths=PackedStringArray("trigger") instance=ExtResource("32_x2fqg")]
+[node name="TriggerDoor" parent="." index="46" node_paths=PackedStringArray("trigger") instance=ExtResource("32_x2fqg")]
 position = Vector2(656, 512)
 trigger = NodePath("../Trigger1")
 
-[node name="TriggerDoor2" parent="." index="46" node_paths=PackedStringArray("trigger") instance=ExtResource("32_x2fqg")]
+[node name="TriggerDoor2" parent="." index="47" node_paths=PackedStringArray("trigger") instance=ExtResource("32_x2fqg")]
 position = Vector2(784, 512)
 trigger = NodePath("../Trigger2")
 
-[node name="Trigger1" parent="." index="47" instance=ExtResource("33_78k1x")]
+[node name="Trigger1" parent="." index="48" instance=ExtResource("33_78k1x")]
 
-[node name="Trigger2" parent="." index="48" instance=ExtResource("33_78k1x")]
+[node name="Trigger2" parent="." index="49" instance=ExtResource("33_78k1x")]
 
-[node name="RepairableTerminal" parent="." index="49" node_paths=PackedStringArray("trigger") instance=ExtResource("33_niriw")]
+[node name="RepairableTerminal" parent="." index="50" node_paths=PackedStringArray("trigger") instance=ExtResource("33_niriw")]
 position = Vector2(720, 560)
 trigger = NodePath("../Trigger1")
 
-[node name="Terminal" parent="." index="50" node_paths=PackedStringArray("trigger") instance=ExtResource("34_78k1x")]
+[node name="Terminal" parent="." index="51" node_paths=PackedStringArray("trigger") instance=ExtResource("34_78k1x")]
 position = Vector2(848, 560)
 trigger = NodePath("../Trigger2")
 one_time_activation = true
 
-[node name="MovingPlatform" parent="." index="51" instance=ExtResource("34_06fha")]
+[node name="MovingPlatform" parent="." index="52" instance=ExtResource("34_06fha")]
 position = Vector2(80, 96)
 speed_scale = 4
 
-[node name="FoodGenerator" parent="." index="52" node_paths=PackedStringArray("day_night_cycle", "node_to_put_food_in") instance=ExtResource("36_70qm2")]
+[node name="FoodGenerator" parent="." index="53" node_paths=PackedStringArray("day_night_cycle", "node_to_put_food_in") instance=ExtResource("36_70qm2")]
 position = Vector2(224, -56)
 day_night_cycle = NodePath("../DayNightCycle")
 node_to_put_food_in = NodePath("..")
+
+[node name="FlyerEnemy" parent="." index="54" node_paths=PackedStringArray("target") instance=ExtResource("37_5064p")]
+position = Vector2(1272, 152)
+target = NodePath("../PlayerTarget")
 
 [connection signal="transport_bucket_arrived" from="Shelter" to="PlayerCharacterController" method="_on_shelter_transport_bucket_arrived"]
 [connection signal="transport_bucket_arrived" from="Shelter2" to="PlayerCharacterController" method="_on_shelter_transport_bucket_arrived"]
