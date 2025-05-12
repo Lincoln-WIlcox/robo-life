@@ -6,4 +6,6 @@ extends SteeringStrategy
 func get_interest_vector() -> Vector2:
 	var vector_to_steering_target: Vector2 = steering_node.global_position.direction_to(navigation_agent.get_next_path_position()).normalized()
 	
+	print("navigation vector: ", vector_to_steering_target)
+	
 	return vector_to_steering_target

@@ -28,6 +28,9 @@ func _ready():
 	_movement_setup.call_deferred()
 	_update_children_target()
 	_update_children_node_to_spawn()
+	
+	var relative_player_raycast_init_rotation: float = randf_range(0, TAU)
+	relative_player_ray_cast.rotation = relative_player_raycast_init_rotation
 
 func update_movement_target():
 	navigation_agent.target_position = _get_target_position()

@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=3 uid="uid://cdxjj6omkcyxe"]
+
+[ext_resource type="PackedScene" uid="uid://bjtntq0ecv664" path="res://Components/ShootComponent/shoot_component.tscn" id="1_ni330"]
+[ext_resource type="Script" uid="uid://dsilw6fjln7kx" path="res://Objects/Turret/turret.gd" id="1_ogpsg"]
+[ext_resource type="Script" uid="uid://bbopxepmrd3rs" path="res://Objects/Turret/aggro_range.gd" id="2_f6ba3"]
+[ext_resource type="Script" uid="uid://b55xtraikf0g" path="res://Components/StateMachine/state_machine.gd" id="2_kb4cc"]
+[ext_resource type="Script" uid="uid://l0mjjihgpb2f" path="res://Objects/Turret/none.gd" id="3_n5fg5"]
+[ext_resource type="Script" uid="uid://d384m213xahx3" path="res://Objects/Turret/shooting.gd" id="4_n5fg5"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="6_f6ba3"]
+[ext_resource type="PackedScene" uid="uid://vvmx1q8uqi2n" path="res://Components/Overheater/overheater.tscn" id="8_bc6x6"]
+[ext_resource type="Script" uid="uid://b5m8ta1fbfj4a" path="res://Components/HeaterProgressBarUpdater/heater_progress_bar_updater.gd" id="9_yhmfm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bc6x6"]
+atlas = ExtResource("6_f6ba3")
+region = Rect2(160, 64, 16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yhmfm"]
+radius = 5.0
+
+[node name="Turret" type="Node2D"]
+script = ExtResource("1_ogpsg")
+
+[node name="AggroRangeHandler" type="Node" parent="." node_paths=PackedStringArray("turret", "raycast")]
+script = ExtResource("2_f6ba3")
+turret = NodePath("..")
+raycast = NodePath("../TurretPivot/RayCast2D")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_kb4cc")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://b55xtraikf0g"
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("shooting_state")]
+script = ExtResource("3_n5fg5")
+shooting_state = NodePath("../Shooting")
+metadata/_custom_type_script = "uid://dxtre1xdhvrrr"
+
+[node name="Shooting" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "sprite", "shoot_component", "turret", "bullet_spawn_position", "turret_pivot")]
+script = ExtResource("4_n5fg5")
+idle_state = NodePath("../Idle")
+sprite = NodePath("../../TurretPivot/Sprite2D")
+shoot_component = NodePath("../../ShootComponent")
+turret = NodePath("../..")
+bullet_spawn_position = NodePath("../../TurretPivot/Sprite2D/BulletSpawnPosition")
+turret_pivot = NodePath("../../TurretPivot")
+metadata/_custom_type_script = "uid://dxtre1xdhvrrr"
+
+[node name="BetweenShotsTimer" type="Timer" parent="StateMachine/Shooting"]
+
+[node name="ShootComponent" parent="." instance=ExtResource("1_ni330")]
+
+[node name="TurretPivot" type="Node2D" parent="."]
+rotation = 1.57079
+
+[node name="Sprite2D" type="Sprite2D" parent="TurretPivot"]
+rotation = -1.5708
+texture = SubResource("AtlasTexture_bc6x6")
+
+[node name="BulletSpawnPosition" type="Marker2D" parent="TurretPivot/Sprite2D"]
+position = Vector2(0, 8)
+
+[node name="RayCast2D" type="RayCast2D" parent="TurretPivot"]
+position = Vector2(8, 1.77701e-05)
+rotation = -1.57079
+target_position = Vector2(50, 0)
+collision_mask = 5
+hit_from_inside = true
+
+[node name="Overheater" parent="." instance=ExtResource("8_bc6x6")]
+max_heat = 200.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Overheater"]
+shape = SubResource("CircleShape2D_yhmfm")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -9.0
+offset_top = -9.0
+offset_right = 171.0
+offset_bottom = 18.0
+scale = Vector2(0.1, 0.1)
+show_percentage = false
+
+[node name="OverheatProgressBarUpdater" type="Node" parent="." node_paths=PackedStringArray("overheater", "progress_bar")]
+script = ExtResource("9_yhmfm")
+overheater = NodePath("../Overheater")
+progress_bar = NodePath("../ProgressBar")
+
+[connection signal="aggro_gained" from="AggroRangeHandler" to="StateMachine/Idle" method="_on_aggro_range_handler_aggro_gained"]
+[connection signal="aggro_lost" from="AggroRangeHandler" to="StateMachine/Shooting" method="_on_aggro_range_handler_aggro_lost"]
+[connection signal="timeout" from="StateMachine/Shooting/BetweenShotsTimer" to="StateMachine/Shooting" method="_on_between_shots_timer_timeout"]
+[connection signal="max_heat_reached" from="Overheater" to="." method="_on_overheater_max_heat_reached"]
