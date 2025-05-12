@@ -497,18 +497,13 @@ static func free_children(node: Node) -> void:
 static func get_in_array_wrap(array: Array, index: int) -> Variant:
 	return array[(index % array.size() + array.size()) % array.size()]
 
-static func weighted_average(vectors: Array[Vector2], weights: Array[float]) -> Vector2:
+static func vectors_weighted_combination(vectors: Array[Vector2], weights: Array[float]) -> Vector2:
 	assert(vectors.size() == weights.size(), "Vectors and weights must have the same length.")
 	
-	var total_weight = 0.0
 	var weighted_sum = Vector2.ZERO
 	
 	for i in range(vectors.size()):
 		var weight = weights[i]
 		weighted_sum += vectors[i] * weight
-		total_weight += weight
 	
-	if total_weight == 0:
-		return Vector2.ZERO  # Avoid division by zero
-	
-	return weighted_sum / total_weight
+	return weighted_sum
