@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbrfrxjvkxmsv"]
+
+[ext_resource type="Script" uid="uid://cjk4654jmutdm" path="res://Components/SteeringHandler/SteeringStrategy/MaintainDistanceSteeringStrategy/maintain_distance_steering_strategy.gd" id="1_btvm7"]
+
+[node name="MaintainDistanceSteeringStrategy" type="Node"]
+script = ExtResource("1_btvm7")
+metadata/_custom_type_script = "uid://gksu6iq3sld4"

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbmtfuj82r2f5"]
+
+[ext_resource type="Script" uid="uid://bnpxvaqltlmqi" path="res://Components/SteeringHandler/SteeringStrategy/FollowNavigationPathStrategy/follow_navigation_path_strategy.gd" id="1_6t0a0"]
+
+[node name="FollowNavigationPathStrategy" type="Node"]
+script = ExtResource("1_6t0a0")
+metadata/_custom_type_script = "uid://gksu6iq3sld4"

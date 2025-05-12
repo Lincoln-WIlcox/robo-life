@@ -7,7 +7,7 @@ const AMOUNT_OF_SHOTS = 5
 @export var relative_player_ray_cast: RayCast2D
 @export var navigation_agent: NavigationAgent2D
 @export var velocity_component: VelocityComponent
-@export var steering_handler: Node
+@export var steering_handler: SteeringHandler
 @export var shooting_handler: Node
 
 var target: Target
@@ -31,14 +31,8 @@ func run():
 	if navigation_agent.is_navigation_finished() or not navigation_agent.is_target_reachable():
 		return
 	
-	var target_position: Vector2 = _get_target_position()
-	var target_direction: Vector2 = steering_handler.get_preferred_direction_to_target_pos(target_position)
+	var target_direction: Vector2 = steering_handler.get_preferred_direction()
 	velocity_component.accelerate_in_direction_at_full_speed(target_direction)
-
-func _get_target_position() -> Vector2:
-	if relative_player_ray_cast.is_colliding():
-		return relative_player_ray_cast.get_collision_point()
-	return relative_player_ray_cast.global_position + relative_player_ray_cast.target_position.rotated(relative_player_ray_cast.rotation)
 
 func _on_between_barrage_timer_timeout():
 	between_shots_timer.start()
