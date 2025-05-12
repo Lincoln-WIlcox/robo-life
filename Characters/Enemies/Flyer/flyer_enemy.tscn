@@ -24,11 +24,13 @@ navigation_agent = NodePath("../CharacterBody2D/NavigationAgent2D")
 
 [node name="VelocityComponent" parent="." node_paths=PackedStringArray("affecting_node") instance=ExtResource("2_io86p")]
 affecting_node = NodePath("../CharacterBody2D")
-acceleration_coefficient = 8.0
-terminal_speed = 50
+acceleration_coefficient = 4.5
+terminal_speed = 120
 max_speed = 600
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+collision_layer = 8
+collision_mask = 5
 motion_mode = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
@@ -75,9 +77,9 @@ collision_mask = 5
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D" groups=["navigation"]]
 path_desired_distance = 30.0
 target_desired_distance = 20.0
-debug_enabled = true
 
 [node name="RerouteTimer" type="Timer" parent="."]
+wait_time = 0.5
 autostart = true
 
 [connection signal="timeout" from="RerouteTimer" to="." method="_on_reroute_timer_timeout"]

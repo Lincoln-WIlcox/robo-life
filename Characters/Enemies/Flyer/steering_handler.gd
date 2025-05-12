@@ -21,37 +21,19 @@ const PADDING_DIVISOR = 2
 var target: Target
 
 func get_preferred_direction() -> Vector2:
+	#this functions kicks ass.
+	#it gets the preference of each of 8 directions, then determines the weighted average.
+	
 	var direction_interests: Array[float] = _get_interests()
 	var direction_dangers: Array[float] = _get_dangers()
 	
 	var direction_to_target: Vector2 = character.global_position.direction_to(target.global_position).normalized()
 	
-	var least_dot_index: float = 0
-	var second_least_dot_index: float = 0
-	
-	for i: int in range(DIRECTIONS.size()):
-		var new_dot: float = direction_to_target.normalized().dot(DIRECTIONS[i])
-		
-		if new_dot > direction_to_target.normalized().dot(DIRECTIONS[least_dot_index]):
-			second_least_dot_index = least_dot_index
-			least_dot_index = i
-	
-	if direction_dangers[least_dot_index] == 0 and direction_dangers[second_least_dot_index] == 0:
-		return direction_to_target
-	
 	var direction_preferences: Array[float] = _get_direction_preferences(direction_interests, direction_dangers)
 	
-	var preferred_direction_index: int = 0
+	var weighted_average_direction: Vector2 = Utils.weighted_average(DIRECTIONS, direction_preferences)
 	
-	for i: int in range(direction_preferences.size()):
-		if direction_preferences[i] > direction_preferences[preferred_direction_index]:
-			preferred_direction_index = i
-	
-	var use_direction_vector: Vector2 = DIRECTIONS[preferred_direction_index].normalized()
-	
-	
-	
-	return DIRECTIONS[preferred_direction_index].normalized()
+	return weighted_average_direction.normalized()
 
 func _get_dangers() -> Array[float]:
 	var raycasts_assigner: Array[Node] = query_raycasts_container.get_children()
@@ -81,7 +63,9 @@ func _get_interests() -> Array[float]:
 func _get_direction_preferences(direction_interests: Array[float], direction_dangers: Array[float]) -> Array[float]:
 	var direction_preferences: Array[float]
 	for i: int in range(direction_interests.size()):
-		direction_preferences.append(direction_interests[i] - direction_dangers[i])
+		#preference is usually between -1 and 1, thus we add 1 and divide by 2 to make it between 0 and 1
+		var preference: float = (clamp(direction_interests[i] - direction_dangers[i], -1, 1) + 1) / 2
+		direction_preferences.append(preference)
 	return direction_preferences
 
 func _get_danger_weight(raycast: RayCast2D) -> float:

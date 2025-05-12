@@ -538,6 +538,7 @@ position = Vector2(8, 0)
 collision_layer = 16
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerCharacterBody/CursorDetectArea"]
+visible = false
 shape = SubResource("CircleShape2D_cuesd")
 
 [node name="ShieldProgressBar" type="ProgressBar" parent="PlayerCharacterBody"]
