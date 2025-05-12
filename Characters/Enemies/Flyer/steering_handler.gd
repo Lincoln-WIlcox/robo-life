@@ -18,9 +18,26 @@ const PADDING_DIVISOR = 2
 @export var query_raycasts_container: Node2D
 @export var navigation_agent: NavigationAgent2D
 
+var target: Target
+
 func get_preferred_direction() -> Vector2:
 	var direction_interests: Array[float] = _get_interests()
 	var direction_dangers: Array[float] = _get_dangers()
+	
+	var direction_to_target: Vector2 = character.global_position.direction_to(target.global_position).normalized()
+	
+	var least_dot_index: float = 0
+	var second_least_dot_index: float = 0
+	
+	for i: int in range(DIRECTIONS.size()):
+		var new_dot: float = direction_to_target.normalized().dot(DIRECTIONS[i])
+		
+		if new_dot > direction_to_target.normalized().dot(DIRECTIONS[least_dot_index]):
+			second_least_dot_index = least_dot_index
+			least_dot_index = i
+	
+	if direction_dangers[least_dot_index] == 0 and direction_dangers[second_least_dot_index] == 0:
+		return direction_to_target
 	
 	var direction_preferences: Array[float] = _get_direction_preferences(direction_interests, direction_dangers)
 	
@@ -29,6 +46,10 @@ func get_preferred_direction() -> Vector2:
 	for i: int in range(direction_preferences.size()):
 		if direction_preferences[i] > direction_preferences[preferred_direction_index]:
 			preferred_direction_index = i
+	
+	var use_direction_vector: Vector2 = DIRECTIONS[preferred_direction_index].normalized()
+	
+	
 	
 	return DIRECTIONS[preferred_direction_index].normalized()
 
