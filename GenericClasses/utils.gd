@@ -493,3 +493,17 @@ static func is_bit_set(bit_flags: int, bit: int) -> bool:
 static func free_children(node: Node) -> void:
 	for child in node.get_children():
 		child.queue_free()
+
+static func get_in_array_wrap(array: Array, index: int) -> Variant:
+	return array[(index % array.size() + array.size()) % array.size()]
+
+static func vectors_weighted_combination(vectors: Array[Vector2], weights: Array[float]) -> Vector2:
+	assert(vectors.size() == weights.size(), "Vectors and weights must have the same length.")
+	
+	var weighted_sum = Vector2.ZERO
+	
+	for i in range(vectors.size()):
+		var weight = weights[i]
+		weighted_sum += vectors[i] * weight
+	
+	return weighted_sum

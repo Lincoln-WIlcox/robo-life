@@ -1,0 +1,164 @@
+[gd_scene load_steps=17 format=3 uid="uid://kvs5y6kb2v0g"]
+
+[ext_resource type="Script" uid="uid://bk8c0nlkbhyff" path="res://Characters/Enemies/Flyer/flyer_enemy.gd" id="1_b57ma"]
+[ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="1_yp2kr"]
+[ext_resource type="Script" uid="uid://d33e5j513fp4l" path="res://Characters/Enemies/Flyer/steering_handler.gd" id="2_6bf3k"]
+[ext_resource type="Script" uid="uid://b55xtraikf0g" path="res://Components/StateMachine/state_machine.gd" id="2_6p7di"]
+[ext_resource type="PackedScene" uid="uid://lxxl844xt4sk" path="res://Components/VelocityComponent/velocity_component.tscn" id="2_io86p"]
+[ext_resource type="Script" uid="uid://1qbqgoe3wxpd" path="res://Characters/Enemies/Flyer/waiting_for_target.gd" id="3_6p7di"]
+[ext_resource type="Script" uid="uid://cn3dfn1tyl8tv" path="res://Characters/Enemies/Flyer/chasing_target.gd" id="4_6p7di"]
+[ext_resource type="Script" uid="uid://bnd45p2cuwltt" path="res://Characters/Enemies/Flyer/shooting_handler.gd" id="5_tfxvv"]
+[ext_resource type="PackedScene" uid="uid://bpjyigrxmafpo" path="res://Objects/Bullet/bullet.tscn" id="6_fbnxn"]
+[ext_resource type="Script" uid="uid://b5m8ta1fbfj4a" path="res://Components/HeaterProgressBarUpdater/heater_progress_bar_updater.gd" id="9_eowyn"]
+[ext_resource type="PackedScene" uid="uid://vvmx1q8uqi2n" path="res://Components/Overheater/overheater.tscn" id="10_p3rtc"]
+[ext_resource type="PackedScene" uid="uid://cqnd47al60df" path="res://Objects/GravityWalkOverPickupSpawner/gravity_walk_over_pickup_spawner.tscn" id="12_60v0y"]
+[ext_resource type="PackedScene" uid="uid://g1jj5acjo7c5" path="res://Objects/GravityWalkOverItemPickup/gravity_walk_over_item_pickup_food.tscn" id="13_2d53p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b57ma"]
+atlas = ExtResource("1_yp2kr")
+region = Rect2(288, 120, 16, 24)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_io86p"]
+radius = 5.0
+height = 22.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eowyn"]
+size = Vector2(17, 24)
+
+[node name="FlyerEnemy" type="Node2D"]
+script = ExtResource("1_b57ma")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_6p7di")
+initial_state = NodePath("WaitingForTarget")
+metadata/_custom_type_script = "uid://b55xtraikf0g"
+
+[node name="WaitingForTarget" type="Node" parent="StateMachine" node_paths=PackedStringArray("to_player_raycast", "character", "chasing_target_state")]
+script = ExtResource("3_6p7di")
+to_player_raycast = NodePath("../../CharacterBody2D/ToPlayerRayCast")
+character = NodePath("../../CharacterBody2D")
+chasing_target_state = NodePath("../ChasingTarget")
+metadata/_custom_type_script = "uid://dxtre1xdhvrrr"
+
+[node name="ChasingTarget" type="Node" parent="StateMachine" node_paths=PackedStringArray("relative_player_ray_cast", "navigation_agent", "velocity_component", "steering_handler", "shooting_handler")]
+script = ExtResource("4_6p7di")
+relative_player_ray_cast = NodePath("../../RelativePlayerRayCast")
+navigation_agent = NodePath("../../CharacterBody2D/NavigationAgent2D")
+velocity_component = NodePath("../../VelocityComponent")
+steering_handler = NodePath("../../SteeringHandler")
+shooting_handler = NodePath("../../ShootingHandler")
+metadata/_custom_type_script = "uid://dxtre1xdhvrrr"
+
+[node name="BetweenBarrageTimer" type="Timer" parent="StateMachine/ChasingTarget"]
+wait_time = 0.9
+one_shot = true
+
+[node name="BetweenShotsTimer" type="Timer" parent="StateMachine/ChasingTarget"]
+wait_time = 0.08
+
+[node name="ShootingHandler" type="Node" parent="." node_paths=PackedStringArray("character")]
+script = ExtResource("5_tfxvv")
+bullet_packed_scene = ExtResource("6_fbnxn")
+character = NodePath("../CharacterBody2D")
+
+[node name="SteeringHandler" type="Node" parent="." node_paths=PackedStringArray("character", "query_raycasts_container")]
+script = ExtResource("2_6bf3k")
+character = NodePath("../CharacterBody2D")
+query_raycasts_container = NodePath("../CharacterBody2D/QueryRaycasts")
+
+[node name="VelocityComponent" parent="." node_paths=PackedStringArray("affecting_node") instance=ExtResource("2_io86p")]
+affecting_node = NodePath("../CharacterBody2D")
+acceleration_coefficient = 4.5
+terminal_speed = 160
+max_speed = 200
+
+[node name="OverheatProgressBarUpdater" type="Node" parent="." node_paths=PackedStringArray("overheater", "progress_bar")]
+script = ExtResource("9_eowyn")
+overheater = NodePath("../CharacterBody2D/Overheater")
+progress_bar = NodePath("../CharacterBody2D/ProgressBar")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+collision_layer = 8
+collision_mask = 5
+motion_mode = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(0, -1)
+texture = SubResource("AtlasTexture_b57ma")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CapsuleShape2D_io86p")
+
+[node name="QueryRaycasts" type="Node2D" parent="CharacterBody2D"]
+
+[node name="RayCast2DUp" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
+target_position = Vector2(0, -30)
+collision_mask = 5
+
+[node name="RayCast2DUpRight" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
+target_position = Vector2(21.2, -21.2)
+collision_mask = 5
+
+[node name="RayCast2DRight" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
+target_position = Vector2(30, 0)
+collision_mask = 5
+
+[node name="RayCast2DDownRight" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
+target_position = Vector2(21.2, 21.2)
+collision_mask = 5
+
+[node name="RayCast2DDown" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
+target_position = Vector2(0, 30)
+collision_mask = 5
+
+[node name="RayCast2DDownLeft" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
+target_position = Vector2(-21.2, 21.2)
+collision_mask = 5
+
+[node name="RayCast2DLeft" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
+target_position = Vector2(-30, 0)
+collision_mask = 5
+
+[node name="RayCast2DUpLeft" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
+target_position = Vector2(-21.2, -21.2)
+collision_mask = 5
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D" groups=["navigation"]]
+path_desired_distance = 30.0
+target_desired_distance = 20.0
+
+[node name="ToPlayerRayCast" type="RayCast2D" parent="CharacterBody2D"]
+
+[node name="Overheater" parent="CharacterBody2D" instance=ExtResource("10_p3rtc")]
+max_heat = 250.0
+cooldown_rate = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Overheater"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_eowyn")
+
+[node name="ProgressBar" type="ProgressBar" parent="CharacterBody2D"]
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 172.0
+offset_bottom = 11.0
+scale = Vector2(0.1, 0.1)
+show_percentage = false
+
+[node name="GravityWalkOverPickupSpawner" parent="CharacterBody2D" instance=ExtResource("12_60v0y")]
+gravity_walk_over_pickup_packed_scene = ExtResource("13_2d53p")
+spawn_amount = 3
+
+[node name="RerouteTimer" type="Timer" parent="."]
+wait_time = 0.75
+autostart = true
+
+[node name="RelativePlayerRayCast" type="RayCast2D" parent="."]
+target_position = Vector2(120, 0)
+collision_mask = 5
+
+[connection signal="timeout" from="StateMachine/ChasingTarget/BetweenBarrageTimer" to="StateMachine/ChasingTarget" method="_on_between_barrage_timer_timeout"]
+[connection signal="timeout" from="StateMachine/ChasingTarget/BetweenShotsTimer" to="StateMachine/ChasingTarget" method="_on_between_shots_timer_timeout"]
+[connection signal="navigation_finished" from="CharacterBody2D/NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
+[connection signal="max_heat_reached" from="CharacterBody2D/Overheater" to="." method="_on_overheater_max_heat_reached"]
+[connection signal="timeout" from="RerouteTimer" to="." method="_on_reroute_timer_timeout"]

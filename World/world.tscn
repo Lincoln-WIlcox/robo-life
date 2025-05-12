@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://wqdgq1a7r2ml"]
+[gd_scene load_steps=26 format=3 uid="uid://wqdgq1a7r2ml"]
 
 [ext_resource type="Script" uid="uid://b166xvbc6nf64" path="res://World/world.gd" id="1_fuqf5"]
 [ext_resource type="Script" uid="uid://lyj3fi66muug" path="res://World/day_night_cycle.gd" id="1_yp3no"]
@@ -41,7 +41,16 @@ display_texture = SubResource("AtlasTexture_evjoi")
 z_index = 1
 scale = Vector2(2, 2)
 
-[node name="Level" type="Node2D" node_paths=PackedStringArray("active_player")]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_0lysu"]
+vertices = PackedVector2Array(2002.9, -507.031, 1979.09, 747.031, -490.773, 762.961, -435.203, -522.961)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-440, -528, 2008, -512, 1984, 752, -496, 768)])
+parsed_collision_mask = 4278190085
+source_geometry_mode = 1
+source_geometry_group_name = &"navigation"
+agent_radius = 5.0
+
+[node name="Level2" type="Node2D" node_paths=PackedStringArray("active_player")]
 script = ExtResource("1_fuqf5")
 active_player = NodePath("PlayerCharacterController")
 shelter_inventory = SubResource("Resource_ecwqp")
@@ -80,7 +89,7 @@ node_to_spawn_placeables_in = NodePath("..")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 level_map_map_entity_collection = NodePath("../LevelMapMapEntityCollection")
 
-[node name="Tiles" type="TileMapLayer" parent="." node_paths=PackedStringArray("environment_query_system")]
+[node name="Tiles" type="TileMapLayer" parent="." node_paths=PackedStringArray("environment_query_system") groups=["navigation"]]
 script = ExtResource("6_7fj4g")
 one_way_platform_packed_scene = ExtResource("10_kift4")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
@@ -92,6 +101,10 @@ ledge_packed_scene = ExtResource("7_p745u")
 [node name="PlayerTarget" parent="." node_paths=PackedStringArray("player_character_controller") instance=ExtResource("10_7fjhp")]
 script = ExtResource("11_bifaf")
 player_character_controller = NodePath("../PlayerCharacterController")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+scale = Vector2(0.430059, 0.630782)
+navigation_polygon = SubResource("NavigationPolygon_0lysu")
 
 [connection signal="all_damaged_ship_parts_repaired" from="DamagedShipPartsTracker" to="." method="_on_damaged_ship_parts_tracker_all_damaged_ship_parts_repaired"]
 [connection signal="day_ended" from="DayNightCycle" to="PlayerCharacterController" method="_on_day_night_cycle_day_ended"]
