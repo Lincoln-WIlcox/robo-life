@@ -18,16 +18,9 @@ const PADDING_DIVISOR = 2
 @export var query_raycasts_container: Node2D
 @export var navigation_agent: NavigationAgent2D
 
-var target: Target
-
 func get_preferred_direction() -> Vector2:
-	#this functions kicks ass.
-	#it gets the preference of each of 8 directions, then determines the weighted average.
-	
 	var direction_interests: Array[float] = _get_interests()
 	var direction_dangers: Array[float] = _get_dangers()
-	
-	var direction_to_target: Vector2 = character.global_position.direction_to(target.global_position).normalized()
 	
 	var direction_preferences: Array[float] = _get_direction_preferences(direction_interests, direction_dangers)
 	

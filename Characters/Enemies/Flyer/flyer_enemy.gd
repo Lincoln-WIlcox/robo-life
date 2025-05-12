@@ -1,21 +1,16 @@
 class_name FlyerEnemy
 extends Node2D
 
-@export var target: Target:
-	set(new_value):
-		target = new_value
-		if is_node_ready():
-			steering_handler.target = target
-
+@export var target: Target
 @onready var navigation_agent: NavigationAgent2D = $CharacterBody2D/NavigationAgent2D
 @onready var character_body: CharacterBody2D = $CharacterBody2D
 @onready var query_raycasts: Node2D = $CharacterBody2D/QueryRaycasts
 @onready var velocity_component: VelocityComponent = $VelocityComponent
+@onready var reroute_timer: Timer = $RerouteTimer
 @onready var steering_handler = $SteeringHandler
 
 func _ready():
 	_movement_setup.call_deferred()
-	steering_handler.target = target
 
 func _movement_setup() -> void:
 	#wait for the first physics frame so the NavigationServer can sync.
@@ -35,3 +30,7 @@ func _physics_process(delta):
 
 func _on_reroute_timer_timeout():
 	update_movement_target()
+
+func _on_navigation_agent_2d_navigation_finished():
+	update_movement_target()
+	reroute_timer.start()

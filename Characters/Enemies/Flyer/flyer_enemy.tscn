@@ -79,7 +79,8 @@ path_desired_distance = 30.0
 target_desired_distance = 20.0
 
 [node name="RerouteTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.75
 autostart = true
 
+[connection signal="navigation_finished" from="CharacterBody2D/NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
 [connection signal="timeout" from="RerouteTimer" to="." method="_on_reroute_timer_timeout"]
