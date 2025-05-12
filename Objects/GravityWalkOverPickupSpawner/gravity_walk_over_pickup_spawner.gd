@@ -29,6 +29,7 @@ func _spawn_one() -> void:
 	
 	gravity_walk_over_pickup.global_position = global_position
 	gravity_walk_over_pickup.global_position.x += randf_range(-spawn_range_width/2.0, spawn_range_width/2.0)
+	gravity_walk_over_pickup.reset_physics_interpolation()
 
 func _create_pickup() -> Node:
 	var gravity_walk_over_pickup: Node = gravity_walk_over_pickup_packed_scene.instantiate()
