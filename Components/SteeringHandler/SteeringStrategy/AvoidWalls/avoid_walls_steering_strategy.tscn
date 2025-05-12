@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctn1162btnpl5"]
+
+[ext_resource type="Script" uid="uid://v24d012kjeyf" path="res://Components/SteeringHandler/SteeringStrategy/AvoidWalls/avoid_walls_steering_strategy.gd" id="1_g76wf"]
+
+[node name="AvoidWallsSteeringStrategy" type="Node"]
+script = ExtResource("1_g76wf")
+
+[node name="QueryRaycasts" type="Node2D" parent="."]
+visible = false
+
+[node name="RayCast2DUp" type="RayCast2D" parent="QueryRaycasts"]
+target_position = Vector2(0, -30)
+collision_mask = 5
+
+[node name="RayCast2DUpRight" type="RayCast2D" parent="QueryRaycasts"]
+target_position = Vector2(21.2, -21.2)
+collision_mask = 5
+
+[node name="RayCast2DRight" type="RayCast2D" parent="QueryRaycasts"]
+target_position = Vector2(30, 0)
+collision_mask = 5
+
+[node name="RayCast2DDownRight" type="RayCast2D" parent="QueryRaycasts"]
+target_position = Vector2(21.2, 21.2)
+collision_mask = 5
+
+[node name="RayCast2DDown" type="RayCast2D" parent="QueryRaycasts"]
+target_position = Vector2(0, 30)
+collision_mask = 5
+
+[node name="RayCast2DDownLeft" type="RayCast2D" parent="QueryRaycasts"]
+target_position = Vector2(-21.2, 21.2)
+collision_mask = 5
+
+[node name="RayCast2DLeft" type="RayCast2D" parent="QueryRaycasts"]
+target_position = Vector2(-30, 0)
+collision_mask = 5
+
+[node name="RayCast2DUpLeft" type="RayCast2D" parent="QueryRaycasts"]
+target_position = Vector2(-21.2, -21.2)
+collision_mask = 5

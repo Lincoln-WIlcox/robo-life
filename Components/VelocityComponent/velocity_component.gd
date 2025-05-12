@@ -22,9 +22,7 @@ extends Node
 ##[member VelocityComponent.velocity.x] will be set to 0 when [member VelocityComponent.affecting_node] is touching a wall, 
 ##and [member VelocityComponent.velocity.y] will be set to 0 when [member VelocityComponent.affecting_node] is touching a floor or ceiling.
 @export var stop_velocity_when_against_walls := true
-##When a body slides on a steep slope, the real velocity you see in the game does not reflect its velocity property as its being pushed due to collision.
-##When the body leaves the steep slope, the real velocity will suddenly change as you aren't being pushed anymore.
-##When [member VelocityComponent.add_last_move_y_when_leaving_slope] is true, velocity will be set to real velocity when you leave a wall to prevent this.
+@export var use_real_velocity := false
 
 var velocity: Vector2:
 	get:
@@ -143,27 +141,39 @@ func accelerate_y_to_velocity_at_rate(target_y : float, custom_accel_coefficient
 ##Will move [member VelocityComponent.velocity] in direction [param direction] with target speed of [member VelocityComponent.terminal_speed] by [member VelocityComponent.acceleration_coefficient]. [br]
 ##This will only change [member VelocityComponent.velocity] once. To accelerate continuously, call every frame.
 func accelerate_in_direction_at_full_speed(direction : Vector2) -> void:
+	if direction == Vector2.ZERO:
+		return
 	accelerate_to_velocity(direction.normalized() * terminal_speed)
 
 ##Like [method VelocityComponent.accelerate_in_direction_at_full_speed], but only for the X axis. Direction should be positive to accelerate right, and negative to accelerate left.
 func accelerate_x_in_direction_at_full_speed(direction : int) -> void:
+	if direction == 0:
+		return
 	accelerate_x_to_velocity(direction / abs(direction) * terminal_speed)
 
 ##Like [method VelocityComponent.accelerate_in_direction_at_full_speed], but only for the Y axis. Direction should be positive to accelerate down, and negative to accelerate up.
 func accelerate_y_in_direction_at_full_speed(direction : int) -> void:
+	if direction == 0:
+		return
 	accelerate_y_to_velocity(direction / abs(direction) * terminal_speed)
 
 ##Will move [member VelocityComponent.velocity] in direction [param direction] with target speed of [member VelocityComponent.terminal_speed] by [param custom_accel_coefficient]. [br]
 ##This will only change [member VelocityComponent.velocity] once. To accelerate continuously, call every frame.
 func accelerate_in_direction_at_full_speed_at_rate(direction : Vector2, custom_accel_coefficient : float) -> void:
+	if direction == Vector2.ZERO:
+		return
 	accelerate_to_velocity_at_rate(direction.normalized() * terminal_speed, custom_accel_coefficient)
 
 ##Like [method VelocityComponent.accelerate_in_direction_at_full_speed_at_rate], but only for the X axis. Direction should be positive to accelerate right, and negative to accelerate left.
 func accelerate_x_in_direction_at_full_speed_at_rate(direction : int, custom_accel_coefficient : float) -> void:
+	if direction == 0:
+		return
 	accelerate_x_to_velocity_at_rate(direction / abs(direction) * terminal_speed, custom_accel_coefficient)
 
 ##Like [method VelocityComponent.accelerate_in_direction_at_full_speed_at_rate], but only for the Y axis. Direction should be positive to accelerate down, and negative to accelerate up.
 func accelerate_y_in_direction_at_full_speed_at_rate(direction : int, custom_accel_coefficient : float) -> void:
+	if direction == 0:
+		return
 	accelerate_y_to_velocity_at_rate(direction / abs(direction) * terminal_speed, custom_accel_coefficient)
 
 ##Will move [member VelocityComponent.velocity] towards 0 by [member VelocityComponent.acceleration_coefficient]. [br]
@@ -195,3 +205,6 @@ func decelerate_y_at_rate(custom_accel_coefficient : float) -> void:
 ##Will move [member VelocityComponent.affecting_node] by [member VelocityComponent.velocity]
 func move_node() -> void:
 	affecting_node.move_and_slide()
+	
+	if use_real_velocity:
+		velocity = affecting_node.get_real_velocity()

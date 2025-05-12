@@ -1,8 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://kvs5y6kb2v0g"]
+[gd_scene load_steps=20 format=3 uid="uid://kvs5y6kb2v0g"]
 
 [ext_resource type="Script" uid="uid://bk8c0nlkbhyff" path="res://Characters/Enemies/Flyer/flyer_enemy.gd" id="1_b57ma"]
 [ext_resource type="Texture2D" uid="uid://hoqmxhp5bhdr" path="res://Assets/0x72_16x16RobotTileset.v1.png" id="1_yp2kr"]
-[ext_resource type="Script" uid="uid://d33e5j513fp4l" path="res://Characters/Enemies/Flyer/steering_handler.gd" id="2_6bf3k"]
 [ext_resource type="Script" uid="uid://b55xtraikf0g" path="res://Components/StateMachine/state_machine.gd" id="2_6p7di"]
 [ext_resource type="PackedScene" uid="uid://lxxl844xt4sk" path="res://Components/VelocityComponent/velocity_component.tscn" id="2_io86p"]
 [ext_resource type="Script" uid="uid://1qbqgoe3wxpd" path="res://Characters/Enemies/Flyer/waiting_for_target.gd" id="3_6p7di"]
@@ -10,7 +9,10 @@
 [ext_resource type="Script" uid="uid://bnd45p2cuwltt" path="res://Characters/Enemies/Flyer/shooting_handler.gd" id="5_tfxvv"]
 [ext_resource type="PackedScene" uid="uid://bpjyigrxmafpo" path="res://Objects/Bullet/bullet.tscn" id="6_fbnxn"]
 [ext_resource type="Script" uid="uid://j12cw475byw8" path="res://Components/SteeringHandler/steering_handler.gd" id="7_2d53p"]
+[ext_resource type="PackedScene" uid="uid://ctn1162btnpl5" path="res://Components/SteeringHandler/SteeringStrategy/AvoidWalls/avoid_walls_steering_strategy.tscn" id="8_2i8ba"]
+[ext_resource type="PackedScene" uid="uid://bbmtfuj82r2f5" path="res://Components/SteeringHandler/SteeringStrategy/FollowNavigationPathStrategy/follow_navigation_path_strategy.tscn" id="9_6y5bx"]
 [ext_resource type="Script" uid="uid://b5m8ta1fbfj4a" path="res://Components/HeaterProgressBarUpdater/heater_progress_bar_updater.gd" id="9_eowyn"]
+[ext_resource type="PackedScene" uid="uid://bbrfrxjvkxmsv" path="res://Components/SteeringHandler/SteeringStrategy/MaintainDistanceSteeringStrategy/maintain_distance_steering_strategy.tscn" id="10_2h7hc"]
 [ext_resource type="PackedScene" uid="uid://vvmx1q8uqi2n" path="res://Components/Overheater/overheater.tscn" id="10_p3rtc"]
 [ext_resource type="PackedScene" uid="uid://cqnd47al60df" path="res://Objects/GravityWalkOverPickupSpawner/gravity_walk_over_pickup_spawner.tscn" id="12_60v0y"]
 [ext_resource type="PackedScene" uid="uid://g1jj5acjo7c5" path="res://Objects/GravityWalkOverItemPickup/gravity_walk_over_item_pickup_food.tscn" id="13_2d53p"]
@@ -62,17 +64,28 @@ script = ExtResource("5_tfxvv")
 bullet_packed_scene = ExtResource("6_fbnxn")
 character = NodePath("../CharacterBody2D")
 
-[node name="SteeringHandler2" type="Node" parent="."]
+[node name="SteeringHandler" type="Node" parent="."]
 script = ExtResource("7_2d53p")
+metadata/_custom_type_script = "uid://j12cw475byw8"
 
-[node name="SteeringHandler" type="Node" parent="." node_paths=PackedStringArray("character", "query_raycasts_container")]
-script = ExtResource("2_6bf3k")
-character = NodePath("../CharacterBody2D")
-query_raycasts_container = NodePath("../CharacterBody2D/QueryRaycasts")
+[node name="AvoidWallsSteeringStrategy" parent="SteeringHandler" node_paths=PackedStringArray("raycasts_center") instance=ExtResource("8_2i8ba")]
+raycasts_center = NodePath("../../CharacterBody2D")
+strategy_weight = 0.5
+
+[node name="FollowNavigationPathStrategy" parent="SteeringHandler" node_paths=PackedStringArray("navigation_agent", "steering_node") instance=ExtResource("9_6y5bx")]
+navigation_agent = NodePath("../../CharacterBody2D/NavigationAgent2D")
+steering_node = NodePath("../../CharacterBody2D")
+
+[node name="MaintainDistanceSteeringStrategy" parent="SteeringHandler" node_paths=PackedStringArray("steering_node") instance=ExtResource("10_2h7hc")]
+steering_node = NodePath("../../CharacterBody2D")
+min_distance = 80.0
+max_distance = 150.0
+strategy_weight = 0.5
+enabled = false
 
 [node name="VelocityComponent" parent="." node_paths=PackedStringArray("affecting_node") instance=ExtResource("2_io86p")]
 affecting_node = NodePath("../CharacterBody2D")
-acceleration_coefficient = 4.5
+acceleration_coefficient = 7.0
 terminal_speed = 160
 max_speed = 200
 
@@ -92,40 +105,6 @@ texture = SubResource("AtlasTexture_b57ma")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("CapsuleShape2D_io86p")
-
-[node name="QueryRaycasts" type="Node2D" parent="CharacterBody2D"]
-
-[node name="RayCast2DUp" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
-target_position = Vector2(0, -30)
-collision_mask = 5
-
-[node name="RayCast2DUpRight" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
-target_position = Vector2(21.2, -21.2)
-collision_mask = 5
-
-[node name="RayCast2DRight" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
-target_position = Vector2(30, 0)
-collision_mask = 5
-
-[node name="RayCast2DDownRight" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
-target_position = Vector2(21.2, 21.2)
-collision_mask = 5
-
-[node name="RayCast2DDown" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
-target_position = Vector2(0, 30)
-collision_mask = 5
-
-[node name="RayCast2DDownLeft" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
-target_position = Vector2(-21.2, 21.2)
-collision_mask = 5
-
-[node name="RayCast2DLeft" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
-target_position = Vector2(-30, 0)
-collision_mask = 5
-
-[node name="RayCast2DUpLeft" type="RayCast2D" parent="CharacterBody2D/QueryRaycasts"]
-target_position = Vector2(-21.2, -21.2)
-collision_mask = 5
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D" groups=["navigation"]]
 path_desired_distance = 30.0
