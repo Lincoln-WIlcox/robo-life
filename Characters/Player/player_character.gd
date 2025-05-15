@@ -146,3 +146,6 @@ func _on_walk_over_item_pickup_collector_walk_over_item_collected(inventory_addi
 
 func _on_shelter_interaction_area_interaction_handler_shelter_interacted_with(shelter_area: ShelterInteractionArea):
 	shelter_interacted_with.emit(shelter_area)
+
+func _on_teleportable_teleported(new_position: Vector2):
+	character.global_position = new_position

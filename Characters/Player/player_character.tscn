@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://d1kvhwjb0iy8m"]
+[gd_scene load_steps=65 format=3 uid="uid://d1kvhwjb0iy8m"]
 
 [ext_resource type="Script" uid="uid://cxur0l4egsho5" path="res://Characters/Player/player_character.gd" id="1_ru1lf"]
 [ext_resource type="Script" uid="uid://dtxyxfv3jtr13" path="res://Characters/Player/interaction_handler.gd" id="2_7jrx7"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dvv38chklpp6k" path="res://Characters/Player/dust_spawner.gd" id="2_xnvqw"]
 [ext_resource type="Script" uid="uid://ciiybtb7g8hsy" path="res://Components/Health/health_component.gd" id="3_0akcv"]
 [ext_resource type="PackedScene" uid="uid://d4lrd136bb1gp" path="res://Objects/Dust/dust.tscn" id="3_nn8c0"]
+[ext_resource type="Script" uid="uid://byfbmvdx0xfkj" path="res://Components/Teleportable/teleportable.gd" id="3_wyrwk"]
 [ext_resource type="Script" uid="uid://da3v1f11qxljf" path="res://Characters/Player/horizontal_movement_component.gd" id="4_17a06"]
 [ext_resource type="PackedScene" uid="uid://c2nwpx3t8tmc0" path="res://Components/StateMachine/state_machine.tscn" id="4_umnbn"]
 [ext_resource type="PackedScene" uid="uid://62v7whtb3ow4" path="res://Components/InvincibilityFramesHandler/invincibility_frames_handler.tscn" id="4_w2wur"]
@@ -242,6 +243,10 @@ radius = 80.0
 [node name="PlayerCharacter" type="Node2D"]
 script = ExtResource("1_ru1lf")
 inventory = SubResource("Resource_i3vek")
+
+[node name="Teleportable" type="Node" parent="." node_paths=PackedStringArray("interactor")]
+script = ExtResource("3_wyrwk")
+interactor = NodePath("..")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_0akcv")
@@ -562,6 +567,7 @@ shape = SubResource("RectangleShape2D_6ufrv")
 
 [connection signal="just_climbed" from="." to="ClimbingRopeDetector" method="_on_player_character_just_climbed"]
 [connection signal="just_interacted" from="." to="InteractionHandler" method="_on_player_character_just_interacted"]
+[connection signal="teleported" from="Teleportable" to="." method="_on_teleportable_teleported"]
 [connection signal="damage_taken" from="HealthComponent" to="InvincibilityFramesHandler" method="on_damage_taken"]
 [connection signal="i_frames_ended" from="InvincibilityFramesHandler" to="PlayerCharacterBody/Hurtbox" method="check_for_damage"]
 [connection signal="interacted_with_area" from="InteractionHandler" to="InteractionAreaInteractionHandler" method="_on_interacted_with_area"]
