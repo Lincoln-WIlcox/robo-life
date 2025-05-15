@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxxgl3sbj2tri"]
+
+[ext_resource type="Script" uid="uid://xx2bx50vcnwn" path="res://Components/CollectableSaveComponent/collectable_save_component.gd" id="1_8b6ud"]
+
+[node name="CollectableSaveComponent" type="Node"]
+script = ExtResource("1_8b6ud")

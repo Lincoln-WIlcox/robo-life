@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://d0ojjqv44es0s" path="res://Objects/Battery/battery.gd" id="1_rugf0"]
 [ext_resource type="Script" uid="uid://ctcb4av5ecd5o" path="res://Resources/inventory_addition.gd" id="2_i7fan"]
 [ext_resource type="Script" uid="uid://bviplh42sb2sb" path="res://Resources/item_data.gd" id="3_285xo"]
-[ext_resource type="PackedScene" uid="uid://bxxgl3sbj2tri" path="res://Components/SaveComponent/save_component.tscn" id="5_cebre"]
+[ext_resource type="PackedScene" uid="uid://bxxgl3sbj2tri" path="res://Components/CollectableSaveComponent/collectable_save_component.tscn" id="5_cebre"]
 
 [sub_resource type="Resource" id="Resource_cebre"]
 resource_local_to_scene = true
@@ -33,6 +33,8 @@ inventory_addition = SubResource("Resource_cebre")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WalkOverItemPickupArea"]
 shape = SubResource("RectangleShape2D_h6dp6")
 
-[node name="SaveComponent" parent="." instance=ExtResource("5_cebre")]
+[node name="CollectableSaveComponent" parent="." instance=ExtResource("5_cebre")]
 
 [connection signal="collected" from="WalkOverItemPickupArea" to="." method="_on_walk_over_item_pickup_area_collected"]
+[connection signal="loading_collected_collectable" from="CollectableSaveComponent" to="." method="_on_collectable_save_component_loading_collected_collectable"]
+[connection signal="loading_uncollected_collectable" from="CollectableSaveComponent" to="." method="_on_collectable_save_component_loading_uncollected_collectable"]

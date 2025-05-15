@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=4 uid="uid://cldkgwqny8lwy"]
+[gd_scene load_steps=92 format=4 uid="uid://cldkgwqny8lwy"]
 
 [ext_resource type="PackedScene" uid="uid://wqdgq1a7r2ml" path="res://World/world.tscn" id="1_m8bdm"]
 [ext_resource type="Script" uid="uid://rvwny5vq4uhf" path="res://Resources/item_grid_item.gd" id="2_7dx6r"]
@@ -330,11 +330,6 @@ metadata/_custom_type_script = "uid://c1i2jpsx6ol3q"
 [sub_resource type="Resource" id="Resource_8gmcj"]
 script = ExtResource("21_0jb31")
 save_id = 53
-metadata/_custom_type_script = "uid://c1i2jpsx6ol3q"
-
-[sub_resource type="Resource" id="Resource_s32rb"]
-script = ExtResource("21_0jb31")
-save_id = 54
 metadata/_custom_type_script = "uid://c1i2jpsx6ol3q"
 
 [node name="Level" instance=ExtResource("1_m8bdm")]
@@ -880,10 +875,6 @@ unique_save_id = SubResource("Resource_sauql")
 [node name="Battery3" parent="." index="63" instance=ExtResource("10_kxdmx")]
 position = Vector2(1928, 536)
 unique_save_id = SubResource("Resource_8gmcj")
-
-[node name="Battery4" parent="." index="64" instance=ExtResource("10_kxdmx")]
-position = Vector2(1464, 123)
-unique_save_id = SubResource("Resource_s32rb")
 
 [connection signal="transport_bucket_arrived" from="Shelter" to="PlayerCharacterController" method="_on_shelter_transport_bucket_arrived"]
 [connection signal="transport_bucket_arrived" from="Shelter2" to="PlayerCharacterController" method="_on_shelter_transport_bucket_arrived"]
