@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://kiqcxlr3ulsv"]
+
+[ext_resource type="Script" uid="uid://cpx7vtmtfbws6" path="res://Singletons/SaveLoad/save_load.gd" id="1_uygrc"]
+[ext_resource type="Script" uid="uid://bqfus2lqgmwll" path="res://Singletons/SaveLoad/save_id_generator.gd" id="2_ai0qo"]
+
+[node name="SaveLoad" type="Node"]
+script = ExtResource("1_uygrc")
+
+[node name="SaveIDGenerator" type="Node" parent="."]
+script = ExtResource("2_ai0qo")
+save_id_sequence_path = "res://Singletons/SaveLoad/save_id_sequence.txt"
