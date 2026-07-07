@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cng4tm54hq536"]
+[gd_scene format=3 uid="uid://cng4tm54hq536"]
 
 [ext_resource type="Script" uid="uid://ff5051ktcnwp" path="res://Objects/PowerPole/power_pole.gd" id="1_kt56x"]
 [ext_resource type="Script" uid="uid://xi5ukiv7cagg" path="res://Resources/MapData/selectable_map_entity.gd" id="2_2oagv"]
@@ -36,40 +36,37 @@ radius = 176.0
 resource_local_to_scene = true
 script = ExtResource("10_8fu3s")
 use_exported_properties = true
-gain_batteries = 0
-gain_steel = 0
-gain_food = 0
 initial_gain_items = Array[ExtResource("8_12f52")]([ExtResource("9_nx5ab")])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q0fjy"]
 size = Vector2(16, 16)
 
-[node name="PowerPole" type="Node2D"]
+[node name="PowerPole" type="Node2D" unique_id=281268533]
 script = ExtResource("1_kt56x")
 power_pole_selection_texture = SubResource("AtlasTexture_t2dsd")
 transport_bucket_queryable = SubResource("Resource_uahpl")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1528132090]
 texture = SubResource("AtlasTexture_g345s")
 
-[node name="PowerConnector" parent="." instance=ExtResource("3_1oihy")]
+[node name="PowerConnector" parent="." unique_id=1208448784 instance=ExtResource("3_1oihy")]
 
-[node name="ConnectArea" type="Area2D" parent="."]
+[node name="ConnectArea" type="Area2D" parent="." unique_id=1154307893]
 collision_layer = 0
 collision_mask = 1024
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ConnectArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ConnectArea" unique_id=1143793064]
 shape = SubResource("CircleShape2D_agpx2")
 
-[node name="MousePickupArea" parent="." node_paths=PackedStringArray("progress_bar", "delete_node") instance=ExtResource("4_4q22u")]
+[node name="MousePickupArea" parent="." unique_id=963006117 node_paths=PackedStringArray("progress_bar", "delete_node") instance=ExtResource("4_4q22u")]
 progress_bar = NodePath("../ProgressBar")
 delete_node = NodePath("..")
 inventory_addition = SubResource("Resource_hmj1f")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MousePickupArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MousePickupArea" unique_id=2044730339]
 shape = SubResource("RectangleShape2D_q0fjy")
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=989607228]
 offset_left = -8.0
 offset_top = -16.0
 offset_right = 24.0

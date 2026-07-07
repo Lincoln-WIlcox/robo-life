@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://d1kvhwjb0iy8m"]
+[gd_scene format=3 uid="uid://d1kvhwjb0iy8m"]
 
 [ext_resource type="Script" uid="uid://cxur0l4egsho5" path="res://Characters/Player/player_character.gd" id="1_ru1lf"]
 [ext_resource type="Script" uid="uid://dtxyxfv3jtr13" path="res://Characters/Player/interaction_handler.gd" id="2_7jrx7"]
@@ -163,7 +163,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ra5k5")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Falling",
 "speed": 12.0
 }, {
@@ -180,7 +180,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mlw6d")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Idle",
 "speed": 6.0
 }, {
@@ -188,7 +188,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kaxfh")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Jumping",
 "speed": 5.0
 }, {
@@ -217,7 +217,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_x43hp")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Walk",
 "speed": 11.0
 }]
@@ -240,56 +240,56 @@ size = Vector2(18, 26)
 [sub_resource type="CircleShape2D" id="CircleShape2D_cuesd"]
 radius = 80.0
 
-[node name="PlayerCharacter" type="Node2D"]
+[node name="PlayerCharacter" type="Node2D" unique_id=739128554]
 script = ExtResource("1_ru1lf")
 inventory = SubResource("Resource_i3vek")
 
-[node name="Teleportable" type="Node" parent="." node_paths=PackedStringArray("interactor")]
+[node name="Teleportable" type="Node" parent="." unique_id=374619798 node_paths=PackedStringArray("interactor")]
 script = ExtResource("3_wyrwk")
 interactor = NodePath("..")
 
-[node name="HealthComponent" type="Node" parent="."]
+[node name="HealthComponent" type="Node" parent="." unique_id=924825599]
 script = ExtResource("3_0akcv")
 
-[node name="InvincibilityFramesHandler" parent="." node_paths=PackedStringArray("hurtbox") instance=ExtResource("4_w2wur")]
+[node name="InvincibilityFramesHandler" parent="." unique_id=1655188588 node_paths=PackedStringArray("hurtbox") instance=ExtResource("4_w2wur")]
 hurtbox = NodePath("../PlayerCharacterBody/Hurtbox")
 i_seconds = 2
 
-[node name="InteractionHandler" type="Node" parent="." node_paths=PackedStringArray("interactor", "detector_area")]
+[node name="InteractionHandler" type="Node" parent="." unique_id=116949403 node_paths=PackedStringArray("interactor", "detector_area")]
 script = ExtResource("2_7jrx7")
 interactor = NodePath("..")
 detector_area = NodePath("../PlayerCharacterBody/InteractArea")
 
-[node name="WalkOverItemPickupCollector" type="Node" parent="."]
+[node name="WalkOverItemPickupCollector" type="Node" parent="." unique_id=1846611098]
 script = ExtResource("15_hcdgv")
 
-[node name="AnimationHandler" type="Node" parent="." node_paths=PackedStringArray("jumping_state", "falling_state", "animated_sprite")]
+[node name="AnimationHandler" type="Node" parent="." unique_id=2079559696 node_paths=PackedStringArray("jumping_state", "falling_state", "animated_sprite")]
 script = ExtResource("2_e0xm8")
 jumping_state = NodePath("../MovementStates/Jumping")
 falling_state = NodePath("../MovementStates/Falling")
 animated_sprite = NodePath("../PlayerCharacterBody/AnimatedSprite2D")
 
-[node name="GravityComponent" parent="." node_paths=PackedStringArray("velocity_component", "character") instance=ExtResource("2_lple6")]
+[node name="GravityComponent" parent="." unique_id=483976066 node_paths=PackedStringArray("velocity_component", "character") instance=ExtResource("2_lple6")]
 velocity_component = NodePath("../VelocityComponent")
 character = NodePath("../PlayerCharacterBody")
 terminal_speed = 950
 
-[node name="VelocityComponent" parent="." node_paths=PackedStringArray("affecting_node") instance=ExtResource("5_44wm1")]
+[node name="VelocityComponent" parent="." unique_id=1484237546 node_paths=PackedStringArray("affecting_node") instance=ExtResource("5_44wm1")]
 affecting_node = NodePath("../PlayerCharacterBody")
 terminal_speed = 1000
 max_speed = 1200
 
-[node name="HorizontalMovementComponent" type="Node" parent="." node_paths=PackedStringArray("velocity_component")]
+[node name="HorizontalMovementComponent" type="Node" parent="." unique_id=1153427677 node_paths=PackedStringArray("velocity_component")]
 script = ExtResource("4_17a06")
 velocity_component = NodePath("../VelocityComponent")
 movement_speed = 180
 default_accel_rate = 16
 active = false
 
-[node name="MovementStates" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("4_umnbn")]
+[node name="MovementStates" parent="." unique_id=1753324905 node_paths=PackedStringArray("initial_state") instance=ExtResource("4_umnbn")]
 initial_state = NodePath("Standing")
 
-[node name="Climbing" type="Node" parent="MovementStates" node_paths=PackedStringArray("jumping_state", "falling_state", "standing_state", "character", "one_way_detector", "climbing_rope_detector", "gravity_component", "horizontal_movement_component", "velocity_component", "bottom_of_player")]
+[node name="Climbing" type="Node" parent="MovementStates" unique_id=1019570791 node_paths=PackedStringArray("jumping_state", "falling_state", "standing_state", "character", "one_way_detector", "climbing_rope_detector", "gravity_component", "horizontal_movement_component", "velocity_component", "bottom_of_player")]
 process_priority = -1
 process_physics_priority = -1
 script = ExtResource("16_vth3n")
@@ -307,7 +307,7 @@ upward_climb_speed = 140
 downward_climb_speed = 420
 climb_accel = 20
 
-[node name="Jumping" type="Node" parent="MovementStates" node_paths=PackedStringArray("character", "falling_state", "climbing_state", "velocity_component", "horizontal_movement_component")]
+[node name="Jumping" type="Node" parent="MovementStates" unique_id=403873819 node_paths=PackedStringArray("character", "falling_state", "climbing_state", "velocity_component", "horizontal_movement_component")]
 script = ExtResource("5_enmba")
 character = NodePath("../../PlayerCharacterBody")
 falling_state = NodePath("../Falling")
@@ -316,11 +316,11 @@ velocity_component = NodePath("../../VelocityComponent")
 jumping_speed = -240
 horizontal_movement_component = NodePath("../../HorizontalMovementComponent")
 
-[node name="JumpingTimer" type="Timer" parent="MovementStates/Jumping"]
+[node name="JumpingTimer" type="Timer" parent="MovementStates/Jumping" unique_id=641410332]
 wait_time = 0.175
 one_shot = true
 
-[node name="Falling" type="Node" parent="MovementStates" node_paths=PackedStringArray("standing_state", "ledge_grabbing_state", "climbing_state", "character", "velocity_component", "jump_buffer_timer", "horizontal_movement_component")]
+[node name="Falling" type="Node" parent="MovementStates" unique_id=1107076832 node_paths=PackedStringArray("standing_state", "ledge_grabbing_state", "climbing_state", "character", "velocity_component", "jump_buffer_timer", "horizontal_movement_component")]
 script = ExtResource("6_ckt02")
 standing_state = NodePath("../Standing")
 ledge_grabbing_state = NodePath("../LedgeGrabbing")
@@ -330,7 +330,7 @@ velocity_component = NodePath("../../VelocityComponent")
 jump_buffer_timer = NodePath("../JumpBufferTimer")
 horizontal_movement_component = NodePath("../../HorizontalMovementComponent")
 
-[node name="Standing" type="Node" parent="MovementStates" node_paths=PackedStringArray("velocity_component", "jumping_state", "falling_state", "climbing_state", "pushing_state", "detect_pushing_component", "character", "horizontal_movement_component", "dust_spawner", "jump_buffer_timer")]
+[node name="Standing" type="Node" parent="MovementStates" unique_id=2090340030 node_paths=PackedStringArray("velocity_component", "jumping_state", "falling_state", "climbing_state", "pushing_state", "detect_pushing_component", "character", "horizontal_movement_component", "dust_spawner", "jump_buffer_timer")]
 script = ExtResource("7_6ykwm")
 velocity_component = NodePath("../../VelocityComponent")
 jumping_state = NodePath("../Jumping")
@@ -344,11 +344,11 @@ dust_spawner = NodePath("../../DustSpawner")
 jump_buffer_timer = NodePath("../JumpBufferTimer")
 standing_horizontal_accel_rate = 18
 
-[node name="CoyoteTimer" type="Timer" parent="MovementStates/Standing"]
+[node name="CoyoteTimer" type="Timer" parent="MovementStates/Standing" unique_id=290123298]
 wait_time = 0.06
 one_shot = true
 
-[node name="LedgeGrabbing" type="Node" parent="MovementStates" node_paths=PackedStringArray("standing_state", "jumping_state", "player_ledge_grab_detector", "velocity_component", "character", "grab_left_marker", "grab_right_marker")]
+[node name="LedgeGrabbing" type="Node" parent="MovementStates" unique_id=1595839183 node_paths=PackedStringArray("standing_state", "jumping_state", "player_ledge_grab_detector", "velocity_component", "character", "grab_left_marker", "grab_right_marker")]
 script = ExtResource("9_f70xm")
 standing_state = NodePath("../Standing")
 jumping_state = NodePath("../Jumping")
@@ -359,11 +359,11 @@ grab_left_marker = NodePath("../../PlayerCharacterBody/GrabLeftMarker")
 grab_right_marker = NodePath("../../PlayerCharacterBody/GrabRightMarker")
 horizontal_jump_vel_x = 550
 
-[node name="JumpBufferTimer" type="Timer" parent="MovementStates"]
+[node name="JumpBufferTimer" type="Timer" parent="MovementStates" unique_id=439233487]
 wait_time = 0.2
 one_shot = true
 
-[node name="Pushing" type="Node" parent="MovementStates" node_paths=PackedStringArray("standing_state", "falling_state", "jumping_state", "character", "detect_pushing_component", "push_sticky_left_side", "push_sticky_right_side")]
+[node name="Pushing" type="Node" parent="MovementStates" unique_id=782845105 node_paths=PackedStringArray("standing_state", "falling_state", "jumping_state", "character", "detect_pushing_component", "push_sticky_left_side", "push_sticky_right_side")]
 script = ExtResource("17_o4g5f")
 standing_state = NodePath("../Standing")
 falling_state = NodePath("../Falling")
@@ -374,80 +374,80 @@ push_sticky_left_side = NodePath("../../PlayerCharacterBody/PushStickyLeftSide")
 push_sticky_right_side = NodePath("../../PlayerCharacterBody/PushStickyRightSide")
 push_speed = 130
 
-[node name="PlayerLedgeGrabDetector" type="Node" parent="." node_paths=PackedStringArray("grab_left", "grab_right", "player_shape")]
+[node name="PlayerLedgeGrabDetector" type="Node" parent="." unique_id=441414061 node_paths=PackedStringArray("grab_left", "grab_right", "player_shape")]
 script = ExtResource("9_wtkme")
 grab_left = NodePath("../PlayerCharacterBody/GrabLeftMarker/GrabLeftArea")
 grab_right = NodePath("../PlayerCharacterBody/GrabRightMarker/GrabRightArea")
 player_shape = NodePath("../PlayerCharacterBody/CollisionShape2D")
 
-[node name="ClimbingRopeDetector" type="Node" parent="." node_paths=PackedStringArray("interact_area", "character")]
+[node name="ClimbingRopeDetector" type="Node" parent="." unique_id=929349135 node_paths=PackedStringArray("interact_area", "character")]
 script = ExtResource("11_0v6cm")
 interact_area = NodePath("../PlayerCharacterBody/InteractArea")
 character = NodePath("../PlayerCharacterBody")
 
-[node name="ClimbBuffer" type="Timer" parent="ClimbingRopeDetector"]
+[node name="ClimbBuffer" type="Timer" parent="ClimbingRopeDetector" unique_id=1982516061]
 wait_time = 0.5
 one_shot = true
 
-[node name="DustSpawner" type="Node" parent="." node_paths=PackedStringArray("node_to_put_dust_in")]
+[node name="DustSpawner" type="Node" parent="." unique_id=780000314 node_paths=PackedStringArray("node_to_put_dust_in")]
 script = ExtResource("2_xnvqw")
 dust_packed_scene = ExtResource("3_nn8c0")
 node_to_put_dust_in = NodePath("..")
 
-[node name="InteractionIndicatorHandler" type="Node" parent="." node_paths=PackedStringArray("interaction_indicator", "interaction_area")]
+[node name="InteractionIndicatorHandler" type="Node" parent="." unique_id=1415371088 node_paths=PackedStringArray("interaction_indicator", "interaction_area")]
 script = ExtResource("2_avmiv")
 interaction_indicator = NodePath("../PlayerCharacterBody/InteractionIndicator")
 interaction_area = NodePath("../PlayerCharacterBody/InteractArea")
 
-[node name="InteractionAreaInteractionHandler" type="Node" parent="." node_paths=PackedStringArray("interactor")]
+[node name="InteractionAreaInteractionHandler" type="Node" parent="." unique_id=1442588873 node_paths=PackedStringArray("interactor")]
 script = ExtResource("20_dgdt5")
 interactor = NodePath("..")
 
-[node name="ItemPickupInteractionHandler" type="Node" parent="." node_paths=PackedStringArray("interactor", "inventory_interaction_handler")]
+[node name="ItemPickupInteractionHandler" type="Node" parent="." unique_id=634499428 node_paths=PackedStringArray("interactor", "inventory_interaction_handler")]
 script = SubResource("GDScript_h7t3e")
 interactor = NodePath("..")
 inventory_interaction_handler = NodePath("../InventoryInteractionHandler")
 
-[node name="InventoryRequirementInteractionAreaInteractionHandler" type="Node" parent="." node_paths=PackedStringArray("interactor", "inventory_interaction_handler")]
+[node name="InventoryRequirementInteractionAreaInteractionHandler" type="Node" parent="." unique_id=1672492179 node_paths=PackedStringArray("interactor", "inventory_interaction_handler")]
 script = ExtResource("21_l7rrj")
 interactor = NodePath("..")
 inventory_interaction_handler = NodePath("../InventoryInteractionHandler")
 
-[node name="InventoryInteractionHandler" type="Node" parent="."]
+[node name="InventoryInteractionHandler" type="Node" parent="." unique_id=1441873332]
 script = ExtResource("22_0sfea")
 
-[node name="DropItemHandler" type="Node" parent="." node_paths=PackedStringArray("player_character", "item_spawner")]
+[node name="DropItemHandler" type="Node" parent="." unique_id=400662349 node_paths=PackedStringArray("player_character", "item_spawner")]
 script = ExtResource("23_uqs76")
 player_character = NodePath("..")
 item_spawner = NodePath("../PlayerCharacterBody/ItemSpawner")
 
-[node name="ShelterInteractionAreaInteractionHandler" type="Node" parent="."]
+[node name="ShelterInteractionAreaInteractionHandler" type="Node" parent="." unique_id=569576075]
 script = ExtResource("28_6gxux")
 
-[node name="GasHandler" type="Node" parent="." node_paths=PackedStringArray("health_component")]
+[node name="GasHandler" type="Node" parent="." unique_id=821286557 node_paths=PackedStringArray("health_component")]
 script = ExtResource("29_yxvar")
 health_component = NodePath("../HealthComponent")
 
-[node name="BetweenGasDamageTimer" type="Timer" parent="GasHandler"]
+[node name="BetweenGasDamageTimer" type="Timer" parent="GasHandler" unique_id=1840267212]
 wait_time = 3.0
 
-[node name="PlayerCharacterBody" type="CharacterBody2D" parent="."]
+[node name="PlayerCharacterBody" type="CharacterBody2D" parent="." unique_id=65348115]
 collision_layer = 520
 collision_mask = 5
 slide_on_ceiling = false
 floor_constant_speed = true
 floor_snap_length = 15.0
 
-[node name="DetectPushingComponent" parent="PlayerCharacterBody" instance=ExtResource("27_k7fi7")]
+[node name="DetectPushingComponent" parent="PlayerCharacterBody" unique_id=699773349 instance=ExtResource("27_k7fi7")]
 
-[node name="Area2D" type="Area2D" parent="PlayerCharacterBody/DetectPushingComponent"]
+[node name="Area2D" type="Area2D" parent="PlayerCharacterBody/DetectPushingComponent" unique_id=1162244418]
 collision_layer = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/DetectPushingComponent/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/DetectPushingComponent/Area2D" unique_id=1119105613]
 position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_nsq18")
 
-[node name="HealthIndicator" parent="PlayerCharacterBody" node_paths=PackedStringArray("health_component") instance=ExtResource("26_xva2i")]
+[node name="HealthIndicator" parent="PlayerCharacterBody" unique_id=737722903 node_paths=PackedStringArray("health_component") instance=ExtResource("26_xva2i")]
 offset_left = -11.0
 offset_top = -38.0
 offset_right = 29.0
@@ -455,7 +455,7 @@ offset_bottom = -15.0
 text = "10"
 health_component = NodePath("../../HealthComponent")
 
-[node name="InteractionIndicator" type="ColorRect" parent="PlayerCharacterBody"]
+[node name="InteractionIndicator" type="ColorRect" parent="PlayerCharacterBody" unique_id=2065908384]
 visible = false
 offset_left = -2.0
 offset_top = -18.0
@@ -463,90 +463,88 @@ offset_right = 2.0
 offset_bottom = -14.0
 color = Color(0, 1, 1, 1)
 
-[node name="FlashAnimation" type="AnimationPlayer" parent="PlayerCharacterBody/InteractionIndicator"]
-libraries = {
-&"": SubResource("AnimationLibrary_keqdj")
-}
+[node name="FlashAnimation" type="AnimationPlayer" parent="PlayerCharacterBody/InteractionIndicator" unique_id=758849521]
+libraries/ = SubResource("AnimationLibrary_keqdj")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayerCharacterBody"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayerCharacterBody" unique_id=2093234104]
 sprite_frames = SubResource("SpriteFrames_tyugs")
 animation = &"Falling"
 offset = Vector2(0, -5)
 
-[node name="GrabLeftMarker" type="Marker2D" parent="PlayerCharacterBody"]
+[node name="GrabLeftMarker" type="Marker2D" parent="PlayerCharacterBody" unique_id=44783949]
 position = Vector2(-12, -11)
 
-[node name="GrabLeftArea" type="Area2D" parent="PlayerCharacterBody/GrabLeftMarker"]
+[node name="GrabLeftArea" type="Area2D" parent="PlayerCharacterBody/GrabLeftMarker" unique_id=1169001992]
 collision_layer = 0
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/GrabLeftMarker/GrabLeftArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/GrabLeftMarker/GrabLeftArea" unique_id=508787495]
 shape = SubResource("RectangleShape2D_gpglb")
 metadata/_edit_lock_ = true
 
-[node name="GrabRightMarker" type="Marker2D" parent="PlayerCharacterBody"]
+[node name="GrabRightMarker" type="Marker2D" parent="PlayerCharacterBody" unique_id=584204075]
 position = Vector2(12, -11)
 
-[node name="GrabRightArea" type="Area2D" parent="PlayerCharacterBody/GrabRightMarker"]
+[node name="GrabRightArea" type="Area2D" parent="PlayerCharacterBody/GrabRightMarker" unique_id=442334497]
 collision_layer = 0
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/GrabRightMarker/GrabRightArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/GrabRightMarker/GrabRightArea" unique_id=2040163588]
 shape = SubResource("RectangleShape2D_gpglb")
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody" unique_id=455055676]
 process_priority = 1
 process_physics_priority = 1
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_6ufrv")
 metadata/_edit_lock_ = true
 
-[node name="InteractArea" type="Area2D" parent="PlayerCharacterBody"]
+[node name="InteractArea" type="Area2D" parent="PlayerCharacterBody" unique_id=1425557580]
 collision_layer = 0
 collision_mask = 141
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/InteractArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/InteractArea" unique_id=14865795]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_wpemv")
 
-[node name="OneWayDetector" type="Area2D" parent="PlayerCharacterBody"]
+[node name="OneWayDetector" type="Area2D" parent="PlayerCharacterBody" unique_id=153491884]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/OneWayDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/OneWayDetector" unique_id=260135186]
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_6jko4")
 
-[node name="BottomOfPlayer" type="Marker2D" parent="PlayerCharacterBody"]
+[node name="BottomOfPlayer" type="Marker2D" parent="PlayerCharacterBody" unique_id=1078282095]
 position = Vector2(0, 11)
 
-[node name="DropItemLeft" type="Marker2D" parent="PlayerCharacterBody"]
+[node name="DropItemLeft" type="Marker2D" parent="PlayerCharacterBody" unique_id=1941403431]
 position = Vector2(-24, 0)
 
-[node name="DropItemRight" type="Marker2D" parent="PlayerCharacterBody"]
+[node name="DropItemRight" type="Marker2D" parent="PlayerCharacterBody" unique_id=1026536550]
 position = Vector2(23, 0)
 
-[node name="Hurtbox" parent="PlayerCharacterBody" instance=ExtResource("27_rvuxm")]
+[node name="Hurtbox" parent="PlayerCharacterBody" unique_id=932078365 instance=ExtResource("27_rvuxm")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/Hurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/Hurtbox" unique_id=1681945665]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_qhn4u")
 
-[node name="PushStickyLeftSide" type="Marker2D" parent="PlayerCharacterBody"]
+[node name="PushStickyLeftSide" type="Marker2D" parent="PlayerCharacterBody" unique_id=345931753]
 position = Vector2(-8, 0)
 
-[node name="PushStickyRightSide" type="Marker2D" parent="PlayerCharacterBody"]
+[node name="PushStickyRightSide" type="Marker2D" parent="PlayerCharacterBody" unique_id=1108244101]
 position = Vector2(8, 0)
 
-[node name="CursorDetectArea" parent="PlayerCharacterBody" instance=ExtResource("32_jrak7")]
+[node name="CursorDetectArea" parent="PlayerCharacterBody" unique_id=1376345407 instance=ExtResource("32_jrak7")]
 collision_layer = 16
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerCharacterBody/CursorDetectArea"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerCharacterBody/CursorDetectArea" unique_id=1939394120]
 visible = false
 shape = SubResource("CircleShape2D_cuesd")
 
-[node name="ShieldProgressBar" type="ProgressBar" parent="PlayerCharacterBody"]
+[node name="ShieldProgressBar" type="ProgressBar" parent="PlayerCharacterBody" unique_id=1379670043]
 offset_left = -10.0
 offset_top = -18.0
 offset_right = 190.0
@@ -554,16 +552,16 @@ offset_bottom = 9.0
 scale = Vector2(0.1, 0.1)
 show_percentage = false
 
-[node name="PlayerArea" type="Area2D" parent="PlayerCharacterBody"]
+[node name="PlayerArea" type="Area2D" parent="PlayerCharacterBody" unique_id=1253420358]
 collision_layer = 512
 collision_mask = 0
 script = ExtResource("35_k8fxw")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/PlayerArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacterBody/PlayerArea" unique_id=607733989]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_6ufrv")
 
-[node name="ItemSpawner" parent="PlayerCharacterBody" instance=ExtResource("36_wj4f3")]
+[node name="ItemSpawner" parent="PlayerCharacterBody" unique_id=1926715029 instance=ExtResource("36_wj4f3")]
 
 [connection signal="just_climbed" from="." to="ClimbingRopeDetector" method="_on_player_character_just_climbed"]
 [connection signal="just_interacted" from="." to="InteractionHandler" method="_on_player_character_just_interacted"]

@@ -6,6 +6,8 @@ extends State
 @onready var shelter_ui_state = $ShelterStateMachine/Shelter
 @onready var shelter_none_state = $ShelterStateMachine/None
 
+signal day_ended(shelter: Shelter)
+
 var interaction_area: Area2D:
 	set(new_value):
 		if new_value:
@@ -28,3 +30,6 @@ func on_shelter_closed() -> void:
 func _on_interaction_area_area_exited(area: Area2D):
 	if is_current_state.call() and area == shelter_area:
 		state_ended.emit(none_state)
+
+func _on_shelter_day_ended():
+	day_ended.emit(shelter_area.shelter)

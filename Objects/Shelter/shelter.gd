@@ -5,6 +5,7 @@ class_name Shelter extends Node2D
 @export var shelter_selection_texture: Texture
 @export var environment_query_system: EnvironmentQuerySystem
 @export var transport_bucket_destination: TransportBucketDestinationSelectionQueryableEntity
+@export var unique_save_id: UniqueSaveId
 
 @onready var power_connector: PowerConnector = $PowerConnector
 

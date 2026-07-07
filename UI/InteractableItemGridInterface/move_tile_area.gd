@@ -38,9 +38,7 @@ func _can_place_on_new_tile(new_placing_tile) -> bool:
 	grid_item.position = new_placing_tile.grid_position
 	var can_place: bool = new_placing_tile.associated_item_grid.item_grid_item_can_be_added(grid_item)
 	grid_item.position = initial_position
-	#print(can_place)
 	return can_place
-	
 
 func _exit_tree():
 	if _placing_tile != null:

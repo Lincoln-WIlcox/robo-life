@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://wqdgq1a7r2ml"]
+[gd_scene format=3 uid="uid://wqdgq1a7r2ml"]
 
 [ext_resource type="Script" uid="uid://b166xvbc6nf64" path="res://World/world.gd" id="1_fuqf5"]
 [ext_resource type="Script" uid="uid://lyj3fi66muug" path="res://World/day_night_cycle.gd" id="1_yp3no"]
@@ -23,8 +23,6 @@
 
 [sub_resource type="Resource" id="Resource_hghbi"]
 script = ExtResource("2_y51w7")
-size = Vector2i(6, 4)
-initial_items = Array[ExtResource("2_xyax1")]([])
 
 [sub_resource type="Resource" id="Resource_ecwqp"]
 script = ExtResource("2_ymyob")
@@ -34,7 +32,7 @@ item_grid = SubResource("Resource_hghbi")
 atlas = ExtResource("9_dna0g")
 region = Rect2(208, 54, 16, 26)
 
-[sub_resource type="Resource" id="Resource_xtc4p"]
+[sub_resource type="Resource" id="Resource_0lysu"]
 resource_local_to_scene = true
 script = ExtResource("10_tgpag")
 display_texture = SubResource("AtlasTexture_evjoi")
@@ -50,59 +48,59 @@ source_geometry_mode = 1
 source_geometry_group_name = &"navigation"
 agent_radius = 5.0
 
-[node name="Level2" type="Node2D" node_paths=PackedStringArray("active_player")]
+[node name="Level2" type="Node2D" unique_id=279445092 node_paths=PackedStringArray("active_player")]
 script = ExtResource("1_fuqf5")
 active_player = NodePath("PlayerCharacterController")
 shelter_inventory = SubResource("Resource_ecwqp")
 
-[node name="DamagedShipPartsTracker" type="Node" parent="."]
+[node name="DamagedShipPartsTracker" type="Node" parent="." unique_id=645385105]
 script = ExtResource("18_uwj3v")
 
-[node name="SectorHandler" type="Node" parent="."]
+[node name="SectorHandler" type="Node" parent="." unique_id=140443956]
 script = ExtResource("5_ph0as")
 
-[node name="LevelMapMapEntityCollection" parent="." instance=ExtResource("5_0ixtc")]
+[node name="LevelMapMapEntityCollection" parent="." unique_id=941196944 instance=ExtResource("5_0ixtc")]
 
-[node name="PowerPoleSelectionMapEntityCollection" parent="." instance=ExtResource("5_0ixtc")]
+[node name="PowerPoleSelectionMapEntityCollection" parent="." unique_id=347907839 instance=ExtResource("5_0ixtc")]
 
-[node name="DayNightCycle" type="Node" parent="."]
+[node name="DayNightCycle" type="Node" parent="." unique_id=1755397717]
 script = ExtResource("1_yp3no")
 
-[node name="DayTimer" type="Timer" parent="DayNightCycle"]
+[node name="DayTimer" type="Timer" parent="DayNightCycle" unique_id=249022062]
 wait_time = 120.0
 one_shot = true
 
-[node name="PlayerPlaceObjectHandler" type="Node2D" parent="." node_paths=PackedStringArray("world", "environment_query_system")]
+[node name="PlayerPlaceObjectHandler" type="Node2D" parent="." unique_id=1434170105 node_paths=PackedStringArray("world", "environment_query_system")]
 script = ExtResource("9_0lysu")
 world = NodePath("..")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 
-[node name="PowerLineDrawer" parent="." instance=ExtResource("2_gho6m")]
+[node name="PowerLineDrawer" parent="." unique_id=1991795016 instance=ExtResource("2_gho6m")]
 
-[node name="EnvironmentQuerySystem" type="Node" parent="." node_paths=PackedStringArray("initial_tile_map_layers")]
+[node name="EnvironmentQuerySystem" type="Node" parent="." unique_id=369396113 node_paths=PackedStringArray("initial_tile_map_layers")]
 script = ExtResource("13_0dgh0")
 initial_tile_map_layers = [NodePath("../Tiles")]
 
-[node name="PlayerCharacterController" parent="." node_paths=PackedStringArray("node_to_spawn_placeables_in", "environment_query_system", "level_map_map_entity_collection") instance=ExtResource("1_yr2t8")]
-map_texture = SubResource("Resource_xtc4p")
+[node name="PlayerCharacterController" parent="." unique_id=1884940401 node_paths=PackedStringArray("node_to_spawn_placeables_in", "environment_query_system", "level_map_map_entity_collection") instance=ExtResource("1_yr2t8")]
+map_texture = SubResource("Resource_0lysu")
 node_to_spawn_placeables_in = NodePath("..")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 level_map_map_entity_collection = NodePath("../LevelMapMapEntityCollection")
 
-[node name="Tiles" type="TileMapLayer" parent="." node_paths=PackedStringArray("environment_query_system") groups=["navigation"]]
+[node name="Tiles" type="TileMapLayer" parent="." unique_id=1666475451 node_paths=PackedStringArray("environment_query_system") groups=["navigation"]]
 script = ExtResource("6_7fj4g")
 one_way_platform_packed_scene = ExtResource("10_kift4")
 environment_query_system = NodePath("../EnvironmentQuerySystem")
 
-[node name="LedgeBaker" type="Node2D" parent="Tiles"]
+[node name="LedgeBaker" type="Node2D" parent="Tiles" unique_id=1297440480]
 script = ExtResource("19_xw5lg")
 ledge_packed_scene = ExtResource("7_p745u")
 
-[node name="PlayerTarget" parent="." node_paths=PackedStringArray("player_character_controller") instance=ExtResource("10_7fjhp")]
+[node name="PlayerTarget" parent="." unique_id=1145984179 node_paths=PackedStringArray("player_character_controller") instance=ExtResource("10_7fjhp")]
 script = ExtResource("11_bifaf")
 player_character_controller = NodePath("../PlayerCharacterController")
 
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=11561187]
 scale = Vector2(0.430059, 0.630782)
 navigation_polygon = SubResource("NavigationPolygon_0lysu")
 

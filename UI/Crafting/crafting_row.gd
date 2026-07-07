@@ -18,7 +18,6 @@ var _handling_crafting_row_items: Array[CraftingRowItem]
 	set(new_value):
 		crafting_recipe = new_value
 		if is_node_ready():
-			print("changing!")
 			update_nodes()
 @export var crafting_row_item_packed_scene: PackedScene
 @export var disabled := false:
@@ -36,7 +35,6 @@ func update_nodes() -> void:
 	craft_button.disabled = disabled
 	
 	for crafting_row_item: CraftingRowItem in _handling_crafting_row_items:
-		print("deleting crafting row item ", crafting_row_item.item_data.name)
 		crafting_row_item.queue_free()
 	
 	_handling_crafting_row_items = []
