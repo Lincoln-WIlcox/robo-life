@@ -93,7 +93,7 @@ signal inventory_opened(inventory_ui: Control)
 signal inventory_closed
 signal shelter_opened(shelter_ui: Control)
 signal shelter_closed
-signal day_ended
+signal day_ended(shelter: Shelter)
 signal place_placeable_pressed
 signal cancel_placing_placeable_pressed
 
@@ -214,7 +214,8 @@ func _process(_delta):
 func on_shelter_closed():
 	shelter_state.on_shelter_closed()
 
-func _on_shelter_day_ended():
+func _on_shelter_day_ended(shelter: Shelter):
+	SaveLoad.get_save_data().set_ended_night_at_shelter(shelter.unique_save_id.save_id)
 	day_ended.emit()
 
 func _on_day_night_cycle_day_started(_day):

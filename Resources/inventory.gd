@@ -63,16 +63,11 @@ func add_addition(inventory_addition: InventoryAddition) -> void:
 	emit_changed()
 
 func can_add_addition(inventory_addition: InventoryAddition) -> bool:
-	if not batteries.can_add_value(inventory_addition.gain_batteries) or not steel.can_add_value(inventory_addition.gain_steel) or not food.can_add_value(inventory_addition.gain_food):
+	var does_not_exceed_counters_max: bool =  not batteries.can_add_value(inventory_addition.gain_batteries) or not steel.can_add_value(inventory_addition.gain_steel) or not food.can_add_value(inventory_addition.gain_food)
+	if does_not_exceed_counters_max:
 		return false
 	
-	var item_grid_copy: ItemGrid = item_grid.duplicate()
-	for item: ItemData in inventory_addition.get_gain_items():
-		if item_grid_copy.item_can_be_added(item):
-			item_grid_copy.add_item(item)
-		else:
-			return false
-	return true
+	return _can_add_items_to_grid(inventory_addition.get_gain_items())
 
 func to_inventory_addition() -> InventoryAddition:
 	var items: Array[ItemData]
@@ -135,3 +130,12 @@ func use_data(new_inventory: Inventory) -> void:
 	item_grid.size = new_inventory.item_grid.size
 	for item: ItemGridItem in new_inventory.item_grid.get_grid_items():
 		item_grid.add_grid_item(item)
+
+func _can_add_items_to_grid(items: Array[ItemData]) -> bool:
+	var item_grid_copy: ItemGrid = item_grid.duplicate(true)
+	for item: ItemData in items:
+		if item_grid_copy.item_can_be_added(item):
+			item_grid_copy.add_item(item)
+		else:
+			return false
+	return true

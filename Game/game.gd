@@ -55,3 +55,9 @@ func _on_active_player_changed(active_player: PlayerCharacterController):
 
 func _on_active_player_inventory_changed(inventory: Inventory):
 	hud.battery_quantity = inventory.batteries.value
+
+func _on_pause_menu_paused():
+	world.process_mode = Node.PROCESS_MODE_DISABLED
+
+func _on_pause_menu_unpaused():
+	world.process_mode = Node.PROCESS_MODE_INHERIT

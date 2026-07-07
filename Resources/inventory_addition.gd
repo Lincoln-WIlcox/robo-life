@@ -6,8 +6,9 @@ extends Resource
 ##Emitted when all values have reached zero
 signal reached_zero
 
-##Number of batteries gained
+##Use the exported property values instead of init values
 @export var use_exported_properties := false
+##Number of batteries gained
 @export var gain_batteries := 0:
 	set(new_value):
 		gain_batteries = new_value
@@ -69,7 +70,7 @@ func remove_item(item: ItemData) -> void:
 
 ##Returns gain items.
 func get_gain_items() -> Array[ItemData]:
-	return _gain_items
+	return _gain_items.duplicate()
 
 func add_item(item: ItemData) -> void:
 	_gain_items.append(item)

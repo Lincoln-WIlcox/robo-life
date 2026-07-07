@@ -66,3 +66,5 @@ visible = false
 [node name="PauseMenu" parent="UILayer" instance=ExtResource("7_oomkl")]
 
 [connection signal="play_again_pressed" from="UILayer/GameOverMenu" to="." method="_on_game_over_menu_play_again_pressed"]
+[connection signal="paused" from="UILayer/PauseMenu" to="." method="_on_pause_menu_paused"]
+[connection signal="unpaused" from="UILayer/PauseMenu" to="." method="_on_pause_menu_unpaused"]

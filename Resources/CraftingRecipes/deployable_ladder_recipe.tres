@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CraftingRecipe" load_steps=8 format=3 uid="uid://dnsrdyywy76m"]
+[gd_resource type="Resource" script_class="CraftingRecipe" format=3 uid="uid://dnsrdyywy76m"]
 
 [ext_resource type="Resource" uid="uid://di5ihtaupovf3" path="res://Resources/Items/deployable_ladder.tres" id="1_qbifw"]
 [ext_resource type="Script" uid="uid://bviplh42sb2sb" path="res://Resources/item_data.gd" id="2_fatj2"]
@@ -9,10 +9,6 @@
 [sub_resource type="Resource" id="Resource_taf7b"]
 resource_local_to_scene = true
 script = ExtResource("3_myacu")
-use_exported_properties = false
-gain_batteries = 0
-gain_steel = 0
-gain_food = 0
 initial_gain_items = Array[ExtResource("2_fatj2")]([ExtResource("1_qbifw")])
 
 [sub_resource type="Resource" id="Resource_aythx"]
@@ -20,8 +16,6 @@ resource_local_to_scene = true
 script = ExtResource("2_plv4j")
 batteries_cost = 1
 steel_cost = 5
-costs_items = Array[ExtResource("2_fatj2")]([])
-requires_items = Array[ExtResource("2_fatj2")]([])
 
 [resource]
 resource_local_to_scene = true

@@ -2,6 +2,7 @@ class_name SaveData
 extends Resource
 
 var collected_ids: Dictionary[int, bool]
+var ended_night_at_shelter: int
 
 static func from_dict(data: Dictionary) -> SaveData:
 	var save_data: SaveData = SaveData.new()
@@ -16,3 +17,6 @@ func is_id_collected(id: int) -> bool:
 
 func data_as_dict() -> Dictionary:
 	return {"CollectedIds": collected_ids}
+
+func set_ended_night_at_shelter(id: int) -> void:
+	ended_night_at_shelter = id
